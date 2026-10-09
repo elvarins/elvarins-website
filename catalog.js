@@ -39,6 +39,7 @@ function openProduct(sku){
  document.getElementById('detail-unit').textContent=p.sellingUnit;
  document.getElementById('detail-case').textContent=p.description;
  document.getElementById('detail-page').href=p.url;
+ window.ElvarinsGallery.mount(dialog.querySelector('.detail-photo'),p);
  currentSku=sku; document.getElementById('shipping-qty').value=1; document.getElementById('shipping-zip').value=''; resetShipping();
  dialog.showModal();
 }
