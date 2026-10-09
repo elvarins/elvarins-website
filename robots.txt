@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://elvarins.com/sitemap.xml
