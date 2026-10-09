@@ -10,7 +10,7 @@ const count=document.getElementById('result-count'), more=document.getElementByI
 function update(reset=true){
  if(reset)limit=12;
  const term=search.value.trim().toLocaleLowerCase();
- const result=products.filter(p=>(!term||(p.title+' '+p.brand+' '+p.productType+' '+p.sku).toLocaleLowerCase().includes(term))&&(!brand.value||p.brand===brand.value)&&(!type.value||p.productType===type.value)&&(selectedUnit==='all'||(selectedUnit==='case')===p.sellingUnit.startsWith('Case')));
+ const result=products.filter(p=>(!term||(p.title+' '+p.brand+' '+p.productType+' '+p.sku).toLocaleLowerCase().includes(term))&&(!brand.value||p.brand===brand.value)&&(!type.value||p.productType===type.value));
  if(sort.value==='price-asc')result.sort((a,b)=>a.price-b.price);
  if(sort.value==='price-desc')result.sort((a,b)=>b.price-a.price);
  if(sort.value==='name')result.sort((a,b)=>a.title.localeCompare(b.title));
@@ -26,6 +26,7 @@ more.addEventListener('click',()=>{limit+=12;update(false);});
 document.getElementById('clear-filters').addEventListener('click',()=>{search.value='';brand.value='';type.value='';sort.value='featured';update();search.focus();});
 const dialog=document.getElementById('product-dialog');
 const dollars=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+let currentSku=null,quoteRequest=0;
 function openProduct(sku){
  const p=bySku.get(sku);if(!p)return;
  const image=document.getElementById('detail-image');image.dataset.fallback=p.thumbnail;image.src=p.image;image.alt=p.title;
@@ -36,7 +37,8 @@ function openProduct(sku){
  document.getElementById('detail-sku').textContent=p.sku;
  document.getElementById('detail-type').textContent=p.productType;
  document.getElementById('detail-unit').textContent=p.sellingUnit;
- document.getElementById('detail-case').textContent=p.sellingUnit.startsWith('Case')?'The listed price covers the complete '+p.sellingUnit.toLowerCase()+'.':'The listed price covers one retail item as described.';
+ document.getElementById('detail-case').textContent='The listed price covers one retail item in its original packaging as described.';
+ currentSku=sku; document.getElementById('shipping-qty').value=1; document.getElementById('shipping-zip').value=''; resetShipping();
  const body='Hello Elvarins,\n\nI am interested in '+p.title+'.\nItem: '+p.sku+'\nSelling unit: '+p.sellingUnit+'\nListed price: '+dollars.format(p.price)+' USD\n\nPlease confirm availability, shipping charges and purchase details.\nDelivery ZIP code: \nQuantity requested: \n\nThank you.';
  document.getElementById('detail-inquiry').href='mailto:sales@elvarins.com?subject='+encodeURIComponent('Purchase inquiry — '+p.sku)+'&body='+encodeURIComponent(body);
  dialog.showModal();
@@ -50,3 +52,20 @@ const navtoggle=document.getElementById('navtoggle'),menu=document.getElementByI
 navtoggle.addEventListener('click',()=>{menu.hidden=!menu.hidden;navtoggle.setAttribute('aria-expanded',String(!menu.hidden));});
 menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.hidden=true;navtoggle.setAttribute('aria-expanded','false');}));
 update();
+
+
+function resetShipping(){
+ quoteRequest++;const p=bySku.get(currentSku),q=Number(document.getElementById('shipping-qty').value);
+ document.getElementById('item-subtotal').textContent=p&&Number.isInteger(q)&&q>=1&&q<=20?'Items subtotal: '+dollars.format(Math.round(p.price*100)*q/100)+' USD (shipping and tax additional)':'';
+ document.getElementById('shipping-result').textContent='Shipping is confirmed before purchase. It is not included in the item price.';
+ document.getElementById('shipping-submit').disabled=false;
+ if(p){const zip=document.getElementById('shipping-zip').value;const body='Hello Elvarins,\n\nItem: '+p.title+'\nSKU: '+p.sku+'\nUnit price: '+dollars.format(p.price)+' USD\nQuantity: '+q+'\nDelivery ZIP: '+zip+'\n\nPlease confirm availability, shipping and any applicable taxes before purchase.';document.getElementById('detail-inquiry').href='mailto:sales@elvarins.com?subject='+encodeURIComponent('Purchase inquiry — '+p.sku)+'&body='+encodeURIComponent(body);}
+}
+document.getElementById('shipping-qty').addEventListener('input',resetShipping);
+document.getElementById('shipping-zip').addEventListener('input',resetShipping);
+document.getElementById('shipping-form').addEventListener('submit',async e=>{
+ e.preventDefault();if(!e.target.reportValidity())return;const id=++quoteRequest,button=document.getElementById('shipping-submit'),out=document.getElementById('shipping-result');button.disabled=true;out.textContent='Checking shipping…';
+ try{const response=await fetch('/api/shipping/quote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sku:currentSku,quantity:Number(document.getElementById('shipping-qty').value),zip:document.getElementById('shipping-zip').value}),signal:AbortSignal.timeout(15000)});const data=await response.json();if(id!==quoteRequest)return;
+ out.textContent=response.ok?data.rates.map(r=>r.carrier+' '+r.service+': '+dollars.format(r.amount)+' USD').join(' · ')+' — estimated shipping; taxes additional.':data.message||'Please request shipping details from our team before purchase.';
+ }catch{if(id===quoteRequest)out.textContent='Shipping could not be checked. Please request shipping details from our team before purchase.';}finally{if(id===quoteRequest)button.disabled=false;}
+});
