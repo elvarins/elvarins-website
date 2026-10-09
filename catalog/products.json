@@ -1071,6 +1071,31 @@
       "description": "Add Marrina to your Marvel Legends character display. This 6-inch release offers another individual character choice for a broader Marvel collection.",
       "size": "6 inches (as named by the manufacturer)",
       "sourceTitle": "Marvel Legends Marvel's Marrina 6-Inch Action Figure"
+    },
+    {
+      "sku": "BCI-491174",
+      "manufacturerSku": "NCF315PXXR",
+      "gtin12": "018214823384",
+      "brand": "Nylabone",
+      "productType": "Dog Chew Toys",
+      "sellingUnit": "One original retail package",
+      "size": "XL",
+      "collection": "pet-supplies",
+      "title": "Nylabone Power Chew Textured Ring \u2014 Flavor Medley, XL",
+      "description": "Give a powerful chewer a different shape to explore. This Flavor Medley ring combines durable nylon with raised ridges and nubs in an XL/Souper size for dogs weighing 50 pounds or more. Its easy-hold shape adds variety to a supervised chew routine. This is a non-edible chew toy, sold as one original retail package.",
+      "safetyNote": "Choose a chew appropriate for your dog's size and chewing strength. Always supervise use. Check that your dog's jaw can pass safely through the center opening. Inspect frequently and replace if worn, damaged or too small. Do not allow ingestion; contact a veterinarian if a piece is swallowed. Hand wash with warm soapy water and rinse.",
+      "image": "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-front.jpg",
+      "thumbnail": "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-front.jpg",
+      "images": [
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-front.jpg",
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-new.jpg",
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-fb.jpg",
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-back.jpg"
+      ],
+      "price": 9.99,
+      "slug": "nylabone-power-chew-textured-ring-flavor-medley-xl-bci-491174",
+      "sourceTitle": "NYLABONE POWER CHEW TEXTURED RING",
+      "url": "/products/nylabone-power-chew-textured-ring-flavor-medley-xl-bci-491174"
     }
   ],
   "collections": [
@@ -1097,6 +1122,11 @@
       "name": "More collectibles",
       "description": "Explore display pieces, replicas and character collectibles beyond our featured collections.",
       "count": 2
+    },
+    {
+      "slug": "pet-supplies",
+      "name": "Pet Supplies",
+      "description": "Explore pet toys and care essentials with clear size details, original product photos and direct customer support."
     }
   ]
 }

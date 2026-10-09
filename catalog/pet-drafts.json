@@ -608,15 +608,19 @@
       "collection": "pet-supplies",
       "proposedPrice": 8.79,
       "currency": "USD",
-      "images": [],
-      "status": "unpublished",
-      "publishingBlockers": [
-        "Approved product photos required",
-        "Cost +50% falls below supplier MAP; resolve before publication"
+      "images": [
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-front.jpg",
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-new.jpg",
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-fb.jpg",
+        "https://www.nylabone.com/-/media/project/oneweb/nylabone/images/our-products/all-products/ncf315pxxr/018214823384-ncf315pxxr-back.jpg"
       ],
+      "status": "published",
+      "publishingBlockers": [],
       "sourceFile": "BCI Full Inventory with Pricing 9.28.26 (2)(1).xlsx",
-      "pricingBasis": "Supplier PRICE column \u00d7 1.50; provisional until validated",
-      "demandBasis": "Selected from manufacturer best-seller product families or related variants; exact SKU sales rank unverified"
+      "pricingBasis": "Supplier PRICE \u00d7 1.50, with supplier MAP as minimum advertised price.",
+      "demandBasis": "Selected from manufacturer best-seller product families or related variants; exact SKU sales rank unverified",
+      "price": 9.99,
+      "url": "/products/nylabone-power-chew-textured-ring-flavor-medley-xl-bci-491174"
     }
   ]
 }
