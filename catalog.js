@@ -37,7 +37,8 @@ function openProduct(sku){
  document.getElementById('detail-sku').textContent=p.sku;
  document.getElementById('detail-type').textContent=p.productType;
  document.getElementById('detail-unit').textContent=p.sellingUnit;
- document.getElementById('detail-case').textContent='The listed price covers one retail item in its original packaging as described.';
+ document.getElementById('detail-case').textContent=p.description;
+ document.getElementById('detail-page').href=p.url;
  currentSku=sku; document.getElementById('shipping-qty').value=1; document.getElementById('shipping-zip').value=''; resetShipping();
  dialog.showModal();
 }
