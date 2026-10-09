@@ -39,8 +39,6 @@ function openProduct(sku){
  document.getElementById('detail-unit').textContent=p.sellingUnit;
  document.getElementById('detail-case').textContent='The listed price covers one retail item in its original packaging as described.';
  currentSku=sku; document.getElementById('shipping-qty').value=1; document.getElementById('shipping-zip').value=''; resetShipping();
- const body='Hello Elvarins,\n\nI am interested in '+p.title+'.\nItem: '+p.sku+'\nSelling unit: '+p.sellingUnit+'\nListed price: '+dollars.format(p.price)+' USD\n\nPlease confirm availability, shipping charges and purchase details.\nDelivery ZIP code: \nQuantity requested: \n\nThank you.';
- document.getElementById('detail-inquiry').href='mailto:sales@elvarins.com?subject='+encodeURIComponent('Purchase inquiry — '+p.sku)+'&body='+encodeURIComponent(body);
  dialog.showModal();
 }
 document.querySelectorAll('[data-product]').forEach(b=>b.addEventListener('click',()=>openProduct(b.dataset.product)));
