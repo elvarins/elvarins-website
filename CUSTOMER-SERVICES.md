@@ -21,3 +21,6 @@ The privacy control stores a browser choice and honors Global Privacy Control. N
 ## Validation
 
 Run `tests/retail.mjs` with Node 22+ and Miniflare installed. The test uses a local database only and covers product/collection routes, account lifecycle, recovery/session invalidation, saved favorites, inquiry validation, CSRF checks and throttling. A Miniflare package outside the repository can be supplied with `ELVARINS_TEST_MINIFLARE`.
+
+## Email subscriptions
+The newsletter endpoint records email, consent time and subscription status in `newsletter_subscribers`. Marketing campaigns and email verification are not configured. Do not send campaigns until a provider is connected with unsubscribe handling and appropriate verification. Opt-outs remain in a minimal suppression record. `/newsletter` processes unsubscribe requests without login. `/track-order` stores a customer-care shipping request; it is not an automated shipment lookup.

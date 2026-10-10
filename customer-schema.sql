@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS inquiries (id TEXT PRIMARY KEY, name TEXT NOT NULL, e
 CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, hits INTEGER NOT NULL, expires_at INTEGER NOT NULL);
 CREATE INDEX IF NOT EXISTS rate_expiry ON rate_limits(expires_at);
 CREATE INDEX IF NOT EXISTS inquiries_created ON inquiries(created_at);
+
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (email TEXT PRIMARY KEY, subscribed INTEGER NOT NULL DEFAULT 0 CHECK (subscribed IN (0,1)), consented_at INTEGER NOT NULL DEFAULT 0, updated_at INTEGER NOT NULL);

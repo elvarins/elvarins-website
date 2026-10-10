@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 const {Miniflare,convertV4MiniflareOptions}=await import(process.env.ELVARINS_TEST_MINIFLARE||'miniflare');
 const root=fileURLToPath(new URL('../',import.meta.url));
-const options={modules:['worker.mjs','shipping.mjs','product-pages.mjs','customer-ui.mjs','customer-api.mjs'].map(path=>({type:'ESModule',path:root+path})),compatibilityDate:'2026-10-06',compatibilityFlags:['nodejs_compat'],d1Databases:['CUSTOMER_DB']};
+const options={modules:['worker.mjs','shipping.mjs','product-pages.mjs','customer-ui.mjs','customer-api.mjs','service-pages.mjs'].map(path=>({type:'ESModule',path:root+path})),compatibilityDate:'2026-10-06',compatibilityFlags:['nodejs_compat'],d1Databases:['CUSTOMER_DB']};
 const mf=new Miniflare(convertV4MiniflareOptions?convertV4MiniflareOptions(options):options);
 const origin='https://elvarins.com';
 let checks=0;
@@ -39,6 +39,14 @@ try{
  a=await req('/api/inquiries',{name:'QA Test',email:'support@example.test',topic:'product',message:'A long enough bot request.',website:'spam'});check(a.r.status===400,'Honeypot rejected');
  // Separate IP prevents unrelated global bucket from masking the email throttle.
  for(let i=0;i<6;i++){a=await req('/api/account/login',{email:'limited@example.test',password:'Wrong long password 123'},null,{'CF-Connecting-IP':'192.0.2.55'});}check(a.r.status===429,'Persistent auth throttling works');
+
+ for(const path of ['/about','/privacy-policy','/terms-of-sale','/terms-of-use','/accessibility','/privacy-choices','/shipping-delivery','/returns','/help-center','/track-order','/safety-recalls','/coupons','/newsletter','/blog','/blog/choosing-a-collectible','/blog/understanding-retail-prices','/blog/using-your-saved-collection']){const r=await mf.dispatchFetch(origin+path),body=await r.text();check(r.status===200,'Information page '+path);check(body.includes('newsletter-form')&&body.includes('question-dialog'),'Shared forms on '+path);}
+ check(!html.includes('id="about"')&&!html.includes('id="privacy"')&&!html.includes('id="policies"'),'Full information moved off homepage');
+ a=await req('/api/newsletter',{email:'news@example.test',action:'subscribe',consent:false});check(a.r.status===400,'Newsletter requires consent');
+ a=await req('/api/newsletter',{email:'news@example.test',action:'subscribe',consent:true});check(a.r.status===200,'Newsletter subscribes');check((await db.prepare('SELECT subscribed,consented_at FROM newsletter_subscribers WHERE email=?').bind('news@example.test').first()).subscribed===1,'Subscription persisted');
+ a=await req('/api/newsletter',{email:'news@example.test',action:'unsubscribe'});check(a.r.status===200,'Unsubscribe works');check((await db.prepare('SELECT subscribed FROM newsletter_subscribers WHERE email=?').bind('news@example.test').first()).subscribed===0,'Suppression persisted');
+ a=await req('/api/newsletter',{email:'bot@example.test',action:'subscribe',consent:true,website:'spam'});check(a.r.status===400,'Newsletter honeypot rejected');
+ a=await req('/api/newsletter',{email:'origin@example.test',action:'subscribe',consent:true},null,{Origin:'https://example.test'});check(a.r.status===403,'Newsletter CSRF protection');
  const head=await mf.dispatchFetch(origin,{method:'HEAD'});check((await head.text())==='','HEAD returns no body');
  console.log(JSON.stringify({status:'PASS',checks,productPages:catalog.products.length,collections:catalog.collections.length,auth:'signup/login/logout/recovery/favorites',forms:'product/privacy/validation/rate limits'}));
 }finally{await mf.dispose();}

@@ -24,6 +24,14 @@ export async function customerApi(request,env,products){
  const email=typeof data.email==='string'?data.email.trim().toLowerCase():'',name=typeof data.name==='string'?data.name.trim():'';
  const validEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)&&email.length<=254;
  try{
+  if(path==='/api/newsletter'){
+   if(!validEmail||data.website||!['subscribe','unsubscribe'].includes(data.action))return reply({message:'Enter a valid email address and preference.'},400);
+   if(data.action==='subscribe'&&data.consent!==true)return reply({message:'Please confirm that you want marketing emails.'},400);
+   if(!await throttle(db,email+path,5,3600))return reply({message:'Please wait before trying again.'},429);
+   if(data.action==='subscribe')await db.prepare('INSERT INTO newsletter_subscribers(email,subscribed,consented_at,updated_at) VALUES(?,1,?,?) ON CONFLICT(email) DO UPDATE SET subscribed=1,consented_at=excluded.consented_at,updated_at=excluded.updated_at').bind(email,now,now).run();
+   else await db.prepare('INSERT INTO newsletter_subscribers(email,subscribed,consented_at,updated_at) VALUES(?,0,0,?) ON CONFLICT(email) DO UPDATE SET subscribed=0,updated_at=excluded.updated_at').bind(email,now).run();
+   return reply({message:data.action==='subscribe'?'Your signup is saved. You can unsubscribe at any time.':'Your marketing opt-out is saved.'});
+  }
   if(path==='/api/inquiries'){
    if(data.website)return reply({message:'Please leave the website field empty.'},400);
    const topic=String(data.topic||''),message=typeof data.message==='string'?data.message.trim():'',sku=String(data.sku||'');
