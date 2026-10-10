@@ -68,3 +68,5 @@ document.getElementById('shipping-form').addEventListener('submit',async e=>{
  out.textContent=response.ok?data.rates.map(r=>r.carrier+' '+r.service+': '+dollars.format(r.amount)+' USD').join(' · ')+' — estimated shipping; taxes additional.':data.message||'Please request shipping details from our team before purchase.';
  }catch{if(id===quoteRequest)out.textContent='Shipping could not be checked. Please request shipping details from our team before purchase.';}finally{if(id===quoteRequest)button.disabled=false;}
 });
+
+const initialSearch=new URLSearchParams(location.search).get("q");if(initialSearch){search.value=initialSearch.slice(0,150);update();document.getElementById("shop").scrollIntoView();}
