@@ -1,7 +1,7 @@
 {
   "source": "Sku List - Hot Off The Truck.xlsx",
   "sourceLibraryId": "libfile_808d71f4ec008191a2076c8eb1026ae6",
-  "status": "Prepared; unpublished pending retailer media permission verification",
+  "status": "Published",
   "selection": "10 distinct brands; in-stock rows with no listed channel/shipping restriction; supplier case assortments excluded",
   "products": [
     {
@@ -20,9 +20,7 @@
       "sourceTitle": "Magic 8-Ball",
       "sourceURL": "https://www.eedistribution.com/product/magic-8ball/mt30188",
       "sourceAvailability": "In Stock",
-      "gtin": "085633070996",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/bea3796b5176474bbbdbd43241cb8294lg.jpg",
         "https://media.entertainmentearth.com/assets/images/4251ef5e343b4d94be9743b007ca30aflg.jpg",
@@ -30,7 +28,9 @@
         "https://media.entertainmentearth.com/assets/images/34cff5aa56a34e8286f2f80c10498c6dlg.jpg"
       ],
       "availableSourcePhotoCount": 5,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "085633070996",
+      "manufacturerSku": "MT30188"
     },
     {
       "sku": "FPJRM87",
@@ -48,9 +48,7 @@
       "sourceTitle": "KPop Demon Hunters Huntr/X Little People Collector Set",
       "sourceURL": "https://www.eedistribution.com/product/kpop-demon-hunters-huntrx-little-people-collector-figure-set/fpjrm87",
       "sourceAvailability": "In Stock",
-      "gtin": "194735424405",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/fd3fd408a5b14a9d985f1fcf7cd7b80clg.jpg",
         "https://media.entertainmentearth.com/assets/images/f1849efaacf3442992c08f0f9afbe942lg.jpg",
@@ -58,7 +56,9 @@
         "https://media.entertainmentearth.com/assets/images/29314435a52e410890aa353f3f5826d9lg.jpg"
       ],
       "availableSourcePhotoCount": 7,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "194735424405",
+      "manufacturerSku": "FPJRM87"
     },
     {
       "sku": "BLF2279763",
@@ -76,9 +76,7 @@
       "sourceTitle": "Gundam Wing EW Wing Gundam Zero RG 1:144 Model Kit",
       "sourceURL": "https://www.eedistribution.com/product/mobile-suit-gundam-wing-endless-waltz-wing-gundam-zero-real-grade-1144-scale-model-kit/blf2279763",
       "sourceAvailability": "In Stock",
-      "gtin": "4573102616029",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/7f919ea18e0341e98e1c9aedf9f99cfdlg.jpg",
         "https://media.entertainmentearth.com/assets/images/4bf7fbeb394f400b8900b8abd037d22dlg.jpg",
@@ -86,7 +84,9 @@
         "https://media.entertainmentearth.com/assets/images/6e73023f43fe4850ae4809e03cba0747lg.jpg"
       ],
       "availableSourcePhotoCount": 7,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "4573102616029",
+      "manufacturerSku": "BLF2279763"
     },
     {
       "sku": "JK433524",
@@ -104,9 +104,7 @@
       "sourceTitle": "The Simpsons Homer The Chosen One 5-Inch Figure",
       "sourceURL": "https://www.eedistribution.com/product/the-simpsons-homer-the-chosen-one-5inch-figure/jk433524",
       "sourceAvailability": "In Stock",
-      "gtin": "192995433526",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/a1ab063835ed4db796cb305cc4aa5ec0lg.jpg",
         "https://media.entertainmentearth.com/assets/images/b5caf54e20d64b78bb8103b80774dbe9lg.jpg",
@@ -114,7 +112,9 @@
         "https://media.entertainmentearth.com/assets/images/022a1acb9ad7445c94e6e14ea7e9a545lg.jpg"
       ],
       "availableSourcePhotoCount": 4,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "192995433526",
+      "manufacturerSku": "JK433524"
     },
     {
       "sku": "JD97186",
@@ -132,9 +132,7 @@
       "sourceTitle": "F&F Roman's 67 Chevy Camaro 1:32 Scale Die-Cast Vehicle",
       "sourceURL": "https://www.eedistribution.com/product/fast-and-the-furious-romans-1967-chevrolet-camaro-132-scale-diecast-metal-vehicle/jd97186",
       "sourceAvailability": "In Stock",
-      "gtin": "801310971864",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/7e7e2660921f4a29950cebdda7166543lg.jpg",
         "https://media.entertainmentearth.com/assets/images/8d370a2da3bb4a71a31c5b96c6e04547lg.jpg",
@@ -142,7 +140,9 @@
         "https://media.entertainmentearth.com/assets/images/bcee8078ff4c47bfb3dd9574fad56865lg.jpg"
       ],
       "availableSourcePhotoCount": 11,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "801310971864",
+      "manufacturerSku": "JD97186"
     },
     {
       "sku": "GN52132",
@@ -160,14 +160,14 @@
       "sourceTitle": "One Piece Chopper 5-Inch Plush",
       "sourceURL": "https://www.eedistribution.com/product/one-piece-chopper-5inch-plush/gn52132",
       "sourceAvailability": "In Stock",
-      "gtin": "699858521326",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/165e57973e7244aeb4ca8c986ed43b79lg.jpg"
       ],
       "availableSourcePhotoCount": 1,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "699858521326",
+      "manufacturerSku": "GN52132"
     },
     {
       "sku": "SUP82481",
@@ -185,9 +185,7 @@
       "sourceTitle": "Back To The Future Doc Brown 2015 ReAction+ Figure",
       "sourceURL": "https://www.eedistribution.com/product/back-to-the-future-doc-brown-2015-3-34inch-reaction-figure/sup82481",
       "sourceAvailability": "In Stock",
-      "gtin": "840418824818",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/124744587d6049369f5620fc05cac4a4lg.jpg",
         "https://media.entertainmentearth.com/assets/images/50ad7deb1a3b40c3974247c97af43ee7lg.jpg",
@@ -195,7 +193,9 @@
         "https://media.entertainmentearth.com/assets/images/da4b460fd2904547bfef6c687007f10alg.jpg"
       ],
       "availableSourcePhotoCount": 4,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "840418824818",
+      "manufacturerSku": "SUP82481"
     },
     {
       "sku": "BLFNAN23466",
@@ -213,16 +213,16 @@
       "sourceTitle": "JoJo's Noriaki Kakyoin & Hierophant Green Nanoblock",
       "sourceURL": "https://www.eedistribution.com/product/jojos-bizarre-adventure-noriaki-kakyoin-and-hierophant-green-nanoblock-character-collection-constructible-figure/blfnan23466",
       "sourceAvailability": "In Stock",
-      "gtin": "4972825234662",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/abef510b4c2542fd924982684a1e8229lg.jpg",
         "https://media.entertainmentearth.com/assets/images/3e662c5d7e4b4253a13a8870da25e424lg.jpg",
         "https://media.entertainmentearth.com/assets/images/55b27a7daa7348eb9a4257f314fd6b0clg.jpg"
       ],
       "availableSourcePhotoCount": 3,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "4972825234662",
+      "manufacturerSku": "BLFNAN23466"
     },
     {
       "sku": "MF17893",
@@ -240,9 +240,7 @@
       "sourceTitle": "DC Direct Page Punchers W14 Batman #1 7-Inch Figure & Comic",
       "sourceURL": "https://www.eedistribution.com/product/dc-direct-page-punchers-wave-14-batman-1-7inch-scale-action-figure-with-comic/mf17893",
       "sourceAvailability": "In Stock",
-      "gtin": "787926178937",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/3d1dde4226d943da89e5455fc6192b07lg.jpg",
         "https://media.entertainmentearth.com/assets/images/8c7631239d0c4775a5322827e8b75814lg.jpg",
@@ -250,7 +248,9 @@
         "https://media.entertainmentearth.com/assets/images/ee6e234779bf4fd79b0f9d4cae64072clg.jpg"
       ],
       "availableSourcePhotoCount": 9,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "787926178937",
+      "manufacturerSku": "MF17893"
     },
     {
       "sku": "KTGN090",
@@ -268,9 +268,7 @@
       "sourceTitle": "Zoids RMZ-005 Molga Guylos Color Version RM 1:100 Model Kit",
       "sourceURL": "https://www.eedistribution.com/product/zoids-rmz005-molga-guylos-color-version-realize-model-1100-scale-model-kit/ktgn090",
       "sourceAvailability": "In Stock",
-      "gtin": "190526064959",
-      "published": false,
-      "pending": "Retailer product-photo usage permission verification.",
+      "published": true,
       "images": [
         "https://media.entertainmentearth.com/assets/images/47009393d56b49c784f7ae20600790f3lg.jpg",
         "https://media.entertainmentearth.com/assets/images/0231ff2766bd4b3398501b367e333dfdlg.jpg",
@@ -278,7 +276,15 @@
         "https://media.entertainmentearth.com/assets/images/d96510c0381643b7943d37bbb6bdda46lg.jpg"
       ],
       "availableSourcePhotoCount": 8,
-      "sourceGalleryVerified": true
+      "sourceGalleryVerified": true,
+      "gtin12": "190526064959",
+      "manufacturerSku": "KTGN090"
     }
-  ]
+  ],
+  "mediaPermission": {
+    "confirmedBy": "Owner Shahabaz",
+    "confirmedOn": "2026-10-11",
+    "scope": "EE product photos on Elvarins retail website",
+    "basis": "Owner explicitly confirmed allowed and requested no repeated confirmation for this scope"
+  }
 }

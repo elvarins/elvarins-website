@@ -1,7 +1,7 @@
 {
   "designUpdated": "2026-10-10",
   "pendingNewEECatalog": false,
-  "initialTenProductBatchComplete": false,
+  "initialTenProductBatchComplete": true,
   "dailyBatchSize": {
     "min": 5,
     "max": 10
@@ -75,10 +75,20 @@
     "HSG2425",
     "HSG2426",
     "HSG2427",
-    "BCI-491174"
+    "BCI-491174",
+    "MT30188",
+    "FPJRM87",
+    "BLF2279763",
+    "JK433524",
+    "JD97186",
+    "GN52132",
+    "SUP82481",
+    "BLFNAN23466",
+    "MF17893",
+    "KTGN090"
   ],
   "extraEEImages": {
-    "status": "Unpublished pending retailer image permission",
+    "status": "Published verified galleries, up to four distinct source photos per item",
     "referenceFile": "catalog/ee-gallery-references.json",
     "verifiedProductGalleryCount": 63,
     "distinctPhotoReferences": 599,
@@ -89,5 +99,11 @@
     "name": "Sku List - Hot Off The Truck.xlsx",
     "libraryId": "libfile_808d71f4ec008191a2076c8eb1026ae6"
   },
-  "initialBatchDraft": "catalog/ee-next-batch.json"
+  "initialBatchDraft": "catalog/ee-next-batch.json",
+  "eeMediaPermission": {
+    "confirmedBy": "Owner Shahabaz",
+    "confirmedOn": "2026-10-11",
+    "scope": "EE product photos on Elvarins retail website",
+    "basis": "Owner explicitly confirmed allowed and requested no repeated confirmation for this scope"
+  }
 }

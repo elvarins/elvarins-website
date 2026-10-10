@@ -1,5 +1,5 @@
 {
-  "status": "Unpublished source references; retailer media-use permission remains to be verified",
+  "status": "Exact-SKU source references; owner confirmed retailer media permission",
   "products": {
     "BLF2279763": {
       "images": [
@@ -14,7 +14,7 @@
       "title": "Mobile Suit Gundam Wing: Endless Waltz Wing Gundam Zero Real Grade 1:144 Scale Model Kit",
       "sourceURL": "https://www.eedistribution.com/product/mobile-suit-gundam-wing-endless-waltz-wing-gundam-zero-real-grade-1144-scale-model-kit/blf2279763",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "MT30188": {
       "images": [
@@ -27,7 +27,7 @@
       "title": "Magic 8-Ball",
       "sourceURL": "https://www.eedistribution.com/product/magic-8ball/mt30188",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FPJRM87": {
       "images": [
@@ -42,7 +42,7 @@
       "title": "Kpop Demon Hunters Huntr/X Little People Collector Figure Set",
       "sourceURL": "https://www.eedistribution.com/product/kpop-demon-hunters-huntrx-little-people-collector-figure-set/fpjrm87",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "JK433524": {
       "images": [
@@ -54,7 +54,7 @@
       "title": "The Simpsons Homer The Chosen One 5-Inch Figure",
       "sourceURL": "https://www.eedistribution.com/product/the-simpsons-homer-the-chosen-one-5inch-figure/jk433524",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "JD97186": {
       "images": [
@@ -73,7 +73,7 @@
       "title": "Fast and the Furious Roman's 1967 Chevrolet Camaro 1:32 Scale Die-Cast Metal Vehicle",
       "sourceURL": "https://www.eedistribution.com/product/fast-and-the-furious-romans-1967-chevrolet-camaro-132-scale-diecast-metal-vehicle/jd97186",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "GN52132": {
       "images": [
@@ -82,7 +82,7 @@
       "title": "One Piece Chopper 5-Inch Plush",
       "sourceURL": "https://www.eedistribution.com/product/one-piece-chopper-5inch-plush/gn52132",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "SUP82481": {
       "images": [
@@ -94,7 +94,7 @@
       "title": "Back To The Future Doc Brown 2015 3 3/4-Inch ReAction+ Figure",
       "sourceURL": "https://www.eedistribution.com/product/back-to-the-future-doc-brown-2015-3-34inch-reaction-figure/sup82481",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "BLFNAN23466": {
       "images": [
@@ -105,7 +105,7 @@
       "title": "JoJo's Bizarre Adventure Noriaki Kakyoin and Hierophant Green Nanoblock Character Collection Constructible Figure",
       "sourceURL": "https://www.eedistribution.com/product/jojos-bizarre-adventure-noriaki-kakyoin-and-hierophant-green-nanoblock-character-collection-constructible-figure/blfnan23466",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "MF17893": {
       "images": [
@@ -122,7 +122,7 @@
       "title": "DC Direct Page Punchers Wave 14 Batman #1 7-Inch Scale Action Figure with Comic",
       "sourceURL": "https://www.eedistribution.com/product/dc-direct-page-punchers-wave-14-batman-1-7inch-scale-action-figure-with-comic/mf17893",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "KTGN090": {
       "images": [
@@ -138,7 +138,7 @@
       "title": "Zoids RMZ-005 Molga Guylos Color Version Realize Model 1:100 Scale Model Kit",
       "sourceURL": "https://www.eedistribution.com/product/zoids-rmz005-molga-guylos-color-version-realize-model-1100-scale-model-kit/ktgn090",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2001": {
       "images": [
@@ -163,7 +163,7 @@
       "title": "Transformers Generations Age of the Primes Voyager Nexus Prime",
       "sourceURL": "https://www.eedistribution.com/product/transformers-generations-age-of-the-primes-voyager-nexus-prime/hsg2001",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG3439": {
       "images": [
@@ -178,7 +178,7 @@
       "title": "Spider-Man: Brand New Day 2-In-1 Super Chompin' Tank",
       "sourceURL": "https://www.eedistribution.com/product/spiderman-brand-new-day-2in1-super-chompin-tank/hsg3439",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSE4703": {
       "images": [
@@ -192,7 +192,7 @@
       "title": "Marvel Legends Ultimate Professor X 6-Inch Action Figure with Hover Chair",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-ultimate-professor-x-6inch-action-figure-with-hover-chair/hse4703",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSF7196": {
       "images": [
@@ -214,7 +214,7 @@
       "title": "Transformers Generations Legacy Evolution Deluxe Beachcomber",
       "sourceURL": "https://www.eedistribution.com/product/transformers-generations-legacy-evolution-deluxe-beachcomber/hsf7196",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG0585": {
       "images": [
@@ -245,7 +245,7 @@
       "title": "X-Men Marvel Legends Series Archangel X-Force 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/xmen-marvel-legends-series-archangel-xforce-6inch-action-figure/hsg0585",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG1659": {
       "images": [
@@ -259,7 +259,7 @@
       "title": "Transformers Cyberworld Scorponok Strike Battle Figure",
       "sourceURL": "https://www.eedistribution.com/product/transformers-cyberworld-scorponok-strike-battle-figure/hsg1659",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSE4486": {
       "images": [
@@ -277,7 +277,7 @@
       "title": "Transformers Generations War for Cybertron: Siege Deluxe Class WFC-S15 Autobot Greenlight with Dazzlestrike",
       "sourceURL": "https://www.eedistribution.com/product/transformers-generations-war-for-cybertron-siege-deluxe-class-wfcs15-autobot-greenlight-with-dazzlestrike/hse4486",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSF7187": {
       "images": [
@@ -294,7 +294,7 @@
       "title": "Transformers Generations Legacy Evolution Deluxe Breakdown",
       "sourceURL": "https://www.eedistribution.com/product/transformers-generations-legacy-evolution-deluxe-breakdown/hsf7187",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG1927": {
       "images": [
@@ -312,7 +312,7 @@
       "title": "Transformers Studio Series 86 Deluxe Class Transformers: The Movie Autobot Windcharger",
       "sourceURL": "https://www.eedistribution.com/product/transformers-studio-series-86-deluxe-class-transformers-the-movie-autobot-windcharger/hsg1927",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2200": {
       "images": [
@@ -326,7 +326,7 @@
       "title": "Transformers Studio Series Deluxe Transformers One Soundwave",
       "sourceURL": "https://www.eedistribution.com/product/transformers-studio-series-deluxe-transformers-one-soundwave/hsg2200",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG3442": {
       "images": [
@@ -339,7 +339,7 @@
       "title": "Spider-Man: Brand New Day Role Play Costume Mask",
       "sourceURL": "https://www.eedistribution.com/product/spiderman-brand-new-day-role-play-costume-mask/hsg3442",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU93834": {
       "images": [
@@ -349,7 +349,7 @@
       "title": "VisionQuest The Vision Funko Pop! Vinyl Figure #1650",
       "sourceURL": "https://www.eedistribution.com/product/visionquest-the-vision-funko-pop-vinyl-figure-1650/fu93834",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG1964": {
       "images": [
@@ -363,7 +363,7 @@
       "title": "Transformers Cyberworld Soundwave Deep Sea Explorer",
       "sourceURL": "https://www.eedistribution.com/product/transformers-cyberworld-soundwave-deep-sea-explorer/hsg1964",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2784": {
       "images": [
@@ -387,7 +387,7 @@
       "title": "Transformers Age of the Primes Leader Class Herald of Unicron Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/transformers-age-of-the-primes-leader-class-herald-of-unicron-action-figure/hsg2784",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG0889": {
       "images": [
@@ -402,7 +402,7 @@
       "title": "Avengers Epic World of Action Captain America Shield-Shot Cycle Vehicle",
       "sourceURL": "https://www.eedistribution.com/product/avengers-epic-world-of-action-captain-america-shieldshot-cycle-vehicle/hsg0889",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2074": {
       "images": [
@@ -427,7 +427,7 @@
       "title": "Marvel Legends Series Marvel Rivals Venom & Jeff the Land Shark 6-Inch Action Figures",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-series-marvel-rivals-venom-jeff-the-land-shark-6inch-action-figures/hsg2074",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "MF14569": {
       "images": [
@@ -450,7 +450,7 @@
       "title": "Marvel Wolverine Video Game 1:3 Scale Cowl Replica Bust",
       "sourceURL": "https://www.eedistribution.com/product/marvel-wolverine-video-game-13-scale-cowl-replica-bust/mf14569",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2162": {
       "images": [
@@ -467,7 +467,7 @@
       "title": "Transformers Cyberworld Shockwave Ultimate Cyber Changers Energon Surge Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/transformers-cyberworld-shockwave-ultimate-cyber-changers-energon-surge-action-figure/hsg2162",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSE7873": {
       "images": [
@@ -480,7 +480,7 @@
       "title": "Avengers Titan Hero Series Iron Man 12-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/avengers-titan-hero-series-iron-man-12inch-action-figure/hse7873",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG0605": {
       "images": [
@@ -500,7 +500,7 @@
       "title": "X-Men 97 Marvel Legends Series Gambit and Rogue 6-Inch Action Figures",
       "sourceURL": "https://www.eedistribution.com/product/xmen-97-marvel-legends-series-gambit-and-rogue-6inch-action-figures/hsg0605",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2191": {
       "images": [
@@ -525,7 +525,7 @@
       "title": "Transformers Studio Series 86 Voyager Class Transformers: The Movie Shockwave",
       "sourceURL": "https://www.eedistribution.com/product/transformers-studio-series-86-voyager-class-transformers-the-movie-shockwave/hsg2191",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2860": {
       "images": [
@@ -539,7 +539,7 @@
       "title": "Spider-Man Titan Series Spider-Man Black Suit 12-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/spiderman-titan-series-spiderman-black-suit-12inch-action-figure/hsg2860",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSE7877": {
       "images": [
@@ -552,7 +552,7 @@
       "title": "Avengers Titan Hero Series Captain America 12-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/avengers-titan-hero-series-captain-america-12inch-action-figure/hse7877",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG0120": {
       "images": [
@@ -564,7 +564,7 @@
       "title": "Spidey and His Amazing Friends Dino-Webs Spidey and Goblin Raptor Action Figures Set",
       "sourceURL": "https://www.eedistribution.com/product/spidey-and-his-amazing-friends-dinowebs-spidey-and-goblin-raptor-action-figures-set/hsg0120",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG0822": {
       "images": [
@@ -585,7 +585,7 @@
       "title": "Marvel Legends Series Werewolf By Night 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-series-werewolf-by-night-6inch-action-figure/hsg0822",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU93836": {
       "images": [
@@ -595,7 +595,7 @@
       "title": "VisionQuest Ultron Funko Pop! Vinyl Figure #1650",
       "sourceURL": "https://www.eedistribution.com/product/visionquest-ultron-funko-pop-vinyl-figure-1650/fu93836",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSF3987": {
       "images": [
@@ -608,7 +608,7 @@
       "title": "Spidey and His Amazing Friends Supersized Ghost Spider 9-inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/spidey-and-his-amazing-friends-supersized-ghost-spider-9inch-action-figure/hsf3987",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2228": {
       "images": [
@@ -622,7 +622,7 @@
       "title": "Transformers Cyberworld Autobot Jazz Cyber Changers Energon Surge",
       "sourceURL": "https://www.eedistribution.com/product/transformers-cyberworld-autobot-jazz-cyber-changers-energon-surge/hsg2228",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU92947": {
       "images": [
@@ -638,7 +638,7 @@
       "title": "Avengers: Doomsday Yelena Bitty Pop! Mini-Figure 4-Pack",
       "sourceURL": "https://www.eedistribution.com/product/avengers-doomsday-yelena-bitty-pop-minifigure-4pack/fu92947",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU92949": {
       "images": [
@@ -654,7 +654,7 @@
       "title": "Avengers: Doomsday Shuri Funko Bitty Pop! Mini-Figure 4-Pack",
       "sourceURL": "https://www.eedistribution.com/product/avengers-doomsday-shuri-funko-bitty-pop-minifigure-4pack/fu92949",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSE1914": {
       "images": [
@@ -674,7 +674,7 @@
       "title": "Transformers Generations Power of the Primes Throne of the Primes Optimal Optimus",
       "sourceURL": "https://www.eedistribution.com/product/transformers-generations-power-of-the-primes-throne-of-the-primes-optimal-optimus/hse1914",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG1889": {
       "images": [
@@ -710,7 +710,7 @@
       "title": "Transformers Studio Series 86 The Transformers: The Movie The Matrix of Leadership Prop Replica",
       "sourceURL": "https://www.eedistribution.com/product/transformers-studio-series-86-the-transformers-the-movie-the-matrix-of-leadership-prop-replica/hsg1889",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2071": {
       "images": [
@@ -735,7 +735,7 @@
       "title": "Fantastic Four Marvel Legends Series Mole Man & Moloids 6-Inch Action Figures",
       "sourceURL": "https://www.eedistribution.com/product/fantastic-four-marvel-legends-series-mole-man-moloids-6inch-action-figures/hsg2071",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2197": {
       "images": [
@@ -749,7 +749,7 @@
       "title": "Transformers Studio 86 Series Deluxe Class The Transformers: The Movie Cliffjumper",
       "sourceURL": "https://www.eedistribution.com/product/transformers-studio-86-series-deluxe-class-the-transformers-the-movie-cliffjumper/hsg2197",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2856": {
       "images": [
@@ -763,7 +763,7 @@
       "title": "Spider-Man Miles Morales Action FX 6-Inch Electronic Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/spiderman-miles-morales-action-fx-6inch-electronic-action-figure/hsg2856",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG3396": {
       "images": [
@@ -777,7 +777,7 @@
       "title": "Spider-Man: Brand New Day ActionVerse 4 1/2-Inch Hulk Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/spiderman-brand-new-day-actionverse-4-12inch-hulk-action-figure/hsg3396",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2382": {
       "images": [
@@ -806,7 +806,7 @@
       "title": "Deadpool & Wolverine Marvel Legends Series Wolverinepool 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/deadpool-wolverine-marvel-legends-series-wolverinepool-6inch-action-figure/hsg2382",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU92650": {
       "images": [
@@ -816,7 +816,7 @@
       "title": "X-Men '97 Celestial Rogue Funko Pop! Vinyl Figure",
       "sourceURL": "https://www.eedistribution.com/product/xmen-97-celestial-rogue-funko-pop-vinyl-figure/fu92650",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU92952": {
       "images": [
@@ -829,7 +829,7 @@
       "title": "Avengers: Doomsday Red Guardian and Avengers Tower Funko Bitty Pop! Town",
       "sourceURL": "https://www.eedistribution.com/product/avengers-doomsday-red-guardian-and-avengers-tower-funko-bitty-pop-town/fu92952",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2110": {
       "images": [
@@ -851,7 +851,7 @@
       "title": "Marvel Super Heroes Magic: The Gathering Marvel Legends Series Malice (Sue Storm) 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/marvel-super-heroes-magic-the-gathering-marvel-legends-series-malice-sue-storm-6inch-action-figure/hsg2110",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2073": {
       "images": [
@@ -872,7 +872,7 @@
       "title": "Marvel Legends Series Marvel Rivals Moon Knight 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-series-marvel-rivals-moon-knight-6inch-action-figure/hsg2073",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2118": {
       "images": [
@@ -900,7 +900,7 @@
       "title": "Marvel Legends Series Iron Man vs Spiral 6-Inch Action Figures",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-series-iron-man-vs-spiral-6inch-action-figures/hsg2118",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2405": {
       "images": [
@@ -921,7 +921,7 @@
       "title": "Marvel Legends Series Professor Hulk 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-series-professor-hulk-6inch-action-figure/hsg2405",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU92651": {
       "images": [
@@ -931,7 +931,7 @@
       "title": "X-Men '97 (W4) Death Gambit Funko Pop! Vinyl Figure",
       "sourceURL": "https://www.eedistribution.com/product/xmen-97-w4-death-gambit-funko-pop-vinyl-figure/fu92651",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSE2933": {
       "images": [
@@ -941,7 +941,7 @@
       "title": "Deadpool Titan Hero Series 12-inch Deadpool Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/deadpool-titan-hero-series-12inch-deadpool-action-figure/hse2933",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2377": {
       "images": [
@@ -959,7 +959,7 @@
       "title": "Avengers Doomsday Marvel Legends Series Captain America 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/avengers-doomsday-marvel-legends-series-captain-america-6inch-action-figure/hsg2377",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "FU3GG91968EE": {
       "images": [
@@ -969,7 +969,7 @@
       "title": "Avengers: Doomsday Nightcrawler Funko Pop! Vinyl Figure - Entertainment Earth Exclusive",
       "sourceURL": "https://www.eedistribution.com/product/avengers-doomsday-nightcrawler-funko-pop-vinyl-figure-entertainment-earth-exclusive/fu3gg91968ee",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSF2911": {
       "images": [
@@ -989,7 +989,7 @@
       "title": "Transformers Generations Shattered Glass Voyager Starscream",
       "sourceURL": "https://www.eedistribution.com/product/transformers-generations-shattered-glass-voyager-starscream/hsf2911",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSF9656": {
       "images": [
@@ -1013,7 +1013,7 @@
       "title": "Transformers x Teenage Mutant Ninja Turtles Collaborative Party Wallop",
       "sourceURL": "https://www.eedistribution.com/product/transformers-x-teenage-mutant-ninja-turtles-collaborative-party-wallop/hsf9656",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2199": {
       "images": [
@@ -1027,7 +1027,7 @@
       "title": "Transformers Studio Series Deluxe Age of Extinction Bumblebee",
       "sourceURL": "https://www.eedistribution.com/product/transformers-studio-series-deluxe-age-of-extinction-bumblebee/hsg2199",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2067": {
       "images": [
@@ -1053,7 +1053,7 @@
       "title": "Marvel Legends Maximum Series Thor 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-maximum-series-thor-6inch-action-figure/hsg2067",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2418": {
       "images": [
@@ -1072,10 +1072,10 @@
         "https://media.entertainmentearth.com/assets/images/271f036c90724e039e0c8f88b7e90ce0lg.jpg",
         "https://media.entertainmentearth.com/assets/images/dc0a5bd8253a4916b877883fd4422a65lg.jpg"
       ],
-      "title": "Secret Wars  Marvel Legends Marvel\u2019s Magik 6-Inch Action Figure",
+      "title": "Secret Wars  Marvel Legends Marvel’s Magik 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/secret-wars-marvel-legends-marvels-magik-6inch-action-figure/hsg2418",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     },
     "HSG2423": {
       "images": [
@@ -1102,7 +1102,13 @@
       "title": "Marvel Legends Series Psylocke 6-Inch Action Figure",
       "sourceURL": "https://www.eedistribution.com/product/marvel-legends-series-psylocke-6inch-action-figure/hsg2423",
       "verifiedOn": "2026-10-10",
-      "permissionVerified": false
+      "permissionVerified": true
     }
+  },
+  "mediaPermission": {
+    "confirmedBy": "Owner Shahabaz",
+    "confirmedOn": "2026-10-11",
+    "scope": "EE product photos on Elvarins retail website",
+    "basis": "Owner explicitly confirmed allowed and requested no repeated confirmation for this scope"
   }
 }
