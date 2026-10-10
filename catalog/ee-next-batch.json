@@ -22,7 +22,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "085633070996",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/bea3796b5176474bbbdbd43241cb8294lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/4251ef5e343b4d94be9743b007ca30aflg.jpg",
+        "https://media.entertainmentearth.com/assets/images/af0aac7684d648ab856fbb66f12a5c76lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/34cff5aa56a34e8286f2f80c10498c6dlg.jpg"
+      ],
+      "availableSourcePhotoCount": 5,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "FPJRM87",
@@ -42,7 +50,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "194735424405",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/fd3fd408a5b14a9d985f1fcf7cd7b80clg.jpg",
+        "https://media.entertainmentearth.com/assets/images/f1849efaacf3442992c08f0f9afbe942lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/83126a1a0e8d46478c886b3183977f7flg.jpg",
+        "https://media.entertainmentearth.com/assets/images/29314435a52e410890aa353f3f5826d9lg.jpg"
+      ],
+      "availableSourcePhotoCount": 7,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "BLF2279763",
@@ -62,7 +78,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "4573102616029",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/7f919ea18e0341e98e1c9aedf9f99cfdlg.jpg",
+        "https://media.entertainmentearth.com/assets/images/4bf7fbeb394f400b8900b8abd037d22dlg.jpg",
+        "https://media.entertainmentearth.com/assets/images/e83bb9284a9a4af6b28d1b1a35c84119lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/6e73023f43fe4850ae4809e03cba0747lg.jpg"
+      ],
+      "availableSourcePhotoCount": 7,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "JK433524",
@@ -82,7 +106,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "192995433526",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/a1ab063835ed4db796cb305cc4aa5ec0lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/b5caf54e20d64b78bb8103b80774dbe9lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/989e501494c94b81ad4202d40da9faablg.jpg",
+        "https://media.entertainmentearth.com/assets/images/022a1acb9ad7445c94e6e14ea7e9a545lg.jpg"
+      ],
+      "availableSourcePhotoCount": 4,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "JD97186",
@@ -102,7 +134,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "801310971864",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/7e7e2660921f4a29950cebdda7166543lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/8d370a2da3bb4a71a31c5b96c6e04547lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/68d88eae284d4d189455a8aa2ac5caedlg.jpg",
+        "https://media.entertainmentearth.com/assets/images/bcee8078ff4c47bfb3dd9574fad56865lg.jpg"
+      ],
+      "availableSourcePhotoCount": 11,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "GN52132",
@@ -122,7 +162,12 @@
       "sourceAvailability": "In Stock",
       "gtin": "699858521326",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/165e57973e7244aeb4ca8c986ed43b79lg.jpg"
+      ],
+      "availableSourcePhotoCount": 1,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "SUP82481",
@@ -142,7 +187,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "840418824818",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/124744587d6049369f5620fc05cac4a4lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/50ad7deb1a3b40c3974247c97af43ee7lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/d24f0e802d7646faa86cf7f9346f63a2lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/da4b460fd2904547bfef6c687007f10alg.jpg"
+      ],
+      "availableSourcePhotoCount": 4,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "BLFNAN23466",
@@ -162,7 +215,14 @@
       "sourceAvailability": "In Stock",
       "gtin": "4972825234662",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/abef510b4c2542fd924982684a1e8229lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/3e662c5d7e4b4253a13a8870da25e424lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/55b27a7daa7348eb9a4257f314fd6b0clg.jpg"
+      ],
+      "availableSourcePhotoCount": 3,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "MF17893",
@@ -182,7 +242,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "787926178937",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/3d1dde4226d943da89e5455fc6192b07lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/8c7631239d0c4775a5322827e8b75814lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/3ec570b4a4fe4849accff4e06c202928lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/ee6e234779bf4fd79b0f9d4cae64072clg.jpg"
+      ],
+      "availableSourcePhotoCount": 9,
+      "sourceGalleryVerified": true
     },
     {
       "sku": "KTGN090",
@@ -202,7 +270,15 @@
       "sourceAvailability": "In Stock",
       "gtin": "190526064959",
       "published": false,
-      "pending": "Verify retailer image-use permission and retrieve distinct additional exact-SKU media before publishing."
+      "pending": "Retailer product-photo usage permission verification.",
+      "images": [
+        "https://media.entertainmentearth.com/assets/images/47009393d56b49c784f7ae20600790f3lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/0231ff2766bd4b3398501b367e333dfdlg.jpg",
+        "https://media.entertainmentearth.com/assets/images/c7d30c49b970404a8464df24ba90a990lg.jpg",
+        "https://media.entertainmentearth.com/assets/images/d96510c0381643b7943d37bbb6bdda46lg.jpg"
+      ],
+      "availableSourcePhotoCount": 8,
+      "sourceGalleryVerified": true
     }
   ]
 }

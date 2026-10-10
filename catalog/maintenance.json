@@ -77,7 +77,13 @@
     "HSG2427",
     "BCI-491174"
   ],
-  "extraEEImages": "Pending verified retailer media permission and distinct exact-SKU source photos. Do not duplicate a photo to meet a photo quota.",
+  "extraEEImages": {
+    "status": "Unpublished pending retailer image permission",
+    "referenceFile": "catalog/ee-gallery-references.json",
+    "verifiedProductGalleryCount": 63,
+    "distinctPhotoReferences": 599,
+    "existingCatalogGalleriesStillToLocate": 14
+  },
   "pendingFrontier": "Only resume when owner says s cod",
   "designatedEECatalog": {
     "name": "Sku List - Hot Off The Truck.xlsx",
