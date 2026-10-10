@@ -29,6 +29,7 @@ const dollars=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
 let currentSku=null,quoteRequest=0;
 function openProduct(sku){
  const p=bySku.get(sku);if(!p)return;
+ dialog.querySelector('.detail-photo').dataset.collection=p.collection;
  const image=document.getElementById('detail-image');image.dataset.fallback=p.thumbnail;image.src=p.image;image.alt=p.title;
  document.getElementById('detail-zoom').href=p.image;
  document.getElementById('detail-title').textContent=p.title;
