@@ -59,7 +59,6 @@ function resetShipping(){
  document.getElementById('item-subtotal').textContent=p&&Number.isInteger(q)&&q>=1&&q<=20?'Items subtotal: '+dollars.format(Math.round(p.price*100)*q/100)+' USD (shipping and tax additional)':'';
  document.getElementById('shipping-result').textContent='Shipping is confirmed before purchase. It is not included in the item price.';
  document.getElementById('shipping-submit').disabled=false;
- if(p){const zip=document.getElementById('shipping-zip').value;const body='Hello Elvarins,\n\nItem: '+p.title+'\nSKU: '+p.sku+'\nUnit price: '+dollars.format(p.price)+' USD\nQuantity: '+q+'\nDelivery ZIP: '+zip+'\n\nPlease confirm availability, shipping and any applicable taxes before purchase.';document.getElementById('detail-inquiry').href='mailto:sales@elvarins.com?subject='+encodeURIComponent('Purchase inquiry — '+p.sku)+'&body='+encodeURIComponent(body);}
 }
 document.getElementById('shipping-qty').addEventListener('input',resetShipping);
 document.getElementById('shipping-zip').addEventListener('input',resetShipping);
