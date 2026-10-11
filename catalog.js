@@ -7,10 +7,14 @@ const cards=new Map(Array.from(grid.querySelectorAll('.product-card')).map(el=>[
 const search=document.getElementById('product-search'), brand=document.getElementById('brand-filter'), type=document.getElementById('type-filter'), sort=document.getElementById('product-sort');
 let selectedUnit='single',limit=12;
 const count=document.getElementById('result-count'), more=document.getElementById('load-more'), empty=document.getElementById('empty-results');
+const resetFilters=document.getElementById('reset-catalog-filters');
+// Match independent words, including punctuation-free character names and SKUs.
+function searchText(value){return value.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();}
+const searchable=new Map(products.map(p=>[p.sku,searchText(p.title+' '+p.brand+' '+p.productType+' '+p.sku)]));
 function update(reset=true){
  if(reset)limit=12;
- const term=search.value.trim().toLocaleLowerCase();
- const result=products.filter(p=>(!term||(p.title+' '+p.brand+' '+p.productType+' '+p.sku).toLocaleLowerCase().includes(term))&&(!brand.value||p.brand===brand.value)&&(!type.value||p.productType===type.value));
+ const terms=searchText(search.value).split(' ').filter(Boolean);
+ const result=products.filter(p=>terms.every(term=>searchable.get(p.sku).includes(term))&&(!brand.value||p.brand===brand.value)&&(!type.value||p.productType===type.value));
  if(sort.value==='price-asc')result.sort((a,b)=>a.price-b.price);
  if(sort.value==='price-desc')result.sort((a,b)=>b.price-a.price);
  if(sort.value==='name')result.sort((a,b)=>a.title.localeCompare(b.title));
@@ -18,12 +22,15 @@ function update(reset=true){
  result.slice(0,limit).forEach(p=>{const card=cards.get(p.sku);card.hidden=false;grid.appendChild(card);});
  count.textContent=result.length+' product'+(result.length===1?'':'s')+' · showing '+Math.min(limit,result.length);
  more.hidden=result.length<=limit;empty.hidden=result.length>0;grid.hidden=result.length===0;
+ resetFilters.hidden=!(search.value.trim()||brand.value||type.value||sort.value!=='featured');
 }
 document.getElementById('catalog-filters').addEventListener('submit',e=>e.preventDefault());
 search.addEventListener('input',()=>update());[brand,type,sort].forEach(e=>e.addEventListener('change',()=>update()));
 document.querySelectorAll('[data-unit]').forEach(b=>b.addEventListener('click',()=>{selectedUnit=b.dataset.unit;document.querySelectorAll('[data-unit]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));update();}));
 more.addEventListener('click',()=>{limit+=12;update(false);});
-document.getElementById('clear-filters').addEventListener('click',()=>{search.value='';brand.value='';type.value='';sort.value='featured';update();search.focus();});
+function clearFilters(){search.value='';brand.value='';type.value='';sort.value='featured';update();search.focus();}
+document.getElementById('clear-filters').addEventListener('click',clearFilters);
+resetFilters.addEventListener('click',clearFilters);
 const dialog=document.getElementById('product-dialog');
 const dollars=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
 let currentSku=null,quoteRequest=0;

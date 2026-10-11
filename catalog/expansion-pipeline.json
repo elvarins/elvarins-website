@@ -1,0 +1,288 @@
+{
+  "updatedOn": "2026-10-11",
+  "sourceCatalog": {
+    "name": "Sku List - Hot Off The Truck.xlsx",
+    "libraryId": "libfile_808d71f4ec008191a2076c8eb1026ae6"
+  },
+  "status": "Research pipeline only; no new SKU published in this run",
+  "accountBlocker": "EE browser session is signed out; cannot complete non-interactive account-specific fresh checks. Owner media permission remains recorded and valid.",
+  "recommendedNextCategory": "Anime & Manga Figures",
+  "recommendedNextBrand": "Banpresto",
+  "basis": "Five individual Banpresto spreadsheet candidates marked In Stock; Killua has a public exact-SKU five-photo gallery. Supplier-account stock/MAP and SKU-level demand remain unverified; Killua owner-rule price exceeds observed EE retail item price.",
+  "priorityCategories": [
+    {
+      "category": "Anime & Manga Figures",
+      "brands": [
+        "Banpresto",
+        "Bandai/Tamashii Nations",
+        "Kotobukiya"
+      ]
+    },
+    {
+      "category": "Model Kits & Building",
+      "brands": [
+        "Bandai Hobby Gunpla",
+        "Nanoblock"
+      ]
+    },
+    {
+      "category": "Games & Puzzles",
+      "brands": [
+        "USAopoly/The Op",
+        "Mattel Games"
+      ]
+    },
+    {
+      "category": "Die-Cast Vehicles",
+      "brands": [
+        "Jada Toys",
+        "Mattel/Hot Wheels"
+      ]
+    },
+    {
+      "category": "Licensed Plush",
+      "brands": [
+        "Great Eastern Entertainment"
+      ]
+    },
+    {
+      "category": "Pet Toys & Basic Grooming",
+      "brands": [
+        "Nylabone",
+        "KONG",
+        "Zanies",
+        "Master Grooming Tools"
+      ],
+      "gates": "Verified PetEdge/BCI supplier feed, channel and photo permission; no publication from unverified feeds."
+    }
+  ],
+  "profitPolicy": "Preserve unit cost × 1.50. This equals 33.3% gross margin before expenses; never silently change price to meet MAP or market pricing. Flag/exclude uneconomic or MAP-conflicting SKUs.",
+  "uxResearch": [
+    {
+      "url": "https://www.bigbadtoystore.com/Search",
+      "retrievedOn": "2026-10-11",
+      "pattern": "Separate Company/manufacturer from franchise/character; relevant product-type facets and counts."
+    },
+    {
+      "url": "https://www.entertainmentearth.com/product/transformers-uno-flip-card-game/mthxj49",
+      "retrievedOn": "2026-10-11",
+      "pattern": "Keyboard and tap-to-expand photo galleries, exact item identity, age/player count and packaging specifications."
+    },
+    {
+      "url": "https://www.gundamplanet.com/products/hguc-rx-93-2-hi-nu-gundam",
+      "retrievedOn": "2026-10-11",
+      "pattern": "Explicit assembly condition and painted-photo disclosure for model kits; do not assume these apply to every kit."
+    }
+  ],
+  "candidates": [
+    {
+      "sku": "SAN71964",
+      "sourceTitle": "Hunter x Hunter Killua Hunting Archives Statue",
+      "manufacturerBrand": "Banpresto",
+      "characterOrFranchise": "Hunter x Hunter",
+      "productType": "Statues",
+      "sourceURL": "https://www.eedistribution.com/product/hunter-x-hunter-killua-hunting-archives-statue/san71964",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 20.7,
+      "retailPriceRuleUSD": 31.05,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 4,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ],
+      "publicResearch": {
+        "url": "https://www.entertainmentearth.com/product/hunter-x-hunter-killua-hunting-archives-statue/san71964",
+        "retrievedOn": "2026-10-11",
+        "sourcePhotosReported": 5,
+        "retailItemPriceUSD": 28.99,
+        "availability": "Public page reports estimated arrival; conflicts with supplied spreadsheet In Stock. Account verification mandatory.",
+        "pricePremiumBeforeShippingUSD": 2.06,
+        "format": "Approximately 7.9-inch plastic display figure; shipping dimensions and weight still needed"
+      }
+    },
+    {
+      "sku": "SAN71954",
+      "sourceTitle": "Dragon Ball Z Majin Buu Match Makers Statue",
+      "manufacturerBrand": "Banpresto",
+      "characterOrFranchise": "Dragon Ball",
+      "productType": "Statues",
+      "sourceURL": "https://www.eedistribution.com/product/dragon-ball-z-majin-buu-vs-super-saiyan-gotenks-match-makers-statue/san71954",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 20.7,
+      "retailPriceRuleUSD": 31.05,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 4,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ]
+    },
+    {
+      "sku": "SAN74348",
+      "sourceTitle": "Naruto: Shippuden Madara Uchiha Statue",
+      "manufacturerBrand": "Banpresto",
+      "characterOrFranchise": "Naruto",
+      "productType": "Statues",
+      "sourceURL": "https://www.eedistribution.com/product/naruto-shippuden-madara-uchiha-statue/san74348",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 20.7,
+      "retailPriceRuleUSD": 31.05,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 4,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ]
+    },
+    {
+      "sku": "BLFBAS67543",
+      "sourceTitle": "MHA Izuku Midoriya Adokenette Statue",
+      "manufacturerBrand": "Bandai Tamashii Nations",
+      "characterOrFranchise": "My Hero Academia",
+      "productType": "Statues",
+      "sourceURL": "https://www.eedistribution.com/product/my-hero-academia-izuku-midoriya-adokenette-statue/blfbas67543",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 34.6,
+      "retailPriceRuleUSD": 51.9,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 2,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ]
+    },
+    {
+      "sku": "BLF2062386",
+      "sourceTitle": "Chars Counterattack Hi-Nu Gundam HG 1:144 Model Kit",
+      "manufacturerBrand": "Bandai Hobby Gunpla",
+      "characterOrFranchise": "Gundam",
+      "productType": "Model Kits",
+      "sourceURL": "https://www.eedistribution.com/product/mobile-suit-gundam-chars-counterattack-hinu-gundam-high-grade-1144-scale-model-kit/blf2062386",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 21.8,
+      "retailPriceRuleUSD": 32.7,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 4,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ],
+      "publicResearch": {
+        "url": "https://www.gundamplanet.com/products/hguc-rx-93-2-hi-nu-gundam",
+        "retrievedOn": "2026-10-11",
+        "comparison": "Same HGUC Hi-Nu 1:144 kit family; UPC/account verification needed before strict exact-SKU price comparison",
+        "retailItemPriceUSD": 30.95,
+        "pricePremiumBeforeShippingUSD": 1.75,
+        "photoPermission": "Competitor photos are research only; do not copy",
+        "profitFlag": "$10.90 gross spread before all expenses; delivery competitiveness unverified."
+      }
+    },
+    {
+      "sku": "BLF2794166",
+      "sourceTitle": "30MF Class Up Armor Liber Gladiator Model Kit",
+      "manufacturerBrand": "Bandai Hobby Gunpla",
+      "characterOrFranchise": "30 Minutes Fantasy",
+      "productType": "Model Kits",
+      "sourceURL": "https://www.eedistribution.com/product/30-minutes-fantasy-class-up-armor-liber-gladiator-model-kit/blf2794166",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 9.4,
+      "retailPriceRuleUSD": 14.1,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 6,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ]
+    },
+    {
+      "sku": "MTHXJ49",
+      "sourceTitle": "Transformers UNO Flip Card Game",
+      "manufacturerBrand": "Mattel",
+      "characterOrFranchise": "Transformers",
+      "productType": "Card Games",
+      "sourceURL": "https://www.eedistribution.com/product/transformers-uno-flip-card-game/mthxj49",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 6.0,
+      "retailPriceRuleUSD": 9.0,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 8,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ],
+      "publicResearch": {
+        "url": "https://www.entertainmentearth.com/product/transformers-uno-flip-card-game/mthxj49",
+        "retrievedOn": "2026-10-11",
+        "sourcePhotosReported": 3,
+        "retailItemPriceUSD": 7.99,
+        "availability": "Search excerpt and opened page disagree (In Stock vs March 2027 preorder). Do not publish until account verification.",
+        "pricePremiumBeforeShippingUSD": 1.01,
+        "packageInches": [
+          1,
+          3.5,
+          5.5
+        ],
+        "weightLb": 0.4,
+        "profitFlag": "Only $3 gross spread before inbound shipping, packing, postage, payment fees and returns; standalone economics unverified."
+      }
+    },
+    {
+      "sku": "GN8900",
+      "sourceTitle": "Naruto: Shippuden Naruto Uzumaki 8-Inch Plush",
+      "manufacturerBrand": "Great Eastern Entertainment",
+      "characterOrFranchise": "Naruto",
+      "productType": "Plush",
+      "sourceURL": "https://www.eedistribution.com/product/naruto-shippuden-naruto-uzumaki-8inch-plush/gn8900",
+      "spreadsheetAvailability": "In Stock",
+      "spreadsheetUnitCostUSD": 15.7,
+      "retailPriceRuleUSD": 23.55,
+      "spreadsheetMAP": null,
+      "spreadsheetChannelRestrictions": "None stated in supplied spreadsheet; fresh account verification required",
+      "supplierCasePack": 6,
+      "intendedSellingUnit": "One original packaged retail item",
+      "status": "Unpublished candidate — live EE account verification and exact-product photos required",
+      "skuLevelDemand": "No verified SKU sell-through or bestseller evidence; do not claim bestseller status",
+      "publicationGates": [
+        "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
+        "At least two distinct exact-SKU EE photos",
+        "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
+      ]
+    }
+  ]
+}

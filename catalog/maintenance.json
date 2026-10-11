@@ -90,9 +90,9 @@
   "extraEEImages": {
     "status": "Published verified galleries, up to four distinct source photos per item",
     "referenceFile": "catalog/ee-gallery-references.json",
-    "verifiedProductGalleryCount": 63,
-    "distinctPhotoReferences": 599,
-    "existingCatalogGalleriesStillToLocate": 14
+    "verifiedProductGalleryCount": 69,
+    "distinctPhotoReferences": 623,
+    "existingCatalogGalleriesStillToLocate": 8
   },
   "pendingFrontier": "Only resume when owner says s cod",
   "designatedEECatalog": {
@@ -105,5 +105,27 @@
     "confirmedOn": "2026-10-11",
     "scope": "EE product photos on Elvarins retail website",
     "basis": "Owner explicitly confirmed allowed and requested no repeated confirmation for this scope"
+  },
+  "expansionPipeline": "catalog/expansion-pipeline.json",
+  "latestMaintenance": {
+    "date": "2026-10-11",
+    "newProductsAdded": 0,
+    "gallerySkusImproved": [
+      "HSG2421",
+      "HSG2422",
+      "HSG2424",
+      "HSG2425",
+      "HSG2426",
+      "HSG2427"
+    ],
+    "customerImprovements": [
+      "Word-order flexible search and punctuation normalization",
+      "Clear search and filters while matches remain",
+      "Collection-specific manufacturer and type filters",
+      "Catalog navigation counts and homepage ItemList synchronized to 78 products"
+    ],
+    "blocker": "EE account signed out; fresh account-specific availability/cost/channel/MAP checks required for next new listings.",
+    "remainingExistingEEGalleries": 8,
+    "newListingMinimumPhotos": 2
   }
 }
