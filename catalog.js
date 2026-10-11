@@ -28,7 +28,7 @@ document.getElementById('catalog-filters').addEventListener('submit',e=>e.preven
 search.addEventListener('input',()=>update());[brand,type,sort].forEach(e=>e.addEventListener('change',()=>update()));
 document.querySelectorAll('[data-unit]').forEach(b=>b.addEventListener('click',()=>{selectedUnit=b.dataset.unit;document.querySelectorAll('[data-unit]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));update();}));
 more.addEventListener('click',()=>{limit+=12;update(false);});
-function clearFilters(){search.value='';brand.value='';type.value='';sort.value='featured';update();search.focus();}
+function clearFilters(){search.value='';brand.value='';type.value='';sort.value='featured';const query=new URLSearchParams(location.search);query.delete('q');query.delete('brand');history.replaceState(null,'',location.pathname+(query.size?'?'+query.toString():'')+location.hash);update();search.focus();}
 document.getElementById('clear-filters').addEventListener('click',clearFilters);
 resetFilters.addEventListener('click',clearFilters);
 const dialog=document.getElementById('product-dialog');

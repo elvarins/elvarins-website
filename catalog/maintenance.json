@@ -137,5 +137,34 @@
       "publicationStatus": "Live and verified",
       "checkedOn": "2026-10-11"
     }
+  },
+  "latestReadinessReview": {
+    "date": "2026-10-11",
+    "target": "Customer-facing retail presentation and supplier website review",
+    "changes": [
+      "Professional About page with company profile and retail standards",
+      "Dedicated Contact page with direct email and customer-care access",
+      "Visible About, Contact and Help links across public pages",
+      "Exact manufacturer browsing for all 14 catalog manufacturers",
+      "Three-step purchase guide with clear inquiry-only purchase status",
+      "Readable information-page typography, consistent company schema and social metadata",
+      "Filter reset clears search and manufacturer URL parameters",
+      "Direct email fallback in customer-care forms"
+    ],
+    "nativeWorkerChecks": 504,
+    "sitemapPagesChecked": 102,
+    "internalTargetsChecked": 213,
+    "checkoutPayments": "Deferred by owner",
+    "supplierApproval": "Not guaranteed; individual supplier criteria still apply",
+    "operationalLimitations": [
+      "Automatic form-to-email notifications are not configured; inquiries are stored in the website database",
+      "Dedicated mobile viewport visual testing was unavailable; responsive rules reviewed",
+      "Fresh EE account checks remain required before new listings"
+    ],
+    "retailReferences": [
+      "https://www.bigbadtoystore.com/help",
+      "https://www.gundamplanet.com/pages/about-us",
+      "https://www.entertainmentearth.com/help/"
+    ]
   }
 }
