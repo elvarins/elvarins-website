@@ -78,3 +78,5 @@ document.getElementById('shipping-form').addEventListener('submit',async e=>{
 });
 
 const initialSearch=new URLSearchParams(location.search).get("q");if(initialSearch){search.value=initialSearch.slice(0,150);update();document.getElementById("shop").scrollIntoView();}
+
+const initialBrand=new URLSearchParams(location.search).get("brand");if(initialBrand&&products.some(p=>p.brand===initialBrand)){brand.value=initialBrand;update();document.getElementById("shop").scrollIntoView();}
