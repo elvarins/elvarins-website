@@ -126,6 +126,16 @@
     ],
     "blocker": "EE account signed out; fresh account-specific availability/cost/channel/MAP checks required for next new listings.",
     "remainingExistingEEGalleries": 8,
-    "newListingMinimumPhotos": 2
+    "newListingMinimumPhotos": 2,
+    "verification": {
+      "customerChangeCommit": "e254bdac0dda3ac7682a8b6fe4cbbc94e77600ec",
+      "cloudflareContentBuild": "success, exact commit matched",
+      "nativeWorkerChecksPassed": 498,
+      "searchRegressionTests": "passed",
+      "browser": "Desktop homepage search and clear, collection count/type filters, affected product detail page, all six four-image galleries loaded, slider/fullscreen/Arrow keys/Escape verified",
+      "mobile": "Existing responsive CSS reviewed; no dedicated mobile viewport available",
+      "publicationStatus": "Live and verified",
+      "checkedOn": "2026-10-11"
+    }
   }
 }
