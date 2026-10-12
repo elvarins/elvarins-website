@@ -84,3 +84,6 @@ dialog{border:0;border-radius:16px;padding:0;width:min(960px,calc(100% - 32px));
 
 /* Keep specification labels and values aligned when either wraps. */
 .detail-copy dl{display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,2fr);column-gap:16px;row-gap:9px;align-items:start}.detail-copy dt{float:none;width:auto;margin:0;line-height:1.65}.detail-copy dd{margin:0;min-width:0;line-height:1.65;overflow-wrap:anywhere}
+
+/* Keep photo navigation visible alongside the product overview. */
+.product-page .detail-photo img[data-gallery-image]{height:clamp(280px,44vh,420px);max-height:420px;object-fit:contain}
