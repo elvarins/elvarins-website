@@ -45,6 +45,7 @@ function openProduct(sku){
  document.getElementById('detail-sku').textContent=p.sku;
  document.getElementById('detail-type').textContent=p.productType;
  document.getElementById('detail-unit').textContent=p.sellingUnit;
+ for(const field of ['size','age']){const value=document.getElementById('detail-'+field),label=document.getElementById('detail-'+field+'-label');value.textContent=p[field]||'';value.hidden=label.hidden=!p[field];}
  document.getElementById('detail-case').textContent=p.description;
  document.getElementById('detail-page').href=p.url;
  window.ElvarinsGallery.mount(dialog.querySelector('.detail-photo'),p);

@@ -1,3 +1,4 @@
+import {queueInquiryNotification,deliverInquiryNotifications} from './inquiry-notifications.mjs';
 import { scrypt } from "node:crypto";
 const encoder=new TextEncoder();
 const hex=bytes=>Array.from(new Uint8Array(bytes),v=>v.toString(16).padStart(2,'0')).join('');
@@ -11,7 +12,7 @@ async function limitedBody(request){const reader=request.body?.getReader();if(!r
 async function throttle(db,key,limit,seconds){const now=Math.floor(Date.now()/1000),bucket=Math.floor(now/seconds),id=await sha(key+':'+bucket);const row=await db.prepare('INSERT INTO rate_limits(key,hits,expires_at) VALUES(?,1,?) ON CONFLICT(key) DO UPDATE SET hits=hits+1 RETURNING hits').bind(id,now+seconds*2).first();return row.hits<=limit;}
 async function sessionUser(request,db){const token=(request.headers.get('Cookie')||'').match(/(?:^|;\s*)__Host-elvarins_session=([a-f0-9]{64})(?:;|$)/)?.[1];if(!token)return null;return db.prepare('SELECT c.id,c.email,c.name FROM sessions s JOIN customers c ON c.id=s.customer_id WHERE s.token_hash=? AND s.expires_at>?').bind(await sha(token),Math.floor(Date.now()/1000)).first();}
 async function startSession(db,id){const token=random();await db.prepare('INSERT INTO sessions(token_hash,customer_id,expires_at) VALUES(?,?,?)').bind(await sha(token),id,Math.floor(Date.now()/1000)+604800).run();return token;}
-export async function customerApi(request,env,products){
+export async function customerApi(request,env,products,ctx){
  const path=new URL(request.url).pathname,db=env.CUSTOMER_DB;if(!db)return reply({message:'Customer services are temporarily unavailable. Please contact sales@elvarins.com.'},503);
  if(request.method==='GET'&&path==='/api/account/me'){const user=await sessionUser(request,db);if(!user)return reply({user:null});const f=await db.prepare('SELECT sku FROM favorites WHERE customer_id=?').bind(user.id).all();return reply({user:{name:user.name,email:user.email},favorites:f.results.map(x=>x.sku)});}
  if(request.method!=='POST')return reply({message:'Method not allowed.'},405);
@@ -37,7 +38,7 @@ export async function customerApi(request,env,products){
    const topic=String(data.topic||''),message=typeof data.message==='string'?data.message.trim():'',sku=String(data.sku||'');
    if(!validEmail||name.length<2||name.length>100||message.length<10||message.length>3000||!['product','shipping','returns','general','privacy'].includes(topic)||sku&& !products.some(p=>p.sku===sku))return reply({message:'Check your name, email, topic and message (10–3,000 characters).'},400);
    if(!await throttle(db,email+path,5,3600))return reply({message:'Please wait before sending another request.'},429);
-   const id=crypto.randomUUID();await db.prepare('INSERT INTO inquiries(id,name,email,topic,sku,message,created_at) VALUES(?,?,?,?,?,?,?)').bind(id,name,email,topic,sku,message,now).run();return reply({message:'Your request has been received. Please keep your reference number. For urgent questions, email sales@elvarins.com.',reference:id},201);
+   const id=crypto.randomUUID();await db.prepare('INSERT INTO inquiries(id,name,email,topic,sku,message,created_at) VALUES(?,?,?,?,?,?,?)').bind(id,name,email,topic,sku,message,now).run();try{if(await queueInquiryNotification(env,id)){const work=deliverInquiryNotifications(env);if(ctx)ctx.waitUntil(work);else await work;}}catch{console.error(JSON.stringify({event:'inquiry_notification_queue_failed',reference:id}));}return reply({message:'Your request has been received. Please keep your reference number. For urgent questions, email sales@elvarins.com.',reference:id},201);
   }
   if(path==='/api/account/signup'||path==='/api/account/login'||path==='/api/account/recover'){
    if(!validEmail)return reply({message:'Enter a valid email address.'},400);

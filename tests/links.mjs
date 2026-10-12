@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 const {Miniflare,convertV4MiniflareOptions}=await import(process.env.ELVARINS_TEST_MINIFLARE||'miniflare');
 const root=fileURLToPath(new URL('../',import.meta.url));
-const options={modules:['worker.mjs','shipping.mjs','product-pages.mjs','customer-ui.mjs','customer-api.mjs','service-pages.mjs'].map(path=>({type:'ESModule',path:root+path})),compatibilityDate:'2026-10-06',compatibilityFlags:['nodejs_compat']};
+const options={modules:['worker.mjs','shipping.mjs','product-pages.mjs','customer-ui.mjs','customer-api.mjs','service-pages.mjs','inquiry-notifications.mjs'].map(path=>({type:'ESModule',path:root+path})),compatibilityDate:'2026-10-06',compatibilityFlags:['nodejs_compat']};
 const mf=new Miniflare(convertV4MiniflareOptions?convertV4MiniflareOptions(options):options);
 const origin='https://elvarins.com',cache=new Map(),targets=new Set();
 async function get(path){if(!cache.has(path)){const r=await mf.dispatchFetch(origin+path);cache.set(path,{status:r.status,body:await r.text()});}return cache.get(path);}

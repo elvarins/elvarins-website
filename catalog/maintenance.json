@@ -90,9 +90,9 @@
   "extraEEImages": {
     "status": "Published verified galleries, up to four distinct source photos per item",
     "referenceFile": "catalog/ee-gallery-references.json",
-    "verifiedProductGalleryCount": 69,
-    "distinctPhotoReferences": 623,
-    "existingCatalogGalleriesStillToLocate": 8
+    "verifiedProductGalleryCount": 77,
+    "distinctPhotoReferences": 695,
+    "existingCatalogGalleriesStillToLocate": 0
   },
   "pendingFrontier": "Only resume when owner says s cod",
   "designatedEECatalog": {
@@ -166,5 +166,41 @@
       "https://www.gundamplanet.com/pages/about-us",
       "https://www.entertainmentearth.com/help/"
     ]
+  },
+  "latestDeepSupplierReview": {
+    "date": "2026-10-12",
+    "newProductsAdded": 0,
+    "gallerySkusImproved": [
+      "HSG0570",
+      "HSG0566",
+      "HSG0857",
+      "HSG1851",
+      "HSG2187",
+      "HSG2189",
+      "HSG1925",
+      "HSG1926"
+    ],
+    "multiPhotoProducts": 77,
+    "singlePhotoProducts": 1,
+    "singlePhotoSku": "GN52132",
+    "customerImprovements": [
+      "All eight remaining Transformers galleries now have four exact-product source photos",
+      "Eight verified product descriptions, figure sizes, manufacturer ages and checked GTIN-13 identifiers",
+      "Static photo badges synchronized with actual photo counts",
+      "Future categories preserved inside a clearly labeled collapsible product-request section",
+      "Branded noindex 404 with working catalog and contact links",
+      "Explicit Node compatibility configuration for account cryptography"
+    ],
+    "notificationStatus": "Queue/retry/owner-alert module implemented and locally tested, activation disabled: current Cloudflare Email Sending endpoints return Unauthorized; sending-domain/destination verification and restricted binding still required",
+    "mobileStatus": "Dedicated narrow viewport preview blocked by cloud-browser client/security policy; responsive CSS reviewed, no actual mobile-device visual pass claimed",
+    "retailAvailabilityWarning": "Public EE status can differ from owner account data. HSG0570 source is informational/sold out; HSG1926 browser shows a preorder. Do not assert stocked availability or accept payment without a fresh supplier check.",
+    "checkoutPayments": "Deferred by owner",
+    "verification": {
+      "nativeWorkerChecks": 593,
+      "sitemapPages": 102,
+      "internalTargets": 213,
+      "searchRegression": "passed",
+      "notificationTests": "local fixed-recipient, privacy, activation guard, deduplication and retry tests passed; no real message sent"
+    }
   }
 }

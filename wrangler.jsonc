@@ -13,5 +13,8 @@
       "database_name": "elvarins-customer-services",
       "database_id": "8d295fea-8806-472d-a200-411ff5f23fa3"
     }
+  ],
+  "compatibility_flags": [
+    "nodejs_compat"
   ]
 }

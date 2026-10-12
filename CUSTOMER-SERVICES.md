@@ -24,3 +24,11 @@ Run `tests/retail.mjs` with Node 22+ and Miniflare installed. The test uses a lo
 
 ## Email subscriptions
 The newsletter endpoint records email, consent time and subscription status in `newsletter_subscribers`. Marketing campaigns and email verification are not configured. Do not send campaigns until a provider is connected with unsubscribe handling and appropriate verification. Opt-outs remain in a minimal suppression record. `/newsletter` processes unsubscribe requests without login. `/track-order` stores a customer-care shipping request; it is not an automated shipment lookup.
+
+## Notification activation (prepared; currently disabled)
+
+`inquiry-notifications.mjs` alerts only `sales@elvarins.com`. It excludes customer names, email addresses and message content. Requests remain stored if queuing or delivery fails. Local tests cover retry backoff, fixed recipients and deduplication; no live mail was sent.
+
+Activation requires Cloudflare Email Sending access (the current connector returns Unauthorized), verified sending domain `notify.elvarins.com`, a verified destination inbox, and a restricted `INQUIRY_EMAIL` send_email binding. Preserve the existing Titan MX/DKIM records; use the isolated sending subdomain. Set `INQUIRY_EMAIL_ENABLED=true` only after verification and free sending eligibility are established. Apply the additive `inquiry_notifications` schema first. Until then the module does not queue or send mail.
+
+To retry pending alerts on a schedule after activation, configure an authorized scheduled handler to call `deliverInquiryNotifications(env)`. Each invocation claims at most three queued requests, makes no more than five attempts per request and waits ten minutes after a failure. Delivery acceptance does not establish arrival in the inbox.

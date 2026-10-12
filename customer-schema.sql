@@ -8,3 +8,5 @@ CREATE INDEX IF NOT EXISTS rate_expiry ON rate_limits(expires_at);
 CREATE INDEX IF NOT EXISTS inquiries_created ON inquiries(created_at);
 
 CREATE TABLE IF NOT EXISTS newsletter_subscribers (email TEXT PRIMARY KEY, subscribed INTEGER NOT NULL DEFAULT 0 CHECK (subscribed IN (0,1)), consented_at INTEGER NOT NULL DEFAULT 0, updated_at INTEGER NOT NULL);
+
+CREATE TABLE IF NOT EXISTS inquiry_notifications (inquiry_id TEXT PRIMARY KEY REFERENCES inquiries(id) ON DELETE CASCADE, status TEXT NOT NULL CHECK(status IN ('pending','failed','sent')), attempts INTEGER NOT NULL DEFAULT 0, next_attempt INTEGER NOT NULL DEFAULT 0, lease_until INTEGER NOT NULL DEFAULT 0, message_id TEXT NOT NULL DEFAULT '');
