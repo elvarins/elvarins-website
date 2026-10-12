@@ -23,7 +23,7 @@ try{
  check(html.includes('id="reset-catalog-filters"'),'Search can be cleared while matches remain');
  for(const p of catalog.products){const card=html.match(new RegExp('<article class="product-card" data-sku="'+p.sku+'"[^>]*>([\\s\\S]*?)</article>'))?.[1];if(!card)continue;const n=new Set([p.image,...(p.images||[])]).size;if(n>1)check(card.includes('>'+n+' photos</button>')&&card.includes('data-product="'+p.sku+'"'),'Photo badge matches verified gallery '+p.sku);}
 
- for(const path of ['index.html','style.css','sitemap.xml','catalog.js','catalog/products.json']){const served=await (await mf.dispatchFetch(origin+'/'+(path==='index.html'?'':path))).text();check(served===await readFile(root+path,'utf8'),'Worker asset matches source '+path);}
+ for(const path of ['index.html','gallery.js','style.css','sitemap.xml','catalog.js','catalog/products.json']){const served=await (await mf.dispatchFetch(origin+'/'+(path==='index.html'?'':path))).text();check(served===await readFile(root+path,'utf8'),'Worker asset matches source '+path);}
  check(sitemap.includes('<loc>'+origin+'/contact</loc>'),'Contact is indexed in the sitemap');
  const brandLinks=[...html.matchAll(/href="\/\?brand=([^"#]+)#shop"/g)].map(m=>decodeURIComponent(m[1]));
  check(brandLinks.length===new Set(catalog.products.map(p=>p.brand)).size&&brandLinks.every(b=>catalog.products.some(p=>p.brand===b)),'Brand directory covers actual catalog manufacturers');

@@ -189,14 +189,15 @@
       "Static photo badges synchronized with actual photo counts",
       "Future categories preserved inside a clearly labeled collapsible product-request section",
       "Branded noindex 404 with working catalog and contact links",
-      "Explicit Node compatibility configuration for account cryptography"
+      "Explicit Node compatibility configuration for account cryptography",
+      "Gallery loading/error feedback and no substitution of a different product view"
     ],
     "notificationStatus": "Queue/retry/owner-alert module implemented and locally tested, activation disabled: current Cloudflare Email Sending endpoints return Unauthorized; sending-domain/destination verification and restricted binding still required",
     "mobileStatus": "Dedicated narrow viewport preview blocked by cloud-browser client/security policy; responsive CSS reviewed, no actual mobile-device visual pass claimed",
     "retailAvailabilityWarning": "Public EE status can differ from owner account data. HSG0570 source is informational/sold out; HSG1926 browser shows a preorder. Do not assert stocked availability or accept payment without a fresh supplier check.",
     "checkoutPayments": "Deferred by owner",
     "verification": {
-      "nativeWorkerChecks": 593,
+      "nativeWorkerChecks": 594,
       "sitemapPages": 102,
       "internalTargets": 213,
       "searchRegression": "passed",

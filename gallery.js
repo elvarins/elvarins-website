@@ -21,7 +21,12 @@
   close.className='gallery-lightbox-close';fullPrev.className='gallery-lightbox-prev';fullNext.className='gallery-lightbox-next';fullCount.className='gallery-lightbox-count';fullImage.referrerPolicy='no-referrer';
   lightbox.append(close,fullPrev,fullImage,fullNext,fullCount);document.body.append(lightbox);fullPrev.hidden=fullNext.hidden=images.length<2;
   thumbs.replaceChildren();thumbs.hidden=images.length<2;const buttons=[];
-  function select(i){index=(i+images.length)%images.length;image.src=fullImage.src=images[index];image.alt=fullImage.alt=product.title+' — photo '+(index+1);counter.textContent=(index+1)+' / '+images.length;fullCount.textContent='Photo '+(index+1)+' of '+images.length;buttons.forEach((b,j)=>b.setAttribute('aria-pressed',String(j===index)));if(status)status.textContent=fullCount.textContent;}
+  // Report the actual selected photo's state; never substitute another view.
+  delete image.dataset.fallback;
+  function ready(){trigger.dataset.imageState='ready';trigger.setAttribute('aria-busy','false');if(status)status.textContent=fullCount.textContent;}
+  function failed(){trigger.dataset.imageState='error';trigger.setAttribute('aria-busy','false');if(status)status.textContent='This photo could not load. Try another photo or contact our team.';}
+  image.addEventListener('load',ready);image.addEventListener('error',failed);
+  function select(i){index=(i+images.length)%images.length;trigger.dataset.imageState='loading';trigger.setAttribute('aria-busy','true');counter.textContent=(index+1)+' / '+images.length;fullCount.textContent='Photo '+(index+1)+' of '+images.length;if(status)status.textContent='Loading photo '+(index+1)+' of '+images.length+'…';image.src=fullImage.src=images[index];image.alt=fullImage.alt=product.title+' — photo '+(index+1);buttons.forEach((b,j)=>b.setAttribute('aria-pressed',String(j===index)));if(image.complete){if(image.naturalWidth>0)ready();else failed();}}
   images.forEach((src,i)=>{const b=makeButton('Show product photo '+(i+1),'');b.className='gallery-thumb';const t=document.createElement('img');t.src=src;t.alt='';t.width=t.height=72;t.loading='lazy';t.referrerPolicy='no-referrer';b.append(t);b.onclick=()=>select(i);buttons.push(b);thumbs.append(b);});
   prev.onclick=fullPrev.onclick=()=>select(index-1);next.onclick=fullNext.onclick=()=>select(index+1);
   trigger.onclick=()=>{select(index);lightbox.showModal();close.focus();};close.onclick=()=>lightbox.close();
@@ -29,7 +34,7 @@
   lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.close();});
   function swipe(el){let start=null;el.onpointerdown=e=>{start={x:e.clientX,y:e.clientY};};el.onpointerup=e=>{if(!start)return;const dx=e.clientX-start.x,dy=e.clientY-start.y;start=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){select(index+(dx<0?1:-1));el.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();},{once:true,capture:true});}};el.onpointercancel=()=>{start=null;};}
   swipe(trigger);swipe(fullImage);select(0);
-  cleanups.set(root,()=>{if(lightbox.open)lightbox.close();lightbox.remove();controls.remove();hint.remove();});
+  cleanups.set(root,()=>{image.removeEventListener('load',ready);image.removeEventListener('error',failed);if(lightbox.open)lightbox.close();lightbox.remove();controls.remove();hint.remove();});
  }
  window.ElvarinsGallery={mount};const data=document.getElementById('product-data'),root=document.querySelector('[data-product-gallery]');if(data&&root)mount(root,JSON.parse(data.textContent));
 })();
