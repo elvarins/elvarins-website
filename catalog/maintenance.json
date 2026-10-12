@@ -205,7 +205,17 @@
       "notificationTests": "local fixed-recipient, privacy, activation guard, deduplication and retry tests passed; no real message sent",
       "browser": "All 78 live galleries and all 296 selected photos loaded; exact catalog photo URL matching passed; Orion Pax detail page, size/age, inquiry SKU, fullscreen ArrowLeft/ArrowRight/Escape checked",
       "photoAudit": "catalog/photo-review-20261012.json",
-      "compatibility_flags": "nodejs_compat verified in live Worker settings"
-    }
+      "compatibility_flags": "nodejs_compat verified in live Worker settings",
+      "shippingTests": "local validation/subtotal/live-rate-filter tests passed; no carrier request or label purchased"
+    },
+    "shippingStatus": "Live browser quantity=2 produced $70.58 item subtotal for HSG1926. Carrier rates are not configured: Shippo live token, origin and verified packed-parcel profiles are missing. Inquiry fallback is working; no invented quote."
+  },
+  "publicBusinessDetails": {
+    "legalName": "Shahabaz Global Trading LLC",
+    "brand": "Elvarins",
+    "email": "sales@elvarins.com",
+    "address": "30 N Gould St STE R, Sheridan, WY 82801, United States",
+    "phoneDisplay": "Removed by owner; do not restore the previous invalid number",
+    "addressDisplay": "Keep address without a registered-business-address label; never describe it as a physical store or warehouse"
   }
 }

@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {shippingQuote} from '../shipping.mjs';
+const products=[{sku:'TEST-RETAIL-UNIT',price:35.29}],origin='https://elvarins.com';
+const request=(data={sku:products[0].sku,quantity:2,zip:'10001'})=>new Request(origin+'/api/shipping/quote',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(data)});
+let calls=0;
+const failTransport=()=>{calls++;throw new Error('No transport should run');};
+let r=await shippingQuote(request(),{},products,failTransport);assert.equal(r.status,503);assert.equal(calls,0);assert.equal((await r.json()).code,'SHIPPING_NOT_CONFIGURED');
+r=await shippingQuote(request({sku:products[0].sku,quantity:0,zip:'10001'}),{},products,failTransport);assert.equal(r.status,400);
+r=await shippingQuote(request({sku:products[0].sku,quantity:2,zip:'not-a-zip'}),{},products,failTransport);assert.equal(r.status,400);
+const env={SHIPPO_API_TOKEN:'shippo_live_LOCAL_TEST_ONLY',SHIPPO_ORIGIN_JSON:JSON.stringify({country:'US',street1:'Test address',city:'Test City',state:'NY',zip:'10001'}),SHIPPO_PARCEL_PROFILES_JSON:JSON.stringify({[products[0].sku]:{'2':{verified:true,parcel:{length:10,width:8,height:4,weight:1.2,distance_unit:'in',mass_unit:'lb'}}}})};
+r=await shippingQuote(request(),{...env,SHIPPO_PARCEL_PROFILES_JSON:JSON.stringify({[products[0].sku]:{'2':{verified:false}}})},products,failTransport);assert.equal(r.status,503);assert.equal((await r.json()).code,'PARCEL_NOT_CONFIGURED');assert.equal(calls,0);
+const transport=async(url,options)=>{assert.equal(url,'https://api.goshippo.com/shipments/');const body=JSON.parse(options.body);assert.equal(body.parcels[0].weight,'1.2');assert.equal(body.address_to.zip,'10001');return Response.json({test:false,rates:[{currency:'USD',amount:'9.50',provider:'Carrier',servicelevel:{name:'Ground'}},{currency:'USD',amount:'1.00',test:true,provider:'Fake test rate',servicelevel:{name:'Test'}},{currency:'EUR',amount:'4.00',provider:'Other currency',servicelevel:{name:'Ground'}}]});};
+r=await shippingQuote(request(),env,products,transport);assert.equal(r.status,200);const data=await r.json();assert.equal(data.itemSubtotal,70.58);assert.equal(data.rates.length,1);assert.equal(data.rates[0].amount,9.5);assert.equal(data.estimated,true);
+r=await shippingQuote(request(),env,products,async()=>Response.json({test:true,rates:[]}));assert.equal(r.status,503);assert.equal((await r.json()).code,'TEST_RATES_REJECTED');
+console.log('PASS: shipping configuration guard, ZIP/quantity validation, retail-unit subtotal, verified parcel requirement and rejection of test/non-USD rates; no carrier call or label purchase');
