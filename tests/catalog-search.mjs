@@ -19,6 +19,11 @@ const search=(text)=>{node('product-search').value=text;node('product-search').l
 assert.deepEqual(search('gundam wing'),['BLF2279763']);
 assert.deepEqual(search('GUNDAM    WING'),['BLF2279763']);
 assert.ok(search('spider man').includes('HSG3442'));
+assert.deepEqual(search('spiderman'),search('spider-man'));
+assert.ok(search('SPIDERMAN mask').includes('HSG3442'));
+assert.deepEqual(search('fisherprice'),['FPJRM87']);
+assert.deepEqual(search('fisher-price'),['FPJRM87']);
+assert.deepEqual(search('manhasbro'),[]);
 assert.deepEqual(search('BLF-2279763'),['BLF2279763']);
 assert.deepEqual(search('gundam Bandai'),['BLF2279763']);
 assert.deepEqual(search('not-a-real-character'),[]);

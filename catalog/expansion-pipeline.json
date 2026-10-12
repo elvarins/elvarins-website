@@ -1,5 +1,5 @@
 {
-  "updatedOn": "2026-10-11",
+  "updatedOn": "2026-10-12",
   "sourceCatalog": {
     "name": "Sku List - Hot Off The Truck.xlsx",
     "libraryId": "libfile_808d71f4ec008191a2076c8eb1026ae6"
@@ -8,7 +8,7 @@
   "accountBlocker": "EE browser session is signed out; cannot complete non-interactive account-specific fresh checks. Owner media permission remains recorded and valid.",
   "recommendedNextCategory": "Anime & Manga Figures",
   "recommendedNextBrand": "Banpresto",
-  "basis": "Five individual Banpresto spreadsheet candidates marked In Stock; Killua has a public exact-SKU five-photo gallery. Supplier-account stock/MAP and SKU-level demand remain unverified; Killua owner-rule price exceeds observed EE retail item price.",
+  "basis": "Banpresto Killua SAN71964 public exact-SKU retail page now shows In Stock and five source photos. Fresh owner-account cost/MAP/channel checks remain blocked by sign-in. Historical owner-rule price exceeds observed public retail item price; delivered-price and SKU sell-through evidence still required.",
   "priorityCategories": [
     {
       "category": "Anime & Manga Figures",
@@ -72,6 +72,11 @@
       "url": "https://www.gundamplanet.com/products/hguc-rx-93-2-hi-nu-gundam",
       "retrievedOn": "2026-10-11",
       "pattern": "Explicit assembly condition and painted-photo disclosure for model kits; do not assume these apply to every kit."
+    },
+    {
+      "url": "https://www.bigbadtoystore.com/Search?Character=3559",
+      "retrievedOn": "2026-10-12",
+      "pattern": "Character-specific browsing and search within results demonstrate practical character discovery. Elvarins improvement recognizes punctuation-linked names without copying retailer branding or claiming identical search behavior."
     }
   ],
   "candidates": [
@@ -98,12 +103,20 @@
       ],
       "publicResearch": {
         "url": "https://www.entertainmentearth.com/product/hunter-x-hunter-killua-hunting-archives-statue/san71964",
-        "retrievedOn": "2026-10-11",
+        "retrievedOn": "2026-10-12",
         "sourcePhotosReported": 5,
         "retailItemPriceUSD": 28.99,
-        "availability": "Public page reports estimated arrival; conflicts with supplied spreadsheet In Stock. Account verification mandatory.",
+        "availability": "Live public retail browser shows In Stock with Just 1 Left. This is retailer availability, not verified supplier-account or Elvarins stock.",
         "pricePremiumBeforeShippingUSD": 2.06,
-        "format": "Approximately 7.9-inch plastic display figure; shipping dimensions and weight still needed"
+        "format": "7.90-inch plastic display figure; manufacturer age 15+. Product packaging 4 × 6 × 8 inches and listed weight 0.70 lb; shipping carton and packed weight remain unverified.",
+        "economics": {
+          "historicalUnitCostUSD": 20.7,
+          "ownerRuleItemPriceUSD": 31.05,
+          "grossSpreadBeforeExpensesUSD": 10.35,
+          "itemPremiumBeforeShippingUSD": 2.06,
+          "maximumCombinedExpenseBeforeZeroContributionUSD": 10.35,
+          "assumptions": "Historical catalog cost only. No actual packing, inbound/outbound postage, payment-fee or return allowance data verified; no profit forecast. Retailer free-shipping threshold observed $79+, does not establish single-item delivery cost."
+        }
       }
     },
     {

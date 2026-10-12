@@ -10,7 +10,9 @@ const count=document.getElementById('result-count'), more=document.getElementByI
 const resetFilters=document.getElementById('reset-catalog-filters');
 // Match independent words, including punctuation-free character names and SKUs.
 function searchText(value){return value.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim();}
-const searchable=new Map(products.map(p=>[p.sku,searchText(p.title+' '+p.brand+' '+p.productType+' '+p.sku)]));
+// Keep spaces between words and fields; also recognize joined forms of
+// punctuation-linked names such as Spider-Man and Fisher-Price.
+const searchable=new Map(products.map(p=>{const text=p.title+' '+p.brand+' '+p.productType+' '+p.sku;return [p.sku,searchText(text)+' '+searchText(text.replace(/[-\u2010-\u2015.'\u2019]/g,''))];}));
 function update(reset=true){
  if(reset)limit=12;
  const terms=searchText(search.value).split(' ').filter(Boolean);
