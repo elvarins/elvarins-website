@@ -81,3 +81,6 @@ dialog{border:0;border-radius:16px;padding:0;width:min(960px,calc(100% - 32px));
 
 .department-requests{margin-top:24px;border:1px solid #e1e3df;border-radius:16px;padding:22px;background:#fff}.department-requests summary{cursor:pointer;font-weight:700;font-size:17px;min-height:30px}.department-requests>p{font-size:14px;line-height:1.8;color:#52617a}.department-requests .department-directory{margin-top:18px}.department-directory:not(.department-requests .department-directory){grid-template-columns:repeat(2,minmax(0,1fr))}.department-directory>.department{min-height:220px}
 @media(max-width:650px){.department-requests{padding:18px}.department-requests summary{font-size:15px}.department-requests .department-directory{grid-template-columns:1fr}.company-facts,.company-story-copy{min-width:0}.company-facts h2,.company-story-copy h2{overflow-wrap:anywhere}}
+
+/* Keep specification labels and values aligned when either wraps. */
+.detail-copy dl{display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,2fr);column-gap:16px;row-gap:9px;align-items:start}.detail-copy dt{float:none;width:auto;margin:0;line-height:1.65}.detail-copy dd{margin:0;min-width:0;line-height:1.65;overflow-wrap:anywhere}

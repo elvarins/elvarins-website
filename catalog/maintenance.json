@@ -190,7 +190,8 @@
       "Future categories preserved inside a clearly labeled collapsible product-request section",
       "Branded noindex 404 with working catalog and contact links",
       "Explicit Node compatibility configuration for account cryptography",
-      "Gallery loading/error feedback and no substitution of a different product view"
+      "Gallery loading/error feedback and no substitution of a different product view",
+      "Specification label/value rows remain aligned when text wraps"
     ],
     "notificationStatus": "Queue/retry/owner-alert module implemented and locally tested, activation disabled: current Cloudflare Email Sending endpoints return Unauthorized; sending-domain/destination verification and restricted binding still required",
     "mobileStatus": "Dedicated narrow viewport preview blocked by cloud-browser client/security policy; responsive CSS reviewed, no actual mobile-device visual pass claimed",
@@ -201,7 +202,10 @@
       "sitemapPages": 102,
       "internalTargets": 213,
       "searchRegression": "passed",
-      "notificationTests": "local fixed-recipient, privacy, activation guard, deduplication and retry tests passed; no real message sent"
+      "notificationTests": "local fixed-recipient, privacy, activation guard, deduplication and retry tests passed; no real message sent",
+      "browser": "All 78 live galleries and all 296 selected photos loaded; exact catalog photo URL matching passed; Orion Pax detail page, size/age, inquiry SKU, fullscreen ArrowLeft/ArrowRight/Escape checked",
+      "photoAudit": "catalog/photo-review-20261012.json",
+      "compatibility_flags": "nodejs_compat verified in live Worker settings"
     }
   }
 }
