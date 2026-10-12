@@ -116,7 +116,15 @@
           "itemPremiumBeforeShippingUSD": 2.06,
           "maximumCombinedExpenseBeforeZeroContributionUSD": 10.35,
           "assumptions": "Historical catalog cost only. No actual packing, inbound/outbound postage, payment-fee or return allowance data verified; no profit forecast. Retailer free-shipping threshold observed $79+, does not establish single-item delivery cost."
-        }
+        },
+        "sourceImageReferences": [
+          "https://media.entertainmentearth.com/assets/images/ca8724b6b6574149870e68b3f2dd8cb5lg.jpg",
+          "https://media.entertainmentearth.com/assets/images/226a0e9161aa4e17be6809be7f782a2blg.jpg",
+          "https://media.entertainmentearth.com/assets/images/c088a2c920b44aa0a908a23aa85ffc78lg.jpg",
+          "https://media.entertainmentearth.com/assets/images/341769875a2a4115968ca2c3329ca7e4lg.jpg",
+          "https://media.entertainmentearth.com/assets/images/5b854e50248d4918a9495e1ee6f7a30clg.jpg"
+        ],
+        "imageReferenceVerification": "Exact SAN71964 source gallery URLs read from the live product gallery; five different views visible in source thumbnails. Full-size load and final publication eligibility remain required before listing."
       }
     },
     {
