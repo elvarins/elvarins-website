@@ -108,13 +108,13 @@
   },
   "expansionPipeline": "catalog/expansion-pipeline.json",
   "latestMaintenance": {
-    "date": "2026-10-12",
+    "date": "2026-10-13",
     "newProductsAdded": 0,
     "newBrandsAdded": [],
     "gallerySkusImproved": [],
     "customerImprovements": [
-      "Joined forms of punctuation-linked product names and manufacturers now match: spiderman and fisherprice",
-      "Existing word-order, SKU, brand/type filters, pagination and reset behavior preserved"
+      "Product-page recommendations now rank same product type, manufacturer and collection before weaker matches",
+      "Recommendation ordering uses price proximity only as a tie-breaker and never includes the current SKU"
     ],
     "blocker": "EE exact supplier-product URL redirects to sign-in. Fresh owner-account cost, availability, own-site channel and MAP checks could not be completed non-interactively; no new listing or processed SKU added.",
     "newListingMinimumPhotos": 2,
@@ -122,26 +122,27 @@
     "multiPhotoProducts": 77,
     "singlePhotoSku": "GN52132",
     "verification": {
-      "customerChangeCommit": "7cafe8046ce8e00722789d0fc94ab7bf93d07e66",
-      "cloudflareContentBuild": "success, exact commit matched",
-      "nativeWorkerChecksPassed": 594,
+      "customerChangeCommit": "c4f963d2af41eb509c249c895c007b4b553e91f0",
+      "cloudflareContentBuild": "pending final metadata commit verification",
+      "nativeWorkerChecksPassed": 673,
       "sitemapPagesChecked": 102,
       "internalTargetsChecked": 213,
-      "searchRegressionTests": "passed, including joined character/manufacturer names and cross-field false-match exclusion",
-      "browser": "Live spiderman returned five products; SPIDERMAN mask returned one; Funko filter gave no matches; reset restored 78 and removed query parameters; fisherprice returned FPJRM87.",
+      "relatedProductTests": "passed across all 78 product pages; three-item maximum, unique SKUs, no self-recommendation and model-kit relevance ordering",
+      "browser": "Pending live visual verification after deployment",
       "mobile": "No dedicated mobile viewport available; no new mobile visual pass claimed",
-      "publicationStatus": "Live and verified",
-      "checkedOn": "2026-10-12"
+      "publicationStatus": "Content committed; final deployment verification pending",
+      "checkedOn": "2026-10-13"
     },
     "research": {
       "nextCategory": "Anime & Manga Figures",
       "nextBrand": "Banpresto",
-      "sku": "SAN71964",
+      "sku": "SAN74348",
       "publicRetailPriceUSD": 28.99,
       "historicalOwnerRulePriceUSD": 31.05,
       "publicRetailAvailability": "In Stock, Just 1 Left observed; not Elvarins or supplier-account stock",
-      "sourcePhotoCount": 5,
-      "economics": "10.35 USD gross spread before expenses; actual delivered-price competitiveness, packing, payment fees, returns and SKU demand unverified",
+      "sourcePhotoCount": 6,
+      "economics": "10.35 USD gross spread before expenses and 2.06 USD above observed public item price; 11.4-inch height, 1.30 lb listed item weight, packing, shipping, payment fees, returns and SKU demand remain unevaluated",
+      "recommendation": "Keep Banpresto in the pipeline but do not prioritize this larger statue until fresh supplier terms and delivered economics are verified; favor compact qualifying model kits or figures when available.",
       "details": "catalog/expansion-pipeline.json"
     },
     "remainingOperationalBlockers": [
