@@ -1,5 +1,5 @@
 {
-  "updatedOn": "2026-10-12",
+  "updatedOn": "2026-10-13",
   "sourceCatalog": {
     "name": "Sku List - Hot Off The Truck.xlsx",
     "libraryId": "libfile_808d71f4ec008191a2076c8eb1026ae6"
@@ -8,7 +8,7 @@
   "accountBlocker": "EE browser session is signed out; cannot complete non-interactive account-specific fresh checks. Owner media permission remains recorded and valid.",
   "recommendedNextCategory": "Anime & Manga Figures",
   "recommendedNextBrand": "Banpresto",
-  "basis": "Banpresto Killua SAN71964 public exact-SKU retail page now shows In Stock and five source photos. Fresh owner-account cost/MAP/channel checks remain blocked by sign-in. Historical owner-rule price exceeds observed public retail item price; delivered-price and SKU sell-through evidence still required.",
+  "basis": "Banpresto remains the next Anime & Manga Figures brand to evaluate. Madara Uchiha SAN74348 now has six distinct exact-product source views and a current public retail listing, but its 11.4-inch size, 1.30 lb listed item weight and price premium make it less attractive than compact alternatives. Fresh owner-account cost/MAP/channel checks remain blocked by sign-in.",
   "priorityCategories": [
     {
       "category": "Anime & Manga Figures",
@@ -169,7 +169,34 @@
         "Fresh account availability, unit cost, U.S. shipping, permitted own-site channel and MAP",
         "At least two distinct exact-SKU EE photos",
         "Package weight/dimensions, packing cost, actual carrier quote, payment fees and return allowance"
-      ]
+      ],
+      "publicResearch": {
+        "url": "https://www.entertainmentearth.com/product/naruto-shippuden-madara-uchiha-statue/san74348",
+        "retrievedOn": "2026-10-13",
+        "sourcePhotosReported": 6,
+        "sourceImageReferences": [
+          "https://media.entertainmentearth.com/assets/images/67932fbcb08e43a0a16624320505f724lg.jpg",
+          "https://media.entertainmentearth.com/assets/images/f29d3b92607743e39c444b8684879271lg.jpg",
+          "https://media.entertainmentearth.com/assets/images/5e572cd35b8a446bb6d0363a3de18d9elg.jpg",
+          "https://media.entertainmentearth.com/assets/images/fa4e5789479047068f5b442f11699254lg.jpg",
+          "https://media.entertainmentearth.com/assets/images/27a80c99f08949a4b7aae407bee0c876lg.jpg",
+          "https://media.entertainmentearth.com/assets/images/e2764b45a6b8485985ec12803a548222lg.jpg"
+        ],
+        "retailItemPriceUSD": 28.99,
+        "availability": "Public retail page reports In Stock and Just 1 Left. This does not verify supplier-account or Elvarins inventory.",
+        "itemHeightInches": 11.4,
+        "packagingInches": [5.5, 5.5, 10],
+        "listedItemWeightLb": 1.3,
+        "manufacturerAge": "15+",
+        "gtin13": "4573102743480",
+        "economics": {
+          "historicalUnitCostUSD": 20.7,
+          "ownerRuleItemPriceUSD": 31.05,
+          "grossSpreadBeforeExpensesUSD": 10.35,
+          "itemPremiumBeforeShippingUSD": 2.06,
+          "assessment": "Do not prioritize until packed shipping, payment fees, return allowance and fresh supplier terms are verified. The owner-rule price already exceeds the current public item price before shipping."
+        }
+      }
     },
     {
       "sku": "BLFBAS67543",
