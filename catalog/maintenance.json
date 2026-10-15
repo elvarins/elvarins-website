@@ -108,13 +108,13 @@
   },
   "expansionPipeline": "catalog/expansion-pipeline.json",
   "latestMaintenance": {
-    "date": "2026-10-13",
+    "date": "2026-10-15",
     "newProductsAdded": 0,
     "newBrandsAdded": [],
     "gallerySkusImproved": [],
     "customerImprovements": [
-      "Product-page recommendations now rank same product type, manufacturer and collection before weaker matches",
-      "Recommendation ordering uses price proximity only as a tie-breaker and never includes the current SKU"
+      "Product-page skip links now use the accurate label Skip to product details while retaining the product-main destination",
+      "Regression coverage verifies the accessible skip-link label and target across all 78 product pages"
     ],
     "blocker": "EE exact supplier-product URL redirects to sign-in. Fresh owner-account cost, availability, own-site channel and MAP checks could not be completed non-interactively; no new listing or processed SKU added.",
     "newListingMinimumPhotos": 2,
@@ -122,28 +122,28 @@
     "multiPhotoProducts": 77,
     "singlePhotoSku": "GN52132",
     "verification": {
-      "customerChangeCommit": "c4f963d2af41eb509c249c895c007b4b553e91f0",
+      "customerChangeCommit": "pending publication",
       "cloudflareContentBuild": "pending final metadata commit verification",
-      "nativeWorkerChecksPassed": 673,
+      "nativeWorkerChecksPassed": 751,
       "sitemapPagesChecked": 102,
       "internalTargetsChecked": 213,
       "relatedProductTests": "passed across all 78 product pages; three-item maximum, unique SKUs, no self-recommendation and model-kit relevance ordering",
-      "browser": "Pending live visual verification after deployment",
+      "accessibilityRegression": "accurate product skip-link label and #product-main target passed across all 78 product pages",
+      "browser": "Pending live verification after deployment",
       "mobile": "No dedicated mobile viewport available; no new mobile visual pass claimed",
       "publicationStatus": "Content committed; final deployment verification pending",
-      "checkedOn": "2026-10-13"
+      "checkedOn": "2026-10-15"
     },
     "research": {
       "nextCategory": "Anime & Manga Figures",
       "nextBrand": "Banpresto",
-      "sku": "SAN74348",
-      "publicRetailPriceUSD": 28.99,
-      "historicalOwnerRulePriceUSD": 31.05,
-      "publicRetailAvailability": "In Stock, Just 1 Left observed; not Elvarins or supplier-account stock",
-      "sourcePhotoCount": 6,
-      "economics": "10.35 USD gross spread before expenses and 2.06 USD above observed public item price; 11.4-inch height, 1.30 lb listed item weight, packing, shipping, payment fees, returns and SKU demand remain unevaluated",
-      "recommendation": "Keep Banpresto in the pipeline but do not prioritize this larger statue until fresh supplier terms and delivered economics are verified; favor compact qualifying model kits or figures when available.",
-      "details": "catalog/expansion-pipeline.json"
+      "existingGallerySkuReviewed": "GN52132",
+      "officialManufacturerPage": "https://geemerch.com/products/one-piece-chopper-plush-5h",
+      "exactManufacturerSku": "52132",
+      "exactAdditionalStillPhotosLocated": 3,
+      "manufacturerAvailabilityObserved": "Sold out on 2026-10-15; this does not establish EE or Elvarins availability",
+      "galleryDecision": "Do not publish manufacturer-hosted images until their commercial website-use permission is established; keep the existing EE image live",
+      "recommendation": "Keep Banpresto as the next expansion brand, but favor compact qualifying figures with fresh signed-in EE economics and at least two permission-covered exact photos."
     },
     "remainingOperationalBlockers": [
       "Fresh EE secure sign-in for account-specific checks",
