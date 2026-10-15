@@ -122,16 +122,16 @@
     "multiPhotoProducts": 77,
     "singlePhotoSku": "GN52132",
     "verification": {
-      "customerChangeCommit": "pending publication",
-      "cloudflareContentBuild": "pending final metadata commit verification",
+      "customerChangeCommit": "ee6d58cd3cfb567e019b7cf347db5840f7939c92",
+      "cloudflareContentBuild": "c7b44e30-faca-4dbb-a313-2b7741e4c875; success on exact customer-change commit",
       "nativeWorkerChecksPassed": 751,
       "sitemapPagesChecked": 102,
       "internalTargetsChecked": 213,
       "relatedProductTests": "passed across all 78 product pages; three-item maximum, unique SKUs, no self-recommendation and model-kit relevance ordering",
       "accessibilityRegression": "accurate product skip-link label and #product-main target passed across all 78 product pages",
-      "browser": "Pending live verification after deployment",
+      "browser": "Live GN52132 page verified with accessible Skip to product details label and #product-main destination",
       "mobile": "No dedicated mobile viewport available; no new mobile visual pass claimed",
-      "publicationStatus": "Content committed; final deployment verification pending",
+      "publicationStatus": "Customer-facing change live and verified; this maintenance metadata commit requires exact-build verification",
       "checkedOn": "2026-10-15"
     },
     "research": {
