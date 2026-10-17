@@ -241,5 +241,32 @@
     "address": "30 N Gould St STE R, Sheridan, WY 82801, United States",
     "phoneDisplay": "Removed by owner; do not restore the previous invalid number",
     "addressDisplay": "Keep address without a registered-business-address label; never describe it as a physical store or warehouse"
+  },
+  "latestInteractiveReadiness": {
+    "date": "2026-10-17",
+    "changes": [
+      "Email draft fallback preserves customer inquiry text and exact item number",
+      "Saved request reference included in email follow-up",
+      "Failed request preserves entered details and provides email fallback",
+      "Explicit inquiry-not-order confirmation",
+      "Versioned retail script across homepage, product and information pages"
+    ],
+    "verification": {
+      "workerChecks": 751,
+      "sitemapPages": 102,
+      "internalTargets": 213,
+      "testCompatibilityDate": "2026-08-06",
+      "productionCompatibilityDate": "2026-10-06",
+      "limitation": "Local installed workerd does not support the production date; exact deployment and live UI verification required",
+      "inquiryUI": "Passed encoding, no automatic send, success reference, stale-reference clearing and failure recovery"
+    },
+    "newProducts": 0,
+    "remaining": [
+      "Automatic inquiry email delivery not configured",
+      "Live shipping provider credentials and parcel profiles missing",
+      "EE renewed account access required for new products"
+    ],
+    "checkoutPayments": "Deferred by owner",
+    "automations": "Remain paused"
   }
 }

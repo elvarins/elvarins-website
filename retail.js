@@ -28,10 +28,35 @@
  async function saveFavorite(sku,saved){await api('/api/account/favorite',{sku,saved});saved?favorites.add(sku):favorites.delete(sku);favoriteStates();toast(saved?'Added to your saved collection.':'Removed from your saved collection.');}
  $$('.product-card').forEach(card=>{const p=allProducts.find(p=>p.sku===card.dataset.sku);if(!p)return;const b=document.createElement('button');b.className='favorite-button';b.type='button';b.dataset.favorite=p.sku;b.dataset.title=p.title;b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Save product: '+p.title);b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>';card.append(b);});
  document.addEventListener('click',async e=>{const b=e.target.closest('[data-favorite]');if(!b)return;if(!user){pendingSave=b.dataset.favorite;await openAccount('signup');return;}b.disabled=true;try{await saveFavorite(b.dataset.favorite,!favorites.has(b.dataset.favorite));}catch(error){toast(error.message);}finally{b.disabled=false;}});
- function openQuestion(topic='product',sku='',message=''){modal(question);$('#question-topic').value=topic;$('#question-sku').value=sku;$('#question-message').value=message;$('#question-status').textContent='';if(user){$('#question-form [name="name"]').value=user.name;$('#question-form [name="email"]').value=user.email;}}
+ function openQuestion(topic='product',sku='',message=''){modal(question);$('#question-topic').value=topic;$('#question-sku').value=sku;$('#question-message').value=message;$('#question-status').textContent='';if(user){$('#question-form [name="name"]').value=user.name;$('#question-form [name="email"]').value=user.email;}$('#question-form').dispatchEvent(new Event('inquiry-prefill'));}
  $$('[data-question-topic]').forEach(b=>b.addEventListener('click',()=>openQuestion(b.dataset.questionTopic)));
  $$('[data-product-question]').forEach(b=>b.addEventListener('click',()=>{const sku=$('#detail-sku')?.textContent||allProducts[0]?.sku||'',qty=$('#shipping-qty')?.value||'1',zip=$('#shipping-zip')?.value||'';openQuestion('shipping',sku,'Please confirm availability, shipping and any applicable taxes before purchase.\nQuantity: '+qty+(zip?'\nDelivery ZIP: '+zip:''));}));
- $('#question-form').addEventListener('submit',async e=>{e.preventDefault();if(!e.target.reportValidity())return;const b=e.target.querySelector('[type="submit"]'),status=$('#question-status');b.disabled=true;status.textContent='Sending your request…';try{const data=await api('/api/inquiries',Object.fromEntries(new FormData(e.target)));status.textContent=data.message+' Reference: '+data.reference;e.target.reset();}catch(error){status.textContent=error.message;}finally{b.disabled=false;}});
+
+ function inquiryForm(form,status,fields){
+  if(!form)return;
+  const email=document.createElement('a');email.className='text-button';email.textContent='Open this request in your email app →';
+  const note=document.createElement('p');note.className='form-note';note.textContent='Prefer email? Review and send the draft in your email app. Opening a draft does not submit this form.';
+  const actions=document.createElement('div');actions.append(email,note);form.append(actions);
+  let reference='';
+  function draft(v){
+   const subject=reference?'Elvarins request '+reference:'Elvarins '+(v.topic||'product')+' inquiry'+(v.sku?' — '+v.sku:'');
+   const body=(reference?'Request reference: '+reference+'\n\n':'')+(v.name?'Name: '+v.name+'\n':'')+(v.sku?'Item number: '+v.sku+'\n':'')+'Topic: '+(v.topic||'product')+'\n\n'+(v.message||'');
+   email.href='mailto:sales@elvarins.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  }
+  function update(){reference='';draft(fields());email.textContent='Open this request in your email app →';}
+  form.addEventListener('input',update);form.addEventListener('change',update);form.addEventListener('inquiry-prefill',update);update();
+  form.addEventListener('submit',async e=>{
+   e.preventDefault();if(!form.reportValidity())return;
+   const button=form.querySelector('[type="submit"]'),values=fields();button.disabled=true;status.textContent='Sending your request…';
+   try{
+    const data=await api('/api/inquiries',values);reference=data.reference;
+    status.textContent=data.message+' Reference: '+reference+' This is an inquiry, not an order confirmation.';
+    draft(values);email.textContent='Email our team with this request reference →';form.reset();
+   }catch(error){status.textContent='We could not confirm your request was saved. Your details are still here. Please use the email draft below or try again.';draft(values);}
+   finally{button.disabled=false;}
+  });
+ }
+ inquiryForm($('#question-form'),$('#question-status'),()=>Object.fromEntries(new FormData($('#question-form'))));
  const gpc=navigator.globalPrivacyControl===true;
  function openPrivacy(){modal(privacy);$('#privacy-optout').checked=gpc||read('elvarins-privacy-optout')!=='false';$('#privacy-optout').disabled=gpc;$('#gpc-status').textContent=gpc?'Global Privacy Control is detected. Your opt-out is enabled.':'No Global Privacy Control signal was detected. You can save your choice below.';$('#privacy-status').textContent='';}
  if(gpc)write('elvarins-privacy-optout','true');$$('[data-open-privacy]').forEach(b=>b.addEventListener('click',openPrivacy));
@@ -44,13 +69,14 @@
  discovery.addEventListener('close',()=>write('elvarins-discovery-dismissed',String(Date.now())));
  setTimeout(()=>{const dismissed=Number(read('elvarins-discovery-dismissed')||0);if(!user&&scrolled&&Date.now()-dismissed>7*86400000&&!$('dialog[open]')&&document.visibilityState==='visible'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))modal(discovery);},45000);
 
- $$('[data-department-request]').forEach(b=>b.addEventListener('click',()=>{modal(question);$('#question-topic').value='general';$('#question-sku').value='';$('#question-message').value='Department: '+b.dataset.departmentRequest+'\nI am looking for: ';$('#question-status').textContent='';}));
+ $$('[data-department-request]').forEach(b=>b.addEventListener('click',()=>{modal(question);$('#question-topic').value='general';$('#question-sku').value='';$('#question-message').value='Department: '+b.dataset.departmentRequest+'\nI am looking for: ';$('#question-status').textContent='';$('#question-form').dispatchEvent(new Event('inquiry-prefill'));}));
  const heroCopy={transformers:['Find your next<br><em>Transformers favorite.</em>','Explore character figures for your collection, with clear item details and individual retail prices.'],marvel:['Bring your heroes<br><em>into focus.</em>','Discover Marvel figures and character collectibles, ready to explore one item at a time.'],funko:['Small figures.<br><em>Big personalities.</em>','Find a character for your shelf with our selection of Funko Pop! vinyl figures.']};
  $$('[data-hero-collection]').forEach(b=>b.addEventListener('click',()=>{const slug=b.dataset.heroCollection,p=allProducts.find(x=>x.collection===slug);if(!p)return;$('.hero-copy h1').innerHTML=heroCopy[slug][0];$('.hero-copy>p').textContent=heroCopy[slug][1];const cta=$('.hero-actions a');cta.href='/collections/'+slug;cta.textContent='Explore the collection →';const img=$('.hero-feature img');img.src=p.image;img.alt=p.title;delete img.dataset.fallback;const link=$('.hero-feature a');link.href=p.url;link.textContent='Explore this character ↗';$$('[data-hero-collection]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));}));
 
  async function newsletterSubmit(form,status,action){const b=form.querySelector('button[type=submit]');b.disabled=true;status.textContent='Saving your preference…';try{const data=await api('/api/newsletter',{email:form.elements.email.value,action,consent:form.elements.consent?.checked===true,website:form.elements.website?.value||''});status.textContent=data.message;form.reset();}catch(error){status.textContent=error.message;}finally{b.disabled=false;}}
  $('#newsletter-form')?.addEventListener('submit',e=>{e.preventDefault();newsletterSubmit(e.target,$('#newsletter-status'),'subscribe');});
  $('#newsletter-unsubscribe')?.addEventListener('submit',e=>{e.preventDefault();newsletterSubmit(e.target,$('#unsubscribe-status'),'unsubscribe');});
- $('#order-help-form')?.addEventListener('submit',async e=>{e.preventDefault();const f=e.target,b=f.querySelector('button[type=submit]'),status=$('#order-help-status');b.disabled=true;status.textContent='Sending your request…';try{const v=Object.fromEntries(new FormData(f)),data=await api('/api/inquiries',{name:v.name,email:v.email,website:v.website||'',topic:'shipping',sku:'',message:'Order update request. Purchase reference: '+v.orderReference+'\n'+v.message});status.textContent=data.message+' Request reference: '+data.reference;f.reset();}catch(error){status.textContent=error.message;}finally{b.disabled=false;}});
+
+ inquiryForm($('#order-help-form'),$('#order-help-status'),()=>{const v=Object.fromEntries(new FormData($('#order-help-form')));return {name:v.name,email:v.email,website:v.website||'',topic:'shipping',sku:'',message:'Order update request. Purchase reference: '+v.orderReference+'\n'+v.message};});
  refresh().catch(()=>{});
 })();
