@@ -302,5 +302,20 @@
     ],
     "checkoutPayments": "Deferred by owner",
     "automations": "Remain paused"
+  },
+  "latestMobileReview": {
+    "date": "2026-10-19",
+    "method": "Cloudflare Browser Rendering, mobile Chromium viewport with isMobile and hasTouch enabled",
+    "physicalDeviceTest": false,
+    "initialFindings": [
+      "Catalog anchor heading was partially covered by sticky header at 360px",
+      "Menu wrapped onto a separate line at 320px"
+    ],
+    "fixes": [
+      "Dynamic sticky-header scroll offset via ResizeObserver",
+      "Compact navigation below 380px",
+      "44px minimum mobile account/menu control height"
+    ],
+    "verification": "Native mobile screenshots and post-deployment checks reported in the owner conversation; no physical iOS/Android-device claim"
   }
 }

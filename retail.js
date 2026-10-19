@@ -1,6 +1,8 @@
 (()=>{'use strict';
  const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
  const read=k=>{try{return localStorage.getItem(k);}catch{return null;}},write=(k,v)=>{try{localStorage.setItem(k,v);}catch{}};
+ const stickyHeader=$('header');
+ if(stickyHeader){const updateHeaderOffset=()=>document.documentElement.style.setProperty('--header-offset',Math.ceil(stickyHeader.getBoundingClientRect().height+16)+'px');updateHeaderOffset();if('ResizeObserver' in window)new ResizeObserver(updateHeaderOffset).observe(stickyHeader);}
  const account=$('#account-dialog'),question=$('#question-dialog'),privacy=$('#privacy-dialog'),discovery=$('#discovery-dialog');
  let user=null,favorites=new Set(),authMode='login',allProducts=[],pendingSave=null,toastTimer;
  for(const id of ['catalog-data','product-data']){const el=document.getElementById(id);if(el){try{const data=JSON.parse(el.textContent);allProducts=Array.isArray(data)?data:[data];}catch{}}}
