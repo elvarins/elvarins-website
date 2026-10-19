@@ -268,5 +268,39 @@
     ],
     "checkoutPayments": "Deferred by owner",
     "automations": "Remain paused"
+  },
+  "latestSupplierReadiness": {
+    "date": "2026-10-19",
+    "auditFile": "catalog/readiness-review-20261019.json",
+    "changes": [
+      "Seven product descriptions enriched with verified contents, size and age where sourced",
+      "Supplier item numbers no longer asserted as manufacturer part numbers",
+      "Two valid 13-digit identifiers moved from gtin12 to gtin13",
+      "Selling unit separated from verified package contents",
+      "Empty similar-products section omitted",
+      "Collection counts synchronized"
+    ],
+    "catalogProducts": 78,
+    "livePhotosVerified": 296,
+    "multiPhotoProducts": 77,
+    "singlePhotoSku": "GN52132",
+    "verification": {
+      "workerChecks": 754,
+      "sitemapPages": 102,
+      "internalTargets": 213,
+      "catalogIntegrity": "78 unique synchronized products; 19 checksum-valid GTINs",
+      "testCompatibilityDate": "2026-08-06",
+      "productionCompatibilityDate": "2026-10-06",
+      "browser": "78 live galleries and 296 selected images loaded; exact photo URLs matched existing catalog",
+      "mobile": "No dedicated mobile viewport available; no mobile-device pass claimed"
+    },
+    "newProductsAdded": 0,
+    "remainingOperationalBlockers": [
+      "Cloudflare Email Sending access returns Unauthorized",
+      "Shipping token, origin and packed parcel profiles missing",
+      "Fresh EE secure account access for stock/cost/MAP/channel checks"
+    ],
+    "checkoutPayments": "Deferred by owner",
+    "automations": "Remain paused"
   }
 }

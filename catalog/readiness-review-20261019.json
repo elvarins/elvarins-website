@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-19",
+  "baseCommit": "a81f5d8201048d98f2b32cb382c21f0847629876",
+  "scope": "Supplier-facing and customer-facing readiness; checkout/payment excluded",
+  "catalog": {
+    "products": 78,
+    "brands": 14,
+    "multiPhotoProducts": 77,
+    "singlePhotoSku": "GN52132",
+    "barcodesChecked": 19,
+    "correctedGtinFields": [
+      "BLF2279763",
+      "BLFNAN23466"
+    ],
+    "supplierSkuRemovedAsManufacturerPartNumber": true,
+    "verifiedManufacturerNumbers": {
+      "FPJRM87": "JRM87",
+      "BLF2279763": "2279763"
+    },
+    "productsEnriched": [
+      "MT30188",
+      "FPJRM87",
+      "BLF2279763",
+      "JK433524",
+      "BLFNAN23466",
+      "MF17893",
+      "SUP82481"
+    ]
+  },
+  "liveGalleryAudit": {
+    "products": 78,
+    "photos": 296,
+    "allLoaded": true,
+    "allSelectedUrlsMatchCatalog": true,
+    "nylabone": "Initial slow loading resolved; all four images loaded at 1000 pixels; no broken image confirmed",
+    "permission": "Existing approved photos preserved; no new outside-source images"
+  },
+  "sources": {
+    "MT30188": "https://www.entertainmentearth.com/product/magic-8ball/mt30188",
+    "FPJRM87": "https://creations.mattel.com/products/little-people-collector-kpop-demon-hunters-huntrx-figure-set-jrm87",
+    "BLF2279763": [
+      "https://manual.bandai-hobby.net/menus/detail/1073",
+      "https://www.entertainmentearth.com/product/BLF2279763"
+    ],
+    "JK433524": "https://www.entertainmentearth.com/product/the-simpsons-homer-the-chosen-one-5inch-figure/jk433524",
+    "BLFNAN23466": "https://www.entertainmentearth.com/product/jojos-noriaki-kakyoin-hierophant-green-nanoblock/blfnan23466",
+    "MF17893": "https://www.entertainmentearth.com/product/dc-direct-page-punchers-wave-14-batman-1-7inch-scale-action-figure-with-comic/mf17893",
+    "SUP82481": "https://super7.com/products/back-to-the-future-reaction-wave-02-dr-emmett-brown-2015"
+  },
+  "limitations": [
+    "Local workerd tests use 2026-08-06; production remains 2026-10-06",
+    "No dedicated mobile viewport was available",
+    "No claim of supplier approval or live account inventory"
+  ],
+  "operationalBlockers": [
+    "Cloudflare Email Sending access returns Unauthorized; no notification activation or DNS change",
+    "Live shipping needs provider token, verified origin and parcel profiles",
+    "Fresh EE account-specific cost, stock, MAP and channel checks required before new listings",
+    "GN52132 has one permission-covered EE photo; manufacturer images not published without verified permission"
+  ],
+  "newProductsAdded": 0,
+  "checkoutPayments": "Deferred by owner",
+  "automations": "Remain paused",
+  "tests": {
+    "workerChecks": 754,
+    "sitemapPages": 102,
+    "internalTargets": 213,
+    "catalogIntegrity": "passed",
+    "search": "passed",
+    "inquiryUI": "passed",
+    "shippingValidation": "passed",
+    "testCompatibilityDate": "2026-08-06"
+  }
+}

@@ -226,7 +226,7 @@
       "brand": "Hasbro",
       "productType": "Masks",
       "sellingUnit": "One retail item",
-      "price": 12.0,
+      "price": 12,
       "image": "https://media.entertainmentearth.com/assets/images/511fefd83b0e4ccaa968a5c2cf4f3d48lg.jpg",
       "thumbnail": "https://media.entertainmentearth.com/assets/images/511fefd83b0e4ccaa968a5c2cf4f3d48sm.jpg",
       "slug": "spider-man-brand-new-day-role-play-costume-mask-hsg3442",
@@ -1506,7 +1506,7 @@
     {
       "sku": "MT30188",
       "title": "Magic 8-Ball — Classic Mattel Fortune-Telling Toy",
-      "description": "Bring a familiar conversation starter to your game shelf. Mattel’s Magic 8-Ball is a playful novelty for lighthearted questions and shared moments. This listing is for one original retail packaged item; confirm the exact release and purchase details with our team.",
+      "description": "Bring a classic question-and-answer novelty to game night. Turn Mattel’s approximately 4-inch Magic 8-Ball over to reveal a response in its viewing window. A lighthearted conversation starter for ages 6 and up, supplied as one original retail package.",
       "brand": "Mattel",
       "productType": "Games",
       "sellingUnit": "One retail item",
@@ -1523,12 +1523,14 @@
         "https://media.entertainmentearth.com/assets/images/34cff5aa56a34e8286f2f80c10498c6dlg.jpg"
       ],
       "gtin12": "085633070996",
-      "manufacturerSku": "MT30188"
+      "size": "Approximately 4 inches in diameter",
+      "age": "6 years and up",
+      "contents": "1 Magic 8-Ball novelty toy"
     },
     {
       "sku": "FPJRM87",
       "title": "HUNTR/X — KPop Demon Hunters Little People Collector Set",
-      "description": "Celebrate the HUNTR/X characters in Fisher-Price’s Little People Collector format. This KPop Demon Hunters release offers a character-led addition to a display collection. The price covers one original packaged collector set, with the named contents confirmed before purchase.",
+      "description": "Display HUNTR/X in their Golden performance looks with this Fisher-Price Little People Collector set. Rumi, Mira and Zoey each stand over 2.5 inches tall and arrive together in a concert-inspired window box. This listing covers the complete three-character retail set for ages 8 and up.",
       "brand": "Fisher-Price",
       "productType": "Mini-Figures",
       "sellingUnit": "One retail item",
@@ -1545,12 +1547,15 @@
         "https://media.entertainmentearth.com/assets/images/29314435a52e410890aa353f3f5826d9lg.jpg"
       ],
       "gtin12": "194735424405",
-      "manufacturerSku": "FPJRM87"
+      "manufacturerSku": "JRM87",
+      "size": "Each figure stands over 2.5 inches tall",
+      "age": "8 years and up",
+      "contents": "3 figures: Rumi, Mira and Zoey; window display box"
     },
     {
       "sku": "BLF2279763",
       "title": "Wing Gundam Zero — Endless Waltz RG 1:144 Model Kit",
-      "description": "Build a Gundam display around Wing Gundam Zero from Endless Waltz. This Bandai Hobby Gunpla release is a Real Grade model kit at 1:144 scale. It is supplied as a kit for assembly; ask our team about package contents and any separately required tools before purchase.",
+      "description": "Build the feather-winged Wing Gundam Zero from Endless Waltz in Bandai’s Real Grade format. This 1:144-scale assembly kit creates an approximately 5-inch model and includes the Twin Buster Rifle and beam sabers. Designed for builders ages 15 and up; assembly is required.",
       "brand": "Bandai Hobby Gunpla",
       "productType": "Model Kits",
       "sellingUnit": "One retail item",
@@ -1566,13 +1571,16 @@
         "https://media.entertainmentearth.com/assets/images/e83bb9284a9a4af6b28d1b1a35c84119lg.jpg",
         "https://media.entertainmentearth.com/assets/images/6e73023f43fe4850ae4809e03cba0747lg.jpg"
       ],
-      "gtin12": "4573102616029",
-      "manufacturerSku": "BLF2279763"
+      "gtin13": "4573102616029",
+      "manufacturerSku": "2279763",
+      "size": "Approximately 5 inches tall when assembled; 1:144 scale",
+      "age": "15 years and up",
+      "contents": "1 Wing Gundam Zero EW model kit with Twin Buster Rifle and beam sabers"
     },
     {
       "sku": "JK433524",
       "title": "Homer “The Chosen One” — The Simpsons 5-Inch Figure",
-      "description": "Add a memorable version of Homer to your Simpsons collection. Jakks Pacific presents The Chosen One in a 5-inch figure format, suited to a character-focused display. Review the original product photograph and confirm the exact retail package before completing your purchase.",
+      "description": "Recreate Homer’s Chosen One appearance with this approximately 5-inch Jakks Pacific figure. More than 16 points of articulation provide posing options, while a removable hat and stein complete the character’s look. Includes one figure and the listed accessories in its original retail package; ages 4 and up.",
       "brand": "Jakks Pacific",
       "productType": "Action Figures",
       "sellingUnit": "One retail item",
@@ -1589,7 +1597,9 @@
         "https://media.entertainmentearth.com/assets/images/022a1acb9ad7445c94e6e14ea7e9a545lg.jpg"
       ],
       "gtin12": "192995433526",
-      "manufacturerSku": "JK433524"
+      "size": "Approximately 5 inches tall",
+      "age": "4 years and up",
+      "contents": "1 Homer figure, removable hat and stein"
     },
     {
       "sku": "JD97186",
@@ -1610,8 +1620,7 @@
         "https://media.entertainmentearth.com/assets/images/68d88eae284d4d189455a8aa2ac5caedlg.jpg",
         "https://media.entertainmentearth.com/assets/images/bcee8078ff4c47bfb3dd9574fad56865lg.jpg"
       ],
-      "gtin12": "801310971864",
-      "manufacturerSku": "JD97186"
+      "gtin12": "801310971864"
     },
     {
       "sku": "GN52132",
@@ -1629,13 +1638,12 @@
       "images": [
         "https://media.entertainmentearth.com/assets/images/165e57973e7244aeb4ca8c986ed43b79lg.jpg"
       ],
-      "gtin12": "699858521326",
-      "manufacturerSku": "GN52132"
+      "gtin12": "699858521326"
     },
     {
       "sku": "SUP82481",
       "title": "Doc Brown 2015 — Back to the Future ReAction+ Figure",
-      "description": "Expand your Back to the Future display with the 2015 version of Doc Brown in Super7’s ReAction+ range. This listing is for the individual character release named here. Use the item number to confirm the exact packaging and any included accessories with our team.",
+      "description": "Bring Doc Brown’s 2015 appearance from Back to the Future Part II to your display. Super7’s ReAction+ figure uses a 4-inch scale with 12 points of articulation and includes a full-color newspaper accessory. This listing is for the individual Doc Brown figure in its original retail package.",
       "brand": "Super7",
       "productType": "Action Figures",
       "sellingUnit": "One retail item",
@@ -1652,16 +1660,17 @@
         "https://media.entertainmentearth.com/assets/images/da4b460fd2904547bfef6c687007f10alg.jpg"
       ],
       "gtin12": "840418824818",
-      "manufacturerSku": "SUP82481"
+      "size": "4-inch scale (manufacturer specification)",
+      "contents": "1 Doc Brown (2015) figure and newspaper accessory"
     },
     {
       "sku": "BLFNAN23466",
       "title": "Kakyoin & Hierophant Green — JoJo’s Bizarre Adventure Nanoblock Kit",
-      "description": "Create a character display featuring Noriaki Kakyoin and Hierophant Green from JoJo’s Bizarre Adventure. This Nanoblock release is a construction kit rather than a finished figure. Confirm the contents and the manufacturer’s age guidance before purchase; tools or display accessories are not assumed to be included.",
+      "description": "Build Noriaki Kakyoin and Hierophant Green in Nanoblock’s compact character format. This 440-piece JoJo’s Bizarre Adventure construction set makes an approximately 3-inch display and carries a manufacturer difficulty rating of 3. Assembly is required; recommended for ages 12 and up.",
       "brand": "Nanoblock",
       "productType": "Construction Toys",
       "sellingUnit": "One retail item",
-      "price": 27.0,
+      "price": 27,
       "thumbnail": "https://media.entertainmentearth.com/assets/images/abef510b4c2542fd924982684a1e8229sm.jpg",
       "image": "https://media.entertainmentearth.com/assets/images/abef510b4c2542fd924982684a1e8229lg.jpg",
       "slug": "kakyoin-hierophant-green-jojo-s-bizarre-adventure-nanoblock-kit-blfnan23466",
@@ -1672,13 +1681,15 @@
         "https://media.entertainmentearth.com/assets/images/3e662c5d7e4b4253a13a8870da25e424lg.jpg",
         "https://media.entertainmentearth.com/assets/images/55b27a7daa7348eb9a4257f314fd6b0clg.jpg"
       ],
-      "gtin12": "4972825234662",
-      "manufacturerSku": "BLFNAN23466"
+      "gtin13": "4972825234662",
+      "size": "Approximately 3 inches tall when assembled",
+      "age": "12 years and up",
+      "contents": "1 construction set containing 440 pieces"
     },
     {
       "sku": "MF17893",
       "title": "Batman #1 — DC Direct Page Punchers 7-Inch Figure & Comic",
-      "description": "Pair a Batman figure with its comic in DC Direct’s Page Punchers release. The named 7-inch figure-and-comic package is sold as one original retail item. Ask our team about the exact edition and package condition before purchase, particularly if you collect sealed releases.",
+      "description": "Pair Batman’s comic-book appearance with a matching reading companion in this DC Direct Page Punchers release. The 7-inch-scale figure features up to 22 moving parts and comes with a batarang, four extra hands, a Batman #1 comic, collectible art card and display base. Sold as one complete retail package for ages 12 and up.",
       "brand": "DC Direct",
       "productType": "Action Figures",
       "sellingUnit": "One retail item",
@@ -1695,7 +1706,9 @@
         "https://media.entertainmentearth.com/assets/images/ee6e234779bf4fd79b0f9d4cae64072clg.jpg"
       ],
       "gtin12": "787926178937",
-      "manufacturerSku": "MF17893"
+      "size": "7-inch scale; approximately 7.09 inches tall",
+      "age": "12 years and up",
+      "contents": "1 Batman figure, batarang, 4 extra hands, Batman #1 comic, art card and display base"
     },
     {
       "sku": "KTGN090",
@@ -1716,8 +1729,7 @@
         "https://media.entertainmentearth.com/assets/images/c7d30c49b970404a8464df24ba90a990lg.jpg",
         "https://media.entertainmentearth.com/assets/images/d96510c0381643b7943d37bbb6bdda46lg.jpg"
       ],
-      "gtin12": "190526064959",
-      "manufacturerSku": "KTGN090"
+      "gtin12": "190526064959"
     }
   ],
   "collections": [
@@ -1743,12 +1755,13 @@
       "slug": "collectibles",
       "name": "More collectibles",
       "description": "Explore display pieces, replicas and character collectibles beyond our featured collections.",
-      "count": 2
+      "count": 12
     },
     {
       "slug": "pet-supplies",
       "name": "Pet Supplies",
-      "description": "Explore pet toys and care essentials with clear size details, original product photos and direct customer support."
+      "description": "Explore pet toys and care essentials with clear size details, original product photos and direct customer support.",
+      "count": 1
     }
   ]
 }
