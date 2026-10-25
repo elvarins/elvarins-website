@@ -69,7 +69,16 @@
  const hero=$('.hero-visual');if(hero&&!reduced.matches&&matchMedia('(pointer:fine)').matches){let raf;hero.addEventListener('pointermove',e=>{if(document.documentElement.classList.contains('motion-paused'))return;cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const r=hero.getBoundingClientRect();hero.style.setProperty('--tilt-x',((e.clientY-r.top)/r.height-.5)*-5+'deg');hero.style.setProperty('--tilt-y',((e.clientX-r.left)/r.width-.5)*5+'deg');});});hero.addEventListener('pointerleave',()=>{cancelAnimationFrame(raf);hero.style.setProperty('--tilt-x','0deg');hero.style.setProperty('--tilt-y','0deg');});}
  let scrolled=false;addEventListener('scroll',()=>{scrolled=scrollY>400;$('#back-to-top').hidden=!scrolled;},{passive:true});$('#back-to-top').addEventListener('click',()=>scrollTo({top:0,behavior:reduced.matches?'auto':'smooth'}));
  discovery.addEventListener('close',()=>write('elvarins-discovery-dismissed',String(Date.now())));
- setTimeout(()=>{const dismissed=Number(read('elvarins-discovery-dismissed')||0);if(!user&&scrolled&&Date.now()-dismissed>7*86400000&&!$('dialog[open]')&&document.visibilityState==='visible'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))modal(discovery);},45000);
+ // One welcome per browsing session; a full catalog remains available without signup.
+ const offersDialog=$('#offers-dialog'),offerSessionKey='elvarins-offers-20261026';
+ let offerShown=false;
+ const offerSeen=()=>{try{return sessionStorage.getItem(offerSessionKey)==='shown';}catch{return offerShown;}};
+ function rememberOffer(){offerShown=true;try{sessionStorage.setItem(offerSessionKey,'shown');}catch{}}
+ if(offersDialog){
+  offersDialog.addEventListener('close',rememberOffer);
+  setTimeout(()=>{if(!offerSeen()&&!$('dialog[open]')&&document.visibilityState==='visible'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){rememberOffer();modal(offersDialog);}},850);
+ }
+ $$('[data-offer-code]').forEach(b=>b.addEventListener('click',()=>{rememberOffer();openQuestion('shipping','','Please review offer '+b.dataset.offerCode+' for my purchase inquiry.\nItems and quantities: \nU.S. delivery ZIP code: \nPlease confirm eligible items, availability, discount, shipping and any applicable tax in my final quote.');}));
 
  $$('[data-department-request]').forEach(b=>b.addEventListener('click',()=>{modal(question);$('#question-topic').value='general';$('#question-sku').value='';$('#question-message').value='Department: '+b.dataset.departmentRequest+'\nI am looking for: ';$('#question-status').textContent='';$('#question-form').dispatchEvent(new Event('inquiry-prefill'));}));
  const heroCopy={transformers:['Find your next<br><em>Transformers favorite.</em>','Explore character figures for your collection, with clear item details and individual retail prices.'],marvel:['Bring your heroes<br><em>into focus.</em>','Discover Marvel figures and character collectibles, ready to explore one item at a time.'],funko:['Small figures.<br><em>Big personalities.</em>','Find a character for your shelf with our selection of Funko Pop! vinyl figures.']};
