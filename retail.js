@@ -70,7 +70,7 @@
  let scrolled=false;addEventListener('scroll',()=>{scrolled=scrollY>400;$('#back-to-top').hidden=!scrolled;},{passive:true});$('#back-to-top').addEventListener('click',()=>scrollTo({top:0,behavior:reduced.matches?'auto':'smooth'}));
  discovery.addEventListener('close',()=>write('elvarins-discovery-dismissed',String(Date.now())));
  // One welcome per browsing session; a full catalog remains available without signup.
- const offersDialog=$('#offers-dialog'),offerSessionKey='elvarins-offers-20261026';
+ const offersDialog=$('#offers-dialog'),offerSessionKey='elvarins-development-notice-20261026';
  let offerShown=false;
  const offerSeen=()=>{try{return sessionStorage.getItem(offerSessionKey)==='shown';}catch{return offerShown;}};
  function rememberOffer(){offerShown=true;try{sessionStorage.setItem(offerSessionKey,'shown');}catch{}}

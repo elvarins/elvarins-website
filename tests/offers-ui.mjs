@@ -17,17 +17,13 @@ try{
  const popup=w.document.querySelector('#offers-dialog');
  assert.ok(welcomeTimer);assert.equal(popup.open,false);
  welcomeTimer();assert.equal(popup.open,true);
- assert.equal(w.sessionStorage.getItem('elvarins-offers-20261026'),'shown');
- popup.querySelector('[aria-label="Close offers"]').click();assert.equal(popup.open,false);
+ assert.equal(w.sessionStorage.getItem('elvarins-development-notice-20261026'),'shown');
+ popup.querySelector('[aria-label="Close website notice"]').click();assert.equal(popup.open,false);
  welcomeTimer();assert.equal(popup.open,false,'Does not reopen within the same session');
- popup.querySelector('[data-offer-code="SAVE10"]').click();
- assert.equal(w.document.querySelector('#question-dialog').open,true);
- assert.ok(w.document.querySelector('#question-message').value.includes('SAVE10'));
- assert.ok(w.document.querySelector('#question-message').value.includes('final quote'));
- const draft=w.document.querySelector('#question-form a[href^="mailto:"]');
- assert.ok(new URL(draft.href).searchParams.get('body').includes('SAVE10'));
- assert.equal(popup.querySelectorAll('.offer-card').length,3);
- w.sessionStorage.removeItem('elvarins-offers-20261026');
+ assert.equal(popup.querySelector('#offers-title').textContent,'Website Under Development');
+ assert.ok(popup.textContent.includes('Online checkout and payments are not yet available.'));
+ assert.equal(popup.querySelectorAll('.offer-card').length,0);
+ w.sessionStorage.removeItem('elvarins-development-notice-20261026');
  w.document.querySelector('#question-dialog').close();
  w.document.querySelector('#account-dialog').showModal();welcomeTimer();
  assert.equal(popup.open,false,'Does not replace an active form');
@@ -35,5 +31,5 @@ try{
  w.document.querySelector('#site-search')?.focus(); // Some pages use a different search ID.
  const input=w.document.querySelector('input');input.focus();welcomeTimer();
  assert.equal(popup.open,false,'Does not interrupt typing');
- console.log('PASS: welcome display, close control, session frequency, active-form protection, offer inquiry and email draft');
+ console.log('PASS: development notice display, close control, session frequency, accurate checkout status and active-form protection');
 }finally{w.close();}
