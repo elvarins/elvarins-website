@@ -317,5 +317,41 @@
       "44px minimum mobile account/menu control height"
     ],
     "verification": "Native mobile screenshots and post-deployment checks reported in the owner conversation; no physical iOS/Android-device claim"
+  },
+  "latestEmailNotifications": {
+    "date": "2026-10-26",
+    "status": "live-send-verified",
+    "recipient": "sales@elvarins.com",
+    "sender": "notifications@notify.elvarins.com",
+    "transport": "Native EmailMessage via restricted send_email binding",
+    "plan": "Verified destination sending on Workers Free; no paid upgrade",
+    "senderSubdomain": "notify.elvarins.com",
+    "mainMailboxMx": "Existing secureserver.net MX records preserved",
+    "notificationContents": [
+      "customer name",
+      "customer email as Reply-To",
+      "topic",
+      "item number",
+      "complete message",
+      "request reference"
+    ],
+    "retry": "Outbox, five-minute scheduled sweep, ten-minute failure delay, maximum five attempts",
+    "deploymentCommit": "a85d108af0ebbc0adc9d5a80dd97a4e0d7fc391a",
+    "testRequests": [
+      {
+        "reference": "9c904c29-c4a1-498f-bc39-26eaa6fb28e1",
+        "type": "contact form",
+        "status": "sent",
+        "messageId": "<Q1mHXySklWxQzLuT0Vtl54Dwbsny9oVG5v6F@notify.elvarins.com>"
+      },
+      {
+        "reference": "324ea241-8014-4bbe-b6a4-4a9bdfba03d9",
+        "type": "product inquiry",
+        "status": "sent",
+        "messageId": "<bvKiUR04w7WwlFXTgP3PeNk7pDk6vvigTr4m@notify.elvarins.com>"
+      }
+    ],
+    "verification": "Both native sends resolved successfully and outbox rows are sent; mailbox folder placement not independently observed",
+    "automations": "Website-manager chat automations remain paused; only site notification retry cron enabled"
   }
 }
