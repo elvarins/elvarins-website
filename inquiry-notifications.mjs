@@ -10,14 +10,16 @@ export async function queueInquiryNotification(env,id){
 export async function deliverInquiryNotifications(env){
  if(!enabled(env))return {enabled:false,sent:0};
  const db=env.CUSTOMER_DB,now=Math.floor(Date.now()/1000);
- const rows=await db.prepare("SELECT n.inquiry_id,i.topic,i.sku FROM inquiry_notifications n JOIN inquiries i ON i.id=n.inquiry_id WHERE n.status!='sent' AND n.attempts<5 AND n.next_attempt<=? AND n.lease_until<=? ORDER BY i.created_at LIMIT 3").bind(now,now).all();
+ const rows=await db.prepare("SELECT n.inquiry_id,i.topic,i.sku,i.name,i.email,i.message FROM inquiry_notifications n JOIN inquiries i ON i.id=n.inquiry_id WHERE n.status!='sent' AND n.attempts<5 AND n.next_attempt<=? AND n.lease_until<=? ORDER BY i.created_at LIMIT 3").bind(now,now).all();
  let sent=0;
  for(const row of rows.results){
   const lease=await db.prepare("UPDATE inquiry_notifications SET lease_until=?,attempts=attempts+1 WHERE inquiry_id=? AND status!='sent' AND lease_until<=?").bind(now+300,row.inquiry_id,now).run();
   if(!lease.meta.changes)continue;
   try{
-   const text='A new Elvarins customer-care request is saved.\nReference: '+row.inquiry_id+'\nTopic: '+row.topic+'\nItem: '+(row.sku||'Not specified')+'\n\nReview the request in the private Elvarins customer-services database. Customer contact details and message content are not included in this alert.';
-   const result=await env.INQUIRY_EMAIL.send({from:{email:'notifications@notify.elvarins.com',name:'Elvarins Customer Care'},to:inbox,subject:'Elvarins request '+row.inquiry_id,text,html:'<p>A new Elvarins customer-care request is saved.</p><p>Reference: '+row.inquiry_id+'</p><p>Review the request in the private customer-services database.</p>'});
+   const text='New Elvarins website inquiry\n\nReference: '+row.inquiry_id+'\nName: '+row.name+'\nEmail: '+row.email+'\nTopic: '+row.topic+'\nItem: '+(row.sku||'Not specified')+'\n\nMessage:\n'+row.message+'\n\nReply to this email to contact the customer. This is an inquiry, not an order confirmation.';
+   const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+   const html='<h2>New Elvarins website inquiry</h2><p><strong>Reference:</strong> '+escape(row.inquiry_id)+'<br><strong>Name:</strong> '+escape(row.name)+'<br><strong>Email:</strong> '+escape(row.email)+'<br><strong>Topic:</strong> '+escape(row.topic)+'<br><strong>Item:</strong> '+escape(row.sku||'Not specified')+'</p><p><strong>Message</strong></p><div style="white-space:pre-wrap">'+escape(row.message)+'</div><p>Reply to this email to contact the customer. This is an inquiry, not an order confirmation.</p>';
+   const result=await env.INQUIRY_EMAIL.send({from:{email:'notifications@notify.elvarins.com',name:'Elvarins Customer Care'},to:inbox,replyTo:row.email,subject:'Elvarins inquiry '+row.inquiry_id,text,html});
    await db.prepare("UPDATE inquiry_notifications SET status='sent',message_id=?,lease_until=0 WHERE inquiry_id=?").bind(result?.messageId||'',row.inquiry_id).run();sent++;
   }catch{
    await db.prepare("UPDATE inquiry_notifications SET status='failed',next_attempt=?,lease_until=0 WHERE inquiry_id=?").bind(now+600,row.inquiry_id).run();

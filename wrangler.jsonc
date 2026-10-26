@@ -16,5 +16,19 @@
   ],
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "send_email": [
+    {
+      "name": "INQUIRY_EMAIL",
+      "destination_address": "sales@elvarins.com"
+    }
+  ],
+  "vars": {
+    "INQUIRY_EMAIL_ENABLED": "true"
+  },
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  }
 }
