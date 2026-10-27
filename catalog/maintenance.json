@@ -320,7 +320,7 @@
   },
   "latestEmailNotifications": {
     "date": "2026-10-26",
-    "status": "live-send-verified",
+    "status": "spf-repaired-delivery-unconfirmed",
     "recipient": "sales@elvarins.com",
     "sender": "notifications@notify.elvarins.com",
     "transport": "Native EmailMessage via restricted send_email binding",
@@ -351,7 +351,18 @@
         "messageId": "<bvKiUR04w7WwlFXTgP3PeNk7pDk6vvigTr4m@notify.elvarins.com>"
       }
     ],
-    "verification": "Both native sends resolved successfully and outbox rows are sent; mailbox folder placement not independently observed",
+    "verification": "Native binding accepted earlier sends, but receiving SMTP rejected them. Apex SPF repaired October 28; post-fix receiving-server acceptance and inbox placement remain unconfirmed.",
     "automations": "Website-manager chat automations remain paused; only site notification retry cron enabled"
+  },
+  "latestEmailDeliveryRepair": {
+    "date": "2026-10-28",
+    "cause": "Receiving secureserver.net server rejected Cloudflare IPs with SMTP 550 5.7.1 IB508 because apex SPF authorized secureserver.net only",
+    "spfRecordId": "d2b506f6993a47b60a3124e801d8cdfa",
+    "previousSpf": "v=spf1 include:secureserver.net -all",
+    "currentSpf": "v=spf1 include:secureserver.net include:_spf.mx.cloudflare.net -all",
+    "mxPreserved": true,
+    "postFixDelivery": "Unconfirmed; test form browser timed out and direct test API returned HTTP 403; saved owner test requeued",
+    "retrySchedule": "*/5 * * * *",
+    "evidence": "emailRoutingAdaptive records on October 26 show deliveryFailed with SPF rejection; do not treat outbox sent as proof of mailbox delivery"
   }
 }
