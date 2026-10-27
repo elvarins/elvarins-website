@@ -320,7 +320,7 @@
   },
   "latestEmailNotifications": {
     "date": "2026-10-26",
-    "status": "spf-repaired-delivery-unconfirmed",
+    "status": "smtp-delivery-verified",
     "recipient": "sales@elvarins.com",
     "sender": "notifications@notify.elvarins.com",
     "transport": "Native EmailMessage via restricted send_email binding",
@@ -351,8 +351,15 @@
         "messageId": "<bvKiUR04w7WwlFXTgP3PeNk7pDk6vvigTr4m@notify.elvarins.com>"
       }
     ],
-    "verification": "Native binding accepted earlier sends, but receiving SMTP rejected them. Apex SPF repaired October 28; post-fix receiving-server acceptance and inbox placement remain unconfirmed.",
-    "automations": "Website-manager chat automations remain paused; only site notification retry cron enabled"
+    "verification": "Cloudflare emailRoutingAdaptive confirms delivered at 2026-10-27T23:30:07Z for the requeued owner test after SPF repair. Receiving mail server acceptance verified; inbox placement/read not independently verified.",
+    "automations": "Website-manager chat automations remain paused; only site notification retry cron enabled",
+    "deliveredTest": {
+      "reference": "126841a4-2517-4dc3-aaec-e7d94923a081",
+      "messageId": "<ioQWeoq52JXQspMrhxKtdsLPZgbXRqfJoORW@notify.elvarins.com>",
+      "status": "delivered",
+      "datetime": "2026-10-27T23:30:07Z",
+      "errorDetail": ""
+    }
   },
   "latestEmailDeliveryRepair": {
     "date": "2026-10-28",
@@ -361,8 +368,8 @@
     "previousSpf": "v=spf1 include:secureserver.net -all",
     "currentSpf": "v=spf1 include:secureserver.net include:_spf.mx.cloudflare.net -all",
     "mxPreserved": true,
-    "postFixDelivery": "Unconfirmed; test form browser timed out and direct test API returned HTTP 403; saved owner test requeued",
+    "postFixDelivery": "Verified delivered by receiving mail server at 2026-10-27T23:30:07Z (October 28 owner timezone); errorDetail empty.",
     "retrySchedule": "*/5 * * * *",
-    "evidence": "emailRoutingAdaptive records on October 26 show deliveryFailed with SPF rejection; do not treat outbox sent as proof of mailbox delivery"
+    "evidence": "emailRoutingAdaptive delivered event matches the requeued owner test's new D1 message_id. Inbox placement not independently verified."
   }
 }
