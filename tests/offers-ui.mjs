@@ -14,6 +14,14 @@ const realTimeout=w.setTimeout.bind(w);
 w.setTimeout=(fn,ms,...args)=>ms===850?(welcomeTimer=fn,1):realTimeout(fn,ms,...args);
 try{
  w.eval(script);
+ assert.equal(w.document.querySelectorAll('.favorite-button').length,78,'Retail initialization reaches every catalog card');
+ assert.equal(w.document.querySelectorAll('.product-photo-secondary').length,77,'Distinct alternate photos render for 77 eligible products');
+ const preview=w.document.querySelector('.product-photo-secondary'),photo=preview.parentElement;
+ assert.equal(preview.alt,'');assert.equal(preview.getAttribute('aria-hidden'),'true');
+ assert.notEqual(preview.src,photo.querySelector('.product-photo-primary').src);
+ preview.dispatchEvent(new w.Event('error'));
+ assert.equal(photo.querySelector('.product-photo-secondary'),null);
+ assert.equal(photo.classList.contains('product-photo-stack'),false,'Failed alternate cannot hide the primary photo');
  const popup=w.document.querySelector('#offers-dialog');
  assert.ok(welcomeTimer);assert.equal(popup.open,false);
  welcomeTimer();assert.equal(popup.open,true);

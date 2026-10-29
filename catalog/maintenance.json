@@ -395,5 +395,21 @@
       "browser": "Pending live deployment",
       "cloudflareBuild": "Pending"
     }
+  },
+  "latestDesignRepair": {
+    "date": "2026-10-30",
+    "changes": [
+      "Correct product-card selector so retail initialization, account controls, inquiry handlers and development notice continue running",
+      "Preserve primary photo on alternate-image failure and in reduced-motion mode",
+      "Smooth primary and alternate opacity transitions"
+    ],
+    "verification": {
+      "catalogProducts": 78,
+      "alternatePhotos": 77,
+      "workerChecks": 757,
+      "links": "102 sitemap pages and 214 internal targets passed",
+      "ui": "Development notice, inquiry, catalog search and notification regression tests passed",
+      "browser": "Post-deployment verification pending"
+    }
   }
 }
