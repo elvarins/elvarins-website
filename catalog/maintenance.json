@@ -409,7 +409,13 @@
       "workerChecks": 757,
       "links": "102 sitemap pages and 214 internal targets passed",
       "ui": "Development notice, inquiry, catalog search and notification regression tests passed",
-      "browser": "Post-deployment verification pending"
+      "browser": "Live homepage: 78 favorites and 77 alternate-photo layers initialized; development notice opens/closes and My account opens. Desktop catalog screenshot reviewed.",
+      "mobile": "390x844 mobile Chromium with touch: 390px viewport and 390px scroll width; 77 previews and 78 favorites. Screenshot export was truncated by connector; no physical-device or full mobile visual pass claimed.",
+      "cloudflareBuild": {
+        "commit": "c13dae8fff8e11c973ec8c289f36f2aec651c581",
+        "build": "19a8c801-e623-4970-9da5-1e7a1c213156",
+        "outcome": "success"
+      }
     }
   }
 }
