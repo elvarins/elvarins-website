@@ -371,5 +371,29 @@
     "postFixDelivery": "Verified delivered by receiving mail server at 2026-10-27T23:30:07Z (October 28 owner timezone); errorDetail empty.",
     "retrySchedule": "*/5 * * * *",
     "evidence": "emailRoutingAdaptive delivered event matches the requeued owner test's new D1 message_id. Inbox placement not independently verified."
+  },
+  "latestDesignImprovement": {
+    "date": "2026-10-29",
+    "focus": "Catalog alternate-photo preview",
+    "changes": [
+      "Multi-photo product cards reveal a second verified exact-product source photo on hover or keyboard focus",
+      "Single-photo products keep their original presentation",
+      "Preview image failures remove only the optional alternate layer and preserve the primary product image",
+      "Touch devices retain stable primary photos; reduced-motion and the site motion pause disable the preview transition",
+      "Versioned stylesheet and retail script references updated"
+    ],
+    "catalogProducts": 78,
+    "multiPhotoProducts": 77,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "checkoutPayments": "Deferred by owner",
+    "verification": {
+      "sourceChecks": "757 Worker checks passed; catalog integrity and search passed",
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "alternatePhotoEligibility": "77 of 78 products have at least two distinct approved exact-product photos",
+      "browser": "Pending live deployment",
+      "cloudflareBuild": "Pending"
+    }
   }
 }
