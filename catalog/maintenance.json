@@ -444,10 +444,14 @@
       "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, channel and two-photo verification."
     },
     "verification": {
-      "status": "Local regression suite passed; live publication pending",
-      "browser": "Pending live deployment",
-      "mobile": "Pending live deployment",
-      "cloudflareBuild": "Pending",
+      "status": "Live and verified",
+      "browser": "Desktop homepage loaded versioned photo-ready assets; 78 cards, 77 low-priority alternate previews and 78 favorite controls. Before scrolling, unloaded alternates did not activate and every primary remained visible; after entering the catalog, 12 loaded previews activated.",
+      "mobile": "390x844 mobile Chromium with touch: 390px viewport and 390px scroll width, 78 cards, 77 previews, six viewport-relevant previews ready, hover media false and no horizontal overflow. No physical-device claim.",
+      "cloudflareBuild": {
+        "commit": "a036c9220f9e7d57eec808ac7b64ff62df3b8e27",
+        "build": "e04faf0e-ce33-4dff-99e2-828c0f635e9d",
+        "outcome": "success"
+      },
       "workerChecks": 757,
       "sitemapPages": 102,
       "internalTargets": 214,
@@ -455,7 +459,8 @@
       "photoReadinessUI": "Passed loading, loaded, failed-preview and low-priority assertions",
       "reducedMotion": "Source regression confirms reduced-motion and site motion-pause retain primary photos",
       "localCompatibilityDate": "2026-08-06 override because installed workerd does not support the production 2026-10-06 date",
-      "notificationRegression": "Dedicated notification queue/retry test passed; Email/DNS configuration unchanged"
+      "notificationRegression": "Dedicated notification queue/retry test passed; Email/DNS configuration unchanged",
+      "liveConsole": "No site JavaScript warnings or errors observed; two browser-extension metadata errors were external to Elvarins."
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
