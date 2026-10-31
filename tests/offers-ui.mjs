@@ -18,10 +18,15 @@ try{
  assert.equal(w.document.querySelectorAll('.product-photo-secondary').length,77,'Distinct alternate photos render for 77 eligible products');
  const preview=w.document.querySelector('.product-photo-secondary'),photo=preview.parentElement;
  assert.equal(preview.alt,'');assert.equal(preview.getAttribute('aria-hidden'),'true');
+ assert.equal(preview.fetchPriority,'low');
  assert.notEqual(preview.src,photo.querySelector('.product-photo-primary').src);
- preview.dispatchEvent(new w.Event('error'));
- assert.equal(photo.querySelector('.product-photo-secondary'),null);
- assert.equal(photo.classList.contains('product-photo-stack'),false,'Failed alternate cannot hide the primary photo');
+ assert.equal(photo.classList.contains('photo-preview-ready'),false,'Primary remains visible while the alternate is loading');
+ preview.dispatchEvent(new w.Event('load'));
+ assert.equal(photo.classList.contains('photo-preview-ready'),true,'Alternate activates only after loading');
+ const failedPreview=w.document.querySelectorAll('.product-photo-secondary')[1],failedPhoto=failedPreview.parentElement;
+ failedPreview.dispatchEvent(new w.Event('error'));
+ assert.equal(failedPhoto.querySelector('.product-photo-secondary'),null);
+ assert.equal(failedPhoto.classList.contains('product-photo-stack'),false,'Failed alternate cannot hide the primary photo');
  const popup=w.document.querySelector('#offers-dialog');
  assert.ok(welcomeTimer);assert.equal(popup.open,false);
  welcomeTimer();assert.equal(popup.open,true);

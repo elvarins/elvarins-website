@@ -25,8 +25,8 @@ try{
 
  for(const path of ['index.html','gallery.js','retail.js','style.css','sitemap.xml','catalog.js','catalog/products.json']){const served=await (await mf.dispatchFetch(origin+'/'+(path==='index.html'?'':path))).text();check(served===await readFile(root+path,'utf8'),'Worker asset matches source '+path);}
  const retailSource=await readFile(root+'retail.js','utf8'),styleSource=await readFile(root+'style.css','utf8');
- check(retailSource.includes("className='product-photo-secondary'")&&retailSource.includes("preview.addEventListener('error'"),'Catalog alternate-photo preview uses verified product galleries and removes failed previews');
- check(styleSource.includes('@media(hover:hover) and (pointer:fine)')&&styleSource.includes('@media(prefers-reduced-motion:reduce)')&&styleSource.includes('.motion-paused .product-photo-stack'),'Photo preview is limited to precise pointers and respects reduced or paused motion');
+ check(retailSource.includes("className='product-photo-secondary'")&&retailSource.includes("preview.addEventListener('load'")&&retailSource.includes("preview.addEventListener('error'")&&retailSource.includes("preview.fetchPriority='low'"),'Catalog alternate-photo preview waits for verified source-image load, uses low network priority and removes failed previews');
+ check(styleSource.includes('.photo-preview-ready .product-photo-primary')&&styleSource.includes('@media(hover:hover) and (pointer:fine)')&&styleSource.includes('@media(prefers-reduced-motion:reduce)')&&styleSource.includes('.motion-paused .product-photo-stack'),'Photo preview activates only when ready, is limited to precise pointers and respects reduced or paused motion');
  check(sitemap.includes('<loc>'+origin+'/contact</loc>'),'Contact is indexed in the sitemap');
  const brandLinks=[...html.matchAll(/href="\/\?brand=([^"#]+)#shop"/g)].map(m=>decodeURIComponent(m[1]));
  check(brandLinks.length===new Set(catalog.products.map(p=>p.brand)).size&&brandLinks.every(b=>catalog.products.some(p=>p.brand===b)),'Brand directory covers actual catalog manufacturers');

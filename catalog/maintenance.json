@@ -417,5 +417,47 @@
         "outcome": "success"
       }
     }
+  },
+  "latestPhotoPreviewReliability": {
+    "date": "2026-10-31",
+    "focus": "Stable alternate-photo presentation on slow connections",
+    "changes": [
+      "Keep the primary product photo visible until the verified alternate photo has fully loaded",
+      "Give optional alternate photos low fetch priority so they do not compete with primary catalog imagery",
+      "Activate hover and keyboard-focus transitions only after the alternate photo is ready",
+      "Retain existing error fallback, touch stability, reduced-motion and site motion-pause behavior",
+      "Version retail stylesheet and script references across homepage, product, information and 404 pages"
+    ],
+    "catalogProducts": 78,
+    "alternatePhotoEligibleProducts": 77,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "officialReferences": [
+        "https://www.bigbadtoystore.com/product/invincible-deluxe-invincible-action-figure-195495?variation=385012",
+        "https://www.target.com/p/-/A-1002977840",
+        "https://www.gundamplanet.com/collections/model-kits"
+      ],
+      "finding": "Current U.S. retail examples use multi-image product presentation and structured catalog browsing; Elvarins keeps those useful patterns while preserving its own branding and inquiry-only flow.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, channel and two-photo verification."
+    },
+    "verification": {
+      "status": "Local regression suite passed; live publication pending",
+      "browser": "Pending live deployment",
+      "mobile": "Pending live deployment",
+      "cloudflareBuild": "Pending",
+      "workerChecks": 757,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
+      "photoReadinessUI": "Passed loading, loaded, failed-preview and low-priority assertions",
+      "reducedMotion": "Source regression confirms reduced-motion and site motion-pause retain primary photos",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support the production 2026-10-06 date",
+      "notificationRegression": "Dedicated notification queue/retry test passed; Email/DNS configuration unchanged"
+    },
+    "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
+    "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
   }
 }
