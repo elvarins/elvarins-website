@@ -464,5 +464,44 @@
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
+  },
+  "latestQuickViewDetails": {
+    "date": "2026-11-01",
+    "focus": "Accurate retail-unit and package-content information in catalog quick view",
+    "changes": [
+      "Rename the quick-view unit label to Selling unit so one retail item is described accurately",
+      "Add a separate Package contents row only when verified product contents are present",
+      "Keep missing contents hidden instead of making assumptions",
+      "Version the catalog script so customers receive the updated quick-view behavior"
+    ],
+    "catalogProducts": 78,
+    "productsWithVerifiedContents": 7,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "officialReferences": [
+        "https://www.bigbadtoystore.com/product/pacific-rim-leatherback-action-figure-154162",
+        "https://www.target.com/p/-/A-1003954064"
+      ],
+      "finding": "Current U.S. toy PDPs separate product features, specifications and box contents. Elvarins now applies the same information hierarchy to verified quick-view data without copying retailer language.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Continue with compact Banpresto figures after fresh signed-in EE availability, cost, MAP, permitted-channel and minimum two-photo verification."
+    },
+    "verification": {
+      "status": "Local regression suite passed; live publication pending",
+      "browser": "Pending live deployment",
+      "mobile": "Pending live deployment",
+      "cloudflareBuild": "Pending",
+      "workerChecks": 758,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
+      "quickViewUI": "Verified contents shown for JK433524; unavailable contents hidden for GN52132; selling unit remains accurate",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date",
+      "notificationRegression": "Dedicated notification queue/retry test passed; Email/DNS configuration unchanged"
+    },
+    "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
+    "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
   }
 }
