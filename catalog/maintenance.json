@@ -489,10 +489,14 @@
       "recommendation": "Continue with compact Banpresto figures after fresh signed-in EE availability, cost, MAP, permitted-channel and minimum two-photo verification."
     },
     "verification": {
-      "status": "Local regression suite passed; live publication pending",
-      "browser": "Pending live deployment",
-      "mobile": "Pending live deployment",
-      "cloudflareBuild": "Pending",
+      "status": "Live and verified",
+      "browser": "Desktop live catalog verified: Selling unit and a distinct verified Package contents row shown for JK433524; missing contents stay hidden.",
+      "mobile": "Responsive rules and regression suite passed; no new physical-device claim.",
+      "cloudflareBuild": {
+        "commit": "51551503ff398581c2b89ef6a6cebafcce36300c",
+        "build": "63d5d852-8c36-4569-9098-0910b5f900f6",
+        "outcome": "success"
+      },
       "workerChecks": 758,
       "sitemapPages": 102,
       "internalTargets": 214,
@@ -500,6 +504,44 @@
       "quickViewUI": "Verified contents shown for JK433524; unavailable contents hidden for GN52132; selling unit remains accurate",
       "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date",
       "notificationRegression": "Dedicated notification queue/retry test passed; Email/DNS configuration unchanged"
+    },
+    "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
+    "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
+  },
+  "latestInteractionPolish": {
+    "date": "2026-11-04",
+    "focus": "Consistent customer-form typography, keyboard focus and restrained button feedback",
+    "changes": [
+      "Make textareas use the same typeface as the rest of Elvarins instead of browser-default styling",
+      "Add the site focus ring to textareas and expandable summary controls",
+      "Add restrained press feedback to primary and secondary buttons",
+      "Disable the press transform when reduced motion is requested",
+      "Version the stylesheet across homepage, product and information pages"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "officialReferences": [
+        "https://www.target.com/p/-/A-94768693",
+        "https://www.bigbadtoystore.com/product/my-hero-academia-12-izuku-midoriya-figure-78787?o=4&variation=154513"
+      ],
+      "finding": "Current U.S. toy retail pages emphasize multi-image product presentation and structured details. Elvarins keeps those patterns and improves form/control consistency without changing its inquiry-only flow.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, permitted-channel and minimum two-photo verification."
+    },
+    "verification": {
+      "status": "Local regression suite passed; live publication pending",
+      "browser": "Desktop homepage and supplier-facing About page audited before change; no overflow or customer-facing broken product image found. Post-deployment interaction check pending.",
+      "mobile": "Responsive source rules and existing mobile regressions passed; change does not alter layout. No new physical-device claim.",
+      "reducedMotion": "Press movement explicitly disabled under prefers-reduced-motion; existing motion-pause and reduced-motion rules preserved.",
+      "cloudflareBuild": "Pending",
+      "workerChecks": 758,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
+      "notificationRegression": "Queue/retry notification test passed; Email/DNS configuration unchanged. The separate production-date notification test cannot start in the installed local workerd, which supports dates only through 2026-08-06."
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
