@@ -532,11 +532,15 @@
       "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, permitted-channel and minimum two-photo verification."
     },
     "verification": {
-      "status": "Local regression suite passed; live publication pending",
-      "browser": "Desktop homepage and supplier-facing About page audited before change; no overflow or customer-facing broken product image found. Post-deployment interaction check pending.",
-      "mobile": "Responsive source rules and existing mobile regressions passed; change does not alter layout. No new physical-device claim.",
+      "status": "Live and verified",
+      "browser": "Live Contact page loaded the versioned stylesheet; customer-care dialog opened, textarea used Inter, received the 3px Elvarins focus ring and had no horizontal overflow.",
+      "mobile": "Responsive source rules and existing mobile regressions passed; this typography/focus change does not alter mobile layout. No new physical-device claim.",
       "reducedMotion": "Press movement explicitly disabled under prefers-reduced-motion; existing motion-pause and reduced-motion rules preserved.",
-      "cloudflareBuild": "Pending",
+      "cloudflareBuild": {
+        "commit": "9369bb4dbb45a3e1866601654a7d71af475d938d",
+        "build": "66d1a916-7806-4ee7-bcd5-967e58f44515",
+        "outcome": "success"
+      },
       "workerChecks": 758,
       "sitemapPages": 102,
       "internalTargets": 214,
