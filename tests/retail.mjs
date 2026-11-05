@@ -24,6 +24,10 @@ try{
  for(const p of catalog.products){const card=html.match(new RegExp('<article class="product-card" data-sku="'+p.sku+'"[^>]*>([\\s\\S]*?)</article>'))?.[1];if(!card)continue;const n=new Set([p.image,...(p.images||[])]).size;if(n>1)check(card.includes('>'+n+' photos</button>')&&card.includes('data-product="'+p.sku+'"'),'Photo badge matches verified gallery '+p.sku);}
 
  for(const path of ['index.html','gallery.js','retail.js','style.css','sitemap.xml','catalog.js','catalog/products.json']){const served=await (await mf.dispatchFetch(origin+'/'+(path==='index.html'?'':path))).text();check(served===await readFile(root+path,'utf8'),'Worker asset matches source '+path);}
+ const versionedStyle=await mf.dispatchFetch(origin+'/style.css?v=cache-test'),unversionedStyle=await mf.dispatchFetch(origin+'/style.css'),productDocument=await mf.dispatchFetch(origin+catalog.products[0].url);
+ check(versionedStyle.headers.get('Cache-Control')==='public, max-age=31536000, immutable','Versioned assets use long-lived immutable browser caching');
+ check(unversionedStyle.headers.get('Cache-Control')==='public, max-age=0, must-revalidate','Unversioned assets continue to revalidate');
+ check(productDocument.headers.get('Cache-Control')==='public, max-age=0, must-revalidate','Product HTML continues to revalidate');
  const retailSource=await readFile(root+'retail.js','utf8'),styleSource=await readFile(root+'style.css','utf8'),catalogSource=await readFile(root+'catalog.js','utf8');
  check(html.includes('<dt>Selling unit</dt><dd id="detail-unit"></dd>')&&html.includes('<dt id="detail-contents-label" hidden>Package contents</dt><dd id="detail-contents" hidden></dd>')&&catalogSource.includes("['size','age','contents']"),'Quick view separates the retail selling unit from verified package contents');
  check(retailSource.includes("className='product-photo-secondary'")&&retailSource.includes("preview.addEventListener('load'")&&retailSource.includes("preview.addEventListener('error'")&&retailSource.includes("preview.fetchPriority='low'"),'Catalog alternate-photo preview waits for verified source-image load, uses low network priority and removes failed previews');

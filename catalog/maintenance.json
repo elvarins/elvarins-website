@@ -549,5 +549,42 @@
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
+  },
+  "latestPerformanceCaching": {
+    "date": "2026-11-05",
+    "focus": "Repeat-visit performance for versioned site assets",
+    "changes": [
+      "Give versioned CSS, JavaScript, icon and image URLs one-year immutable browser caching",
+      "Keep HTML, product pages and unversioned core assets on revalidation so catalog and policy updates remain fresh",
+      "Add regression checks that distinguish versioned assets from HTML and unversioned files"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "officialReferences": [
+        "https://web.dev/articles/http-cache",
+        "https://web.dev/articles/codelab-http-cache",
+        "https://www.target.com/c/action-figures-playsets-toys/banpresto/-/N-5xt88Z4ssyj",
+        "https://www.bigbadtoystore.com/search?Department=43623&HideInStock=false&HidePreorder=false&HideSoldOut=true&InventoryStatus=i%2Cp&PageSize=100&Series=50735&SortOrder=Relevance"
+      ],
+      "finding": "Versioned resources can be cached long-term while unversioned documents continue to revalidate. Current U.S. toy retailers also maintain substantial Banpresto anime assortments, supporting the next-category research priority without implying Elvarins stock or authorization.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, channel and minimum two-photo verification."
+    },
+    "verification": {
+      "status": "Local regression suite passed; live publication pending",
+      "liveHeadersBefore": "Versioned CSS, retail.js, catalog.js and logo.svg returned public, max-age=0, must-revalidate",
+      "cloudflareBuild": "Pending",
+      "workerChecks": 761,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
+      "cacheRegression": "Versioned asset, unversioned asset and product HTML cache policies passed in Worker runtime",
+      "notificationRegression": "Queue/retry notification test passed; Email/DNS configuration unchanged. Production-date notification test remains outside the installed local workerd compatibility range."
+    },
+    "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
+    "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
   }
 }
