@@ -574,15 +574,21 @@
       "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, channel and minimum two-photo verification."
     },
     "verification": {
-      "status": "Local regression suite passed; live publication pending",
+      "status": "Live and verified",
       "liveHeadersBefore": "Versioned CSS, retail.js, catalog.js and logo.svg returned public, max-age=0, must-revalidate",
-      "cloudflareBuild": "Pending",
+      "liveHeadersAfter": "Versioned style.css, retail.js and catalog.js return public, max-age=31536000, immutable; unversioned style.css and product HTML continue to return public, max-age=0, must-revalidate",
+      "cloudflareBuild": {
+        "id": "d039a1f6-2261-4125-b903-72986676f272",
+        "commit": "4d0a232c89a3653a7bf54e94e67e7d8ee527010a",
+        "outcome": "success"
+      },
       "workerChecks": 761,
       "sitemapPages": 102,
       "internalTargets": 214,
       "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
       "cacheRegression": "Versioned asset, unversioned asset and product HTML cache policies passed in Worker runtime",
-      "notificationRegression": "Queue/retry notification test passed; Email/DNS configuration unchanged. Production-date notification test remains outside the installed local workerd compatibility range."
+      "notificationRegression": "Queue/retry notification test passed; Email/DNS configuration unchanged. Production-date notification test remains outside the installed local workerd compatibility range.",
+      "browserVerification": "Live desktop homepage loaded with the expected versioned assets, main navigation and H1; no horizontal overflow and no broken sourced images. Browser-extension console errors were unrelated to the site."
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
