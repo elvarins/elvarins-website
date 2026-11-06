@@ -617,14 +617,22 @@
       "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, permitted-channel and minimum two-photo verification."
     },
     "verification": {
-      "status": "Local regression suite passed; live publication pending",
+      "status": "Live and verified",
       "workerChecks": 780,
       "sitemapPages": 102,
       "internalTargets": 214,
       "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
       "fontRegression": "All 19 information pages and the branded 404 include the Inter font request and cross-origin font preconnect",
       "notificationRegression": "Queue/retry notification test passed; Email/DNS configuration unchanged",
-      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date"
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date",
+      "browser": "Live Contact page loaded Inter on the body and H1 after document fonts were ready; font preconnects were present, main content was visible and desktop had no horizontal overflow.",
+      "cloudflareBuild": {
+        "commit": "37e87af318b0e236ba7839c8249ec2a9efa526ff",
+        "build": "393b3422-c423-4693-910a-c57174c20e20",
+        "outcome": "success"
+      },
+      "console": "No site warnings or errors observed; browser-extension metadata errors were external to Elvarins.",
+      "mobile": "The change only adds the existing site typeface to service-page heads; responsive source rules and regression suite passed. No new physical-device or dedicated mobile viewport claim."
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
