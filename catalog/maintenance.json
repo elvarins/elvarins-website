@@ -592,5 +592,41 @@
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
+  },
+  "latestServiceTypography": {
+    "date": "2026-11-06",
+    "focus": "Consistent branded typography across customer-service, policy and error pages",
+    "changes": [
+      "Load the same Inter typeface used by the catalog on About, Contact, Help Center, policy, journal and other customer-information pages",
+      "Add early font-host connections so the brand typeface starts loading without waiting for the stylesheet cascade",
+      "Keep the branded 404 page visually consistent with the rest of the store",
+      "Add regression coverage for every information page and the 404 experience"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "officialReferences": [
+        "https://www.lego.com/en-us/service/contact-us",
+        "https://www.target.com/help?lnk=snav_rd_help_guest_services",
+        "https://www.bandai.com/contact"
+      ],
+      "finding": "Current official U.S. retail and toy-brand sites keep customer-service information inside a clear branded support experience. Elvarins now uses its established store typeface consistently across catalog and support surfaces without changing the inquiry-only purchase flow.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Continue with compact Banpresto figures only after fresh signed-in EE availability, cost, MAP, permitted-channel and minimum two-photo verification."
+    },
+    "verification": {
+      "status": "Local regression suite passed; live publication pending",
+      "workerChecks": 780,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
+      "fontRegression": "All 19 information pages and the branded 404 include the Inter font request and cross-origin font preconnect",
+      "notificationRegression": "Queue/retry notification test passed; Email/DNS configuration unchanged",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date"
+    },
+    "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
+    "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
   }
 }
