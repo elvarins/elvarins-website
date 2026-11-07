@@ -659,5 +659,32 @@
       "Physical iPhone/Android and screen-reader validation not performed"
     ],
     "preserved": "Checkout/payment deferred; working email/DNS, development disclosure, photography, branding and offers unchanged"
+  },
+  "latestTransportSecurity": {
+    "date": "2026-11-07",
+    "focus": "Require encrypted transport for customer and supplier-facing visits",
+    "finding": "Live responses already used HTTPS but the Cloudflare zone had Always Use HTTPS disabled and did not send Strict-Transport-Security.",
+    "changes": [
+      "Enabled Cloudflare Always Use HTTPS for elvarins.com",
+      "Enabled HSTS for one year without includeSubDomains or preload, avoiding changes to mail and unrelated subdomains",
+      "Preserved the existing X-Content-Type-Options protection"
+    ],
+    "verification": {
+      "alwaysUseHttps": "Cloudflare zone setting reports on; an http://elvarins.com visit ended at https://elvarins.com/",
+      "hsts": "Live HTTPS homepage returned Strict-Transport-Security: max-age=31536000",
+      "status": 200,
+      "title": "Elvarins | Toys, Collectibles & Pet Supplies",
+      "workerChecks": 780,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "sourceCommit": "e71b41de62178ed50615b0b415b2410888fc2937"
+    },
+    "catalog": {
+      "products": 78,
+      "newProductsAdded": 0,
+      "newBrandsAdded": []
+    },
+    "blocker": "Fresh signed-in EE cost, availability, MAP and sales-channel verification remains unavailable, so no product or processed SKU was added.",
+    "preserved": "Checkout/payment and Frontier remain deferred; email/DNS, product data, photography, branding, offers and inquiry behavior were not changed."
   }
 }
