@@ -667,6 +667,7 @@
     "changes": [
       "Enabled Cloudflare Always Use HTTPS for elvarins.com",
       "Enabled HSTS for one year without includeSubDomains or preload, avoiding changes to mail and unrelated subdomains",
+      "Raised the zone minimum TLS version from 1.0 to 1.2",
       "Preserved the existing X-Content-Type-Options protection"
     ],
     "verification": {
@@ -677,7 +678,8 @@
       "workerChecks": 780,
       "sitemapPages": 102,
       "internalTargets": 214,
-      "sourceCommit": "e71b41de62178ed50615b0b415b2410888fc2937"
+      "sourceCommit": "e71b41de62178ed50615b0b415b2410888fc2937",
+      "minimumTls": "Cloudflare zone setting reports TLS 1.2"
     },
     "catalog": {
       "products": 78,
