@@ -622,7 +622,7 @@
       "sitemapPages": 102,
       "internalTargets": 214,
       "catalogIntegrity": "78 unique synchronized products; 19 valid GTINs",
-      "fontRegression": "All 19 information pages and the branded 404 include the Inter font request and cross-origin font preconnect",
+      "fontRegression": "All 18 information pages and the branded 404 include the Inter font request and cross-origin font preconnect",
       "notificationRegression": "Queue/retry notification test passed; Email/DNS configuration unchanged",
       "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date",
       "browser": "Live Contact page loaded Inter on the body and H1 after document fonts were ready; font preconnects were present, main content was visible and desktop had no horizontal overflow.",
@@ -636,5 +636,28 @@
     },
     "blocker": "Fresh signed-in EE account data was unavailable, so no product or processed SKU was added.",
     "checkoutPayments": "Deferred by owner; Frontier remains pending until s cod"
+  },
+  "latestMobileAudit": {
+    "date": "2026-11-07",
+    "sourceCommit": "81617441290e7a07ddef1d52858ee6ea494016a7",
+    "scope": "Live mobile Chromium rendering, not physical iOS/Android devices",
+    "checks": {
+      "contact390": "390px viewport and 390px document width; Inter body typography; visible menu and readable company/contact content",
+      "gallery390": "390px viewport and document width; fullscreen gallery fills viewport; next-photo control reached Photo 2 of 4 with the exact product photograph visible",
+      "customerCare320": "320px viewport and document width; customer-care dialog opens at approximately 276px width within screen; labeled form fields visible; no submission performed",
+      "catalog390": "390px viewport and 390px document width; 78 catalog cards initialized, touch hover false, inquiry-only notice and collection controls visible",
+      "workerChecks": 780,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "regressions": "Catalog integrity/search, inquiry behavior, notification retry, development notice, quick view and shipping checks passed with local 2026-08-06 compatibility override"
+    },
+    "changes": "No customer-facing code changed: the tested mobile layouts did not show a concrete defect requiring an edit. Corrected the earlier maintenance count from 19 information pages to 18 plus the 404.",
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "blockers": [
+      "Fresh signed-in EE cost, availability, MAP and sales-channel data still required before publishing new products",
+      "Physical iPhone/Android and screen-reader validation not performed"
+    ],
+    "preserved": "Checkout/payment deferred; working email/DNS, development disclosure, photography, branding and offers unchanged"
   }
 }
