@@ -688,5 +688,43 @@
     },
     "blocker": "Fresh signed-in EE cost, availability, MAP and sales-channel verification remains unavailable, so no product or processed SKU was added.",
     "preserved": "Checkout/payment and Frontier remain deferred; email/DNS, product data, photography, branding, offers and inquiry behavior were not changed."
+  },
+  "latestSharingPreview": {
+    "date": "2026-11-08",
+    "focus": "Complete professional link previews for product and customer-information pages",
+    "changes": [
+      "Added Elvarins site identity to Open Graph product and information-page metadata",
+      "Added accurate accessible image descriptions for product photographs and the Elvarins brand cover",
+      "Added complete X/Twitter title, description and image metadata",
+      "Declared the 1200 by 630 brand-cover dimensions on information pages for stable previews"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "officialReferences": [
+        "https://www.target.com/c/action-figures-playsets-toys/banpresto/-/N-5xt88Z4ssyj",
+        "https://www.bigbadtoystore.com/search?HideInStock=false&HidePreorder=false&HideSoldOut=false&HideWaitlist=false&InventoryStatus=i%2Cp%2Cso%2Cw&PageSize=100&ProductType=321&Series=50735&SortOrder=Relevance&Theme=22814",
+        "https://www.entertainmentearth.com/s/banpresto/c"
+      ],
+      "finding": "Current U.S. retail pages continue to present active Banpresto assortments, commonly around the high-$20 to low-$30 range. This supports Banpresto as the next category candidate but also shows tight price competition.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Favor compact Banpresto items only after fresh signed-in EE cost, availability, MAP, sales-channel and two-photo verification. Flag any 1.50x rule price that is not competitive after shipping, fees and returns."
+    },
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommit": "0688a1c060fd0cfdfda50d6c36c45b89dbc05f02",
+      "cloudflareBuild": "eb87ea24-5760-47de-847a-8b0eea287d6c; success on exact source commit",
+      "workerChecks": 876,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "productPages": "All 78 product pages passed complete Open Graph and X/Twitter preview regression checks",
+      "informationPages": "All 18 information pages passed Elvarins brand-cover and social-preview regression checks",
+      "liveProduct": "Wing Gundam Zero returned correct title, exact product image, image alt, Elvarins site name and HSTS",
+      "liveContact": "Contact page returned the 1200x630 Elvarins brand cover, accessible image alt and page-specific title/description"
+    },
+    "blocker": "Fresh signed-in EE account data remains unavailable, so no new product, brand or processed SKU was added.",
+    "preserved": "Inquiry-only purchase flow, checkout/payment deferral, development disclosure, offers, product photography, galleries, email/DNS and Frontier pause are unchanged."
   }
 }
