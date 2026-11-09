@@ -726,5 +726,35 @@
     },
     "blocker": "Fresh signed-in EE account data remains unavailable, so no new product, brand or processed SKU was added.",
     "preserved": "Inquiry-only purchase flow, checkout/payment deferral, development disclosure, offers, product photography, galleries, email/DNS and Frontier pause are unchanged."
+  },
+  "latestProductAccessibility": {
+    "date": "2026-11-09",
+    "focus": "Product-gallery navigation and transparent inquiry context for assistive technology",
+    "changes": [
+      "Named each product photo gallery as a navigable region using the exact product title",
+      "Programmatically associated the Request purchase details button with the visible inquiry-not-order and checkout-unavailable explanation",
+      "Added regression coverage across all 78 product pages"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommit": "2f4b6d05569c388c82a9a93b8bcfe8d768fb6eaf",
+      "cloudflareBuild": "e1343741-8ab7-4ca1-b8cd-a35bfa64143b; success on exact source commit",
+      "retailChecks": 954,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "mobile": "390x844 mobile Chromium accessibility tree exposed the named gallery region and the full purchase-process description on the inquiry button; no unnamed button, link or text input was found",
+      "desktop": "Live 1440px-class desktop product page exposed the complete four-photo gallery, labeled controls, shipping form, inquiry control and related products without a broken layout",
+      "standard": "Implementation follows current W3C WAI guidance for named regions and aria-describedby button context",
+      "notificationRegression": "Queue/retry notification regression passed; email and DNS configuration unchanged",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date; the separate production-date notification test was not rerun because the email path was unchanged"
+    },
+    "blocker": "Fresh signed-in EE cost, availability, MAP and sales-channel data remains unavailable, so no new product, brand or processed SKU was added.",
+    "nextCategory": "Anime & Manga Figures",
+    "nextBrand": "Banpresto",
+    "recommendation": "Keep Banpresto next, but publish only compact items whose fresh EE economics remain competitive after shipping, payment fees and returns; the 1.50x rule yields 33.3% gross margin before those costs.",
+    "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, photography, email/DNS and Frontier pause are unchanged."
   }
 }
