@@ -756,5 +756,45 @@
     "nextBrand": "Banpresto",
     "recommendation": "Keep Banpresto next, but publish only compact items whose fresh EE economics remain competitive after shipping, payment fees and returns; the 1.50x rule yields 33.3% gross margin before those costs.",
     "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, photography, email/DNS and Frontier pause are unchanged."
+  },
+  "latestQuickViewAccessibility": {
+    "date": "2026-11-10",
+    "focus": "Consistent gallery navigation and transparent inquiry context in catalog quick view",
+    "changes": [
+      "Give the quick-view photo gallery a product-specific named region when an item opens",
+      "Associate the Request purchase details button with the visible inquiry-not-order and checkout-unavailable explanation",
+      "Version the catalog script so returning visitors receive the updated behavior",
+      "Add regression coverage for gallery naming, purchase context and existing selling-unit/package-content behavior"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-10",
+      "officialReferences": [
+        "https://www.target.com/c/action-figures-playsets-toys/banpresto/-/N-5xt87Z4ssyj",
+        "https://www.bigbadtoystore.com/search?Department=43623&HideInStock=false&HidePreorder=true&HideSoldOut=true&HideWaitlist=false&InventoryStatus=i%2Cw&PageSize=50&Series=50735%2C16677&SortOrder=New&Theme=4932",
+        "https://www.entertainmentearth.com/s/banpresto/c"
+      ],
+      "finding": "Target showed 52 Banpresto results, while Entertainment Earth showed a broad current assortment and BigBadToyStore showed aggressive discounts on some in-stock items. The category has demand and depth, but price competition is real.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Prioritize compact figures around the prevailing high-$20 range only when signed-in EE cost, current availability, MAP, permitted channel and at least two exact photos are verified. Reject 1.50x prices that become uncompetitive after shipping, payment fees and returns."
+    },
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommit": "04e2847b8dcd31ee879e8c47543388bfae0ece80",
+      "cloudflareBuild": "c6357cef-261a-4b62-8c53-2045756e038e; success on exact source commit",
+      "retailChecks": 954,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "quickViewRegression": "Accessible product-specific gallery region, aria-describedby purchase context, verified selling unit and package-content visibility passed",
+      "mobile": "390x844 mobile Chromium quick view exposed the exact Homer product title, named gallery region, full inquiry description and zero unnamed button/link/text inputs",
+      "desktop": "1440x1000 desktop Chromium quick view exposed the exact dialog title, named gallery, inquiry description and all four gallery photo controls",
+      "notificationRegression": "Queue/retry notification regression passed; email and DNS configuration unchanged",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date"
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP and sales-channel data was not available, so no new product, brand or processed SKU was added.",
+    "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, product photography, email/DNS and Frontier pause are unchanged."
   }
 }
