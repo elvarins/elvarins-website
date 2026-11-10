@@ -11,6 +11,10 @@ try{
  w.eval(gallery);w.eval(catalog);
  w.document.querySelector('[data-product="JK433524"]').click();
  assert.equal(w.document.querySelector('#product-dialog').open,true);
+ assert.equal(w.document.querySelector('#detail-gallery').getAttribute('role'),'region');
+ assert.equal(w.document.querySelector('#detail-gallery').getAttribute('aria-label'),'Product photo gallery for Homer “The Chosen One” — The Simpsons 5-Inch Figure');
+ assert.equal(w.document.querySelector('#detail-inquiry').getAttribute('aria-describedby'),'quickview-purchase-note');
+ assert.match(w.document.querySelector('#quickview-purchase-note').textContent,/does not place an order/);
  assert.equal(w.document.querySelector('#detail-unit').textContent,'One retail item');
  assert.equal(w.document.querySelector('#detail-contents').textContent,'1 Homer figure, removable hat and stein');
  assert.equal(w.document.querySelector('#detail-contents').hidden,false);
@@ -20,5 +24,6 @@ try{
  assert.equal(w.document.querySelector('#detail-contents').textContent,'');
  assert.equal(w.document.querySelector('#detail-contents').hidden,true);
  assert.equal(w.document.querySelector('#detail-contents-label').hidden,true);
- console.log('PASS: quick view separates selling unit from verified package contents and hides unavailable contents');
+ assert.match(html,/catalog\.js\?v=quickview-accessibility-20261110/);
+ console.log('PASS: quick view has an accessible product gallery and purchase-process context, separates selling unit from verified package contents and hides unavailable contents');
 }finally{w.close();}
