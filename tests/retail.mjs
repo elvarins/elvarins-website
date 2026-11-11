@@ -16,6 +16,7 @@ try{
  const catalog=JSON.parse(await readFile(root+'catalog/products.json','utf8'));
  const home=await mf.dispatchFetch(origin);check(home.status===200,'Homepage returns 200');const html=await home.text();
  check(!html.includes('Supplier &amp; business inquiries'),'Supplier inquiry is removed');check(html.includes('data-open-account'),'Account controls are present');check(html.includes('question-form'),'Customer form is present');check(html.includes('Do Not Sell or Share'),'Privacy choices are present');
+ check(html.includes('<meta property="og:site_name" content="Elvarins">')&&html.includes('<meta property="og:image:width" content="1200">')&&html.includes('<meta property="og:image:alt" content="Elvarins — toys, collectibles and pet supplies">')&&html.includes('<meta name="twitter:title" content="Elvarins | Toys, Collectibles &amp; Pet Supplies">')&&html.includes('<meta name="twitter:image" content="https://elvarins.com/brand-cover.png">'),'Homepage social preview is complete');
  const homeSchema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
  const listed=homeSchema['@graph'].find(x=>x['@type']==='ItemList').itemListElement;
  check(listed.length===catalog.products.length&&listed.every((x,i)=>x.url===origin+catalog.products[i].url),'Homepage schema covers the full current catalog');
