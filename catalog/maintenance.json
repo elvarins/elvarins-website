@@ -796,5 +796,45 @@
     },
     "blocker": "Fresh signed-in EE wholesale cost, availability, MAP and sales-channel data was not available, so no new product, brand or processed SKU was added.",
     "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, product photography, email/DNS and Frontier pause are unchanged."
+  },
+  "latestHomepageSharing": {
+    "date": "2026-11-11",
+    "focus": "Complete professional homepage link previews",
+    "changes": [
+      "Add Elvarins site identity to the homepage Open Graph metadata",
+      "Declare the verified 1200 by 630 brand-cover dimensions and accessible image description",
+      "Add complete X/Twitter title, description, image and image-description metadata",
+      "Add a homepage social-preview regression check"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-11",
+      "officialReferences": [
+        "https://www.target.com/c/action-figures-playsets-toys/banpresto/-/N-5xt88Z4ssyj",
+        "https://www.entertainmentearth.com/s/banpresto/c",
+        "https://www.bigbadtoystore.com/search?HideInStock=false&HidePreorder=false&HideSoldOut=false&HideWaitlist=false&InventoryStatus=i%2Cp%2Cso%2Cw&PageSize=100&Series=50735&SortOrder=Relevance"
+      ],
+      "finding": "Target showed 56 Banpresto toy-figure results and Entertainment Earth showed 701 assortment entries, but BigBadToyStore had multiple in-stock Banpresto products discounted 10 to 40 percent and some much deeper markdowns. Demand and assortment depth exist, while closeout competition can destroy the economics of a fixed 1.50x markup.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Favor current compact releases with stable retail pricing and avoid older lines already being cleared at deep discounts. Publish only after signed-in EE cost, availability, MAP, permitted channel and two-photo verification."
+    },
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommit": "d3fb283a0fa8dc2721bf98158c7f0101288776bb",
+      "cloudflareBuild": "184437d5-f53f-4001-8988-558ecdad387e; success on exact source commit",
+      "retailChecks": 955,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "desktop": "Live Chromium homepage returned Elvarins site name, 1200x630 image dimensions, accessible image alt and complete X/Twitter metadata",
+      "mobile": "390x844 mobile Chromium exposed the correct title, homepage H1, four named navigation landmarks and zero unnamed interactive controls",
+      "brandCover": "Local source verified as a 1200x630 PNG",
+      "notificationRegression": "Queue/retry notification regression passed; email and DNS configuration unchanged",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date"
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP and sales-channel data was not verified, so no new product, brand or processed SKU was added.",
+    "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, product photography, galleries, email/DNS and Frontier pause are unchanged."
   }
 }
