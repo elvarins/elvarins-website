@@ -836,5 +836,43 @@
     },
     "blocker": "Fresh signed-in EE wholesale cost, availability, MAP and sales-channel data was not verified, so no new product, brand or processed SKU was added.",
     "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, product photography, galleries, email/DNS and Frontier pause are unchanged."
+  },
+  "latestCollectionSharing": {
+    "date": "2026-11-12",
+    "focus": "Accurate collection-page search and social link previews",
+    "changes": [
+      "Give every collection an X/Twitter title matching its visible collection name",
+      "Give every collection an X/Twitter description matching its accurate collection summary",
+      "Add collection-specific regression checks for page title, meta description, canonical URL, Open Graph URL/title/description and X/Twitter title/description"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-12",
+      "officialReferences": [
+        "https://www.entertainmentearth.com/s/banpresto/c",
+        "https://www.target.com/s/bandai%2Bgundam%2Bmodel%2Bkit"
+      ],
+      "finding": "Entertainment Earth showed 708 Banpresto assortment entries, including fresh in-stock releases around $28.99 to $32.99. Target showed 200 Bandai Gundam model-kit results with many kits around $28.95 to $66.95. Both categories have real assortment depth, but the visible retail price bands confirm strong competition.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Keep Banpresto first in the pipeline, favor compact current releases and reject any SKU whose 1.50x price is uncompetitive after shipping, payment fees and returns. Bandai Hobby Gunpla remains the next model-kit candidate after eligible Banpresto economics are verified."
+    },
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommit": "f6b82d1a773e99b48cd23e57ca5ce283e84f3bc6",
+      "cloudflareBuild": "67b2b3a9-6dd0-47c5-9cbd-678527e48249; success on exact source commit",
+      "retailChecks": 965,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "desktop": "Live collection page showed the correct Transformers title, focused collection hero, filters and catalog layout after the development disclosure was closed.",
+      "mobile": "390x844 live Chromium screenshot verified the development disclosure fits the viewport with readable copy, close control and both actions. Collection metadata was separately verified from the rendered live document.",
+      "liveMetadata": "Transformers collection returned its exact title, description, canonical URL, Open Graph title and X/Twitter title and description.",
+      "notificationRegression": "Queue/retry notification regression passed; email and DNS configuration unchanged",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date"
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP and sales-channel data was not verified, so no new product, brand or processed SKU was added.",
+    "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, product photography, galleries, email/DNS and Frontier pause are unchanged."
   }
 }
