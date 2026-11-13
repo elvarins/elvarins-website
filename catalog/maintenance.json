@@ -874,5 +874,44 @@
     },
     "blocker": "Fresh signed-in EE wholesale cost, availability, MAP and sales-channel data was not verified, so no new product, brand or processed SKU was added.",
     "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, product photography, galleries, email/DNS and Frontier pause are unchanged."
+  },
+  "latestMobileNavigation": {
+    "date": "2026-11-13",
+    "focus": "Complete mobile access to current shopping and customer-support destinations",
+    "changes": [
+      "Added a direct Pet Supplies link to the compact mobile menu",
+      "Added a direct Contact link to the compact mobile menu",
+      "Synchronized the shared header across homepage, product, collection, information and 404 pages",
+      "Added regression coverage for homepage, product and information-page mobile menus"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-13",
+      "officialReferences": [
+        "https://www.entertainmentearth.com/s/banpresto/c",
+        "https://www.target.com/s/bandai%2Bgundam%2Bmodel%2Bkit"
+      ],
+      "finding": "Entertainment Earth showed 711 Banpresto assortment entries and a fresh in-stock Dandadan release at $28.99. Target showed 200 Bandai Gundam model-kit results across a broad price range. The assortment depth supports the pipeline, while the crowded retail field requires SKU-level economics rather than brand-level assumptions.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Start with compact current Banpresto releases only after signed-in EE cost, availability, MAP, permitted channel and two-photo verification. Reject items whose 1.50x price cannot compete after shipping, payment fees and returns; keep Bandai Hobby Gunpla next in the model-kit queue."
+    },
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommit": "63daa3b943b3ca711aa6032b095a9d97c3cb8112",
+      "cloudflareBuild": "a97b0908-564f-40c5-978a-49f210bbcd4c; success on exact source commit",
+      "retailChecks": 968,
+      "sitemapPages": 102,
+      "internalTargets": 214,
+      "liveMenu": "Published homepage mobile menu contains Toys & Collectibles, Pet Supplies, Departments, About Elvarins, Contact and Customer support, collapsed by default.",
+      "mobile": "390x844 live Chromium screenshot showed the development disclosure contained within the viewport with readable text and actions; the page behind it retained the compact header without horizontal overflow.",
+      "sharedPages": "Homepage, product and information-page integration checks all confirmed the new Pet Supplies and Contact links.",
+      "notificationRegression": "Queue/retry notification regression passed; email and DNS configuration unchanged",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date"
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP and sales-channel data was not verified, so no new product, brand or processed SKU was added.",
+    "preserved": "Inquiry-only flow, checkout/payment deferral, development disclosure, offers, product photography, galleries, email/DNS and Frontier pause are unchanged."
   }
 }
