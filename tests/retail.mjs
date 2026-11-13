@@ -16,6 +16,8 @@ try{
  const catalog=JSON.parse(await readFile(root+'catalog/products.json','utf8'));
  const home=await mf.dispatchFetch(origin);check(home.status===200,'Homepage returns 200');const html=await home.text();
  check(!html.includes('Supplier &amp; business inquiries'),'Supplier inquiry is removed');check(html.includes('data-open-account'),'Account controls are present');check(html.includes('question-form'),'Customer form is present');check(html.includes('Do Not Sell or Share'),'Privacy choices are present');
+ const mobileMenuLinks=body=>{const menu=body.match(/<div id="mobilemenu"[\s\S]*?<\/div>/)?.[0]||'';return menu.includes('href="/collections/pet-supplies">Pet Supplies</a>')&&menu.includes('href="/contact">Contact</a>');};
+ check(mobileMenuLinks(html),'Homepage mobile menu exposes Pet Supplies and Contact');
  check(html.includes('<meta property="og:site_name" content="Elvarins">')&&html.includes('<meta property="og:image:width" content="1200">')&&html.includes('<meta property="og:image:alt" content="Elvarins — toys, collectibles and pet supplies">')&&html.includes('<meta name="twitter:title" content="Elvarins | Toys, Collectibles &amp; Pet Supplies">')&&html.includes('<meta name="twitter:image" content="https://elvarins.com/brand-cover.png">'),'Homepage social preview is complete');
  const homeSchema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
  const listed=homeSchema['@graph'].find(x=>x['@type']==='ItemList').itemListElement;
@@ -30,6 +32,7 @@ try{
  check(versionedStyle.headers.get('Cache-Control')==='public, max-age=31536000, immutable','Versioned assets use long-lived immutable browser caching');
  check(unversionedStyle.headers.get('Cache-Control')==='public, max-age=0, must-revalidate','Unversioned assets continue to revalidate');
  check(productDocument.headers.get('Cache-Control')==='public, max-age=0, must-revalidate','Product HTML continues to revalidate');
+ check(mobileMenuLinks(await productDocument.text()),'Product mobile menu exposes Pet Supplies and Contact');
  const retailSource=await readFile(root+'retail.js','utf8'),styleSource=await readFile(root+'style.css','utf8'),catalogSource=await readFile(root+'catalog.js','utf8');
  check(html.includes('<dt>Selling unit</dt><dd id="detail-unit"></dd>')&&html.includes('<dt id="detail-contents-label" hidden>Package contents</dt><dd id="detail-contents" hidden></dd>')&&catalogSource.includes("['size','age','contents']"),'Quick view separates the retail selling unit from verified package contents');
  check(retailSource.includes("className='product-photo-secondary'")&&retailSource.includes("preview.addEventListener('load'")&&retailSource.includes("preview.addEventListener('error'")&&retailSource.includes("preview.fetchPriority='low'"),'Catalog alternate-photo preview waits for verified source-image load, uses low network priority and removes failed previews');
@@ -65,6 +68,7 @@ try{
  for(let i=0;i<6;i++){a=await req('/api/account/login',{email:'limited@example.test',password:'Wrong long password 123'},null,{'CF-Connecting-IP':'192.0.2.55'});}check(a.r.status===429,'Persistent auth throttling works');
 
  for(const path of ['/about','/contact','/privacy-policy','/terms-of-sale','/terms-of-use','/accessibility','/privacy-choices','/shipping-delivery','/returns','/help-center','/track-order','/safety-recalls','/coupons','/newsletter','/blog','/blog/choosing-a-collectible','/blog/understanding-retail-prices','/blog/using-your-saved-collection']){const r=await mf.dispatchFetch(origin+path),body=await r.text();check(r.status===200,'Information page '+path);check(body.includes('newsletter-form')&&body.includes('question-dialog'),'Shared forms on '+path);check(body.includes('fonts.googleapis.com/css2?family=Inter')&&body.includes('fonts.gstatic.com" crossorigin'),'Information page loads the same brand typeface '+path);check(body.includes('<meta property="og:site_name" content="Elvarins">')&&body.includes('<meta property="og:image:width" content="1200">')&&body.includes('<meta name="twitter:image" content="https://elvarins.com/brand-cover.png">'),'Information page social preview is complete '+path);}
+ const contactMobile=await (await mf.dispatchFetch(origin+'/contact')).text();check(mobileMenuLinks(contactMobile),'Information-page mobile menu exposes Pet Supplies and Contact');
  const brandedMissing=await (await mf.dispatchFetch(origin+'/missing-font-check')).text();check(brandedMissing.includes('fonts.googleapis.com/css2?family=Inter')&&brandedMissing.includes('fonts.gstatic.com" crossorigin'),'Branded 404 loads the same typeface as the retail site');
  check(!html.includes('/_review/responsive'),'Temporary test preview is absent from retail navigation');
  check(!html.includes('id="about"')&&!html.includes('id="privacy"')&&!html.includes('id="policies"'),'Full information moved off homepage');
