@@ -25,6 +25,7 @@ try{
  const sitemap=await (await mf.dispatchFetch(origin+'/sitemap.xml')).text();
  check(catalog.products.every(p=>sitemap.includes('<loc>'+origin+p.url+'</loc>')),'All product routes are in the sitemap');
  check(html.includes('id="reset-catalog-filters"'),'Search can be cleared while matches remain');
+ check(html.includes('id="result-count" class="result-count" role="status" aria-live="polite" aria-atomic="true"'),'Catalog result updates announce their full context to assistive technology');
  for(const p of catalog.products){const card=html.match(new RegExp('<article class="product-card" data-sku="'+p.sku+'"[^>]*>([\\s\\S]*?)</article>'))?.[1];if(!card)continue;const n=new Set([p.image,...(p.images||[])]).size;if(n>1)check(card.includes('>'+n+' photos</button>')&&card.includes('data-product="'+p.sku+'"'),'Photo badge matches verified gallery '+p.sku);}
 
  for(const path of ['index.html','gallery.js','retail.js','style.css','sitemap.xml','catalog.js','catalog/products.json']){const served=await (await mf.dispatchFetch(origin+'/'+(path==='index.html'?'':path))).text();check(served===await readFile(root+path,'utf8'),'Worker asset matches source '+path);}
