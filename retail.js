@@ -71,12 +71,9 @@
  discovery.addEventListener('close',()=>write('elvarins-discovery-dismissed',String(Date.now())));
  // One welcome per browsing session; a full catalog remains available without signup.
  const offersDialog=$('#offers-dialog'),offerSessionKey='elvarins-development-notice-20261026';
- let offerShown=false;
- const offerSeen=()=>{try{return sessionStorage.getItem(offerSessionKey)==='shown';}catch{return offerShown;}};
- function rememberOffer(){offerShown=true;try{sessionStorage.setItem(offerSessionKey,'shown');}catch{}}
+ function rememberOffer(){try{sessionStorage.setItem(offerSessionKey,'shown');}catch{}}
  if(offersDialog){
   offersDialog.addEventListener('close',rememberOffer);
-  setTimeout(()=>{if(!offerSeen()&&!$('dialog[open]')&&document.visibilityState==='visible'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){rememberOffer();modal(offersDialog);}},850);
  }
  $$('[data-offer-code]').forEach(b=>b.addEventListener('click',()=>{rememberOffer();openQuestion('shipping','','Please review offer '+b.dataset.offerCode+' for my purchase inquiry.\nItems and quantities: \nU.S. delivery ZIP code: \nPlease confirm eligible items, availability, discount, shipping and any applicable tax in my final quote.');}));
 
@@ -107,7 +104,7 @@
  cartButton.type='button';
  cartButton.className='btn';
  cartButton.addEventListener('click',()=>modal(cartDialog));
- const accountButton=$('header [data-account-open]')||$('header button[aria-label="My account"]')||$('header nav button:last-of-type');
+ const accountButton=$('header [data-account-label]')?.closest('button');
  accountButton?.after(cartButton);
  function renderCart(){
   const count=cart.reduce((sum,item)=>sum+item.quantity,0);
