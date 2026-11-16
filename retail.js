@@ -88,6 +88,26 @@
  inquiryForm($('#order-help-form'),$('#order-help-status'),()=>{const v=Object.fromEntries(new FormData($('#order-help-form')));return {name:v.name,email:v.email,website:v.website||'',topic:'shipping',sku:'',message:'Order update request. Purchase reference: '+v.orderReference+'\n'+v.message};});
  refresh().catch(()=>{});
 
+ const deliveryKey='elvarins-delivery-zip';
+ const savedDelivery=()=>read(deliveryKey)||'';
+ const deliveryForm=$('#delivery-location-form');
+ if(deliveryForm){
+  const zip=$('#delivery-location-zip');
+  const status=$('#delivery-location-status');
+  zip.value=savedDelivery();
+  if(zip.value)status.textContent='Delivering to '+zip.value;
+  deliveryForm.addEventListener('submit',event=>{
+   event.preventDefault();
+   if(!deliveryForm.reportValidity())return;
+   write(deliveryKey,zip.value);
+   status.textContent='Delivering to '+zip.value;
+  });
+ }
+ const orderDialog=document.createElement('dialog');
+ orderDialog.className='service-dialog';
+ orderDialog.setAttribute('aria-labelledby','order-review-title');
+ orderDialog.innerHTML='<form method="dialog"><button class="btn" value="close">Close</button></form><h2 id="order-review-title">Order review</h2><p data-order-item></p><p data-order-delivery></p><a href="/#delivery-location">Set delivery ZIP</a><p>Online payment is currently unavailable.</p><button class="btn" type="button" disabled>Pay now</button>';
+ document.body.append(orderDialog);
  const cartKey='elvarins-cart-v1';
  const cartMoney=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
  let cart=[];
@@ -132,13 +152,20 @@
   cartDialog.querySelector('[data-cart-subtotal]').textContent=count?'Items subtotal: '+cartMoney.format(cart.reduce((sum,item)=>sum+Math.round(item.price*100)*item.quantity,0)/100):'Your cart is empty.';
  }
  renderCart();
- $$('[data-add-to-cart]').forEach(button=>button.addEventListener('click',()=>{
-  const sku=button.dataset.addToCart||$('#detail-sku')?.textContent.trim();
+ $('[data-add-to-cart], [data-buy-now]').forEach(button=>button.addEventListener('click',()=>{
+  const sku=button.dataset.addToCart||button.dataset.buyNow||$('#detail-sku')?.textContent.trim();
   const product=allProducts.find(item=>item.sku===sku);
   const quantityInput=button.closest('main, dialog')?.querySelector('#shipping-qty');
   if(quantityInput&&!quantityInput.reportValidity())return;
   if(!product||!Number.isFinite(product.price))return;
   const quantity=Number(quantityInput?.value||1);
+  if(button.hasAttribute('data-buy-now')){
+   orderDialog.querySelector('[data-order-item]').textContent=product.title+' × '+quantity+' · '+cartMoney.format(product.price*quantity);
+   const zip=savedDelivery();
+   orderDialog.querySelector('[data-order-delivery]').textContent=zip?'Delivery ZIP: '+zip:'Delivery ZIP has not been set.';
+   modal(orderDialog);
+   return;
+  }
   const existing=cart.find(item=>item.sku===sku);
   if(existing)existing.quantity=Math.min(20,existing.quantity+quantity);
   else cart.push({sku,title:product.title,price:product.price,quantity});
