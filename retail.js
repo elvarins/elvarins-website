@@ -90,4 +90,64 @@
 
  inquiryForm($('#order-help-form'),$('#order-help-status'),()=>{const v=Object.fromEntries(new FormData($('#order-help-form')));return {name:v.name,email:v.email,website:v.website||'',topic:'shipping',sku:'',message:'Order update request. Purchase reference: '+v.orderReference+'\n'+v.message};});
  refresh().catch(()=>{});
+
+ const cartKey='elvarins-cart-v1';
+ const cartMoney=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+ let cart=[];
+ try{
+  const saved=JSON.parse(read(cartKey)||'[]');
+  if(Array.isArray(saved))cart=saved.filter(item=>item&&typeof item.sku==='string'&&typeof item.title==='string'&&Number.isFinite(item.price)&&item.price>=0&&Number.isInteger(item.quantity)&&item.quantity>=1&&item.quantity<=20);
+ }catch{}
+ const cartDialog=document.createElement('dialog');
+ cartDialog.setAttribute('aria-labelledby','cart-heading');
+ cartDialog.style.cssText='width:min(34rem,calc(100% - 2rem));max-height:85vh;padding:1.5rem;border:0;border-radius:1rem;color:#15264a';
+ cartDialog.innerHTML='<form method="dialog"><button class="btn" value="close">Close cart</button></form><h2 id="cart-heading">Shopping cart</h2><p>Online checkout and payment are currently unavailable. You can keep items in your cart on this device.</p><ul data-cart-items></ul><p data-cart-subtotal></p>';
+ document.body.append(cartDialog);
+ const cartButton=document.createElement('button');
+ cartButton.type='button';
+ cartButton.className='btn';
+ cartButton.addEventListener('click',()=>modal(cartDialog));
+ const accountButton=$('header [data-account-open]')||$('header button[aria-label="My account"]')||$('header nav button:last-of-type');
+ accountButton?.after(cartButton);
+ function renderCart(){
+  const count=cart.reduce((sum,item)=>sum+item.quantity,0);
+  cartButton.textContent=count?'Cart ('+count+')':'Cart';
+  const items=cartDialog.querySelector('[data-cart-items]');
+  items.replaceChildren();
+  for(const item of cart){
+   const row=document.createElement('li');
+   const label=document.createElement('span');
+   label.textContent=item.title+' × '+item.quantity+' · '+cartMoney.format(item.price*item.quantity);
+   const remove=document.createElement('button');
+   remove.type='button';
+   remove.className='btn';
+   remove.textContent='Remove';
+   remove.setAttribute('aria-label','Remove '+item.title);
+   remove.addEventListener('click',()=>{
+    cart=cart.filter(entry=>entry.sku!==item.sku);
+    write(cartKey,JSON.stringify(cart));
+    renderCart();
+    cartDialog.querySelector('button').focus();
+   });
+   row.append(label,document.createTextNode(' '),remove);
+   items.append(row);
+  }
+  cartDialog.querySelector('[data-cart-subtotal]').textContent=count?'Items subtotal: '+cartMoney.format(cart.reduce((sum,item)=>sum+Math.round(item.price*100)*item.quantity,0)/100):'Your cart is empty.';
+ }
+ renderCart();
+ $$('[data-add-to-cart]').forEach(button=>button.addEventListener('click',()=>{
+  const sku=button.dataset.addToCart||$('#detail-sku')?.textContent.trim();
+  const product=allProducts.find(item=>item.sku===sku);
+  const quantityInput=button.closest('main, dialog')?.querySelector('#shipping-qty');
+  if(quantityInput&&!quantityInput.reportValidity())return;
+  if(!product||!Number.isFinite(product.price))return;
+  const quantity=Number(quantityInput?.value||1);
+  const existing=cart.find(item=>item.sku===sku);
+  if(existing)existing.quantity=Math.min(20,existing.quantity+quantity);
+  else cart.push({sku,title:product.title,price:product.price,quantity});
+  write(cartKey,JSON.stringify(cart));
+  renderCart();
+  modal(cartDialog);
+  cartDialog.addEventListener('close',()=>cartButton.focus(),{once:true});
+ }));
 })();
