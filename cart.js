@@ -36,7 +36,7 @@ function render(){
  $('elv-cart-count').textContent=count;subtotal.textContent='Items subtotal: '+fmt(total/100);checkout.disabled=!list.length;status.textContent='';
 }
 function change(sku,quantity){if(!bySku().has(sku))return;if(quantity<=0)delete cart[sku];else cart[sku]=Math.min(10,Math.max(1,quantity));render()}
-function add(sku){if(!bySku().has(sku))return;change(sku,(cart[sku]||0)+1);open()}
+function add(sku){if(!bySku().has(sku))return;const requested=Number($('shipping-qty')?.value||1);const quantity=Number.isInteger(requested)&&requested>=1&&requested<=10?requested:1;change(sku,(cart[sku]||0)+quantity);open()}
 function inject(){
  document.querySelectorAll('.product-card[data-sku]').forEach(card=>{
   if(card.querySelector('[data-elv-cart-add]'))return;
@@ -46,18 +46,30 @@ function inject(){
  });
 }
 document.addEventListener('click',e=>{const btn=e.target.closest('[data-elv-cart-add]');if(btn){e.preventDefault();e.stopPropagation();add(btn.dataset.elvCartAdd)}});
-checkout.addEventListener('click',()=>{
- status.textContent='Payments are not enabled yet. Stock, shipping and tax must be verified before we can accept your order.';
- const skus=entries().map(({p,quantity})=>p.sku+' × '+quantity).join(', ');
- const msg='Please confirm stock, shipping, tax, and payment availability for: '+skus;
- let anchor=$('elv-cart-contact');if(!anchor){anchor=document.createElement('a');anchor.id='elv-cart-contact';anchor.textContent='Request order confirmation';anchor.className='elv-cart-contact';checkout.insertAdjacentElement('afterend',anchor)}
- anchor.href='/contact?order='+encodeURIComponent(msg);
+checkout.textContent='Proceed to secure checkout';
+checkout.addEventListener('click',async()=>{
+ const items=entries().map(({p,quantity})=>({sku:p.sku,quantity}));
+ if(!items.length)return;
+ checkout.disabled=true;status.textContent='Preparing secure checkout…';
+ try{
+  const r=await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items}),credentials:'same-origin',signal:AbortSignal.timeout(20000)});
+  const data=await r.json();
+  if(!r.ok)throw Error(data.message||'Checkout is unavailable');
+  if(!data.url||!data.url.startsWith('https://checkout.stripe.com/'))throw Error('Unexpected payment destination');
+  location.assign(data.url);
+ }catch(err){status.textContent=(err.message||'Checkout is unavailable')+' Please contact us if you need help.';checkout.disabled=false;}
 });
+
 async function start(){
  const embedded=$('catalog-data');if(embedded){try{catalog=JSON.parse(embedded.textContent)}catch{}}
  if(!catalog.length){try{const res=await fetch('/catalog/products.json');if(!res.ok)throw Error();catalog=(await res.json()).products||[]}catch{status.textContent='Catalog unavailable';return}}
  cart=safe();render();inject();
  const grid=$('product-grid');if(grid)new MutationObserver(()=>inject()).observe(grid,{childList:true});
+ const quick=$('product-dialog');if(quick){const target=quick.querySelector('#detail-page')?.parentElement||quick.querySelector('.detail-copy');if(target&&!quick.querySelector('#elv-quick-add')){const b=document.createElement('button');b.id='elv-quick-add';b.type='button';b.className='elv-add-to-cart';b.textContent='Add to cart';target.append(b);b.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(sku)add(sku)})}}
+
+ const detailSku=$('product-data');if(detailSku){try{const p=JSON.parse(detailSku.textContent),where=$('detail-inquiry')||$('shipping-form');if(p?.sku&&where){const b=document.createElement('button');b.type='button';b.className='elv-add-to-cart elv-detail-add';b.textContent='Add to cart';b.dataset.elvCartAdd=p.sku;where.insertAdjacentElement('beforebegin',b)}}catch{}}
+ document.querySelectorAll('[data-product-question]').forEach(b=>{b.hidden=false});
+ if(new URLSearchParams(location.search).has('cart'))open();
 }
 start();
 })();
