@@ -1,0 +1,125 @@
+{
+  "status": "Concept only",
+  "products": [
+    {
+      "sku": "HK-001",
+      "title": "Elvarins Measuring Spoon Set",
+      "category": "Kitchen Tools & Prep",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-002",
+      "title": "Elvarins Mini Silicone Spatula Set",
+      "category": "Kitchen Tools & Prep",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-003",
+      "title": "Elvarins Stainless Steel Whisk Set",
+      "category": "Kitchen Tools & Prep",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-004",
+      "title": "Elvarins Wooden Spoon Set",
+      "category": "Kitchen Tools & Prep",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-005",
+      "title": "Elvarins Measuring Cup Set",
+      "category": "Kitchen Tools & Prep",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-006",
+      "title": "Elvarins Roll-Up Sink Drying Rack",
+      "category": "Sink & Cleanup",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-007",
+      "title": "Elvarins Sink Caddy",
+      "category": "Sink & Cleanup",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-008",
+      "title": "Elvarins Dish Brush Set",
+      "category": "Sink & Cleanup",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-009",
+      "title": "Elvarins Microfiber Kitchen Cloth Set",
+      "category": "Sink & Cleanup",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-010",
+      "title": "Elvarins Expandable Drawer Dividers",
+      "category": "Home Organization",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-011",
+      "title": "Elvarins Stackable Pantry Bins",
+      "category": "Home Organization",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    },
+    {
+      "sku": "HK-012",
+      "title": "Elvarins Under-Sink Organizer",
+      "category": "Home Organization",
+      "brand": "Elvarins",
+      "upc": null,
+      "images": [],
+      "supplier": null,
+      "priceUsd": null
+    }
+  ]
+}
