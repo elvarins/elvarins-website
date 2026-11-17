@@ -65,6 +65,8 @@ async function start(){
  if(!catalog.length){try{const res=await fetch('/catalog/products.json');if(!res.ok)throw Error();catalog=(await res.json()).products||[]}catch{status.textContent='Catalog unavailable';return}}
  cart=safe();render();inject();
  const grid=$('product-grid');if(grid)new MutationObserver(()=>inject()).observe(grid,{childList:true});
+ const quick=$('product-dialog');if(quick){const target=quick.querySelector('#detail-page')?.parentElement||quick.querySelector('.detail-copy');if(target&&!quick.querySelector('#elv-quick-add')){const b=document.createElement('button');b.id='elv-quick-add';b.type='button';b.className='elv-add-to-cart';b.textContent='Add to cart';target.append(b);b.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(sku)add(sku)})}}
+
  const detailSku=$('product-data');if(detailSku){try{const p=JSON.parse(detailSku.textContent),where=$('detail-inquiry')||$('shipping-form');if(p?.sku&&where){const b=document.createElement('button');b.type='button';b.className='elv-add-to-cart elv-detail-add';b.textContent='Add to cart';b.dataset.elvCartAdd=p.sku;where.insertAdjacentElement('beforebegin',b)}}catch{}}
  document.querySelectorAll('[data-product-question]').forEach(b=>{b.hidden=false});
  if(new URLSearchParams(location.search).has('cart'))open();
