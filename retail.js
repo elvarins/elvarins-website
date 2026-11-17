@@ -70,6 +70,16 @@
  let scrolled=false;addEventListener('scroll',()=>{scrolled=scrollY>400;$('#back-to-top').hidden=!scrolled;},{passive:true});$('#back-to-top').addEventListener('click',()=>scrollTo({top:0,behavior:reduced.matches?'auto':'smooth'}));
  discovery.addEventListener('close',()=>write('elvarins-discovery-dismissed',String(Date.now())));
  // One welcome per browsing session; a full catalog remains available without signup.
+ const offersDialog=$('#offers-dialog'),offerSessionKey='elvarins-development-notice-20261026';
+ let offerShown=false;
+ const offerSeen=()=>{try{return sessionStorage.getItem(offerSessionKey)==='shown';}catch{return offerShown;}};
+ function rememberOffer(){offerShown=true;try{sessionStorage.setItem(offerSessionKey,'shown');}catch{}}
+ if(offersDialog){
+  offersDialog.addEventListener('close',rememberOffer);
+  setTimeout(()=>{if(!offerSeen()&&!$('dialog[open]')&&document.visibilityState==='visible'&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){rememberOffer();modal(offersDialog);}},850);
+ }
+ $$('[data-offer-code]').forEach(b=>b.addEventListener('click',()=>{rememberOffer();openQuestion('shipping','','Please review offer '+b.dataset.offerCode+' for my purchase inquiry.\nItems and quantities: \nU.S. delivery ZIP code: \nPlease confirm eligible items, availability, discount, shipping and any applicable tax in my final quote.');}));
+
  $$('[data-department-request]').forEach(b=>b.addEventListener('click',()=>{modal(question);$('#question-topic').value='general';$('#question-sku').value='';$('#question-message').value='Department: '+b.dataset.departmentRequest+'\nI am looking for: ';$('#question-status').textContent='';$('#question-form').dispatchEvent(new Event('inquiry-prefill'));}));
  const heroCopy={transformers:['Find your next<br><em>Transformers favorite.</em>','Explore character figures for your collection, with clear item details and individual retail prices.'],marvel:['Bring your heroes<br><em>into focus.</em>','Discover Marvel figures and character collectibles, ready to explore one item at a time.'],funko:['Small figures.<br><em>Big personalities.</em>','Find a character for your shelf with our selection of Funko Pop! vinyl figures.']};
  $$('[data-hero-collection]').forEach(b=>b.addEventListener('click',()=>{const slug=b.dataset.heroCollection,p=allProducts.find(x=>x.collection===slug);if(!p)return;$('.hero-copy h1').innerHTML=heroCopy[slug][0];$('.hero-copy>p').textContent=heroCopy[slug][1];const cta=$('.hero-actions a');cta.href='/collections/'+slug;cta.textContent='Explore the collection →';const img=$('.hero-feature img');img.src=p.image;img.alt=p.title;delete img.dataset.fallback;const link=$('.hero-feature a');link.href=p.url;link.textContent='Explore this character ↗';$$('[data-hero-collection]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));}));
@@ -80,105 +90,4 @@
 
  inquiryForm($('#order-help-form'),$('#order-help-status'),()=>{const v=Object.fromEntries(new FormData($('#order-help-form')));return {name:v.name,email:v.email,website:v.website||'',topic:'shipping',sku:'',message:'Order update request. Purchase reference: '+v.orderReference+'\n'+v.message};});
  refresh().catch(()=>{});
-
- const deliveryKey='elvarins-delivery-zip';
- const savedDelivery=()=>read(deliveryKey)||'';
- const deliveryForm=$('#delivery-location-form');
- if(deliveryForm){
-  const zip=$('#delivery-location-zip');
-  const status=$('#delivery-location-status');
-  zip.value=savedDelivery();
-  if(zip.value)status.textContent='Delivering to '+zip.value;
-  deliveryForm.addEventListener('submit',event=>{
-   event.preventDefault();
-   if(!deliveryForm.reportValidity())return;
-   write(deliveryKey,zip.value);
-   status.textContent='Delivering to '+zip.value;
-  });
- }
- const orderDialog=document.createElement('dialog');
- orderDialog.className='service-dialog';
- orderDialog.setAttribute('aria-labelledby','order-review-title');
- orderDialog.innerHTML='<form method="dialog"><button class="btn" value="close">Close</button></form><h2 id="order-review-title">Order review</h2><p data-order-item></p><p data-order-delivery></p><a href="/#delivery-location">Set delivery ZIP</a><p>Online payment is currently unavailable.</p><button class="btn" type="button" disabled>Pay now</button>';
- document.body.append(orderDialog);
- const cartKey='elvarins-cart-v1';
- const cartMoney=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
- let cart=[];
- try{
-  const saved=JSON.parse(read(cartKey)||'[]');
-  if(Array.isArray(saved))cart=saved.filter(item=>item&&typeof item.sku==='string'&&typeof item.title==='string'&&Number.isFinite(item.price)&&item.price>=0&&Number.isInteger(item.quantity)&&item.quantity>=1&&item.quantity<=20);
- }catch{}
- const cartDialog=document.createElement('dialog');
- cartDialog.setAttribute('aria-labelledby','cart-heading');
- cartDialog.style.cssText='position:fixed;inset:0 0 0 auto;margin:0;width:min(30rem,100%);height:100dvh;max-height:100dvh;padding:1.5rem;border:0;color:#15264a';
- cartDialog.innerHTML='<form method="dialog"><button class="btn" value="close">Close cart</button></form><h2 id="cart-heading">Shopping cart</h2><p>Online checkout and payment are currently unavailable. You can keep items in your cart on this device.</p><ul data-cart-items></ul><p data-cart-subtotal></p>';
- document.body.append(cartDialog);
- const cartButton=document.createElement('button');
- cartButton.type='button';
- cartButton.className='btn';
- cartButton.addEventListener('click',()=>modal(cartDialog));
- const accountButton=$('header [data-account-label]')?.closest('button');
- accountButton?.after(cartButton);
- function renderCart(){
-  const count=cart.reduce((sum,item)=>sum+item.quantity,0);
-  cartButton.textContent=count?'Cart ('+count+')':'Cart';
-  const items=cartDialog.querySelector('[data-cart-items]');
-  items.replaceChildren();
-  for(const item of cart){
-   const row=document.createElement('li');
-   const label=document.createElement('span');
-   label.textContent=item.title+' × '+item.quantity+' · '+cartMoney.format(item.price*item.quantity);
-   const remove=document.createElement('button');
-   remove.type='button';
-   remove.className='btn';
-   remove.textContent='Remove';
-   remove.setAttribute('aria-label','Remove '+item.title);
-   remove.addEventListener('click',()=>{
-    cart=cart.filter(entry=>entry.sku!==item.sku);
-    write(cartKey,JSON.stringify(cart));
-    renderCart();
-    cartDialog.querySelector('button').focus();
-   });
-   const quantity=document.createElement('input');
-   quantity.type='number';
-   quantity.min='1';
-   quantity.max='20';
-   quantity.required=true;
-   quantity.value=item.quantity;
-   quantity.setAttribute('aria-label','Quantity for '+item.title);
-   quantity.addEventListener('change',()=>{
-    if(!quantity.reportValidity()){quantity.value=item.quantity;return;}
-    item.quantity=Number(quantity.value);
-    write(cartKey,JSON.stringify(cart));
-    renderCart();
-    cartDialog.querySelector('button').focus();
-   });
-   row.append(label,document.createTextNode(' '),quantity,remove);
-   items.append(row);
-  }
-  cartDialog.querySelector('[data-cart-subtotal]').textContent=count?'Items subtotal: '+cartMoney.format(cart.reduce((sum,item)=>sum+Math.round(item.price*100)*item.quantity,0)/100):'Your cart is empty.';
- }
- renderCart();
- $$('[data-add-to-cart], [data-buy-now]').forEach(button=>button.addEventListener('click',()=>{
-  const sku=button.dataset.addToCart||button.dataset.buyNow||$('#detail-sku')?.textContent.trim();
-  const product=allProducts.find(item=>item.sku===sku);
-  const quantityInput=button.closest('main, dialog')?.querySelector('#shipping-qty');
-  if(quantityInput&&!quantityInput.reportValidity())return;
-  if(!product||!Number.isFinite(product.price))return;
-  const quantity=Number(quantityInput?.value||1);
-  if(button.hasAttribute('data-buy-now')){
-   orderDialog.querySelector('[data-order-item]').textContent=product.title+' × '+quantity+' · '+cartMoney.format(product.price*quantity);
-   const zip=savedDelivery();
-   orderDialog.querySelector('[data-order-delivery]').textContent=zip?'Delivery ZIP: '+zip:'Delivery ZIP has not been set.';
-   modal(orderDialog);
-   return;
-  }
-  const existing=cart.find(item=>item.sku===sku);
-  if(existing)existing.quantity=Math.min(20,existing.quantity+quantity);
-  else cart.push({sku,title:product.title,price:product.price,quantity});
-  write(cartKey,JSON.stringify(cart));
-  renderCart();
-  modal(cartDialog);
-  cartDialog.addEventListener('close',()=>cartButton.focus(),{once:true});
- }));
 })();
