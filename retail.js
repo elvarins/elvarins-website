@@ -70,13 +70,7 @@
  let scrolled=false;addEventListener('scroll',()=>{scrolled=scrollY>400;$('#back-to-top').hidden=!scrolled;},{passive:true});$('#back-to-top').addEventListener('click',()=>scrollTo({top:0,behavior:reduced.matches?'auto':'smooth'}));
  discovery.addEventListener('close',()=>write('elvarins-discovery-dismissed',String(Date.now())));
  // One welcome per browsing session; a full catalog remains available without signup.
- const offersDialog=$('#offers-dialog'),offerSessionKey='elvarins-development-notice-20261026';
- function rememberOffer(){try{sessionStorage.setItem(offerSessionKey,'shown');}catch{}}
- if(offersDialog){
-  offersDialog.addEventListener('close',rememberOffer);
- }
- $$('[data-offer-code]').forEach(b=>b.addEventListener('click',()=>{rememberOffer();openQuestion('shipping','','Please review offer '+b.dataset.offerCode+' for my purchase inquiry.\nItems and quantities: \nU.S. delivery ZIP code: \nPlease confirm eligible items, availability, discount, shipping and any applicable tax in my final quote.');}));
-
+ $('[data-offer-code]').forEach(button=>button.disabled=true);
  $$('[data-department-request]').forEach(b=>b.addEventListener('click',()=>{modal(question);$('#question-topic').value='general';$('#question-sku').value='';$('#question-message').value='Department: '+b.dataset.departmentRequest+'\nI am looking for: ';$('#question-status').textContent='';$('#question-form').dispatchEvent(new Event('inquiry-prefill'));}));
  const heroCopy={transformers:['Find your next<br><em>Transformers favorite.</em>','Explore character figures for your collection, with clear item details and individual retail prices.'],marvel:['Bring your heroes<br><em>into focus.</em>','Discover Marvel figures and character collectibles, ready to explore one item at a time.'],funko:['Small figures.<br><em>Big personalities.</em>','Find a character for your shelf with our selection of Funko Pop! vinyl figures.']};
  $$('[data-hero-collection]').forEach(b=>b.addEventListener('click',()=>{const slug=b.dataset.heroCollection,p=allProducts.find(x=>x.collection===slug);if(!p)return;$('.hero-copy h1').innerHTML=heroCopy[slug][0];$('.hero-copy>p').textContent=heroCopy[slug][1];const cta=$('.hero-actions a');cta.href='/collections/'+slug;cta.textContent='Explore the collection →';const img=$('.hero-feature img');img.src=p.image;img.alt=p.title;delete img.dataset.fallback;const link=$('.hero-feature a');link.href=p.url;link.textContent='Explore this character ↗';$$('[data-hero-collection]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));}));
@@ -117,7 +111,7 @@
  }catch{}
  const cartDialog=document.createElement('dialog');
  cartDialog.setAttribute('aria-labelledby','cart-heading');
- cartDialog.style.cssText='width:min(34rem,calc(100% - 2rem));max-height:85vh;padding:1.5rem;border:0;border-radius:1rem;color:#15264a';
+ cartDialog.style.cssText='position:fixed;inset:0 0 0 auto;margin:0;width:min(30rem,100%);height:100dvh;max-height:100dvh;padding:1.5rem;border:0;color:#15264a';
  cartDialog.innerHTML='<form method="dialog"><button class="btn" value="close">Close cart</button></form><h2 id="cart-heading">Shopping cart</h2><p>Online checkout and payment are currently unavailable. You can keep items in your cart on this device.</p><ul data-cart-items></ul><p data-cart-subtotal></p>';
  document.body.append(cartDialog);
  const cartButton=document.createElement('button');
@@ -146,7 +140,21 @@
     renderCart();
     cartDialog.querySelector('button').focus();
    });
-   row.append(label,document.createTextNode(' '),remove);
+   const quantity=document.createElement('input');
+   quantity.type='number';
+   quantity.min='1';
+   quantity.max='20';
+   quantity.required=true;
+   quantity.value=item.quantity;
+   quantity.setAttribute('aria-label','Quantity for '+item.title);
+   quantity.addEventListener('change',()=>{
+    if(!quantity.reportValidity()){quantity.value=item.quantity;return;}
+    item.quantity=Number(quantity.value);
+    write(cartKey,JSON.stringify(cart));
+    renderCart();
+    cartDialog.querySelector('button').focus();
+   });
+   row.append(label,document.createTextNode(' '),quantity,remove);
    items.append(row);
   }
   cartDialog.querySelector('[data-cart-subtotal]').textContent=count?'Items subtotal: '+cartMoney.format(cart.reduce((sum,item)=>sum+Math.round(item.price*100)*item.quantity,0)/100):'Your cart is empty.';
