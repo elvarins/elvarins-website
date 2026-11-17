@@ -1,0 +1,40 @@
+{
+  "status": "draft",
+  "supplier": "Bradley Caldwell",
+  "costSource": "BCI_Review_All_Matched.csv, October 2026 snapshot",
+  "products": [
+    {
+      "upc": "018214848707",
+      "title": "Nylabone Power Play Gripz Soccer Ball, Medium",
+      "description": "A soccer-ball-shaped fetch toy with a textured surface for play sessions.",
+      "brand": "Nylabone",
+      "category": "Pet Supplies",
+      "historicalUnitCostUsd": 12.01,
+      "draftRetailPriceUsd": 18.02,
+      "productAndPhotoReference": "https://www.nylabone.com/products/product-type/play-toys/power-play/power-play-gripz-dog-soccer-ball",
+      "availability": "Unconfirmed"
+    },
+    {
+      "upc": "018214850724",
+      "title": "Nylabone Power Chew Pretzel, Small",
+      "description": "A pretzel-shaped chew toy from Nylabone’s Power Chew range.",
+      "brand": "Nylabone",
+      "category": "Pet Supplies",
+      "historicalUnitCostUsd": 7.21,
+      "draftRetailPriceUsd": 10.82,
+      "productAndPhotoReference": "https://www.nylabone.com/products/product-type/chew-toys/power-chew/power-chew-pretzel-dog-chew-toy",
+      "availability": "Unconfirmed"
+    },
+    {
+      "upc": "018214851431",
+      "title": "Nylabone Power Chew Easy-Hold Bone, Bacon Flavor, Large",
+      "description": "A bacon-flavored nylon chew toy with paw grips.",
+      "brand": "Nylabone",
+      "category": "Pet Supplies",
+      "historicalUnitCostUsd": 10.69,
+      "draftRetailPriceUsd": 16.04,
+      "productAndPhotoReference": "https://www.nylabone.com/products/product-type/chew-toys/power-chew/power-chew-easy-hold-dog-dental-chew-toy",
+      "availability": "Unconfirmed"
+    }
+  ]
+}
