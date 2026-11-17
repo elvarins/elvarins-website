@@ -159,7 +159,7 @@
   cartDialog.querySelector('[data-cart-subtotal]').textContent=count?'Items subtotal: '+cartMoney.format(cart.reduce((sum,item)=>sum+Math.round(item.price*100)*item.quantity,0)/100):'Your cart is empty.';
  }
  renderCart();
- $('[data-add-to-cart], [data-buy-now]').forEach(button=>button.addEventListener('click',()=>{
+ $$('[data-add-to-cart], [data-buy-now]').forEach(button=>button.addEventListener('click',()=>{
   const sku=button.dataset.addToCart||button.dataset.buyNow||$('#detail-sku')?.textContent.trim();
   const product=allProducts.find(item=>item.sku===sku);
   const quantityInput=button.closest('main, dialog')?.querySelector('#shipping-qty');
