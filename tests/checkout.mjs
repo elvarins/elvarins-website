@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {checkoutApi,checkoutConfig} from '../checkout-api.mjs';
+const origin='https://elvarins.com';
+const products=[{sku:'TEST-1',title:'Verified test product',price:19.99}];
+let r=checkoutConfig(new Request(origin+'/api/checkout/config'),{});
+assert.equal(r.status,200);assert.deepEqual(await r.json(),{available:false,mode:'unavailable'});
+r=checkoutConfig(new Request(origin+'/api/checkout/config',{method:'POST'}),{});assert.equal(r.status,405);
+r=await checkoutApi(new Request(origin+'/api/checkout',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({items:[{sku:'TEST-1',quantity:1}]})}),{},products);
+assert.equal(r.status,503);assert.equal((await r.json()).code,'CHECKOUT_UNAVAILABLE');
+r=await checkoutApi(new Request(origin+'/api/checkout',{method:'POST',headers:{Origin:'https://evil.example','Content-Type':'application/json'},body:'{}'}),{},products);assert.equal(r.status,403);
+console.log('PASS: checkout availability is public, fail-closed and same-origin protected');

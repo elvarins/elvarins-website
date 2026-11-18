@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const KEY='elvarins-cart-v1', fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
-let catalog=[], cart={};
+let catalog=[], cart={}, checkoutAvailable=false;
 const $=id=>document.getElementById(id);
 const safe=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}};
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart))}catch{}};
@@ -33,7 +33,7 @@ function render(){
   controls.append(minus,qty,plus,remove);body.append(title,price,controls);item.append(img,body);panel.append(item);
  }
  if(!list.length){const el=document.createElement('p');el.textContent='Your cart is empty. Browse the catalog to add your favorites.';panel.append(el)}
- $('elv-cart-count').textContent=count;subtotal.textContent='Items subtotal: '+fmt(total/100);checkout.disabled=!list.length;status.textContent='';
+ $('elv-cart-count').textContent=count;subtotal.textContent='Items subtotal: '+fmt(total/100);checkout.disabled=!list.length||!checkoutAvailable;
 }
 function change(sku,quantity){if(!bySku().has(sku))return;if(quantity<=0)delete cart[sku];else cart[sku]=Math.min(10,Math.max(1,quantity));render()}
 function add(sku){if(!bySku().has(sku))return;const requested=Number($('shipping-qty')?.value||1);const quantity=Number.isInteger(requested)&&requested>=1&&requested<=10?requested:1;change(sku,(cart[sku]||0)+quantity);open()}
@@ -46,10 +46,10 @@ function inject(){
  });
 }
 document.addEventListener('click',e=>{const btn=e.target.closest('[data-elv-cart-add]');if(btn){e.preventDefault();e.stopPropagation();add(btn.dataset.elvCartAdd)}});
-checkout.textContent='Proceed to secure checkout';
+checkout.textContent='Checkout setup in progress';
 checkout.addEventListener('click',async()=>{
  const items=entries().map(({p,quantity})=>({sku:p.sku,quantity}));
- if(!items.length)return;
+ if(!items.length||!checkoutAvailable){status.textContent='Online payment is not available yet. Your cart remains saved on this device.';return;}
  checkout.disabled=true;status.textContent='Preparing secure checkout…';
  try{
   const r=await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items}),credentials:'same-origin',signal:AbortSignal.timeout(20000)});
@@ -63,6 +63,11 @@ checkout.addEventListener('click',async()=>{
 async function start(){
  const embedded=$('catalog-data');if(embedded){try{catalog=JSON.parse(embedded.textContent)}catch{}}
  if(!catalog.length){try{const res=await fetch('/catalog/products.json');if(!res.ok)throw Error();catalog=(await res.json()).products||[]}catch{status.textContent='Catalog unavailable';return}}
+ try{
+  const r=await fetch('/api/checkout/config',{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(8000)});
+  const state=await r.json();checkoutAvailable=r.ok&&state.available===true;
+ }catch{checkoutAvailable=false}
+ checkout.textContent=checkoutAvailable?'Proceed to secure checkout':'Checkout setup in progress';
  cart=safe();render();inject();
  const grid=$('product-grid');if(grid)new MutationObserver(()=>inject()).observe(grid,{childList:true});
  const quick=$('product-dialog');if(quick){const target=quick.querySelector('#detail-page')?.parentElement||quick.querySelector('.detail-copy');if(target&&!quick.querySelector('#elv-quick-add')){const b=document.createElement('button');b.id='elv-quick-add';b.type='button';b.className='elv-add-to-cart';b.textContent='Add to cart';target.append(b);b.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(sku)add(sku)})}}

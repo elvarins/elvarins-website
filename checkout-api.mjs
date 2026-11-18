@@ -126,4 +126,9 @@ export async function checkoutStatus(request,env){
  const row=await env.CUSTOMER_DB.prepare('SELECT status FROM checkout_orders WHERE stripe_session_id=?').bind(id).first();
  return reply({status:row?.status==='paid'?'paid':'processing'});
 }
+export function checkoutConfig(request,env){
+ if(request.method!=='GET'&&request.method!=='HEAD')return reply({message:'Method not allowed'},405);
+ const available=configured(env);
+ return reply({available,mode:available?env.PAYMENT_MODE:'unavailable'});
+}
 export const checkoutConfigured=env=>configured(env);
