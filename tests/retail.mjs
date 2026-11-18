@@ -30,10 +30,10 @@ try{
  for(const p of catalog.products){const card=html.match(new RegExp('<article class="product-card" data-sku="'+p.sku+'"[^>]*>([\\s\\S]*?)</article>'))?.[1];if(!card)continue;const n=new Set([p.image,...(p.images||[])]).size;if(n>1)check(card.includes('>'+n+' photos</button>')&&card.includes('data-product="'+p.sku+'"'),'Photo badge matches verified gallery '+p.sku);}
 
  for(const path of ['index.html','gallery.js','retail.js','style.css','sitemap.xml','catalog.js','cart.js','cart.css','catalog/products.json']){const served=await (await mf.dispatchFetch(origin+'/'+(path==='index.html'?'':path))).text();check(served===await readFile(root+path,'utf8'),'Worker asset matches source '+path);}
- const checkoutState=await (await mf.dispatchFetch(origin+'/api/checkout/config')).json();
+ const checkoutState=await (await mf.dispatchFetch(origin+'/api/checkout')).json();
  check(checkoutState.available===false&&checkoutState.mode==='unavailable','Checkout availability endpoint fails closed without launch configuration');
  const cartSource=await readFile(root+'cart.js','utf8');
- check(cartSource.includes("fetch('/api/checkout/config'")&&cartSource.includes("checkoutAvailable?'Proceed to secure checkout':'Checkout setup in progress'"),'Cart exposes secure checkout only after server-confirmed availability');
+ check(cartSource.includes("fetch('/api/checkout'")&&cartSource.includes("checkoutAvailable?'Proceed to secure checkout':'Checkout setup in progress'"),'Cart exposes secure checkout only after server-confirmed availability');
  const versionedStyle=await mf.dispatchFetch(origin+'/style.css?v=cache-test'),unversionedStyle=await mf.dispatchFetch(origin+'/style.css'),productDocument=await mf.dispatchFetch(origin+catalog.products[0].url);
  check(versionedStyle.headers.get('Cache-Control')==='public, max-age=31536000, immutable','Versioned assets use long-lived immutable browser caching');
  check(unversionedStyle.headers.get('Cache-Control')==='public, max-age=0, must-revalidate','Unversioned assets continue to revalidate');

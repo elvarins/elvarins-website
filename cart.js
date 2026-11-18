@@ -64,7 +64,7 @@ async function start(){
  const embedded=$('catalog-data');if(embedded){try{catalog=JSON.parse(embedded.textContent)}catch{}}
  if(!catalog.length){try{const res=await fetch('/catalog/products.json');if(!res.ok)throw Error();catalog=(await res.json()).products||[]}catch{status.textContent='Catalog unavailable';return}}
  try{
-  const r=await fetch('/api/checkout/config',{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(8000)});
+  const r=await fetch('/api/checkout',{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(8000)});
   const state=await r.json();checkoutAvailable=r.ok&&state.available===true;
  }catch{checkoutAvailable=false}
  checkout.textContent=checkoutAvailable?'Proceed to secure checkout':'Checkout setup in progress';

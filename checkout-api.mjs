@@ -23,6 +23,7 @@ const stripeRead=async(env,path)=>{
  return r.json();
 };
 export async function checkoutApi(request,env,products){
+ if(request.method==='GET'||request.method==='HEAD'){const available=configured(env);return reply({available,mode:available?env.PAYMENT_MODE:'unavailable'});}
  if(!allowedMethods(request,'POST'))return reply({message:'Method not allowed'},405);
  if(!isSameOrigin(request))return reply({message:'Cross-origin requests are not allowed'},403);
  if(!request.headers.get('content-type')?.toLowerCase().startsWith('application/json'))return reply({message:'JSON body required'},415);
@@ -125,10 +126,5 @@ export async function checkoutStatus(request,env){
  if(!id||!/^cs_(test_|live_)[A-Za-z0-9]+$/.test(id)||!configured(env))return reply({status:'unknown'},200);
  const row=await env.CUSTOMER_DB.prepare('SELECT status FROM checkout_orders WHERE stripe_session_id=?').bind(id).first();
  return reply({status:row?.status==='paid'?'paid':'processing'});
-}
-export function checkoutConfig(request,env){
- if(request.method!=='GET'&&request.method!=='HEAD')return reply({message:'Method not allowed'},405);
- const available=configured(env);
- return reply({available,mode:available?env.PAYMENT_MODE:'unavailable'});
 }
 export const checkoutConfigured=env=>configured(env);
