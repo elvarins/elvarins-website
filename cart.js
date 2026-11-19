@@ -1,4 +1,5 @@
 (()=>{'use strict';
+const FREE_SHIPPING_CENTS=4901;
 const KEY='elvarins-cart-v1', fmt=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
 let catalog=[], cart={}, checkoutAvailable=false;
 const $=id=>document.getElementById(id);
@@ -6,7 +7,7 @@ const safe=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{ret
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(cart))}catch{}};
 const bySku=()=>new Map(catalog.map(p=>[p.sku,p]));
 const dialog=document.createElement('dialog');dialog.id='elv-cart-dialog';dialog.className='elv-cart-dialog';
-dialog.innerHTML='<div class="elv-cart-shell"><header><h2>Your shopping cart</h2><button type="button" data-cart-close aria-label="Close cart">×</button></header><div class="elv-cart-items" id="elv-cart-items"></div><footer><div id="elv-cart-subtotal"></div><p class="elv-cart-note">Items remain saved on this device. Shipping, applicable tax and product availability are confirmed before payment; adding to cart does not place an order.</p><button type="button" id="elv-cart-checkout">Continue to checkout</button><p id="elv-cart-status" role="status" aria-live="polite"></p></footer></div>';
+dialog.innerHTML='<div class="elv-cart-shell"><header><h2>Your shopping cart</h2><button type="button" data-cart-close aria-label="Close cart">×</button></header><div class="elv-cart-items" id="elv-cart-items"></div><footer><div id="elv-cart-subtotal"></div><label for="elv-free-shipping" id="elv-free-shipping-label">Free U.S. shipping on orders over $49</label><progress id="elv-free-shipping" max="4901" value="0"></progress><button type="button" id="elv-cart-checkout">Continue to checkout</button><p id="elv-cart-status" role="status" aria-live="polite"></p></footer></div>';
 document.body.append(dialog);
 const launcher=document.createElement('button');launcher.type='button';launcher.className='elv-cart-launcher';launcher.setAttribute('aria-label','Open shopping cart');launcher.innerHTML='Cart <span id="elv-cart-count">0</span>';document.body.append(launcher);
 const panel=$('elv-cart-items'),subtotal=$('elv-cart-subtotal'),status=$('elv-cart-status'),checkout=$('elv-cart-checkout');
@@ -34,15 +35,17 @@ function render(){
  }
  if(!list.length){const el=document.createElement('p');el.textContent='Your cart is empty. Browse the catalog to add your favorites.';panel.append(el)}
  $('elv-cart-count').textContent=count;subtotal.textContent='Items subtotal: '+fmt(total/100);checkout.disabled=!list.length||!checkoutAvailable;
+ $('elv-free-shipping').value=Math.min(total,FREE_SHIPPING_CENTS);
+ $('elv-free-shipping-label').textContent=total>=FREE_SHIPPING_CENTS?'Free U.S. shipping unlocked':fmt((FREE_SHIPPING_CENTS-total)/100)+' away from free U.S. shipping';
 }
 function change(sku,quantity){if(!bySku().has(sku))return;if(quantity<=0)delete cart[sku];else cart[sku]=Math.min(10,Math.max(1,quantity));render()}
-function add(sku){if(!bySku().has(sku))return;const requested=Number($('shipping-qty')?.value||1);const quantity=Number.isInteger(requested)&&requested>=1&&requested<=10?requested:1;change(sku,(cart[sku]||0)+quantity);open()}
+function add(sku){if(!bySku().has(sku))return;const requested=Number($('buy-quantity')?.value||1);const quantity=Number.isInteger(requested)&&requested>=1&&requested<=10?requested:1;change(sku,(cart[sku]||0)+quantity);open()}
 function inject(){
  document.querySelectorAll('.product-card[data-sku]').forEach(card=>{
   if(card.querySelector('[data-elv-cart-add]'))return;
   const sku=card.dataset.sku;if(!bySku().has(sku))return;
   const button=document.createElement('button');button.type='button';button.className='elv-add-to-cart';button.textContent='Add to cart';button.dataset.elvCartAdd=sku;
-  card.append(button);
+  const badge=document.createElement('span');badge.className='stock-label';badge.textContent='In Stock';card.append(badge,button);
  });
 }
 document.addEventListener('click',e=>{const btn=e.target.closest('[data-elv-cart-add]');if(btn){e.preventDefault();e.stopPropagation();add(btn.dataset.elvCartAdd);if(btn.hasAttribute('data-elv-buy-now')&&!checkout.disabled)checkout.click()}});
