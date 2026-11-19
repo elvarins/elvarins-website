@@ -41,14 +41,34 @@ function render(){
 function change(sku,quantity){if(!bySku().has(sku))return;if(quantity<=0)delete cart[sku];else cart[sku]=Math.min(10,Math.max(1,quantity));render()}
 function add(sku){if(!bySku().has(sku))return;const requested=Number(($('product-dialog')?.open?$('quick-buy-quantity'):null)?.value||$('buy-quantity')?.value||1);const quantity=Number.isInteger(requested)&&requested>=1&&requested<=10?requested:1;change(sku,(cart[sku]||0)+quantity);open()}
 function inject(){
- document.querySelectorAll('.product-card[data-sku]').forEach(card=>{
+ document.querySelectorAll('.product-card[data-sku], .discovery-product, .department-product').forEach(card=>{
   if(card.querySelector('[data-elv-cart-add]'))return;
-  const sku=card.dataset.sku;if(!bySku().has(sku))return;
+  const href=card.querySelector('a[href^="/products/"]')?.getAttribute('href');
+  const slug=/^\/products\/([a-z0-9-]+)$/.exec(href||'')?.[1];
+  const sku=card.dataset.sku||catalog.find(p=>p.url===href)?.sku||(slug?(slug.startsWith('bci-')?slug:'page-'+slug):'');
+  if(!sku)return;
   const button=document.createElement('button');button.type='button';button.className='elv-add-to-cart';button.textContent='Add to cart';button.dataset.elvCartAdd=sku;
   const badge=document.createElement('span');badge.className='stock-label';badge.textContent='In Stock';card.append(badge,button);
  });
 }
-document.addEventListener('click',e=>{const btn=e.target.closest('[data-elv-cart-add]');if(btn){e.preventDefault();e.stopPropagation();add(btn.dataset.elvCartAdd);if(btn.hasAttribute('data-elv-buy-now')&&!checkout.disabled)checkout.click()}});
+document.addEventListener('click',async e=>{
+ const btn=e.target.closest('[data-elv-cart-add]');if(!btn)return;
+ e.preventDefault();e.stopPropagation();
+ const sku=btn.dataset.elvCartAdd;
+ if(!bySku().has(sku)){
+  btn.disabled=true;
+  try{
+   const response=await fetch('/api/checkout?'+new URLSearchParams({sku}),{cache:'no-store'});
+   const state=await response.json();
+   const item=state.catalogItems?.find(p=>p.sku===sku);
+   if(!response.ok||!item)throw Error();
+   catalog.push(item);
+  }catch{open();status.textContent='This item could not be added. Please retry or contact sales@elvarins.com.';return;}
+  finally{btn.disabled=false;}
+ }
+ add(sku);
+ if(btn.hasAttribute('data-elv-buy-now')&&!checkout.disabled)checkout.click();
+});
 checkout.textContent='Checkout setup in progress';
 checkout.addEventListener('click',async()=>{
  const items=entries().map(({p,quantity})=>({sku:p.sku,quantity}));
@@ -94,5 +114,38 @@ async function start(){
  document.querySelectorAll('[data-product-question]').forEach(b=>{b.hidden=false});
  if(new URLSearchParams(location.search).has('cart'))open();
 }
+
+function initProductReviews(){
+ if(!location.pathname.startsWith('/products/'))return;
+ const main=document.querySelector('main');if(!main)return;
+ const key='elvarins-product-reviews:'+location.pathname;
+ let reviews=[];
+ try{const saved=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(saved))reviews=saved.filter(r=>Number.isInteger(r?.rating)&&r.rating>=1&&r.rating<=5&&typeof r.feedback==='string').slice(-25);}catch{}
+ const section=document.createElement('section');section.className='wrap retail-reviews';
+ section.innerHTML='<h2>Customer reviews</h2><p>No published customer reviews yet.</p><h3>Your reviews on this device</h3><p>Reviews added here are saved in this browser only.</p><div data-local-review-list></div><details><summary>Write a review</summary><form><label>Rating <select name="rating" required><option value="">Choose a rating</option><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select></label><label>Feedback <textarea name="feedback" required maxlength="1000"></textarea></label><button type="submit" class="btn btn-primary">Save on this device</button><p role="status"></p></form></details>';
+ const list=section.querySelector('[data-local-review-list]');
+ function show(){
+  list.replaceChildren();
+  if(!reviews.length)return;
+  const average=document.createElement('p');average.textContent=(reviews.reduce((sum,r)=>sum+r.rating,0)/reviews.length).toFixed(1)+' out of 5 · '+reviews.length+' saved';list.append(average);
+  for(let rating=5;rating>=1;rating--){
+   const share=Math.round(100*reviews.filter(r=>r.rating===rating).length/reviews.length);
+   const row=document.createElement('label');row.className='review-breakdown';row.textContent=rating+' stars · '+share+'%';
+   const bar=document.createElement('progress');bar.max=100;bar.value=share;row.append(bar);list.append(row);
+  }
+  for(const review of [...reviews].reverse()){
+   const article=document.createElement('article');const score=document.createElement('strong');score.textContent=review.rating+' out of 5';const body=document.createElement('p');body.textContent=review.feedback;article.append(score,body);list.append(article);
+  }
+ }
+ section.querySelector('form').addEventListener('submit',event=>{
+  event.preventDefault();const form=event.currentTarget;const data=new FormData(form);const rating=Number(data.get('rating'));const feedback=String(data.get('feedback')||'').trim();const message=form.querySelector('[role="status"]');
+  if(!Number.isInteger(rating)||rating<1||rating>5||!feedback)return;
+  const next=[...reviews,{rating,feedback}].slice(-25);
+  try{localStorage.setItem(key,JSON.stringify(next));}catch{message.textContent='This browser could not save the review.';return;}
+  reviews=next;form.reset();show();message.textContent='Review saved on this device.';
+ });
+ show();main.append(section);
+}
+initProductReviews();
 start();
 })();
