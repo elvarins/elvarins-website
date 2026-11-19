@@ -1,3 +1,4 @@
+import { findServiceCheckoutProduct } from './service-pages.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
 
 // Secure Stripe Checkout for the existing Cloudflare Worker. Secrets only via Worker bindings.
@@ -27,7 +28,7 @@ const stripeRead=async(env,path)=>{
 export async function checkoutApi(request,env,products){
  if(request.method==='GET'||request.method==='HEAD'){const available=configured(env);
   const ids=new URL(request.url).searchParams.getAll('sku').slice(0,25);
-  const catalogItems=ids.map(findBciCheckoutProduct).filter(Boolean);
+  const catalogItems=ids.map(sku=>findBciCheckoutProduct(sku)||findServiceCheckoutProduct(sku)).filter(Boolean);
   return reply({available,mode:available?env.PAYMENT_MODE:'unavailable',catalogItems});}
  if(!allowedMethods(request,'POST'))return reply({message:'Method not allowed'},405);
  if(!isSameOrigin(request))return reply({message:'Cross-origin requests are not allowed'},403);
@@ -40,7 +41,7 @@ export async function checkoutApi(request,env,products){
  let amount=0;
  for(const item of input.items){
   if(typeof item?.sku!=='string'||!safeInteger(item.quantity,1,10)||picked.has(item.sku))return reply({message:'Invalid or duplicate cart item'},400);
-  const p=known.get(item.sku)||findBciCheckoutProduct(item.sku),unit=cents(p?.price);
+  const p=known.get(item.sku)||findBciCheckoutProduct(item.sku)||findServiceCheckoutProduct(item.sku),unit=cents(p?.price);
   if(!p||!unit||unit>1000000||typeof p.title!=='string')return reply({message:'Product is not available'},422);
   picked.set(item.sku,{p,quantity:item.quantity,unit});
   amount+=unit*item.quantity;
