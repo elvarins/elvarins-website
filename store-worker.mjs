@@ -5,6 +5,7 @@ import { findBciCheckoutProduct } from './bci-catalog.mjs';
 import { findServiceCheckoutProduct, servicePaths } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
 import { addLayout, getLayout, layoutScript, photoUploadPath, sendTracking, servePhoto } from './store-extensions.mjs';
+import { presentProduct, productPresentationCss } from './product-presentation.mjs';
 
 const storefrontCatalog='/catalog/products.json';
 const lookupLegacy=sku=>{
@@ -177,7 +178,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=7"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=8"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -219,7 +220,7 @@ async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
   if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
-  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
+  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
   if(path.startsWith('/media/products/'))return servePhoto(request,db);
   if(path==='/layout-controls.js'){
     if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
@@ -249,7 +250,7 @@ async function fetchStore(request,env,ctx){
   if(path.startsWith('/products/')){
     const p=[...catalog.values()].find(p=>p.url===path&&p.edited);
     if(p&&!p.published)return new Response(request.method==='HEAD'?null:'Product not found',{status:404,headers:{'Cache-Control':'no-store'}});
-    if(p)return transformed(request,null,versionCart(productPage(p).replace('</head>','<link rel="stylesheet" href="/cart.css"></head>').replace('</body>','<script src="/cart.js" defer></script></body>')));
+    if(p)return transformed(request,null,versionCart(presentProduct(productPage(p)).replace('</head>','<link rel="stylesheet" href="/cart.css"></head>').replace('</body>','<script src="/cart.js" defer></script></body>')));
   }
   const original=await legacy.fetch(sourceRequest,env,ctx);
   if(!original.ok)return request.method==='HEAD'?new Response(null,original):original;
@@ -273,6 +274,7 @@ async function fetchStore(request,env,ctx){
       const layout=await getLayout(db);
       if(layout)body=addLayout(body,layout);
     }
+    if(path.startsWith('/products/'))body=presentProduct(body);
     body=versionCart(body);
   }
   return transformed(request,original,body);
