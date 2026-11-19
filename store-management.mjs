@@ -1,4 +1,6 @@
 import { timingSafeEqual } from 'node:crypto';
+import { getLayout, layoutForm, photoUploadPath, updateLayout, uploadForm, uploadPhoto } from './store-extensions.mjs';
+import { buyLabel, labelControls, requestLabelRates } from './store-labels.mjs';
 
 export const adminPath = '/api/account/admin/manage';
 export const collections = ['transformers','marvel','funko','collectibles','pet-supplies'];
@@ -137,25 +139,29 @@ export async function manageStore(request,env,base,lookupLegacy) {
   if(status!==200)return status===401?reply(null,401,{'WWW-Authenticate':'Basic realm="Elvarins Owner Dashboard", charset="UTF-8"'}):reply('Owner dashboard is awaiting setup.',503);
   const url=new URL(request.url),db=env.CUSTOMER_DB;
   if(!db)return reply('Store management is unavailable.',503);
+  if(url.pathname===photoUploadPath)return uploadPhoto(request,db);
   if(request.method==='POST'){
     const form=await formData(request);
     if(!form)return reply('Invalid request.',403);
     const action=read(form,'action');
     const error=action==='product'?await updateProduct(db,form,base,lookupLegacy):
       action==='copy'?await updateCopy(db,form):
-      action==='tracking'?await updateTracking(db,form):'Unknown action.';
+      action==='tracking'?await updateTracking(db,form):
+      action==='layout'?await updateLayout(db,form):
+      action==='label-rates'?await requestLabelRates(env,form):
+      action==='label-buy'?await buyLabel(env,form):'Unknown action.';
     if(error)return reply('<p>'+escape(error)+'</p><a href="'+adminPath+'">Return to dashboard</a>',400);
     const query=new URLSearchParams({saved:action});
     if(action==='product')query.set('sku',read(form,'sku'));
-    return reply(null,303,{Location:adminPath+'?'+query+'#'+(action==='product'?'catalog':action)});
+    return reply(null,303,{Location:adminPath+'?'+query+'#'+(action==='product'?'catalog':action.startsWith('label-')?'labels':action)});
   }
   if(request.method==='HEAD')return reply(null);
   if(request.method!=='GET')return reply(null,405,{Allow:'GET, HEAD, POST'});
-  const [rows,copy,orders]=await db.batch([
+  const [rows,copy,orders,layout]=await Promise.all([db.batch([
     db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products'),
     db.prepare('SELECT path,heading,body,revision FROM storefront_copy'),
-    db.prepare("SELECT o.id,o.paid_at,t.carrier,t.tracking FROM checkout_orders o LEFT JOIN shipment_tracking t ON t.order_id=o.id WHERE o.status='paid' AND o.stripe_session_id GLOB 'cs_live_*' ORDER BY o.paid_at DESC LIMIT 50"),
-  ]);
+    db.prepare("SELECT o.id,o.paid_at,t.carrier,t.tracking,d.state AS email_state FROM checkout_orders o LEFT JOIN shipment_tracking t ON t.order_id=o.id LEFT JOIN tracking_delivery d ON d.order_id=o.id AND d.carrier=t.carrier AND d.tracking=t.tracking WHERE o.status='paid' AND o.stripe_session_id GLOB 'cs_live_*' ORDER BY o.paid_at DESC LIMIT 50"),
+  ]),getLayout(db)]).then(([data,layout])=>[...data,layout]);
   const catalog=mergeCatalog(base,rows.results);
   const requestedSku=url.searchParams.get('sku')||'';
   const selected=catalog.get(requestedSku)||lookupLegacy(requestedSku);
@@ -164,14 +170,18 @@ export async function manageStore(request,env,base,lookupLegacy) {
   const productLinks=products.map(p=>'<li><a href="?sku='+encodeURIComponent(p.sku)+'#catalog">'+escape(p.title)+'</a> · '+escape(p.sku)+' · '+(p.published?(p.inStock?'In stock':'Out of stock'):'Draft')+'</li>').join('');
   const pageLinks=editablePages.map(p=>'<a href="?page='+encodeURIComponent(p)+'#copy">'+escape(p==='/'?'Homepage':p)+'</a>').join(' ');
   const trackingForms=orders.results.map(o=>'<details><summary>'+escape(o.id)+' · '+(o.tracking?'Tracking recorded':'Awaiting tracking')+'</summary>'+
+    (o.tracking?'<p>Customer tracking email: '+escape(o.email_state||'queued')+'</p>':'')+
     formStart('tracking')+hidden('orderId',o.id)+inp('carrier','Carrier',o.carrier,40)+inp('tracking','Tracking number',o.tracking,80)+'<button>Save tracking</button></form></details>').join('');
   const html='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Elvarins Store Management</title><style>body{font:1rem system-ui;color:#18253a;background:#f2f5f9;margin:0}main{max-width:72rem;margin:auto;padding:1rem}section{background:#fff;padding:1rem;margin:1rem 0;border:1px solid #c6d1e2;border-radius:.5rem}form{display:grid;gap:.7rem;max-width:46rem}label{display:grid;gap:.2rem}input,select,textarea,button{font:inherit;padding:.45rem;box-sizing:border-box}label:has(input[type=checkbox]){display:block}nav a,.pagelinks a{display:inline-block;margin:.25rem .6rem .25rem 0}details{margin:.65rem 0}summary{cursor:pointer}</style><main><h1>Elvarins Store Management</h1><nav><a href="/api/account/admin">Overview &amp; Support</a><a href="#catalog">Products</a><a href="#copy">Page copy</a><a href="#tracking">Shipment tracking</a><a href="/api/account/fulfillment">Prep center</a></nav>'+
-    (['product','copy','tracking'].includes(url.searchParams.get('saved'))?'<p role="status">Saved.</p>':'')+
+    (['product','copy','tracking','layout','label-rates','label-buy'].includes(url.searchParams.get('saved'))?'<p role="status">Updated.</p>':'')+
     section('catalog','Products','<p><a href="'+adminPath+'#catalog">Add a product</a></p><form method="get">'+inp('sku','Find an item by SKU (including bci-UPC and page-slug)','',140)+'<button>Find product</button></form>'+
       (requestedSku&&!selected?'<p>No product matched that SKU.</p>':'')+'<h3>'+(selected?'Edit '+escape(selected.title):'New product')+'</h3>'+productForm(selected)+'<details><summary>Browse '+catalog.size+' main and managed products</summary><ul>'+productLinks+'</ul></details>')+
     section('copy','Page copy','<p class="pagelinks">'+pageLinks+'</p><p>Edit the owner-managed copy block. Page navigation, forms and the existing policy remain in place.</p>'+
       formStart('copy')+hidden('path',selectedPage.path)+hidden('revision',selectedPage.revision||0)+inp('heading','Heading for '+selectedPage.path,selectedPage.heading,180)+area('body','Text',selectedPage.body,6000)+'<button>Publish copy</button></form>')+
-    section('tracking','Shipment tracking','<p>Save a tracking number from your fulfillment provider after confirming the shipment.</p>'+(trackingForms||'<p>No paid live orders yet.</p>'))+
+    section('photos','Photo upload',uploadForm(url.searchParams.get('photo')))+
+    section('layout','Homepage layout',layoutForm(layout))+
+    section('labels','Shipping labels','<p>Compare live postage quotes, then approve the exact charge before purchase.</p>'+await labelControls(env,orders.results))+
+    section('tracking','Shipment tracking','<p>Save tracking after confirming the shipment. The customer email uses the address collected during checkout.</p>'+(trackingForms||'<p>No paid live orders yet.</p>'))+
     '</main></html>';
   return reply(html);
 }

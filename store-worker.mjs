@@ -4,6 +4,7 @@ import { checkoutApi } from './checkout-api.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
 import { findServiceCheckoutProduct } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
+import { addLayout, getLayout, layoutScript, photoUploadPath, sendTracking, servePhoto } from './store-extensions.mjs';
 
 const storefrontCatalog='/catalog/products.json';
 const lookupLegacy=sku=>{
@@ -124,7 +125,12 @@ async function addTracking(request,env,result){
 async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
-  if(path===adminPath)return manageStore(request,env,products,lookupLegacy);
+  if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
+  if(path.startsWith('/media/products/'))return servePhoto(request,db);
+  if(path==='/layout-controls.js'){
+    if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
+    return new Response(request.method==='HEAD'?null:layoutScript,{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
+  }
   if(path===customerRoute){
     const result=await legacy.fetch(request,env,ctx);
     return result.ok&&request.method==='GET'?transformed(request,result,(await result.text()).replace('<nav aria-label="Dashboard">','<nav aria-label="Dashboard"><a href="'+adminPath+'">Manage storefront</a>')):result;
@@ -165,13 +171,20 @@ async function fetchStore(request,env,ctx){
       else body=updateCards(body,catalog);
     }
     if(pageCopy)body=appendCopy(body,pageCopy);
+    if(db&&path==='/'){
+      const layout=await getLayout(db);
+      if(layout)body=addLayout(body,layout);
+    }
     body=versionCart(body);
   }
   return transformed(request,original,body);
 }
 
 export default {
-  scheduled:legacy.scheduled,
+  async scheduled(event,env,ctx){
+    ctx.waitUntil(sendTracking(env));
+    return legacy.scheduled(event,env,ctx);
+  },
   async fetch(request,env,ctx){
     try {return await fetchStore(request,env,ctx);}
     catch(error){
