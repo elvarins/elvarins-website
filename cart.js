@@ -45,7 +45,7 @@ function inject(){
   card.append(button);
  });
 }
-document.addEventListener('click',e=>{const btn=e.target.closest('[data-elv-cart-add]');if(btn){e.preventDefault();e.stopPropagation();add(btn.dataset.elvCartAdd)}});
+document.addEventListener('click',e=>{const btn=e.target.closest('[data-elv-cart-add]');if(btn){e.preventDefault();e.stopPropagation();add(btn.dataset.elvCartAdd);if(btn.hasAttribute('data-elv-buy-now')&&!checkout.disabled)checkout.click()}});
 checkout.textContent='Checkout setup in progress';
 checkout.addEventListener('click',async()=>{
  const items=entries().map(({p,quantity})=>({sku:p.sku,quantity}));
