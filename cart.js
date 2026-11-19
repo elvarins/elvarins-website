@@ -65,8 +65,9 @@ async function start(){
  if(!catalog.length){try{const res=await fetch('/catalog/products.json');if(!res.ok)throw Error();catalog=(await res.json()).products||[]}catch{status.textContent='Catalog unavailable';return}}
  const saved=safe();
  const bciUpc=document.querySelector('.kitchen-purchase-actions [data-order-upc], main [data-order-upc]')?.textContent.trim();
- const bciSku=/^\d{12}$/.test(bciUpc||'')?'bci-'+bciUpc:'';
- const bciIds=[...new Set([bciSku,...Object.keys(saved).filter(sku=>/^bci-\d{12}$/.test(sku))])].filter(Boolean).slice(0,25);
+ const pageSlug=/^\/products\/([a-z0-9-]+)$/.exec(location.pathname)?.[1];
+ const bciSku=pageSlug?(pageSlug.startsWith('bci-')?pageSlug:'page-'+pageSlug):(/^\d{12}$/.test(bciUpc||'')?'bci-'+bciUpc:'');
+ const bciIds=[...new Set([bciSku,...Object.keys(saved).filter(sku=>/^(?:bci-\d{12}|page-[a-z0-9-]+)$/.test(sku))])].filter(Boolean).slice(0,25);
  const query=new URLSearchParams();bciIds.forEach(sku=>query.append('sku',sku));
  try{
   const r=await fetch('/api/checkout?'+query,{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(8000)});
