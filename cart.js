@@ -21,7 +21,7 @@ function render(){
  for(const {p,quantity} of list){
   total+=Math.round(Number(p.price)*100)*quantity;count+=quantity;
   const item=document.createElement('div');item.className='elv-cart-item';
-  const img=document.createElement('img');img.src=p.thumbnail||p.image;img.alt='';img.loading='lazy';
+  const img=document.createElement('img');const image=p.thumbnail||p.image;if(image)img.src=image;else img.hidden=true;img.alt='';img.loading='lazy';
   const body=document.createElement('div');const title=document.createElement('strong');title.textContent=p.title;
   const price=document.createElement('p');price.textContent=fmt(p.price)+' each';
   const controls=document.createElement('div');controls.className='elv-cart-controls';
@@ -63,12 +63,26 @@ checkout.addEventListener('click',async()=>{
 async function start(){
  const embedded=$('catalog-data');if(embedded){try{catalog=JSON.parse(embedded.textContent)}catch{}}
  if(!catalog.length){try{const res=await fetch('/catalog/products.json');if(!res.ok)throw Error();catalog=(await res.json()).products||[]}catch{status.textContent='Catalog unavailable';return}}
+ const saved=safe();
+ const bciUpc=document.querySelector('.kitchen-purchase-actions [data-order-upc], main [data-order-upc]')?.textContent.trim();
+ const bciSku=/^\d{12}$/.test(bciUpc||'')?'bci-'+bciUpc:'';
+ const bciIds=[...new Set([bciSku,...Object.keys(saved).filter(sku=>/^bci-\d{12}$/.test(sku))])].filter(Boolean).slice(0,25);
+ const query=new URLSearchParams();bciIds.forEach(sku=>query.append('sku',sku));
  try{
-  const r=await fetch('/api/checkout',{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(8000)});
+  const r=await fetch('/api/checkout?'+query,{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(8000)});
   const state=await r.json();checkoutAvailable=r.ok&&state.available===true;
+  if(r.ok&&Array.isArray(state.catalogItems))catalog.push(...state.catalogItems);
  }catch{checkoutAvailable=false}
  checkout.textContent=checkoutAvailable?'Proceed to secure checkout':'Checkout setup in progress';
- cart=safe();render();inject();
+ cart=saved;render();inject();
+ const bciActions=document.querySelector('.kitchen-purchase-actions');
+ if(bciActions&&bciSku&&bySku().has(bciSku))bciActions.addEventListener('click',event=>{
+  const button=event.target.closest('[data-kitchen-action]');
+  if(!button)return;
+  event.preventDefault();event.stopImmediatePropagation();
+  add(bciSku);
+  if(button.dataset.kitchenAction==='buy'&&!checkout.disabled)checkout.click();
+ },true);
  const grid=$('product-grid');if(grid)new MutationObserver(()=>inject()).observe(grid,{childList:true});
  const quick=$('product-dialog');if(quick){const target=quick.querySelector('#detail-page')?.parentElement||quick.querySelector('.detail-copy');if(target&&!quick.querySelector('#elv-quick-add')){const b=document.createElement('button');b.id='elv-quick-add';b.type='button';b.className='elv-add-to-cart';b.textContent='Add to cart';target.append(b);b.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(sku)add(sku)})}}
 
