@@ -154,17 +154,18 @@ function accountMarkup(html){
     'Sign in to Elvarins</h2><p>Use your account to check out and keep your saved items.')
     .replace('<p class="form-note">Use at least 14 characters. Keep your private recovery code somewhere safe; you will need it if you forget your password.</p>',
       '<label id="account-confirm-wrap" hidden>Confirm password<input id="account-confirm" type="password" autocomplete="new-password" maxlength="128"></label><p id="account-password-help" class="form-note" hidden>Use at least 14 characters.</p>')
+    .replace('<label id="recovery-wrap" hidden>','<label id="account-phone-wrap" hidden>Mobile number (optional)<input id="account-phone" name="phone" type="tel" autocomplete="tel" maxlength="32" placeholder="+1 212 555 0123" disabled></label><label id="recovery-wrap" hidden>')
     .replace('Accounts save your favorites. Track your orders and save your favorite items.','Read how Elvarins handles your account information.');
 }
 
 function accountAsset(source){
   return source
     .replace("if(!response.ok)throw new Error(data.message||'Please try again.');","if(!response.ok){const error=new Error(data.message||'Please try again.');error.status=response.status;throw error;}")
-    .replace("function auth(mode){authMode=mode;","function auth(mode){authMode=mode;const confirm=$('#account-confirm');if(confirm){confirm.value='';confirm.required=mode==='signup';$('#account-confirm-wrap').hidden=mode!=='signup';$('#account-password-help').hidden=mode==='login';}$('#account-title').textContent=mode==='signup'?'Create your Elvarins account':mode==='recover'?'Recover your account':'Sign in to Elvarins';")
+    .replace("function auth(mode){authMode=mode;","function auth(mode){authMode=mode;const phone=$('#account-phone');if(phone){phone.disabled=mode!=='signup';$('#account-phone-wrap').hidden=mode!=='signup';}const confirm=$('#account-confirm');if(confirm){confirm.value='';confirm.required=mode==='signup';$('#account-confirm-wrap').hidden=mode!=='signup';$('#account-password-help').hidden=mode==='login';}$('#account-title').textContent=mode==='signup'?'Create your Elvarins account':mode==='recover'?'Recover your account':'Sign in to Elvarins';")
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){$('#account-status').textContent='Passwords do not match.';$('#account-confirm').focus();return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';status.textContent='Sign in with this email, or choose Recover account if you forgot your password.';$('#account-password').focus();}else status.textContent=error.message;}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-4').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=4"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-5').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=4"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){

@@ -51,9 +51,13 @@ export async function customerApi(request,env,products,ctx){
    const existing=await db.prepare('SELECT * FROM customers WHERE email=?').bind(email).first();
    if(path==='/api/account/signup'){
     if(name.length<2||name.length>100)return reply({message:'Enter your name (2–100 characters).'},400);
+    const enteredPhone=typeof data.phone==='string'?data.phone.trim():'';
+    const digits=enteredPhone.replace(/[\s().-]/g,'');
+    const phone=/^\d{10}$/.test(digits)?'+1'+digits:digits;
+    if(enteredPhone&&!/^\+[1-9]\d{7,14}$/.test(phone))return reply({message:'Enter a valid mobile number with country code, or leave it blank.'},400);
     if(existing)return reply({message:'Unable to create this account. Try signing in or recovering your account.'},409);
     const id=crypto.randomUUID(),salt=random(),recovery=random(),hash=await derive(password,salt);
-    await db.prepare('INSERT INTO customers(id,email,name,password_hash,salt,recovery_hash,created_at) VALUES(?,?,?,?,?,?,?)').bind(id,email,name,hash,salt,await sha(recovery),now).run();
+    await db.prepare('INSERT INTO customers(id,email,name,password_hash,salt,recovery_hash,created_at,phone) VALUES(?,?,?,?,?,?,?,?)').bind(id,email,name,hash,salt,await sha(recovery),now,phone||null).run();
     return reply({user:{email,name},favorites:[],recoveryCode:recovery},201,await startSession(db,id));
    }
    if(path==='/api/account/recover'){
