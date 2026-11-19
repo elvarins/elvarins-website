@@ -10,6 +10,7 @@ function relatedProducts(p){
  return products.filter(x=>x.sku!==p.sku).map(x=>({product:x,score:(x.productType===p.productType?8:0)+(x.brand===p.brand?5:0)+(x.collection===p.collection?4:0)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||Math.abs(a.product.price-p.price)-Math.abs(b.product.price-p.price)||a.product.title.localeCompare(b.product.title)).slice(0,4).map(x=>x.product);
 }
 export function renderProduct(p){
+ if(p.sku==='HSE4703')p={...p,age:'4 years and up',size:'6-inch scale',description:'Hasbro item E4703AX00. This Marvel Legends set pairs the articulated Professor X figure with his Hover Chair. Choking hazard: Small parts. Not for children under 3 years.'};
  if(p.sku==='HSG2001')p={...p,size:'6.25 inches',description:'Hasbro item G20015X00. This Voyager Class Nexus Prime figure converts from robot to jet tank in 23 steps. The package includes blasters and the Enigma of Combination accessory.'};
  const collection=collections.find(c=>c.slug===p.collection),related=relatedProducts(p);
  const breadcrumb={'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:'https://elvarins.com/'},{'@type':'ListItem',position:2,name:collection.name,item:'https://elvarins.com/collections/'+collection.slug},{'@type':'ListItem',position:3,name:p.title,item:'https://elvarins.com'+p.url}]};

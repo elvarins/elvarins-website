@@ -4,7 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 const {Miniflare,convertV4MiniflareOptions}=await import(process.env.ELVARINS_TEST_MINIFLARE||'miniflare');
 const root=fileURLToPath(new URL('../',import.meta.url));
-const options={modules:['worker.mjs','shipping.mjs','product-pages.mjs','customer-ui.mjs','customer-api.mjs','service-pages.mjs','inquiry-notifications.mjs','checkout-api.mjs','bci-catalog.mjs','catalog/bci-inventory-1.mjs','catalog/bci-inventory-2.mjs','catalog/bci-inventory-3.mjs'].map(path=>({type:'ESModule',path:root+path})),compatibilityDate:process.env.ELVARINS_TEST_COMPAT_DATE||'2026-10-06',compatibilityFlags:['nodejs_compat'],d1Databases:['CUSTOMER_DB']};
+const options={modules:['worker.mjs','shipping.mjs','product-pages.mjs','customer-ui.mjs','customer-api.mjs','fulfillment-portal.mjs','service-pages.mjs','inquiry-notifications.mjs','checkout-api.mjs','bci-catalog.mjs','catalog/bci-inventory-1.mjs','catalog/bci-inventory-2.mjs','catalog/bci-inventory-3.mjs'].map(path=>({type:'ESModule',path:root+path})),compatibilityDate:process.env.ELVARINS_TEST_COMPAT_DATE||'2026-10-06',compatibilityFlags:['nodejs_compat'],d1Databases:['CUSTOMER_DB']};
 const mf=new Miniflare(convertV4MiniflareOptions?convertV4MiniflareOptions(options):options);
 const origin='https://elvarins.com';
 let checks=0;
