@@ -39,7 +39,7 @@ function render(){
  $('elv-free-shipping-label').textContent=total>=FREE_SHIPPING_CENTS?'Free U.S. shipping unlocked':fmt((FREE_SHIPPING_CENTS-total)/100)+' away from free U.S. shipping';
 }
 function change(sku,quantity){if(!bySku().has(sku))return;if(quantity<=0)delete cart[sku];else cart[sku]=Math.min(10,Math.max(1,quantity));render()}
-function add(sku){if(!bySku().has(sku))return;const requested=Number($('buy-quantity')?.value||1);const quantity=Number.isInteger(requested)&&requested>=1&&requested<=10?requested:1;change(sku,(cart[sku]||0)+quantity);open()}
+function add(sku){if(!bySku().has(sku))return;const requested=Number(($('product-dialog')?.open?$('quick-buy-quantity'):null)?.value||$('buy-quantity')?.value||1);const quantity=Number.isInteger(requested)&&requested>=1&&requested<=10?requested:1;change(sku,(cart[sku]||0)+quantity);open()}
 function inject(){
  document.querySelectorAll('.product-card[data-sku]').forEach(card=>{
   if(card.querySelector('[data-elv-cart-add]'))return;
@@ -88,7 +88,7 @@ async function start(){
   if(button.dataset.kitchenAction==='buy'&&!checkout.disabled)checkout.click();
  },true);
  const grid=$('product-grid');if(grid)new MutationObserver(()=>inject()).observe(grid,{childList:true});
- const quick=$('product-dialog');if(quick){const target=quick.querySelector('#detail-page')?.parentElement||quick.querySelector('.detail-copy');if(target&&!quick.querySelector('#elv-quick-add')){const b=document.createElement('button');b.id='elv-quick-add';b.type='button';b.className='elv-add-to-cart';b.textContent='Add to cart';target.append(b);b.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(sku)add(sku)});const buy=document.createElement('button');buy.type='button';buy.className='elv-add-to-cart';buy.textContent='Buy Now';target.append(buy);buy.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(!sku)return;add(sku);if(!checkout.disabled)checkout.click()})}}
+ const quick=$('product-dialog');if(quick){const target=quick.querySelector('.retail-quick-actions')||quick.querySelector('.detail-copy');if(target&&!quick.querySelector('#elv-quick-add')){const b=document.createElement('button');b.id='elv-quick-add';b.type='button';b.className='elv-add-to-cart';b.textContent='Add to cart';target.append(b);b.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(sku)add(sku)});const buy=document.createElement('button');buy.type='button';buy.className='elv-add-to-cart';buy.textContent='Buy Now';target.append(buy);buy.addEventListener('click',()=>{const sku=$('detail-sku')?.textContent?.trim();if(!sku)return;add(sku);if(!checkout.disabled)checkout.click()})}}
 
  const detailSku=$('product-data');if(detailSku){try{const p=JSON.parse(detailSku.textContent),where=$('detail-inquiry')||$('shipping-form');if(p?.sku&&where){const b=document.createElement('button');b.type='button';b.className='elv-add-to-cart elv-detail-add';b.textContent='Add to cart';b.dataset.elvCartAdd=p.sku;where.insertAdjacentElement('beforebegin',b)}}catch{}}
  document.querySelectorAll('[data-product-question]').forEach(b=>{b.hidden=false});
