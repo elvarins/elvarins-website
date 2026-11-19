@@ -21,16 +21,16 @@ const withVariant = (title, variant) => {
 };
 
 function listing({category, row}) {
-  const [upc, title, brand, variant, price, detail, sku] = row;
+  const [upc, title, brand, variant, price, detail, sku, image] = row;
   const categoryUrl = directory + '?category=' + encodeURIComponent(category);
   return [withVariant(title, variant), detail || [brand, variant].filter(Boolean).join(' · ') || display(category),
-    '<section class="company-story"><div class="company-story-copy"><a href="' + escape(categoryUrl) + '">' + escape(display(category)) + '</a>' +
+    '<section class="retail-bci-layout' + (image ? ' has-media' : '') + '">' + (image ? '<img src="' + escape(image) + '" alt="' + escape(title) + '" loading="eager">' : '') + '<div class="company-story-copy"><a href="' + escape(categoryUrl) + '">' + escape(display(category)) + '</a>' +
     '<p><strong>' + escape(retail(price)) + ' USD</strong></p><dl><dt>Brand</dt><dd>' + escape(brand) + '</dd>' +
     (variant ? '<dt>Size / variant</dt><dd>' + escape(variant) + '</dd>' : '') +
-    '<dt>UPC</dt><dd data-order-upc>' + escape(upc) + '</dd><dt>Item number</dt><dd>' + escape(sku) + '</dd></dl>' +
+    '<dt>UPC</dt><dd data-order-upc>' + escape(upc) + '</dd><dt>Item number</dt><dd>' + escape(sku) + '</dd></dl></div><aside class="retail-buy-box" aria-label="Purchase options"><p><strong>' + escape(retail(price)) + ' USD</strong></p><p>Free U.S. shipping on orders over $49.</p>' +
     '<div class="kitchen-purchase-actions" aria-describedby="bci-availability"><button type="button" class="btn btn-primary" data-kitchen-action="cart">Add to Cart</button> ' +
     '<button type="button" class="btn" data-kitchen-action="buy">Buy Now</button></div>' +
-    '<p id="bci-availability">In Stock</p></div></section>'];
+    '<p class="stock-label" id="bci-availability">In Stock</p><p>Sold by Elvarins</p></aside></section>'];
 }
 
 function browse(params) {
