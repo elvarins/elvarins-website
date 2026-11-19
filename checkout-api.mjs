@@ -1,3 +1,5 @@
+import { findBciCheckoutProduct } from './bci-catalog.mjs';
+
 // Secure Stripe Checkout for the existing Cloudflare Worker. Secrets only via Worker bindings.
 const headers={'content-type':'application/json; charset=utf-8','cache-control':'no-store','x-content-type-options':'nosniff'};
 const reply=(data,status=200)=>new Response(JSON.stringify(data),{status,headers});
@@ -35,7 +37,7 @@ export async function checkoutApi(request,env,products){
  let amount=0;
  for(const item of input.items){
   if(typeof item?.sku!=='string'||!safeInteger(item.quantity,1,10)||picked.has(item.sku))return reply({message:'Invalid or duplicate cart item'},400);
-  const p=known.get(item.sku),unit=cents(p?.price);
+  const p=known.get(item.sku)||findBciCheckoutProduct(item.sku),unit=cents(p?.price);
   if(!p||!unit||unit>1000000||typeof p.title!=='string')return reply({message:'Product is not available'},422);
   picked.set(item.sku,{p,quantity:item.quantity,unit});
   amount+=unit*item.quantity;
