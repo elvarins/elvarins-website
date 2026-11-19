@@ -15,6 +15,31 @@ const lookupLegacy=sku=>{
 };
 const customerRoute='/api/account/admin';
 const prepRoute='/api/account/fulfillment';
+const compactCss=`
+header .elv-header-cart{position:static;inset:auto;grid-area:cart;margin:0;box-shadow:none;min-height:40px;white-space:nowrap;padding:.45rem .65rem}
+.product-card,.department-product,.discovery-product,.help-tile{min-width:0}
+.help-tile .elv-add-to-cart,.department-product .elv-add-to-cart{width:100%;margin:.4rem 0 0}
+@media(max-width:720px){
+header .nav:has(.elv-header-cart){display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;grid-template-areas:"logo links cart toggle" "search search search search";gap:.38rem;padding-block:.45rem;align-items:center}
+header .nav:has(.elv-header-cart) .logo{grid-area:logo;font-size:clamp(.96rem,5vw,1.28rem);gap:.22rem;white-space:nowrap}
+header .nav:has(.elv-header-cart) .logo img{width:29px;height:29px}
+header .nav:has(.elv-header-cart) .navlinks{grid-area:links;display:flex;margin:0}
+header .nav:has(.elv-header-cart) .account-trigger{font-size:.7rem;padding:.3rem;min-height:38px}
+header .nav:has(.elv-header-cart) .header-search{grid-area:search;width:100%;margin:0}
+header .nav:has(.elv-header-cart) #navtoggle{grid-area:toggle;margin:0;min-height:40px;padding:.3rem .45rem}
+header .nav:has(.elv-header-cart) #mobilemenu:not([hidden]){grid-column:1/-1}
+header .business-links{display:none}
+main .retail-pdp-grid,main .kitchen-pdp,main .retail-bci-layout{display:flex!important;flex-direction:column;gap:.65rem;padding:.7rem}
+main .retail-pdp-grid .detail-copy{order:1;padding:.55rem}
+main .retail-pdp-grid .detail-photo{order:0;padding:.25rem}
+main .retail-buy-box{order:2;width:100%;min-width:0;margin:0;padding:.7rem}
+main .retail-pdp-grid h1,main .service-page-heading h1{font-size:clamp(1.22rem,5.4vw,1.65rem);line-height:1.18;margin:.3rem 0}
+main .retail-pdp-grid .detail-photo img[data-gallery-image],main .kitchen-pdp [data-gallery-image],main .retail-bci-layout>img{max-height:clamp(145px,39vw,200px);width:100%;object-fit:contain}
+main .gallery-thumbs img,main .kitchen-gallery-thumbs img{width:43px!important;height:43px!important;object-fit:contain}
+main .service-page-heading{padding-block:.45rem;margin-block:0 .6rem}
+main .service-page-heading p{margin:.25rem 0}
+}
+`;
 const scriptPattern=/<script id="catalog-data" type="application\/json">([\s\S]*?)<\/script>/;
 const withCatalog=(html,catalog)=>html.replace(scriptPattern,()=>'<script id="catalog-data" type="application/json">'+safeJson(catalog)+'</script>');
 const price=p=>'$'+p.price.toFixed(2);
@@ -80,6 +105,18 @@ function appendCopy(html,copy){
 
 function cartAsset(source){
   return source
+    .replace('document.body.append(launcher);',"const menu=document.getElementById('navtoggle');const nav=menu?.parentElement||document.querySelector('header .nav');if(nav){launcher.classList.add('elv-header-cart');menu?menu.before(launcher):nav.append(launcher);}else document.body.append(launcher);")
+    .replace('.product-card[data-sku], .discovery-product, .department-product','.product-card[data-sku], .discovery-product, .department-product, .help-tile')
+    .replace("if(card.querySelector('[data-elv-cart-add], .stock-label'))return;","if(card.querySelector('[data-elv-cart-add]'))return;")
+    .replace('card.append(badge,button);',"if(![...card.querySelectorAll('p,span')].some(el=>/^(?:in|out of) stock$/i.test(el.textContent.trim())))card.append(badge);card.append(button);")
+    .replace("if(!r.ok)throw Error(data.message||'Checkout is unavailable');",`if(r.status===401&&data.code==='SIGN_IN_REQUIRED'){
+     dialog.close();document.querySelector('[data-open-account="login"]')?.click();
+     const account=document.getElementById('account-dialog');
+     const notice=document.createElement('p');notice.textContent='Sign in or create an account to continue. Your cart is saved.';notice.setAttribute('role','status');
+     if(account?.open){account.prepend(notice);account.addEventListener('close',()=>{notice.remove();open();},{once:true});}
+     else{open();status.textContent=notice.textContent;}checkout.disabled=false;return;
+   }
+   if(!r.ok)throw Error(data.message||'Checkout is unavailable');`)
     .replace("if(!bySku().has(sku))return;const requested","if(!bySku().has(sku)||bySku().get(sku).inStock===false)return;const requested")
     .replace("if(card.querySelector('[data-elv-cart-add]'))return;","if(card.querySelector('[data-elv-cart-add], .stock-label'))return;")
     .replace("if(!sku)return;\n  const button","if(!sku||bySku().get(sku)?.inStock===false)return;\n  const button")
@@ -90,7 +127,7 @@ function cartAsset(source){
     .replace("add(sku);\n if(btn.hasAttribute","if(bySku().get(sku)?.inStock===false)return;\n add(sku);\n if(btn.hasAttribute");
 }
 
-const versionCart=html=>html.replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=management-1');
+const versionCart=html=>html.replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=header-2').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=2"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -104,6 +141,12 @@ async function checkout(request,env,catalog){
       return {sku,title:p.title,price:p.price,url:p.url,image:p.image,thumbnail:p.thumbnail,inStock:p.inStock};
     }).filter(Boolean);
     return transformed(request,original,JSON.stringify(state),'application/json; charset=utf-8');
+  }
+  if(request.method==='POST'){
+    const url=new URL(request.url);
+    const session=await legacy.fetch(new Request(url.origin+'/api/account/me',{headers:{Cookie:request.headers.get('Cookie')||''}}),env,{});
+    if(!session.ok)return Response.json({message:'Account service is temporarily unavailable.'},{status:503,headers:{'Cache-Control':'no-store'}});
+    if(!(await session.json()).user)return Response.json({code:'SIGN_IN_REQUIRED',message:'Sign in or create an account to continue.'},{status:401,headers:{'Cache-Control':'no-store'}});
   }
   const checkoutProducts=[...catalog.values()].map(p=>p.published&&p.inStock?p:{sku:p.sku,price:0});
   return checkoutApi(request,env,checkoutProducts);
@@ -126,6 +169,7 @@ async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
   if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
+  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
   if(path.startsWith('/media/products/'))return servePhoto(request,db);
   if(path==='/layout-controls.js'){
     if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
@@ -151,7 +195,7 @@ async function fetchStore(request,env,ctx){
   if(path.startsWith('/products/')){
     const p=[...catalog.values()].find(p=>p.url===path&&p.edited);
     if(p&&!p.published)return new Response(request.method==='HEAD'?null:'Product not found',{status:404,headers:{'Cache-Control':'no-store'}});
-    if(p)return transformed(request,null,versionCart(productPage(p)).replace('</head>','<link rel="stylesheet" href="/cart.css"></head>').replace('</body>','<script src="/cart.js?v=management-1" defer></script></body>'));
+    if(p)return transformed(request,null,versionCart(productPage(p).replace('</head>','<link rel="stylesheet" href="/cart.css"></head>').replace('</body>','<script src="/cart.js" defer></script></body>')));
   }
   const original=await legacy.fetch(sourceRequest,env,ctx);
   if(!original.ok)return request.method==='HEAD'?new Response(null,original):original;
