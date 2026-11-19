@@ -10,6 +10,13 @@ function relatedProducts(p){
  return products.filter(x=>x.sku!==p.sku).map(x=>({product:x,score:(x.productType===p.productType?8:0)+(x.brand===p.brand?5:0)+(x.collection===p.collection?4:0)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||Math.abs(a.product.price-p.price)-Math.abs(b.product.price-p.price)||a.product.title.localeCompare(b.product.title)).slice(0,4).map(x=>x.product);
 }
 export function renderProduct(p){
+ const facts={
+  HSG0585:{age:'4 years and up',size:'6-inch scale',description:'Hasbro item G05855L00. This Marvel Legends figure depicts Archangel as he appears in the X-Force comics.'},
+  HSG1659:{age:'6 years and up',size:'14-inch robot; 20-inch scorpion mode',description:'Hasbro item G1659. The playset changes from a robot to a scorpion in 4 steps and includes the figure and 9 pieces. Three A76/LR44 batteries are included. Warning: Small parts. Not for children under 3 years. Ingestion hazard: Contains button-cell batteries. Keep new and used batteries away from children and seek immediate medical attention if swallowed or inserted.'},
+  HSE4486:{description:'Hasbro item E4486. Greenlight changes from robot to Cybertronian car in 14 steps. Dazzlestrike changes from robot to weapon in 5 steps. Includes the Requiem Laser accessory and a blast effect.'},
+  HSF7187:{age:'8 years and up',size:'5.5 inches',description:'Hasbro item F7187. This Legacy Evolution Deluxe Breakdown figure converts between robot and vehicle modes. The removable vehicle spoiler doubles as an axe accessory.'},
+ };
+ if(Object.hasOwn(facts,p.sku))p={...p,...facts[p.sku]};
  if(p.sku==='HSE4703')p={...p,age:'4 years and up',size:'6-inch scale',description:'Hasbro item E4703AX00. This Marvel Legends set pairs the articulated Professor X figure with his Hover Chair. Choking hazard: Small parts. Not for children under 3 years.'};
  if(p.sku==='HSG2001')p={...p,size:'6.25 inches',description:'Hasbro item G20015X00. This Voyager Class Nexus Prime figure converts from robot to jet tank in 23 steps. The package includes blasters and the Enigma of Combination accessory.'};
  const collection=collections.find(c=>c.slug===p.collection),related=relatedProducts(p);

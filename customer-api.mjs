@@ -1,6 +1,6 @@
 import {queueInquiryNotification,deliverInquiryNotifications} from './inquiry-notifications.mjs';
 import { scrypt } from "node:crypto";
-import { fulfillmentPortal } from './fulfillment-portal.mjs';
+import { fulfillmentPortal, ownerDashboard } from './fulfillment-portal.mjs';
 const encoder=new TextEncoder();
 const hex=bytes=>Array.from(new Uint8Array(bytes),v=>v.toString(16).padStart(2,'0')).join('');
 const random=()=>hex(crypto.getRandomValues(new Uint8Array(32)));
@@ -15,6 +15,7 @@ async function sessionUser(request,db){const token=(request.headers.get('Cookie'
 async function startSession(db,id){const token=random();await db.prepare('INSERT INTO sessions(token_hash,customer_id,expires_at) VALUES(?,?,?)').bind(await sha(token),id,Math.floor(Date.now()/1000)+604800).run();return token;}
 export async function customerApi(request,env,products,ctx){
  if(new URL(request.url).pathname==='/api/account/fulfillment')return fulfillmentPortal(request,env);
+ if(new URL(request.url).pathname==='/api/account/admin')return ownerDashboard(request,env,products);
  const path=new URL(request.url).pathname,db=env.CUSTOMER_DB;if(!db)return reply({message:'Customer services are temporarily unavailable. Please contact sales@elvarins.com.'},503);
  if(request.method==='GET'&&path==='/api/account/me'){const user=await sessionUser(request,db);if(!user)return reply({user:null});const f=await db.prepare('SELECT sku FROM favorites WHERE customer_id=?').bind(user.id).all();return reply({user:{name:user.name,email:user.email},favorites:f.results.map(x=>x.sku)});}
  if(request.method!=='POST')return reply({message:'Method not allowed.'},405);
