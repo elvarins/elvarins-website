@@ -6,6 +6,7 @@ import { findServiceCheckoutProduct, servicePaths } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
 import { addLayout, getLayout, layoutScript, photoUploadPath, sendTracking, servePhoto } from './store-extensions.mjs';
 import { presentProduct, productPresentationCss } from './product-presentation.mjs';
+import { supplierStorefront } from './supplier-storefront.mjs';
 
 const storefrontCatalog='/catalog/products.json';
 const lookupLegacy=sku=>{
@@ -275,7 +276,7 @@ async function fetchStore(request,env,ctx){
       if(layout)body=addLayout(body,layout);
     }
     if(path.startsWith('/products/'))body=presentProduct(body);
-    body=versionCart(body);
+    body=versionCart(supplierStorefront(body,path));
   }
   return transformed(request,original,body);
 }
