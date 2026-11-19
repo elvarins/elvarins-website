@@ -1033,5 +1033,44 @@
     },
     "blocker": "Live payment cannot be enabled until exact inventory/stock reservation, shipping and tax rules, Stripe live keys and webhook, order storage and fulfillment behavior are confirmed. Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was also unavailable, so no new product, brand or processed SKU was added.",
     "preserved": "Current branding, saved cart, inquiry paths, development disclosure, owner-approved offers, product photography, galleries, reduced-motion safeguards, email/DNS and Frontier pause remain active."
+  },
+  "latestCartStatusClarity": {
+    "date": "2026-11-19",
+    "focus": "Make the development notice and saved-cart status match the current guarded purchase flow",
+    "changes": [
+      "Rewrote the development notice to explain that customers can browse and save items while secure checkout setup remains incomplete",
+      "Clarified that adding an item to the cart does not place an order or reserve inventory",
+      "Clarified in the cart that shipping, applicable tax and product availability are confirmed before payment",
+      "Repaired checkout, quick-view, development-notice and full-store regression checks after the recent direct-purchase controls changed the page contract",
+      "Added regression coverage for the $48.99 Cadet service-page item in the server-authoritative checkout catalog"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-19",
+      "officialReferences": [
+        "https://www.entertainmentearth.com/s/banpresto/c",
+        "https://www.target.com/s/bandai%2Bgundam%2Bmodel%2Bkit",
+        "https://www.bestbuy.com/site/collectibles-memorabilia/licensed-collectibles/pcmcat748302046148.c?id=pcmcat748302046148"
+      ],
+      "finding": "Entertainment Earth showed 711 Banpresto entries with multiple compact in-stock figures around $21.99 to $33.99. Target showed 200 Bandai Gundam model-kit results with filters for brand, age, price, character, franchise and type. Best Buy also exposes category, franchise, brand and price filters for collectibles. The assortment depth supports expansion, but the visible price bands confirm strong competition.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Keep Banpresto first, prioritizing compact current figures only after fresh signed-in EE cost, availability, MAP, channel permission and at least two exact photos pass. Keep Bandai Hobby Gunpla next, and avoid bulky statues whose shipping erodes the owner's 1.50x pricing margin."
+    },
+    "verification": {
+      "status": "Prepared and fully regression-tested before deployment",
+      "baseCommit": "8b3010d0f0c96ebb83360eb9e56b4933e9ab53cc",
+      "retailChecks": 974,
+      "sitemapPages": 103,
+      "internalTargets": 249,
+      "catalogIntegrity": "78 unique synchronized products, 14 brands and one retained existing single-photo EE listing",
+      "checkoutGuard": "Public configuration and service-page lookup pass; checkout remains fail-closed without every required launch binding",
+      "notificationRegression": "Queue/retry notification regression passed; working email and DNS configuration unchanged",
+      "localCompatibilityDate": "2026-08-06 override because installed workerd does not support production 2026-10-06 date"
+    },
+    "blocker": "Cloudflare currently has live-mode Stripe secrets and an $8 shipping value, but CHECKOUT_ENABLED, SHIPPING_CONFIG_VERIFIED and TAX_COMPLIANCE_CONFIRMED are absent. Secure payment therefore correctly remains unavailable. Fresh signed-in EE wholesale cost, availability, MAP, permitted-channel and exact multi-photo verification was also unavailable, so no product, brand or processed SKU was added.",
+    "preserved": "Branding, saved cart, inquiry support, development disclosure, owner-approved offers, photo galleries, reduced-motion safeguards, working email/DNS and Frontier pause remain active."
   }
 }

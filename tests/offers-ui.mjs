@@ -34,7 +34,9 @@ try{
  popup.querySelector('[aria-label="Close website notice"]').click();assert.equal(popup.open,false);
  welcomeTimer();assert.equal(popup.open,false,'Does not reopen within the same session');
  assert.equal(popup.querySelector('#offers-title').textContent,'Website Under Development');
- assert.ok(popup.textContent.includes('Online checkout and payments are not yet available.'));
+ assert.ok(popup.textContent.includes('Online payment is not yet available.'));
+ assert.ok(popup.textContent.includes('save items in your cart'));
+ assert.ok(popup.textContent.includes('does not place an order or reserve inventory'));
  assert.equal(popup.querySelectorAll('.offer-card').length,0);
  w.sessionStorage.removeItem('elvarins-development-notice-20261026');
  w.document.querySelector('#question-dialog').close();
