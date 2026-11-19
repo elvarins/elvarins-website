@@ -16,6 +16,16 @@ const lookupLegacy=sku=>{
 const customerRoute='/api/account/admin';
 const prepRoute='/api/account/fulfillment';
 const compactCss=`
+#account-dialog{width:min(100% - 1.5rem,29rem);border:1px solid #d4dce9;border-radius:18px;padding:clamp(1rem,4vw,1.75rem);box-shadow:0 22px 70px #17243a45;max-height:calc(100dvh - 1.5rem);overflow:auto}
+#account-dialog .dialog-intro h2{font-size:1.55rem;line-height:1.15;margin:.4rem 0}
+#account-dialog .dialog-intro p{margin:.4rem 0 1rem}
+#account-dialog .account-tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.85rem}
+#account-dialog .account-tabs button{flex:1;min-height:40px;font-size:.82rem}
+#account-dialog .service-form{gap:.65rem}
+#account-dialog .service-form input{min-height:44px;font-size:16px}
+#account-dialog [hidden]{display:none!important}
+#account-dialog #account-status:not(:empty),#account-dialog .checkout-account-notice{padding:.65rem .8rem;border-radius:.5rem;background:#edf3fc;color:#17345b;margin:.5rem 0 0}
+#account-dialog #account-submit{min-height:44px}
 header .elv-header-cart{position:static;inset:auto;grid-area:cart;margin:0;box-shadow:none;min-height:40px;white-space:nowrap;padding:.45rem .65rem}
 .product-card,.department-product,.discovery-product,.help-tile{min-width:0}
 .help-tile .elv-add-to-cart,.department-product .elv-add-to-cart{width:100%;margin:.4rem 0 0}
@@ -139,7 +149,22 @@ function cleanProductCards(html){
       .replace(/<button\b[^>]*\bdata-product="[^"]*"[^>]*>[\s\S]*?<\/button>/g,'<a class="elv-view-details" href="'+path+'">View details</a>');
   });
 }
-const versionCart=html=>cleanProductCards(html).replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=clean-cards-3').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=3"></head>');
+function accountMarkup(html){
+  return html.replace('Keep your favorites close.</h2><p>Create your personal saved collection, ready whenever you return.',
+    'Sign in to Elvarins</h2><p>Use your account to check out and keep your saved items.')
+    .replace('<p class="form-note">Use at least 14 characters. Keep your private recovery code somewhere safe; you will need it if you forget your password.</p>',
+      '<label id="account-confirm-wrap" hidden>Confirm password<input id="account-confirm" type="password" autocomplete="new-password" maxlength="128"></label><p id="account-password-help" class="form-note" hidden>Use at least 14 characters.</p>')
+    .replace('Accounts save your favorites. Track your orders and save your favorite items.','Read how Elvarins handles your account information.');
+}
+
+function accountAsset(source){
+  return source
+    .replace("if(!response.ok)throw new Error(data.message||'Please try again.');","if(!response.ok){const error=new Error(data.message||'Please try again.');error.status=response.status;throw error;}")
+    .replace("function auth(mode){authMode=mode;","function auth(mode){authMode=mode;const confirm=$('#account-confirm');if(confirm){confirm.value='';confirm.required=mode==='signup';$('#account-confirm-wrap').hidden=mode!=='signup';$('#account-password-help').hidden=mode==='login';}$('#account-title').textContent=mode==='signup'?'Create your Elvarins account':mode==='recover'?'Recover your account':'Sign in to Elvarins';")
+    .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){$('#account-status').textContent='Passwords do not match.';$('#account-confirm').focus();return;}const button=$('#account-submit')")
+    .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';status.textContent='Sign in with this email, or choose Recover account if you forgot your password.';$('#account-password').focus();}else status.textContent=error.message;}finally{button.disabled=false;}});");
+}
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-4').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=4"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -197,6 +222,10 @@ async function fetchStore(request,env,ctx){
   if(path==='/cart.js'){
     const original=await legacy.fetch(request,env,ctx);
     return transformed(request,original,cartAsset(await original.text()));
+  }
+  if(path==='/retail.js'){
+    const original=await legacy.fetch(request,env,ctx);
+    return transformed(request,original,accountAsset(await original.text()));
   }
   const managedRoute=path==='/'||path===storefrontCatalog||path==='/sitemap.xml'||path.startsWith('/products/')||path.startsWith('/collections/');
   const pageCopy=db&&editablePages.includes(path)?await db.prepare('SELECT heading,body FROM storefront_copy WHERE path=?').bind(path).first():null;
