@@ -129,6 +129,8 @@ function appendCopy(html,copy){
 
 function cartAsset(source){
   return source
+    .replace('initProductReviews();','')
+    .replace('<div id="elv-cart-subtotal"></div>','<div id="elv-cart-subtotal"></div><p>Shipping and tax, if applicable, are calculated at checkout. Sign in or create an account to continue.</p>')
     .replace('document.body.append(launcher);',"const menu=document.getElementById('navtoggle');const nav=menu?.parentElement||document.querySelector('header .nav');if(nav){launcher.classList.add('elv-header-cart');menu?menu.before(launcher):nav.append(launcher);}else document.body.append(launcher);")
     .replace('.product-card[data-sku], .discovery-product, .department-product','.product-card[data-sku], .discovery-product, .department-product, .help-tile')
     .replace("if(card.querySelector('[data-elv-cart-add], .stock-label'))return;","if(card.querySelector('[data-elv-cart-add]'))return;")
@@ -179,7 +181,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=8"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-9').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=8"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){

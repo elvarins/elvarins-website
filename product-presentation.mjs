@@ -27,7 +27,9 @@ export function presentProduct(html) {
     // beneath the page title. Only supply a factual fallback if it is absent.
     const serviceSummary = main.match(/<h1\b[^>]*>[^<]+<\/h1>\s*<p\b[^>]*>([^<]+)<\/p>/i)?.[1]?.trim();
     const description = summary || serviceSummary ? '' : '<p class="description">'+heading+' '+(facts.some(([label])=>label==='Size or variant')?'See the size or variant and item details below.':'See the item details below.')+'</p>';
-    const highlights = facts.filter(([label]) => !['SKU','UPC','UPC or GTIN','Item number','Manufacturer item number'].includes(label));
+    const highlights = facts.filter(([label]) => !['SKU','UPC','UPC or GTIN','Item number','Manufacturer item number','Supplier item number'].includes(label));
+    const count = heading.match(/\b(\d+)[ -](?:pieces|piece|pack|count)\b/i);
+    if (count && !highlights.some(([label])=>label==='In the package')) highlights.unshift(['Package quantity',count[1]+' items']);
     const bullets = (highlights.length ? highlights : facts).slice(0,5)
       .map(([label,value]) => '<li><strong>'+label+'</strong> '+value+'</li>').join('');
     return main.replace(specs, () => description+(bullets ? '<section class="elv-product-highlights" aria-label="Product highlights"><h2>Product highlights</h2><ul>'+bullets+'</ul></section>' : '')+
