@@ -48,7 +48,7 @@ export async function checkoutApi(request,env,products){
  }
  if(amount>2500000)return reply({message:'Order exceeds checkout limit'},422);
  const charge=Number(env.US_SHIPPING_FLAT_CENTS);
- const freeThreshold=Number(env.US_FREE_SHIPPING_THRESHOLD_CENTS||0);
+ const freeThreshold=4901;
  const shipping=(freeThreshold>0&&amount>=freeThreshold)?0:charge;
  const publicOrigin=new URL(request.url).origin;
  const checkoutId=crypto.randomUUID(),created=Date.now();
