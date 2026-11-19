@@ -30,7 +30,7 @@ function listing({category, row}) {
     '<dt>UPC</dt><dd data-order-upc>' + escape(upc) + '</dd><dt>Item number</dt><dd>' + escape(sku) + '</dd></dl>' +
     '<div class="kitchen-purchase-actions" aria-describedby="bci-availability"><button type="button" class="btn btn-primary" data-kitchen-action="cart">Add to Cart</button> ' +
     '<button type="button" class="btn" data-kitchen-action="buy">Buy Now</button></div>' +
-    '<p id="bci-availability">Availability to be confirmed</p></div></section>'];
+    '<p id="bci-availability">In Stock</p></div></section>'];
 }
 
 function browse(params) {
@@ -54,7 +54,7 @@ function browse(params) {
     '<article class="help-tile bci-product-card">' +
     (photo ? '<a href="' + escape(url) + '"><img src="' + escape(photo) + '" alt="' + escape(title) + '" width="320" height="320" loading="lazy" decoding="async" referrerpolicy="no-referrer" style="width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:10px"></a>' : '') +
     '<p>' + escape(brand) + ' · ' + escape(display(group)) + '</p><h3><a href="' + escape(url || productUrl(upc)) + '">' + escape(withVariant(title, variant)) +
-    '</a></h3>' + (variant ? '<p>' + escape(variant) + '</p>' : '') + '<p><strong>' + escape(retail(price)) + ' USD</strong></p><p>Availability to be confirmed</p></article>').join('');
+    '</a></h3>' + (variant ? '<p>' + escape(variant) + '</p>' : '') + '<p><strong>' + escape(retail(price)) + ' USD</strong></p><p>In Stock</p></article>').join('');
   const pager = pageCount > 1 ? '<nav aria-label="Catalog pages">' +
     (current > 1 ? '<a class="btn" rel="prev" href="' + escape(url(current - 1)) + '">Previous</a> ' : '') +
     '<span>Page ' + current + ' of ' + pageCount + '</span>' +
