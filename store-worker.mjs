@@ -16,6 +16,12 @@ const lookupLegacy=sku=>{
 const customerRoute='/api/account/admin';
 const prepRoute='/api/account/fulfillment';
 const compactCss=`
+main h1,.hero h1{font-family:inherit;font-weight:800;letter-spacing:-.035em;line-height:1.13;font-size:clamp(1.65rem,3.6vw,2.75rem);overflow-wrap:anywhere}
+.hero h1{font-size:clamp(2rem,5.2vw,4rem)}
+main h2{font-family:inherit;font-weight:750;letter-spacing:-.025em;line-height:1.2;font-size:clamp(1.25rem,2.25vw,1.85rem)}
+main :is(.product-card,.discovery-product,.department-product,.help-tile) :is(h2,h3,h4){font-family:inherit;font-size:clamp(.92rem,1.25vw,1.05rem);font-weight:700;line-height:1.35;letter-spacing:0;overflow-wrap:anywhere}
+main :is(.product-card,.discovery-product,.department-product,.help-tile) :is(h2,h3,h4) a{color:inherit;text-decoration:none}
+main :is(.product-card,.discovery-product,.department-product,.help-tile) :is(h2,h3,h4) a:hover{text-decoration:underline;text-underline-offset:.18em}
 #account-dialog{width:min(100% - 1.5rem,29rem);border:1px solid #d4dce9;border-radius:18px;padding:clamp(1rem,4vw,1.75rem);box-shadow:0 22px 70px #17243a45;max-height:calc(100dvh - 1.5rem);overflow:auto}
 #account-dialog .dialog-intro h2{font-size:1.55rem;line-height:1.15;margin:.4rem 0}
 #account-dialog .dialog-intro p{margin:.4rem 0 1rem}
@@ -49,7 +55,7 @@ main .retail-pdp-grid,main .kitchen-pdp,main .retail-bci-layout{display:flex!imp
 main .retail-pdp-grid .detail-copy{order:1;padding:.55rem}
 main .retail-pdp-grid .detail-photo{order:0;padding:.25rem}
 main .retail-buy-box{order:2;width:100%;min-width:0;margin:0;padding:.7rem}
-main .retail-pdp-grid h1,main .service-page-heading h1{font-size:clamp(1.22rem,5.4vw,1.65rem);line-height:1.18;margin:.3rem 0}
+main :is(.retail-pdp-grid,.service-page-heading,.collection-hero) h1{font-size:clamp(1.4rem,5.4vw,1.75rem);line-height:1.15;margin:.3rem 0}
 main .retail-pdp-grid .detail-photo img[data-gallery-image],main .kitchen-pdp [data-gallery-image],main .retail-bci-layout>img{max-height:clamp(145px,39vw,200px);width:100%;object-fit:contain}
 main .gallery-thumbs img,main .kitchen-gallery-thumbs img{width:43px!important;height:43px!important;object-fit:contain}
 main .service-page-heading{padding-block:.45rem;margin-block:0 .6rem}
@@ -171,7 +177,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=6"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=7"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
