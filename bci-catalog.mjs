@@ -76,3 +76,12 @@ export function findBciPage(path, params) {
   const entry = match && byUpc.get(match[1]);
   return entry ? listing(entry) : null;
 }
+
+export function findBciCheckoutProduct(sku) {
+  if (!/^bci-\d{12}$/.test(sku)) return undefined;
+  const entry = byUpc.get(sku.slice(4));
+  if (!entry) return undefined;
+  const [, title, , variant, cents] = entry.row;
+  if (!Number.isSafeInteger(cents) || cents < 1) return undefined;
+  return {sku, title: withVariant(title, variant), price: cents / 100};
+}
