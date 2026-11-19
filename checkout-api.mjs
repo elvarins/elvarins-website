@@ -52,6 +52,7 @@ export async function checkoutApi(request,env,products){
  }catch{return reply({message:'Order system is temporarily unavailable. No payment taken.'},503)}
  const form=new URLSearchParams();
  form.set('mode','payment');
+ form.set('adaptive_pricing[enabled]','false');
  form.set('client_reference_id',checkoutId);
  form.set('metadata[checkout_id]',checkoutId);
  form.set('success_url',publicOrigin+'/order-success?session_id={CHECKOUT_SESSION_ID}');
@@ -115,9 +116,11 @@ export async function stripeWebhook(request,env){
  const order=await env.CUSTOMER_DB.prepare('SELECT id, items_total_cents, shipping_cents, status FROM checkout_orders WHERE id=? AND stripe_session_id=?').bind(id,sessionId).first();
  if(!order||order.status==='paid')return reply({received:true});
  if(session.currency!=='usd'||session.amount_total < order.items_total_cents+order.shipping_cents)return reply({message:'Amount mismatch'},409);
- const address=session.customer_details?.address||session.shipping_details?.address||{};
+ const shippingDetails=session.collected_information?.shipping_details||session.shipping_details;
+ const address=shippingDetails?.address;
+ if(!address?.line1||address.country!=='US')return reply({message:'Shipping address unavailable'},409);
  await env.CUSTOMER_DB.prepare('UPDATE checkout_orders SET status=?, paid_at=?, customer_email=?, shipping_name=?, shipping_address_json=?, amount_paid_cents=? WHERE id=? AND status != ?')
- .bind('paid',Date.now(),String(session.customer_details?.email||'').slice(0,240),String(session.customer_details?.name||'').slice(0,180),JSON.stringify(address).slice(0,2400),session.amount_total,id,'paid').run();
+ .bind('paid',Date.now(),String(session.customer_details?.email||'').slice(0,240),String(shippingDetails.name||session.customer_details?.name||'').slice(0,180),JSON.stringify(address).slice(0,2400),session.amount_total,id,'paid').run();
  return reply({received:true});
 }
 export async function checkoutStatus(request,env){
