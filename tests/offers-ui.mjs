@@ -27,24 +27,7 @@ try{
  failedPreview.dispatchEvent(new w.Event('error'));
  assert.equal(failedPhoto.querySelector('.product-photo-secondary'),null);
  assert.equal(failedPhoto.classList.contains('product-photo-stack'),false,'Failed alternate cannot hide the primary photo');
- const popup=w.document.querySelector('#offers-dialog');
- assert.ok(welcomeTimer);assert.equal(popup.open,false);
- welcomeTimer();assert.equal(popup.open,true);
- assert.equal(w.sessionStorage.getItem('elvarins-development-notice-20261026'),'shown');
- popup.querySelector('[aria-label="Close website notice"]').click();assert.equal(popup.open,false);
- welcomeTimer();assert.equal(popup.open,false,'Does not reopen within the same session');
- assert.equal(popup.querySelector('#offers-title').textContent,'Website Under Development');
- assert.ok(popup.textContent.includes('Online payment is not yet available.'));
- assert.ok(popup.textContent.includes('save items in your cart'));
- assert.ok(popup.textContent.includes('does not place an order or reserve inventory'));
- assert.equal(popup.querySelectorAll('.offer-card').length,0);
- w.sessionStorage.removeItem('elvarins-development-notice-20261026');
- w.document.querySelector('#question-dialog').close();
- w.document.querySelector('#account-dialog').showModal();welcomeTimer();
- assert.equal(popup.open,false,'Does not replace an active form');
- w.document.querySelector('#account-dialog').close();
- w.document.querySelector('#site-search')?.focus(); // Some pages use a different search ID.
- const input=w.document.querySelector('input');input.focus();welcomeTimer();
- assert.equal(popup.open,false,'Does not interrupt typing');
- console.log('PASS: development notice display, close control, session frequency, accurate checkout status and active-form protection');
+ assert.equal(w.document.querySelector('#offers-dialog'),null);
+ assert.equal(welcomeTimer,undefined);
+ console.log('PASS: retail initialization without the retired checkout notice');
 }finally{w.close();}

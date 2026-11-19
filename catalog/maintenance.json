@@ -958,7 +958,7 @@
     "changes": [
       "Removed Buy Now, Add to Cart, local cart and disabled Pay now controls that incorrectly implied an available checkout path",
       "Restored the U.S. delivery ZIP quote form and Request purchase details action on homepage product details and standalone product pages",
-      "Restored the Website Under Development disclosure with clear checkout and payment status",
+      "Restored a temporary disclosure about checkout and payment status",
       "Preserved the newer photographic depth, motion polish, galleries, product policy details, keyboard and touch controls and reduced-motion safeguards",
       "Added a regression check that rejects checkout-style purchase actions while the storefront remains inquiry-only"
     ],
