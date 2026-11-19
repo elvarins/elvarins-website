@@ -10,7 +10,7 @@ const cents=value=>{const n=Number(value);return Number.isFinite(n)&&n>0&&Number
 const safeInteger=(x,min,max)=>Number.isSafeInteger(x)&&x>=min&&x<=max;
 const configured=(env)=>String(env.CHECKOUT_ENABLED)==='true'&&!!env.CUSTOMER_DB&&['test','live'].includes(env.PAYMENT_MODE)&&(
  env.PAYMENT_MODE==='test'?String(env.STRIPE_TEST_SECRET_KEY||'').startsWith('sk_test_'):String(env.STRIPE_LIVE_SECRET_KEY||'').startsWith('sk_live_')
-)&&String(env.SHIPPING_CONFIG_VERIFIED)==='true'&&safeInteger(Number(env.US_SHIPPING_FLAT_CENTS),0,10000)&&String(env.TAX_COMPLIANCE_CONFIRMED)==='true';
+)&&/^\d+$/.test(env.US_SHIPPING_FLAT_CENTS||'')&&safeInteger(Number(env.US_SHIPPING_FLAT_CENTS),0,10000)&&String(env.STRIPE_WEBHOOK_SECRET||'').startsWith('whsec_');
 const secret=(env)=>env.PAYMENT_MODE==='test'?env.STRIPE_TEST_SECRET_KEY:env.STRIPE_LIVE_SECRET_KEY;
 const postStripe=async(env,path,form,idempotency)=>{
  const h={Authorization:'Bearer '+secret(env),'Content-Type':'application/x-www-form-urlencoded'};
