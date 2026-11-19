@@ -2,7 +2,7 @@ import legacy from './worker.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
-import { findServiceCheckoutProduct } from './service-pages.mjs';
+import { findServiceCheckoutProduct, servicePaths } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
 import { addLayout, getLayout, layoutScript, photoUploadPath, sendTracking, servePhoto } from './store-extensions.mjs';
 
@@ -26,6 +26,10 @@ const compactCss=`
 #account-dialog [hidden]{display:none!important}
 #account-dialog #account-status:not(:empty),#account-dialog .checkout-account-notice{padding:.65rem .8rem;border-radius:.5rem;background:#edf3fc;color:#17345b;margin:.5rem 0 0}
 #account-dialog #account-submit{min-height:44px}
+#account-dialog #account-status:not(:empty){margin:0 0 .8rem}
+#account-dialog #account-status[data-tone="error"]{background:#fff0ef;color:#941e25;border:1px solid #e9a2a2;border-left:4px solid #bd2930;font-weight:600}
+#account-dialog #account-status[data-tone="error"]:focus{outline:2px solid #bd2930;outline-offset:2px}
+@media(prefers-reduced-motion:no-preference){#account-dialog #account-status[data-tone="error"]{animation:account-error-in .2s ease-out}@keyframes account-error-in{from{opacity:.5;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}}
 header .elv-header-cart{position:static;inset:auto;grid-area:cart;margin:0;box-shadow:none;min-height:40px;white-space:nowrap;padding:.45rem .65rem}
 .product-card,.department-product,.discovery-product,.help-tile{min-width:0}
 .help-tile .elv-add-to-cart,.department-product .elv-add-to-cart{width:100%;margin:.4rem 0 0}
@@ -150,7 +154,8 @@ function cleanProductCards(html){
   });
 }
 function accountMarkup(html){
-  return html.replace('Keep your favorites close.</h2><p>Create your personal saved collection, ready whenever you return.',
+  const status='<p id="account-status" role="status" aria-live="polite"></p>';
+  return html.replace(status,'').replace('<div id="account-auth">','<p id="account-status" role="status" aria-live="polite" tabindex="-1"></p><div id="account-auth">').replace('Keep your favorites close.</h2><p>Create your personal saved collection, ready whenever you return.',
     'Sign in to Elvarins</h2><p>Use your account to check out and keep your saved items.')
     .replace('<p class="form-note">Use at least 14 characters. Keep your private recovery code somewhere safe; you will need it if you forget your password.</p>',
       '<label id="account-confirm-wrap" hidden>Confirm password<input id="account-confirm" type="password" autocomplete="new-password" maxlength="128"></label><p id="account-password-help" class="form-note" hidden>Use at least 14 characters.</p>')
@@ -160,12 +165,13 @@ function accountMarkup(html){
 
 function accountAsset(source){
   return source
+    .replace("function auth(mode){","function accountError(message){const status=$('#account-status');status.dataset.tone='error';status.textContent=message;status.focus();}function auth(mode){delete $('#account-status').dataset.tone;")
     .replace("if(!response.ok)throw new Error(data.message||'Please try again.');","if(!response.ok){const error=new Error(data.message||'Please try again.');error.status=response.status;throw error;}")
-    .replace("function auth(mode){authMode=mode;","function auth(mode){authMode=mode;const phone=$('#account-phone');if(phone){phone.disabled=mode!=='signup';$('#account-phone-wrap').hidden=mode!=='signup';}const confirm=$('#account-confirm');if(confirm){confirm.value='';confirm.required=mode==='signup';$('#account-confirm-wrap').hidden=mode!=='signup';$('#account-password-help').hidden=mode==='login';}$('#account-title').textContent=mode==='signup'?'Create your Elvarins account':mode==='recover'?'Recover your account':'Sign in to Elvarins';")
-    .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){$('#account-status').textContent='Passwords do not match.';$('#account-confirm').focus();return;}const button=$('#account-submit')")
-    .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';status.textContent='Sign in with this email, or choose Recover account if you forgot your password.';$('#account-password').focus();}else status.textContent=error.message;}finally{button.disabled=false;}});");
+    .replace("authMode=mode;$('#account-auth')","authMode=mode;const phone=$('#account-phone');if(phone){phone.disabled=mode!=='signup';$('#account-phone-wrap').hidden=mode!=='signup';}const confirm=$('#account-confirm');if(confirm){confirm.value='';confirm.required=mode==='signup';$('#account-confirm-wrap').hidden=mode!=='signup';$('#account-password-help').hidden=mode==='login';}$('#account-title').textContent=mode==='signup'?'Create your Elvarins account':mode==='recover'?'Recover your account':'Sign in to Elvarins';$('#account-auth')")
+    .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
+    .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-5').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=4"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=account-4').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=6"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -230,7 +236,7 @@ async function fetchStore(request,env,ctx){
   }
   const managedRoute=path==='/'||path===storefrontCatalog||path==='/sitemap.xml'||path.startsWith('/products/')||path.startsWith('/collections/');
   const pageCopy=db&&editablePages.includes(path)?await db.prepare('SELECT heading,body FROM storefront_copy WHERE path=?').bind(path).first():null;
-  if(!managedRoute&&!pageCopy)return legacy.fetch(request,env,ctx);
+  if(!managedRoute&&!pageCopy&&!servicePaths.includes(path)&&path!=='/order-success')return legacy.fetch(request,env,ctx);
   const rows=db&&managedRoute?await getRows(db):[];
   const catalog=mergeCatalog(products,rows);
   const sourceRequest=request.method==='HEAD'?new Request(request.url,{headers:request.headers}):request;
