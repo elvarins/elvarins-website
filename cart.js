@@ -69,7 +69,7 @@ document.addEventListener('click',async e=>{
  add(sku);
  if(btn.hasAttribute('data-elv-buy-now')&&!checkout.disabled)checkout.click();
 });
-checkout.textContent='Checkout setup in progress';
+checkout.textContent='Checking secure checkout…';
 checkout.addEventListener('click',async()=>{
  const items=entries().map(({p,quantity})=>({sku:p.sku,quantity}));
  if(!items.length||!checkoutAvailable){status.textContent='Online payment is not available yet. Your cart remains saved on this device.';return;}
@@ -97,7 +97,7 @@ async function start(){
   const state=await r.json();checkoutAvailable=r.ok&&state.available===true;
   if(r.ok&&Array.isArray(state.catalogItems))catalog.push(...state.catalogItems);
  }catch{checkoutAvailable=false}
- checkout.textContent=checkoutAvailable?'Proceed to secure checkout':'Checkout setup in progress';
+ checkout.textContent=checkoutAvailable?'Proceed to secure checkout':'Online checkout temporarily unavailable';
  cart=saved;render();inject();
  const bciActions=document.querySelector('.kitchen-purchase-actions');
  if(bciActions&&bciSku&&bySku().has(bciSku))bciActions.addEventListener('click',event=>{
@@ -118,34 +118,12 @@ async function start(){
 function initProductReviews(){
  if(!location.pathname.startsWith('/products/'))return;
  const main=document.querySelector('main');if(!main)return;
- const key='elvarins-product-reviews:'+location.pathname;
- let reviews=[];
- try{const saved=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(saved))reviews=saved.filter(r=>Number.isInteger(r?.rating)&&r.rating>=1&&r.rating<=5&&typeof r.feedback==='string').slice(-25);}catch{}
- const section=document.createElement('section');section.className='wrap retail-reviews';
- section.innerHTML='<h2>Customer reviews</h2><p>No published customer reviews yet.</p><h3>Your reviews on this device</h3><p>Reviews added here are saved in this browser only.</p><div data-local-review-list></div><details><summary>Write a review</summary><form><label>Rating <select name="rating" required><option value="">Choose a rating</option><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select></label><label>Feedback <textarea name="feedback" required maxlength="1000"></textarea></label><button type="submit" class="btn btn-primary">Save on this device</button><p role="status"></p></form></details>';
- const list=section.querySelector('[data-local-review-list]');
- function show(){
-  list.replaceChildren();
-  if(!reviews.length)return;
-  const average=document.createElement('p');average.textContent=(reviews.reduce((sum,r)=>sum+r.rating,0)/reviews.length).toFixed(1)+' out of 5 · '+reviews.length+' saved';list.append(average);
-  for(let rating=5;rating>=1;rating--){
-   const share=Math.round(100*reviews.filter(r=>r.rating===rating).length/reviews.length);
-   const row=document.createElement('label');row.className='review-breakdown';row.textContent=rating+' stars · '+share+'%';
-   const bar=document.createElement('progress');bar.max=100;bar.value=share;row.append(bar);list.append(row);
-  }
-  for(const review of [...reviews].reverse()){
-   const article=document.createElement('article');const score=document.createElement('strong');score.textContent=review.rating+' out of 5';const body=document.createElement('p');body.textContent=review.feedback;article.append(score,body);list.append(article);
-  }
- }
- section.querySelector('form').addEventListener('submit',event=>{
-  event.preventDefault();const form=event.currentTarget;const data=new FormData(form);const rating=Number(data.get('rating'));const feedback=String(data.get('feedback')||'').trim();const message=form.querySelector('[role="status"]');
-  if(!Number.isInteger(rating)||rating<1||rating>5||!feedback)return;
-  const next=[...reviews,{rating,feedback}].slice(-25);
-  try{localStorage.setItem(key,JSON.stringify(next));}catch{message.textContent='This browser could not save the review.';return;}
-  reviews=next;form.reset();show();message.textContent='Review saved on this device.';
- });
- show();main.append(section);
+ const section=document.createElement('section');
+ section.className='wrap retail-reviews';
+ section.innerHTML='<h2>Customer reviews</h2><p>There are no published, verified customer reviews for this item yet.</p><p>Questions about the item? Contact <a href="mailto:sales@elvarins.com">sales@elvarins.com</a> before ordering.</p>';
+ main.append(section);
 }
+
 initProductReviews();
 start();
 })();
