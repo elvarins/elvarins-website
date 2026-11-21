@@ -145,6 +145,272 @@ const kitchenPreviews = [
     "care": [
       "Place all parts on the dishwasher’s top rack for cleaning, per Full Circle's instructions."
     ]
+  },
+  {
+    "slug": "gir-10-piece-best-sellers-tool-set",
+    "brand": "GIR",
+    "title": "GIR Silicone Kitchen Tool Set, 10-Piece",
+    "description": "A kitchen starter set for stirring, turning, whisking, scraping and peeling.",
+    "bullets": [
+      "10 utensils: ladle, whisk, spatula, skinny spatula, turner, spoonula, mini spoon, mini spatula, spaghetti spoon and peeler",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Studio",
+      "Pack contents": "10 utensils: ladle, whisk, spatula, skinny spatula, turner, spoonula, mini spoon, mini spatula, spaghetti spoon and peeler",
+      "Material": "Platinum-cured silicone",
+      "Heat resistance": "Up to 425°F"
+    },
+    "brandPage": "https://gir.co/products/10piece-best-sellers-set?variant=46784048267460",
+    "photos": [
+      "https://gir.co/cdn/shop/files/GIR-BestsellerSet-10_Pieces-Studio.webp?v=1790024511"
+    ],
+    "use": "Use the peeler for produce, the whisk for light batters and the turner for eggs and pancakes.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-silicone-spatula-set-red",
+    "brand": "GIR",
+    "title": "GIR Silicone Spatula Set, Red, 3-Piece",
+    "description": "Three spatula shapes handle mixing bowls, jars and small prep tasks.",
+    "bullets": [
+      "Ultimate, Skinny and Mini spatulas",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Red",
+      "Pack contents": "Ultimate, Skinny and Mini spatulas",
+      "Material": "Platinum-cured silicone",
+      "Ultimate": "11 × 1.9 in",
+      "Skinny": "11 × 1.5 in",
+      "Mini": "8.3 × 1.4 in"
+    },
+    "brandPage": "https://gir.co/products/products-3piece-spatula-set?variant=41123519004868",
+    "photos": [
+      "https://gir.co/cdn/shop/files/PB-GIR-D-PDP-Ultimate_skinny_and_mini_spatula_Set-Red-ATF-01-2x.jpg?v=1678127100",
+      "https://gir.co/cdn/shop/files/IMG_0250.jpg?v=1677773465"
+    ],
+    "use": "Use the Ultimate for mixing batter, the Skinny for tall narrow jars and the Mini for small bowls.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-silicone-spoonula-set-red",
+    "brand": "GIR",
+    "title": "GIR Silicone Spoonula Set, Red, 3-Piece",
+    "description": "Three scooping spatulas let you scrape the sides of a bowl and lift the mixture in the same motion.",
+    "bullets": [
+      "Ultimate, Skinny and Mini spoonulas",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Red",
+      "Pack contents": "Ultimate, Skinny and Mini spoonulas",
+      "Material": "Platinum-cured silicone",
+      "Ultimate": "11 × 2.5 × 0.7 in",
+      "Skinny": "11 × 1.8 × 0.5 in",
+      "Mini": "8.3 × 1.8 × 0.5 in"
+    },
+    "brandPage": "https://gir.co/products/3-piece-spoonula-set?variant=42624399081668",
+    "photos": [
+      "https://gir.co/cdn/shop/files/Gir-Product-April2021-Spoonula-Group-Red-4125.jpg?v=1762459156",
+      "https://gir.co/cdn/shop/files/GIR-UltimateSpoonula-red-product-detail.webp?v=1727099122"
+    ],
+    "use": "Use the narrow tool in a jar, the Ultimate for mixing and the Mini for small quantities.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-ultimate-tool-set-mint",
+    "brand": "GIR",
+    "title": "GIR Ultimate Silicone Tool Set, Mint, 3-Piece",
+    "description": "Three everyday utensils for stirring batter, turning food and spooning out portions.",
+    "bullets": [
+      "Ultimate spatula, flip and spoonula",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Mint",
+      "Pack contents": "Ultimate spatula, flip and spoonula",
+      "Material": "Platinum-cured silicone",
+      "Heat resistance": "Up to 425°F"
+    },
+    "brandPage": "https://gir.co/products/ultimate-essentials-set?variant=40863124947140",
+    "photos": [
+      "https://gir.co/cdn/shop/files/PB-GIR-D-PDP-UltimateEssentialsSet-Mint-ATF-01-2x.jpg?v=1678202424",
+      "https://gir.co/cdn/shop/files/GIR-PDP-Spoonula-Mint-03.jpg?v=1678168497"
+    ],
+    "use": "Scrape with the spatula, flip with the turner and scoop with the spoonula.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-ultimate-tool-set-black",
+    "brand": "GIR",
+    "title": "GIR Ultimate Silicone Tool Set, Black, 5-Piece",
+    "description": "Five utensils for skillet cooking, mixing, serving sauces and portioning soup.",
+    "bullets": [
+      "Ultimate ladle, spatula, flip, spoon and spoonula",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Black",
+      "Pack contents": "Ultimate ladle, spatula, flip, spoon and spoonula",
+      "Material": "Platinum-cured silicone",
+      "Heat resistance": "Up to 425°F"
+    },
+    "brandPage": "https://gir.co/products/ultimate-bundle?variant=40358947848388",
+    "photos": [
+      "https://gir.co/cdn/shop/files/gir-bundle_5_pcs-ultimate-Black-ATF.jpg?v=1678206036",
+      "https://gir.co/cdn/shop/files/Black_hero_1.webp?v=1755875163"
+    ],
+    "use": "Use the ladle for liquids, the flip for turning food and the other three tools for mixing and serving.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-collapsible-colander-steamer-slate",
+    "brand": "GIR",
+    "title": "GIR Collapsible Colander & Steamer, Slate, 3.6 qt",
+    "description": "Rinse produce or drain cooked pasta, then fold the colander down to make room in the cupboard.",
+    "bullets": [
+      "1 collapsible colander & steamer",
+      "Collapses for storage",
+      "3.6-quart capacity"
+    ],
+    "specifications": {
+      "Color": "Slate",
+      "Pack contents": "1 collapsible colander & steamer",
+      "Capacity": "3.6 qt",
+      "Dimensions": "9.78 × 13.23 × 5.3 in"
+    },
+    "brandPage": "https://gir.co/products/collapsible-colander-steamer?variant=43937324728516",
+    "photos": [
+      "https://gir.co/cdn/shop/files/GIR-Colander-slate-product-1.webp?v=1762459735",
+      "https://gir.co/cdn/shop/files/GIR-Colander-slate-lifestyle-2.webp?v=1739263002"
+    ],
+    "use": "Expand it for rinsing and draining. Follow the brand’s instructions when using it as a steamer.",
+    "care": [
+      "Place on the top rack of the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-silicone-baking-mat-sprinkle",
+    "brand": "GIR",
+    "title": "GIR Silicone Baking Mat, Sprinkle, 9 × 12 in",
+    "description": "Create a reusable baking surface for cookies and other small batches.",
+    "bullets": [
+      "1 silicone baking mat",
+      "Reusable silicone baking surface",
+      "Heat resistant up to 450°F"
+    ],
+    "specifications": {
+      "Color": "Sprinkle",
+      "Pack contents": "1 silicone baking mat",
+      "Material": "Platinum-cured silicone",
+      "Dimensions": "9 × 12 in",
+      "Heat resistance": "Up to 450°F"
+    },
+    "brandPage": "https://gir.co/products/baking-mat?variant=40804375298244",
+    "photos": [
+      "https://gir.co/cdn/shop/files/Pattern-GIR-BakingMat-9x12-Sprinkles-PatternBG-001-ATF.jpg?v=1679331225",
+      "https://gir.co/cdn/shop/files/GIR-PDP-BakingMat-Sprinkles.jpg?v=1679331268"
+    ],
+    "use": "Lay the mat flat on a compatible baking sheet before adding dough or other ingredients.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-silicone-basting-brush-navy",
+    "brand": "GIR",
+    "title": "GIR Silicone Basting Brush, Navy, 7.5 in",
+    "description": "Brush oil, sauces or glazes onto food with flexible silicone bristles.",
+    "bullets": [
+      "1 basting brush",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Navy",
+      "Pack contents": "1 basting brush",
+      "Material": "Platinum-cured silicone",
+      "Heat resistance": "Up to 425°F",
+      "Dimensions": "7.5 × 1.6 × 0.7 in"
+    },
+    "brandPage": "https://gir.co/products/gir-basting-brush-1?variant=42892370313412",
+    "photos": [
+      "https://gir.co/cdn/shop/files/Pattern-GIR-BastingBrush-Ultimate-Navy-PatternBG-001-ATF_cc506df3-4f64-414a-836b-0813c3efb582.jpg?v=1707852770",
+      "https://gir.co/cdn/shop/files/GIRBBU316NVY-3QTR_jpg_9333e66a-119d-4771-b501-8367d9cd229a.jpg?v=1716398752"
+    ],
+    "use": "Dip the bristles in the coating and spread a thin layer across the food before or during cooking.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-ultimate-silicone-turner-black",
+    "brand": "GIR",
+    "title": "GIR Ultimate Silicone Flip Turner, Black",
+    "description": "A flexible turner for lifting pancakes, eggs and other foods out of a skillet.",
+    "bullets": [
+      "1 Ultimate Flip turner",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Black",
+      "Pack contents": "1 Ultimate Flip turner",
+      "Material": "Platinum-cured silicone",
+      "Heat resistance": "Up to 425°F",
+      "Dimensions": "12.6 × 3 × 0.7 in"
+    },
+    "brandPage": "https://gir.co/products/flip?variant=26882978250816",
+    "photos": [
+      "https://gir.co/cdn/shop/files/Gir-Product-April2021-Flip-Ultimate-Black-4260.jpg?v=1678460119",
+      "https://gir.co/cdn/shop/files/GIR-PDP-Ultimate-Flip-Black-01_aa1a9337-a3a3-4503-ae7d-5507ce7613cd.jpg?v=1678460120"
+    ],
+    "use": "Slide the thin front edge under the food before lifting or turning it.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
+  },
+  {
+    "slug": "gir-ultimate-silicone-ladle-studio",
+    "brand": "GIR",
+    "title": "GIR Ultimate Silicone Ladle, Studio",
+    "description": "Serve soup, sauces or batter with a deep ladle that has embossed measurement lines.",
+    "bullets": [
+      "1 Ultimate ladle",
+      "Platinum-cured silicone",
+      "Dishwasher-safe cleanup"
+    ],
+    "specifications": {
+      "Color": "Studio",
+      "Pack contents": "1 Ultimate ladle",
+      "Material": "Platinum-cured silicone",
+      "Heat resistance": "Up to 425°F"
+    },
+    "brandPage": "https://gir.co/products/ladle?variant=26883344040000",
+    "photos": [
+      "https://gir.co/cdn/shop/files/Gir-Product-April2021-Ladle-Ultimate-Studio-4193.jpg?v=1679327491",
+      "https://gir.co/cdn/shop/files/GIR-PDP-Ultimate-Ladle-Studio-01.jpg?v=1679327492"
+    ],
+    "use": "Dip the bowl into the mixture and use the measurement markings to portion liquids.",
+    "care": [
+      "Wash by hand or in the dishwasher."
+    ]
   }
 ];
 
