@@ -36,14 +36,24 @@ const kitchenPreviews = [
       "Use to wrap cheese or produce and cover bowls"
     ],
     "specifications": {
-      "material": "Beeswax-coated fabric",
-      "pack": "3 wraps",
-      "print": "Wheels n Wedges"
+      "Product type": "Reusable beeswax food wraps",
+      "Print": "Wheels n Wedges",
+      "Pack contents": "3 wraps: 1 small, 1 medium, 1 large",
+      "Small wrap": "7 × 8 in",
+      "Medium wrap": "10 × 11 in",
+      "Large wrap": "13 × 14 in",
+      "Materials": "Organic cotton, beeswax, organic plant oil and tree resin"
     },
     "brandPage": "https://www.beeswrap.com/products/the-tri-fecta",
     "photos": [
       "https://www.beeswrap.com/cdn/shop/files/WheelsnWedges_Asst3Pk_OutOfPackaing.png?v=1786378143",
       "https://www.beeswrap.com/cdn/shop/files/WheelsnWedges_Asst3Pk_Lifestyle.jpg?v=1786378166"
+    ],
+    "use": "Shape the wrap around food or over a bowl with warm hands. Choose small for cut produce, medium for cheese and large for bigger portions or bowls.",
+    "care": [
+      "Hand wash in cool water with mild dish soap and air-dry before storing.",
+      "Keep away from hot water, microwaves, ovens and dishwashers. Let hot food cool before wrapping.",
+      "Avoid direct contact with raw meat or fish."
     ]
   },
   {
@@ -57,14 +67,21 @@ const kitchenPreviews = [
       "Sized for whole loaves and proofing bowls"
     ],
     "specifications": {
-      "material": "Beeswax-coated fabric",
-      "pack": "1 wrap",
-      "dimensions": "17 × 23 in",
-      "print": "Herb Garden"
+      "Product type": "Reusable beeswax bread wrap",
+      "Print": "Herb Garden",
+      "Pack contents": "1 bread wrap",
+      "Dimensions": "17 × 23 in",
+      "Materials": "Organic cotton, beeswax, organic plant oil and tree resin"
     },
     "brandPage": "https://www.beeswrap.com/products/bread-wrap?variant=32284950593583",
     "photos": [
       "https://www.beeswrap.com/cdn/shop/files/BeesWrap_HerbGardenPrint_Ecomm_BreadWrap.png?v=1788321555"
+    ],
+    "use": "Fold the wrap around a cooled loaf and press the edges together using the warmth of your hands. It can also cover dough while it proofs.",
+    "care": [
+      "Hand wash in cool water with mild dish soap and air-dry before storing.",
+      "Keep away from hot water, microwaves, ovens and dishwashers. Let hot food cool before wrapping.",
+      "Avoid direct contact with raw meat or fish."
     ]
   },
   {
@@ -78,14 +95,23 @@ const kitchenPreviews = [
       "White, single brush"
     ],
     "specifications": {
-      "dimensions": "2.56 × 2.36 × 9.25 in",
-      "materials": "Bamboo and recycled plastic",
-      "pack": "1 brush"
+      "Product type": "Dish brush with built-in scraper",
+      "Color": "White",
+      "Pack contents": "1 dish brush",
+      "Dimensions": "2.56 × 2.36 × 9.25 in (6.5 × 6 × 23.5 cm)",
+      "Handle material": "Bamboo",
+      "Bristle material": "Recycled plastic",
+      "Model": "FC10108W",
+      "UPC": "810119021809"
     },
     "brandPage": "https://fullcirclehome.com/products/the-daily-dish-brush?variant=35179235265",
     "photos": [
       "https://fullcirclehome.com/cdn/shop/files/FC10108W-2_1.jpg?v=1778512560",
       "https://fullcirclehome.com/cdn/shop/files/FC10108W_Be_Good_White_LS_D.jpg?v=1786062072"
+    ],
+    "use": "Use the scraper to loosen stuck-on food, then scrub with the bristles. Full Circle lists the brush as suitable for nonstick cookware.",
+    "care": [
+      "Wash in warm soapy water and leave to dry. Avoid prolonged soaking."
     ]
   },
   {
@@ -99,15 +125,23 @@ const kitchenPreviews = [
       "Compact 7.87 × 4.24 × 4.25 in footprint"
     ],
     "specifications": {
-      "material": "Ceramic",
-      "dimensions": "7.87 × 4.24 × 4.25 in",
-      "color": "Gray/White"
+      "Product type": "Modular countertop sink organizer",
+      "Color": "Gray / White",
+      "Pack contents": "1 modular cleaning station with tray and caddy",
+      "Dimensions": "7.87 × 4.24 × 4.25 in (20 × 10.76 × 10.79 cm)",
+      "Materials": "Ceramic and recycled plastic",
+      "Model": "FC17404GY",
+      "UPC": "810119022950"
     },
     "brandPage": "https://fullcirclehome.com/products/sinkside-ceramic-cleaning-station?variant=43023175778473",
     "photos": [
       "https://fullcirclehome.com/cdn/shop/products/FC17404GY_StashGrey_1_OP_A.jpg?v=1751385286",
       "https://fullcirclehome.com/cdn/shop/files/expanded_with_white_space.jpg?v=1754943187",
       "https://fullcirclehome.com/cdn/shop/files/FC17404GY-1_1.jpg?v=1784039551"
+    ],
+    "use": "Arrange the tray and caddy to fit your dish brushes, scrubbers and soap. Use the separate nook to set the sponge down between washes.",
+    "care": [
+      "Place all parts on the dishwasher’s top rack for cleaning, per Full Circle's instructions."
     ]
   }
 ];
@@ -123,7 +157,7 @@ const previewStyles = '<style>' +
   '</style>';
 
 for (const product of kitchenPreviews) {
-  const { slug, brand, title, description, bullets, specifications, brandPage, photos } = product;
+  const { slug, brand, title, description, bullets, specifications, brandPage, photos, use, care } = product;
   const images = photos.map(photo => previewPhoto(photo, 1200));
   const galleryData = JSON.stringify({ title, image: images[0], images }).replaceAll('<', '\\u003c');
   pages['/products/' + slug] = [title, description, previewStyles +
@@ -136,7 +170,9 @@ for (const product of kitchenPreviews) {
     '</ul><h2>Product specifications</h2><dl>' +
     Object.entries({ Brand: brand, ...specifications }).map(([name, value]) =>
       '<dt>' + escape(name[0].toUpperCase() + name.slice(1)) + '</dt><dd>' + escape(value) + '</dd>').join('') +
-    '</dl><p><a href="' + escape(brandPage) + '">Product information and photos from ' + escape(brand) + '</a></p></div></div>' +
+    '</dl><h2>How to use</h2><p>' + escape(use) + '</p><h2>Care instructions</h2><ul>' +
+    care.map(instruction => '<li>' + escape(instruction) + '</li>').join('') +
+    '</ul><p><a href="' + escape(brandPage) + '">Product information and photos from ' + escape(brand) + '</a></p></div></div>' +
     '<script id="product-data" type="application/json">' + galleryData + '</script><script src="/gallery.js?v=load-state-20261012" defer></script>'];
 }
 
