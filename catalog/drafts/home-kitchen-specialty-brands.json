@@ -1,0 +1,102 @@
+{
+  "collection": "Home & Kitchen",
+  "status": "draft",
+  "pricingRule": "Confirmed wholesale unit cost × 2.20, rounded to cents. Retail references are comparison points only.",
+  "products": [
+    {
+      "brand": "Bee’s Wrap",
+      "title": "Bee’s Wrap Reusable Beeswax Food Wraps, Assorted 3-Pack",
+      "description": "Keep three wrap sizes on hand for everyday leftovers, cut produce and snacks. Shape the wrap around food or a bowl with the warmth of your hands, then wash it in cool water for reuse.",
+      "bullets": [
+        "One small, one medium and one large wrap",
+        "Small 7 × 8 in, medium 10 × 11 in, large 13 × 14 in",
+        "Use to wrap cheese or produce and cover bowls"
+      ],
+      "specifications": {
+        "material": "Beeswax-coated fabric",
+        "pack": "3 wraps"
+      },
+      "productSource": "https://www.beeswrap.com/products/the-tri-fecta?variant=32648059879471",
+      "wholesaleSource": "https://www.beeswrap.com/pages/wholesale",
+      "retailPriceBenchmarkUsd": null,
+      "upc": null,
+      "wholesaleUnitCostUsd": null,
+      "sellPriceUsd": null,
+      "availability": "unconfirmed",
+      "imageRights": "unconfirmed",
+      "publish": false
+    },
+    {
+      "brand": "Bee’s Wrap",
+      "title": "Bee’s Wrap Reusable Beeswax Bread Wrap, Herb Garden, 17 × 23 in",
+      "description": "Wrap sourdough, sandwich bread or a bakery loaf in a single reusable sheet. The large format folds around a whole loaf and can also cover dough while it proofs.",
+      "bullets": [
+        "One 17 × 23 in bread wrap",
+        "Herb Garden print",
+        "Sized for whole loaves and proofing bowls"
+      ],
+      "specifications": {
+        "material": "Beeswax-coated fabric",
+        "pack": "1 wrap",
+        "dimensions": "17 × 23 in"
+      },
+      "productSource": "https://www.beeswrap.com/products/bread-wrap?variant=32284950593583",
+      "wholesaleSource": "https://www.beeswrap.com/pages/wholesale",
+      "retailPriceBenchmarkUsd": 14.99,
+      "upc": null,
+      "wholesaleUnitCostUsd": null,
+      "sellPriceUsd": null,
+      "availability": "unconfirmed",
+      "imageRights": "unconfirmed",
+      "publish": false
+    },
+    {
+      "brand": "Full Circle",
+      "title": "Full Circle Daily Dish Brush with Built-In Scraper, White",
+      "description": "Scrub dishes and loosen stuck-on food with the scraper built into the brush head. This white brush pairs a bamboo handle with recycled plastic bristles.",
+      "bullets": [
+        "Built-in scraper for stuck-on food",
+        "Bamboo handle and recycled plastic bristles",
+        "White, single brush"
+      ],
+      "specifications": {
+        "dimensions": "2.56 × 2.36 × 9.25 in",
+        "materials": "Bamboo and recycled plastic",
+        "pack": "1 brush"
+      },
+      "productSource": "https://fullcirclehome.com/products/the-daily-dish-brush?variant=35179235265",
+      "wholesaleSource": "https://fullcirclehome.com/pages/wholesale-inquiries",
+      "retailPriceBenchmarkUsd": 7.99,
+      "upc": null,
+      "wholesaleUnitCostUsd": null,
+      "sellPriceUsd": null,
+      "availability": "unconfirmed",
+      "imageRights": "unconfirmed",
+      "publish": false
+    },
+    {
+      "brand": "Full Circle",
+      "title": "Full Circle Sinkside Ceramic Cleaning Station, Gray and White",
+      "description": "Give your sponge and sink scrubbers a dedicated spot on the counter. The ceramic station has a modular layout and a nook where a sponge can dry between uses.",
+      "bullets": [
+        "Modular layout for sink cleaning supplies",
+        "Ceramic organizer with sponge drying nook",
+        "Compact 7.87 × 4.24 × 4.25 in footprint"
+      ],
+      "specifications": {
+        "material": "Ceramic",
+        "dimensions": "7.87 × 4.24 × 4.25 in",
+        "color": "Gray/White"
+      },
+      "productSource": "https://fullcirclehome.com/products/sinkside-ceramic-cleaning-station?variant=43023175778473",
+      "wholesaleSource": "https://fullcirclehome.com/pages/wholesale-inquiries",
+      "retailPriceBenchmarkUsd": 19.99,
+      "upc": null,
+      "wholesaleUnitCostUsd": null,
+      "sellPriceUsd": null,
+      "availability": "unconfirmed",
+      "imageRights": "unconfirmed",
+      "publish": false
+    }
+  ]
+}
