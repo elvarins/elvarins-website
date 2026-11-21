@@ -23,6 +23,131 @@ export function updateKitchenCards(html) {
   });
 }
 
+
+const kitchenPreviews = [
+  {
+    "slug": "bees-wrap-reusable-food-wraps-wheels-n-wedges-3-pack",
+    "brand": "Bee’s Wrap",
+    "title": "Bee’s Wrap Reusable Beeswax Food Wraps, Wheels n Wedges, 3-Pack",
+    "description": "Keep three wrap sizes on hand for everyday leftovers, cut produce and snacks. Shape the wrap around food or a bowl with the warmth of your hands, then wash it in cool water for reuse.",
+    "bullets": [
+      "One small, one medium and one large wrap",
+      "Small 7 × 8 in, medium 10 × 11 in, large 13 × 14 in",
+      "Use to wrap cheese or produce and cover bowls"
+    ],
+    "specifications": {
+      "material": "Beeswax-coated fabric",
+      "pack": "3 wraps",
+      "print": "Wheels n Wedges"
+    },
+    "brandPage": "https://www.beeswrap.com/products/the-tri-fecta",
+    "photos": [
+      "https://www.beeswrap.com/cdn/shop/files/WheelsnWedges_Asst3Pk_OutOfPackaing.png?v=1786378143",
+      "https://www.beeswrap.com/cdn/shop/files/WheelsnWedges_Asst3Pk_Lifestyle.jpg?v=1786378166"
+    ]
+  },
+  {
+    "slug": "bees-wrap-herb-garden-bread-wrap",
+    "brand": "Bee’s Wrap",
+    "title": "Bee’s Wrap Reusable Beeswax Bread Wrap, Herb Garden, 17 × 23 in",
+    "description": "Wrap sourdough, sandwich bread or a bakery loaf in a single reusable sheet. The large format folds around a whole loaf and can also cover dough while it proofs.",
+    "bullets": [
+      "One 17 × 23 in bread wrap",
+      "Herb Garden print",
+      "Sized for whole loaves and proofing bowls"
+    ],
+    "specifications": {
+      "material": "Beeswax-coated fabric",
+      "pack": "1 wrap",
+      "dimensions": "17 × 23 in",
+      "print": "Herb Garden"
+    },
+    "brandPage": "https://www.beeswrap.com/products/bread-wrap?variant=32284950593583",
+    "photos": [
+      "https://www.beeswrap.com/cdn/shop/files/BeesWrap_HerbGardenPrint_Ecomm_BreadWrap.png?v=1788321555"
+    ]
+  },
+  {
+    "slug": "full-circle-daily-dish-brush-white",
+    "brand": "Full Circle",
+    "title": "Full Circle Daily Dish Brush with Built-In Scraper, White",
+    "description": "Scrub dishes and loosen stuck-on food with the scraper built into the brush head. This white brush pairs a bamboo handle with recycled plastic bristles.",
+    "bullets": [
+      "Built-in scraper for stuck-on food",
+      "Bamboo handle and recycled plastic bristles",
+      "White, single brush"
+    ],
+    "specifications": {
+      "dimensions": "2.56 × 2.36 × 9.25 in",
+      "materials": "Bamboo and recycled plastic",
+      "pack": "1 brush"
+    },
+    "brandPage": "https://fullcirclehome.com/products/the-daily-dish-brush?variant=35179235265",
+    "photos": [
+      "https://fullcirclehome.com/cdn/shop/files/FC10108W-2_1.jpg?v=1778512560",
+      "https://fullcirclehome.com/cdn/shop/files/FC10108W_Be_Good_White_LS_D.jpg?v=1786062072"
+    ]
+  },
+  {
+    "slug": "full-circle-sinkside-ceramic-cleaning-station",
+    "brand": "Full Circle",
+    "title": "Full Circle Sinkside Ceramic Cleaning Station, Gray and White",
+    "description": "Give your sponge and sink scrubbers a dedicated spot on the counter. The ceramic station has a modular layout and a nook where a sponge can dry between uses.",
+    "bullets": [
+      "Modular layout for sink cleaning supplies",
+      "Ceramic organizer with sponge drying nook",
+      "Compact 7.87 × 4.24 × 4.25 in footprint"
+    ],
+    "specifications": {
+      "material": "Ceramic",
+      "dimensions": "7.87 × 4.24 × 4.25 in",
+      "color": "Gray/White"
+    },
+    "brandPage": "https://fullcirclehome.com/products/sinkside-ceramic-cleaning-station?variant=43023175778473",
+    "photos": [
+      "https://fullcirclehome.com/cdn/shop/products/FC17404GY_StashGrey_1_OP_A.jpg?v=1751385286",
+      "https://fullcirclehome.com/cdn/shop/files/expanded_with_white_space.jpg?v=1754943187",
+      "https://fullcirclehome.com/cdn/shop/files/FC17404GY-1_1.jpg?v=1784039551"
+    ]
+  }
+];
+
+const previewPhoto = (url, width) => url + '&width=' + width;
+const previewStyles = '<style>' +
+  '.kitchen-preview-card img,.kitchen-preview-detail img[data-gallery-image]{display:block;width:100%;aspect-ratio:1;object-fit:contain;background:#f5f7fa;border-radius:10px}' +
+  '.kitchen-preview-card a{color:inherit;text-decoration:none}.kitchen-preview-card a:hover h3{text-decoration:underline}' +
+  '.kitchen-preview-detail{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(1rem,4vw,3rem);align-items:start;padding:clamp(1rem,3vw,2rem);background:#fff;border:1px solid #d7e0ea;border-radius:16px}' +
+  '.kitchen-preview-detail figure{margin:0;min-width:0}.kitchen-preview-detail dt{font-weight:650}.kitchen-preview-detail dd{margin:0}' +
+  '.kitchen-preview-detail dl{display:grid;grid-template-columns:minmax(0,max-content) minmax(0,1fr);gap:.5rem 1rem}' +
+  '.kitchen-preview-detail li+li{margin-top:.4rem}@media(max-width:720px){.kitchen-preview-detail{grid-template-columns:minmax(0,1fr)}}' +
+  '</style>';
+
+for (const product of kitchenPreviews) {
+  const { slug, brand, title, description, bullets, specifications, brandPage, photos } = product;
+  const images = photos.map(photo => previewPhoto(photo, 1200));
+  const galleryData = JSON.stringify({ title, image: images[0], images }).replaceAll('<', '\\u003c');
+  pages['/products/' + slug] = [title, description, previewStyles +
+    '<div class="kitchen-preview-detail"><figure class="detail-photo" data-product-gallery>' +
+    '<img data-gallery-image src="' + escape(images[0]) + '" alt="' + escape(title) + '" width="1200" height="1200" fetchpriority="high" referrerpolicy="no-referrer">' +
+    '<div class="gallery-thumbs" data-gallery-thumbs hidden></div><p class="gallery-status" data-gallery-status aria-live="polite"></p></figure>' +
+    '<div class="kitchen-product-details"><p><a href="/collections/home-kitchen">Home &amp; Kitchen</a> · ' + escape(brand) + '</p>' +
+    '<p><strong>Product preview</strong> · Pricing to be announced.</p><h2>About this item</h2><ul>' +
+    bullets.map(point => '<li>' + escape(point) + '</li>').join('') +
+    '</ul><h2>Product specifications</h2><dl>' +
+    Object.entries({ Brand: brand, ...specifications }).map(([name, value]) =>
+      '<dt>' + escape(name[0].toUpperCase() + name.slice(1)) + '</dt><dd>' + escape(value) + '</dd>').join('') +
+    '</dl><p><a href="' + escape(brandPage) + '">Product information and photos from ' + escape(brand) + '</a></p></div></div>' +
+    '<script id="product-data" type="application/json">' + galleryData + '</script><script src="/gallery.js?v=load-state-20261012" defer></script>'];
+}
+
+pages['/collections/home-kitchen'][2] += previewStyles +
+  '<section class="section" aria-labelledby="kitchen-previews"><h2 id="kitchen-previews">Product previews</h2><div class="help-grid">' +
+  kitchenPreviews.map(({ slug, title, brand, photos }) => '<article class="help-tile kitchen-preview-card">' +
+    '<a href="/products/' + slug + '"><img src="' + escape(previewPhoto(photos[0], 420)) + '" srcset="' +
+    escape(previewPhoto(photos[0], 420)) + ' 1x, ' + escape(previewPhoto(photos[0], 840)) + ' 2x" alt="' + escape(title) +
+    '" width="420" height="420" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
+    '<h3>' + escape(title) + '</h3></a><p>' + escape(brand) + '</p></article>').join('') + '</div></section>';
+
 export const servicePaths=Object.keys(pages);
 export function findServiceCheckoutProduct(sku) {
   if (!/^page-[a-z0-9-]+$/.test(sku)) return undefined;
