@@ -147,7 +147,7 @@ function cartAsset(source){
     .replace("if(!bySku().has(sku))return;const requested","if(!bySku().has(sku)||bySku().get(sku).inStock===false)return;const requested")
     .replace("if(card.querySelector('[data-elv-cart-add]'))return;","if(card.querySelector('[data-elv-cart-add], .stock-label'))return;")
     .replace("if(!sku)return;\n  const button","if(!sku||bySku().get(sku)?.inStock===false)return;\n  const button")
-    .replace("/^(?:bci-\\d{12}|page-[a-z0-9-]+)$/.test(sku)","/^[A-Za-z0-9][A-Za-z0-9_-]{0,47}$/.test(sku)")
+    .replace("/^(?:bci-\\d{12}|page-[a-z0-9-]+)$/.test(sku)","/^(?:page-[a-z0-9-]+|[A-Za-z0-9][A-Za-z0-9_-]{0,47})$/.test(sku)")
     .replace("if(r.ok&&Array.isArray(state.catalogItems))catalog.push(...state.catalogItems);","if(r.ok&&Array.isArray(state.catalogItems)){const fresh=new Map(state.catalogItems.map(p=>[p.sku,p]));catalog=catalog.filter(p=>!fresh.has(p.sku));catalog.push(...fresh.values());}")
     .replace("if(!map.has(sku)||!Number.isInteger","if(!map.has(sku)||map.get(sku).inStock===false||!Number.isInteger")
     .replace("if(!sku)return;add(sku);if(!checkout.disabled)","if(!sku||bySku().get(sku)?.inStock===false)return;add(sku);if(!checkout.disabled)")
@@ -182,7 +182,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-9').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=9"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-10').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=9"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
