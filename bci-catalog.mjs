@@ -41,22 +41,27 @@ function browse(params) {
   const query = (params.get('q') || '').trim().slice(0, 120);
   const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
   const withPhotos = params.get('photos') === '1';
-  const source = entries.filter(entry => (!category || entry.category === category) && (!withPhotos || entry.row[7]));
-  const matches = terms.length ? source.filter(({row}) => {
+  const visible = entries.filter(({row}) => {
+    if (withPhotos && !row[7]) return false;
     const label = row.slice(0, 4).join(' ').toLowerCase();
     return terms.every(term => label.includes(term));
-  }) : source;
+  });
+  const counts = new Map();
+  for (const entry of visible) {
+    counts.set(entry.category, (counts.get(entry.category) || 0) + 1);
+  }
+  const matches = category ? visible.filter(entry => entry.category === category) : visible;
   const pageCount = Math.max(1, Math.ceil(matches.length / pageSize));
   const current = Math.min(Math.max(1, Number.parseInt(params.get('page'), 10) || 1), pageCount);
   const start = (current - 1) * pageSize;
   const url = page => directory + '?' + new URLSearchParams({...(category ? {category} : {}), ...(query ? {q: query} : {}), ...(withPhotos ? {photos: '1'} : {}), page: String(page)});
   const options = categories.map(name => '<option value="' + escape(name) + '"' +
-    (name === category ? ' selected' : '') + '>' + escape(display(name)) + ' (' + catalog[name].length + ')</option>').join('');
+    (name === category ? ' selected' : '') + '>' + escape(display(name)) + ' (' + (counts.get(name) || 0) + ')</option>').join('');
   const cards = matches.slice(start, start + pageSize).map(({category: group, row: [upc, title, brand, variant, price, , , photo, url]}) =>
     '<article class="help-tile bci-product-card">' +
     (photo ? '<a href="' + escape(url) + '"><img src="' + escape(photo) + '" alt="' + escape(title) + '" width="320" height="320" loading="lazy" decoding="async" referrerpolicy="no-referrer" style="width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:10px"></a>' : '') +
     '<p>' + escape(brand) + ' · ' + escape(display(group)) + '</p><h3><a href="' + escape(url || productUrl(upc)) + '">' + escape(withVariant(title, variant)) +
-    '</a></h3>' + (variant ? '<p>' + escape(variant) + '</p>' : '') + '<p><strong>' + escape(retail(price)) + ' USD</strong></p><p>In Stock</p></article>').join('');
+    '</a></h3>' + (variant ? '<p>' + escape(variant) + '</p>' : '') + '<p><strong>' + escape(retail(price)) + ' USD</strong></p></article>').join('');
   const pager = pageCount > 1 ? '<nav aria-label="Catalog pages">' +
     (current > 1 ? '<a class="btn" rel="prev" href="' + escape(url(current - 1)) + '">Previous</a> ' : '') +
     '<span>Page ' + current + ' of ' + pageCount + '</span>' +
@@ -64,7 +69,7 @@ function browse(params) {
   return [category ? display(category) : 'BCI Catalog', 'Browse pet, garden, farm and household products.',
     '<section class="retail-standards"><form action="' + directory + '" method="get" class="shipping-form"><label for="bci-search">Find products</label>' +
     '<input id="bci-search" type="search" name="q" value="' + escape(query) + '" placeholder="Product, brand or UPC">' +
-    '<label for="bci-category">Category</label><select id="bci-category" name="category"><option value="">All categories</option>' +
+    '<label for="bci-category">Category</label><select id="bci-category" name="category"><option value="">All categories (' + visible.length.toLocaleString('en-US') + ')</option>' +
     options + '</select><label for="bci-photos"><input id="bci-photos" type="checkbox" name="photos" value="1"' +
     (withPhotos ? ' checked' : '') + '> With product photos</label><button class="btn btn-primary" type="submit">Search catalog</button></form>' +
     '<p>' + matches.length.toLocaleString('en-US') + ' products</p>' +
