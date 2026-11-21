@@ -47,11 +47,12 @@ article .elv-view-details{display:inline-flex;align-items:center;min-height:36px
 header .nav:has(.elv-header-cart){display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;grid-template-areas:"logo links cart toggle" "search search search search";gap:.38rem;padding-block:.45rem;align-items:center}
 header .nav:has(.elv-header-cart) .logo{grid-area:logo;font-size:clamp(.96rem,5vw,1.28rem);gap:.22rem;white-space:nowrap}
 header .nav:has(.elv-header-cart) .logo img{width:29px;height:29px}
-header .nav:has(.elv-header-cart) .navlinks{grid-area:links;display:flex;margin:0}
+header .nav:has(.elv-header-cart) .navlinks{display:none}
+header .nav:has(.elv-header-cart) .account-trigger{grid-area:links;justify-self:end;margin:0}
 header .nav:has(.elv-header-cart) .account-trigger{font-size:.7rem;padding:.3rem;min-height:38px}
-header .nav:has(.elv-header-cart) .header-search{grid-area:search;width:100%;margin:0}
+header .nav:has(.elv-header-cart) .header-search{grid-area:search;width:100%;min-width:0;margin:0}
 header .nav:has(.elv-header-cart) #navtoggle{grid-area:toggle;margin:0;min-height:40px;padding:.3rem .45rem}
-header .nav:has(.elv-header-cart) #mobilemenu:not([hidden]){grid-column:1/-1}
+header .nav:has(.elv-header-cart) #mobilemenu:not([hidden]){grid-column:1/-1;min-width:0}
 header .business-links{display:none}
 main .retail-pdp-grid,main .kitchen-pdp,main .retail-bci-layout{display:flex!important;flex-direction:column;gap:.65rem;padding:.7rem}
 main .retail-pdp-grid .detail-copy{order:1;padding:.55rem}
@@ -181,7 +182,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-9').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=8"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-9').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=9"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
