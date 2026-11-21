@@ -2,7 +2,7 @@ import legacy from './worker.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
-import { findServiceCheckoutProduct, servicePaths } from './service-pages.mjs';
+import { findServiceCheckoutProduct, servicePaths, updateKitchenCards } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
 import { addLayout, getLayout, layoutScript, photoUploadPath, sendTracking, servePhoto } from './store-extensions.mjs';
 import { presentProduct, productPresentationCss } from './product-presentation.mjs';
@@ -18,6 +18,24 @@ const lookupLegacy=sku=>{
 const customerRoute='/api/account/admin';
 const prepRoute='/api/account/fulfillment';
 const compactCss=`
+.retail-kitchen-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr) minmax(190px,.72fr);align-items:start;gap:clamp(.85rem,2vw,1.65rem);padding:clamp(.8rem,2vw,1.55rem);border:1px solid #d7e0ea;border-radius:16px;background:#fff}
+.retail-kitchen-grid .detail-photo{min-width:0;margin:0}
+.retail-kitchen-grid .detail-photo [data-gallery-image]{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:12px;background:#f5f7fa}
+.retail-kitchen-grid .kitchen-product-details h2{margin:.6rem 0;font-size:1.12rem}
+.retail-kitchen-grid .kitchen-product-details ul{padding-inline-start:1.2rem;display:grid;gap:.5rem;margin:.55rem 0 1rem}
+.retail-kitchen-grid .kitchen-product-details dl{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:.45rem .85rem}
+.retail-kitchen-grid .kitchen-product-details dd{margin:0;overflow-wrap:anywhere}
+.retail-kitchen-grid .retail-buy-box{min-width:0;margin:0}
+.retail-kitchen-grid .kitchen-retail-price strong{font-size:1.5rem}
+.retail-kitchen-grid :is(.kitchen-purchase-actions button,#buy-quantity){min-height:44px}
+.retail-kitchen-grid .kitchen-purchase-actions{display:grid;gap:.5rem;margin-top:.7rem}
+.retail-kitchen-grid .kitchen-purchase-actions button{width:100%}
+@media(max-width:720px){
+  main .retail-kitchen-grid .detail-photo [data-gallery-image]{max-height:230px}
+  main .retail-kitchen-grid .retail-buy-box{order:1}
+  main .retail-kitchen-grid .kitchen-product-details{font-size:.95rem}
+}
+
 main h1,.hero h1{font-family:inherit;font-weight:800;letter-spacing:-.035em;line-height:1.13;font-size:clamp(1.65rem,3.6vw,2.75rem);overflow-wrap:anywhere}
 .hero h1{font-size:clamp(2rem,5.2vw,4rem)}
 main h2{font-family:inherit;font-weight:750;letter-spacing:-.025em;line-height:1.2;font-size:clamp(1.25rem,2.25vw,1.85rem)}
@@ -182,7 +200,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-10').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=9"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-10').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=10"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -278,7 +296,8 @@ async function fetchStore(request,env,ctx){
       const layout=await getLayout(db);
       if(layout)body=addLayout(body,layout);
     }
-    if(path.startsWith('/products/'))body=presentProduct(body);
+    if(path.startsWith('/products/')&&!body.includes('class="kitchen-product-details"'))body=presentProduct(body);
+    if(path==='/'||path==='/collections/home-kitchen')body=updateKitchenCards(body);
     body=versionCart(supplierStorefront(body,path));
   }
   return transformed(request,original,body);
