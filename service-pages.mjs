@@ -71,7 +71,9 @@ const kitchenPreviews = [
       "Print": "Herb Garden",
       "Pack contents": "1 bread wrap",
       "Dimensions": "17 × 23 in",
-      "Materials": "Organic cotton, beeswax, organic plant oil and tree resin"
+      "Materials": "Organic cotton, beeswax, organic plant oil and tree resin",
+      "Model": "1723-HG-1PK",
+      "UPC": "850070863421"
     },
     "brandPage": "https://www.beeswrap.com/products/bread-wrap?variant=32284950593583",
     "photos": [
