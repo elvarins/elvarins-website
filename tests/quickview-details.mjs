@@ -17,7 +17,7 @@ try{
  assert.equal(w.document.querySelector('#detail-inquiry'),null);
  assert.match(cart,/b\.id='elv-quick-add'/);
  assert.match(cart,/buy\.textContent='Buy Now'/);
- assert.match(cart,/adding to cart does not place an order/);
+	 assert.match(cart,/Online payment is not available yet/);
  assert.equal(w.document.querySelector('#detail-unit').textContent,'One retail item');
  assert.equal(w.document.querySelector('#detail-contents').textContent,'1 Homer figure, removable hat and stein');
  assert.equal(w.document.querySelector('#detail-contents').hidden,false);
@@ -28,5 +28,5 @@ try{
  assert.equal(w.document.querySelector('#detail-contents').hidden,true);
  assert.equal(w.document.querySelector('#detail-contents-label').hidden,true);
  assert.match(html,/catalog\.js\?v=quickview-accessibility-20261110/);
- console.log('PASS: quick view has an accessible product gallery, cart purchase controls, accurate order context, verified package contents and hidden unavailable contents');
+	 console.log('PASS: quick view has an accessible product gallery, guarded cart controls, verified package contents and hidden unavailable contents');
 }finally{w.close();}

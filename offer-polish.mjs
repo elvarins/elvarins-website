@@ -31,7 +31,7 @@ export function polishOffers(html, path) {
     });
   }
   if (path==='/') {
-    out = out.replace(/(<dialog class="shipping-promo-dialog"[^>]*>[\s\S]*?<\/form>)[\s\S]*?<\/dialog>/, '$1'+
+    out = out.replace(/(<dialog class="shipping-promo-dialog"[^>]*>[\s\S]*?<\/form>)[\s\S]*?<\/dialog>/, (_dialog, head)=>head+
       '<img class="elv-offer-photo" src="/media/storefront/shipping-offer-v1.jpg" alt="" width="576" height="264" decoding="async">'+
       '<div class="elv-offer-copy"><span class="elv-offer-kicker">U.S. delivery perk</span>'+
       '<h2 id="shipping-promo-title">Free shipping <span>at $149+</span></h2>'+

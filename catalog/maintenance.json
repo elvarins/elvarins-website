@@ -1072,5 +1072,43 @@
     },
     "blocker": "Cloudflare currently has live-mode Stripe secrets and an $8 shipping value, but CHECKOUT_ENABLED, SHIPPING_CONFIG_VERIFIED and TAX_COMPLIANCE_CONFIRMED are absent. Secure payment therefore correctly remains unavailable. Fresh signed-in EE wholesale cost, availability, MAP, permitted-channel and exact multi-photo verification was also unavailable, so no product, brand or processed SKU was added.",
     "preserved": "Branding, saved cart, inquiry support, development disclosure, owner-approved offers, photo galleries, reduced-motion safeguards, working email/DNS and Frontier pause remain active."
+  },
+  "latestShippingOfferRepair": {
+    "date": "2026-11-22",
+    "focus": "Repair malformed free-shipping popup markup and test the exact production Worker entrypoint",
+    "changes": [
+      "Fixed replacement-string parsing that treated the $149 offer amount as a capture reference and injected a second shipping dialog inside the offer heading",
+      "Kept one illustrated, keyboard-closeable shipping offer dialog with the exact Free shipping at $149+ heading",
+      "Added a production-storefront regression that loads store-worker.mjs with its real module graph and verifies the homepage offer, product buy box, cart, checkout guard, reduced-motion CSS and offer image",
+      "Synchronized the cart asset embedded in the legacy Worker with the current guarded cart source so production transformations no longer start from stale JavaScript",
+      "Updated legacy regression module lists and assertions to match the current four-item related-product rail and inquiry-only payment status"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-22",
+      "officialReferences": [
+        "https://www.entertainmentearth.com/s/banpresto/c",
+        "https://www.target.com/s/bandai-gundam",
+        "https://www.target.com/s/bandai-gundam-model-kit"
+      ],
+      "finding": "Entertainment Earth showed 711 Banpresto entries, including compact in-stock examples around $21.99 to $28.99. Target showed more than 200 Bandai Gundam and model-kit results with many sale-priced kits, confirming category depth but strong price competition.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Keep compact Banpresto current releases first only after fresh signed-in EE cost, availability, MAP, channel permission and at least two exact photos pass. Keep Bandai Hobby Gunpla next, but reject SKUs whose delivered economics are weak against current sale competition."
+    },
+    "verification": {
+      "status": "Regression-tested before publication; exact live commit and Cloudflare build recorded in the run report",
+      "baseCommit": "ba512f57b0a3cfb6086cb1e64e4a91e3bea985e6",
+      "productionEntryPoint": "store-worker.mjs",
+      "catalogIntegrity": "78 unique synchronized products and 19 valid barcodes",
+      "sitemapPages": 103,
+      "internalTargets": 248,
+      "checkoutGuard": "Payment remains fail-closed and the free-shipping threshold remains 14900 cents",
+      "localCompatibilityDate": "2026-08-06 override because the installed workerd does not support the production 2026-10-06 date"
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable in this run, so no new product, brand or processed SKU was added.",
+    "preserved": "Checkout/payment remains deferred; development disclosure, approved offer, email/DNS, Frontier pause, catalog photography, galleries, keyboard controls and reduced-motion safeguards remain active."
   }
 }
