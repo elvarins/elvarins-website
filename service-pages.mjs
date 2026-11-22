@@ -44,7 +44,6 @@ const kitchenPreviews = [
       "Large wrap": "13 × 14 in",
       "Materials": "Organic cotton, beeswax, organic plant oil and tree resin"
     },
-    "brandPage": "https://www.beeswrap.com/products/the-tri-fecta",
     "photos": [
       "https://www.beeswrap.com/cdn/shop/files/WheelsnWedges_Asst3Pk_OutOfPackaing.png?v=1786378143",
       "https://www.beeswrap.com/cdn/shop/files/WheelsnWedges_Asst3Pk_Lifestyle.jpg?v=1786378166"
@@ -75,7 +74,6 @@ const kitchenPreviews = [
       "Model": "1723-HG-1PK",
       "UPC": "850070863421"
     },
-    "brandPage": "https://www.beeswrap.com/products/bread-wrap?variant=32284950593583",
     "photos": [
       "https://www.beeswrap.com/cdn/shop/files/BeesWrap_HerbGardenPrint_Ecomm_BreadWrap.png?v=1788321555"
     ],
@@ -106,7 +104,6 @@ const kitchenPreviews = [
       "Model": "FC10108W",
       "UPC": "810119021809"
     },
-    "brandPage": "https://fullcirclehome.com/products/the-daily-dish-brush?variant=35179235265",
     "photos": [
       "https://fullcirclehome.com/cdn/shop/files/FC10108W-2_1.jpg?v=1778512560",
       "https://fullcirclehome.com/cdn/shop/files/FC10108W_Be_Good_White_LS_D.jpg?v=1786062072"
@@ -135,7 +132,6 @@ const kitchenPreviews = [
       "Model": "FC17404GY",
       "UPC": "810119022950"
     },
-    "brandPage": "https://fullcirclehome.com/products/sinkside-ceramic-cleaning-station?variant=43023175778473",
     "photos": [
       "https://fullcirclehome.com/cdn/shop/products/FC17404GY_StashGrey_1_OP_A.jpg?v=1751385286",
       "https://fullcirclehome.com/cdn/shop/files/expanded_with_white_space.jpg?v=1754943187",
@@ -162,7 +158,6 @@ const kitchenPreviews = [
       "Material": "Platinum-cured silicone",
       "Heat resistance": "Up to 425°F"
     },
-    "brandPage": "https://gir.co/products/10piece-best-sellers-set?variant=46784048267460",
     "photos": [
       "https://gir.co/cdn/shop/files/GIR-BestsellerSet-10_Pieces-Studio.webp?v=1790024511"
     ],
@@ -189,7 +184,6 @@ const kitchenPreviews = [
       "Skinny": "11 × 1.5 in",
       "Mini": "8.3 × 1.4 in"
     },
-    "brandPage": "https://gir.co/products/products-3piece-spatula-set?variant=41123519004868",
     "photos": [
       "https://gir.co/cdn/shop/files/PB-GIR-D-PDP-Ultimate_skinny_and_mini_spatula_Set-Red-ATF-01-2x.jpg?v=1678127100",
       "https://gir.co/cdn/shop/files/IMG_0250.jpg?v=1677773465"
@@ -217,7 +211,6 @@ const kitchenPreviews = [
       "Skinny": "11 × 1.8 × 0.5 in",
       "Mini": "8.3 × 1.8 × 0.5 in"
     },
-    "brandPage": "https://gir.co/products/3-piece-spoonula-set?variant=42624399081668",
     "photos": [
       "https://gir.co/cdn/shop/files/Gir-Product-April2021-Spoonula-Group-Red-4125.jpg?v=1762459156",
       "https://gir.co/cdn/shop/files/GIR-UltimateSpoonula-red-product-detail.webp?v=1727099122"
@@ -243,7 +236,6 @@ const kitchenPreviews = [
       "Material": "Platinum-cured silicone",
       "Heat resistance": "Up to 425°F"
     },
-    "brandPage": "https://gir.co/products/ultimate-essentials-set?variant=40863124947140",
     "photos": [
       "https://gir.co/cdn/shop/files/PB-GIR-D-PDP-UltimateEssentialsSet-Mint-ATF-01-2x.jpg?v=1678202424",
       "https://gir.co/cdn/shop/files/GIR-PDP-Spoonula-Mint-03.jpg?v=1678168497"
@@ -269,7 +261,6 @@ const kitchenPreviews = [
       "Material": "Platinum-cured silicone",
       "Heat resistance": "Up to 425°F"
     },
-    "brandPage": "https://gir.co/products/ultimate-bundle?variant=40358947848388",
     "photos": [
       "https://gir.co/cdn/shop/files/gir-bundle_5_pcs-ultimate-Black-ATF.jpg?v=1678206036",
       "https://gir.co/cdn/shop/files/Black_hero_1.webp?v=1755875163"
@@ -295,7 +286,6 @@ const kitchenPreviews = [
       "Capacity": "3.6 qt",
       "Dimensions": "9.78 × 13.23 × 5.3 in"
     },
-    "brandPage": "https://gir.co/products/collapsible-colander-steamer?variant=43937324728516",
     "photos": [
       "https://gir.co/cdn/shop/files/GIR-Colander-slate-product-1.webp?v=1762459735",
       "https://gir.co/cdn/shop/files/GIR-Colander-slate-lifestyle-2.webp?v=1739263002"
@@ -322,7 +312,6 @@ const kitchenPreviews = [
       "Dimensions": "9 × 12 in",
       "Heat resistance": "Up to 450°F"
     },
-    "brandPage": "https://gir.co/products/baking-mat?variant=40804375298244",
     "photos": [
       "https://gir.co/cdn/shop/files/Pattern-GIR-BakingMat-9x12-Sprinkles-PatternBG-001-ATF.jpg?v=1679331225",
       "https://gir.co/cdn/shop/files/GIR-PDP-BakingMat-Sprinkles.jpg?v=1679331268"
@@ -349,7 +338,6 @@ const kitchenPreviews = [
       "Heat resistance": "Up to 425°F",
       "Dimensions": "7.5 × 1.6 × 0.7 in"
     },
-    "brandPage": "https://gir.co/products/gir-basting-brush-1?variant=42892370313412",
     "photos": [
       "https://gir.co/cdn/shop/files/Pattern-GIR-BastingBrush-Ultimate-Navy-PatternBG-001-ATF_cc506df3-4f64-414a-836b-0813c3efb582.jpg?v=1707852770",
       "https://gir.co/cdn/shop/files/GIRBBU316NVY-3QTR_jpg_9333e66a-119d-4771-b501-8367d9cd229a.jpg?v=1716398752"
@@ -376,7 +364,6 @@ const kitchenPreviews = [
       "Heat resistance": "Up to 425°F",
       "Dimensions": "12.6 × 3 × 0.7 in"
     },
-    "brandPage": "https://gir.co/products/flip?variant=26882978250816",
     "photos": [
       "https://gir.co/cdn/shop/files/Gir-Product-April2021-Flip-Ultimate-Black-4260.jpg?v=1678460119",
       "https://gir.co/cdn/shop/files/GIR-PDP-Ultimate-Flip-Black-01_aa1a9337-a3a3-4503-ae7d-5507ce7613cd.jpg?v=1678460120"
@@ -402,7 +389,6 @@ const kitchenPreviews = [
       "Material": "Platinum-cured silicone",
       "Heat resistance": "Up to 425°F"
     },
-    "brandPage": "https://gir.co/products/ladle?variant=26883344040000",
     "photos": [
       "https://gir.co/cdn/shop/files/Gir-Product-April2021-Ladle-Ultimate-Studio-4193.jpg?v=1679327491",
       "https://gir.co/cdn/shop/files/GIR-PDP-Ultimate-Ladle-Studio-01.jpg?v=1679327492"
@@ -428,7 +414,6 @@ const kitchenPreviews = [
       "Pack contents": "1 snack bag and 1 sandwich bag",
       "Capacity": "4 fl oz snack bag, 24 fl oz sandwich bag"
     },
-    "brandPage": "https://ziptop.com/products/bag-set",
     "photos": [
       "https://ziptop.com/cdn/shop/products/2Bag-Set-50_Teal_1.png?v=1630015735",
       "https://ziptop.com/cdn/shop/products/Teal_Bagset_separated.png?v=1630015735"
@@ -454,7 +439,6 @@ const kitchenPreviews = [
       "Pack contents": "1 small, 1 medium and 1 large cup",
       "Capacity": "8, 16 and 24 fl oz"
     },
-    "brandPage": "https://ziptop.com/products/cup-set",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Cup-Set-50_teal_1.png?v=1630015976",
       "https://ziptop.com/cdn/shop/products/teal_Cups_sets_Front_sidebyside.png?v=1630015976"
@@ -480,7 +464,6 @@ const kitchenPreviews = [
       "Pack contents": "1 small, 1 medium and 1 large dish",
       "Capacity": "16, 24 and 32 fl oz"
     },
-    "brandPage": "https://ziptop.com/products/dish-set",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Dish-Set-50_Teal_1.png?v=1630017008",
       "https://ziptop.com/cdn/shop/products/teal_Dishes_set_Front_separated.png?v=1630017008"
@@ -506,7 +489,6 @@ const kitchenPreviews = [
       "Pack contents": "3 cups, 3 dishes, 1 snack bag and 1 sandwich bag",
       "Capacity": "Cups: 8, 16 and 24 fl oz. Dishes: 16, 24 and 32 fl oz. Bags: 4 and 24 fl oz."
     },
-    "brandPage": "https://ziptop.com/products/full-set?variant=14206807343146",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Full-Set-50_Gray.png?v=1630622652",
       "https://ziptop.com/cdn/shop/products/Gray_Fullset.png?v=1630622652"
@@ -532,7 +514,6 @@ const kitchenPreviews = [
       "Pack contents": "1 small cup",
       "Capacity": "8 fl oz (237 mL)"
     },
-    "brandPage": "https://ziptop.com/products/small-cup",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Teal_Cups_50_sm.png?v=1693240217",
       "https://ziptop.com/cdn/shop/products/Teal_Cups_80_degree_sm.png?v=1693240217"
@@ -558,7 +539,6 @@ const kitchenPreviews = [
       "Pack contents": "1 medium cup",
       "Capacity": "16 fl oz (473 mL)"
     },
-    "brandPage": "https://ziptop.com/products/medium-cup",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Teal_Cups_50_md.png?v=1695223900",
       "https://ziptop.com/cdn/shop/products/Teal_Cups_80_degree_med.png?v=1587570175"
@@ -584,7 +564,6 @@ const kitchenPreviews = [
       "Pack contents": "1 sandwich bag",
       "Capacity": "24 fl oz (710 mL)"
     },
-    "brandPage": "https://ziptop.com/products/sandwich-bag",
     "photos": [
       "https://ziptop.com/cdn/shop/products/PeachSandwich_50_0cd1de8e-3b38-4e14-b992-d81c06d07e29.png?v=1693240170",
       "https://ziptop.com/cdn/shop/products/PeachSandwichFront.png?v=1693240170"
@@ -610,7 +589,6 @@ const kitchenPreviews = [
       "Pack contents": "1 medium dish",
       "Capacity": "24 fl oz (710 mL)"
     },
-    "brandPage": "https://ziptop.com/products/medium-dish",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Teal_Dishes_50_med.png?v=1695223935",
       "https://ziptop.com/cdn/shop/products/Teal_Dishes_80__med.png?v=1587570735"
@@ -636,7 +614,6 @@ const kitchenPreviews = [
       "Pack contents": "1 large dish",
       "Capacity": "32 fl oz (946 mL)"
     },
-    "brandPage": "https://ziptop.com/products/large-dish",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Teal_Dishes_50_lg_404f5a96-822f-4908-bb99-24718cc21bb6.png?v=1693239972",
       "https://ziptop.com/cdn/shop/products/Teal_Dishes_80__lg_a254083a-8486-42e4-a4b3-4d3067a925da.png?v=1693239987"
@@ -662,7 +639,6 @@ const kitchenPreviews = [
       "Pack contents": "1 snack bag",
       "Capacity": "4 fl oz (118 mL)"
     },
-    "brandPage": "https://ziptop.com/products/snack-bag",
     "photos": [
       "https://ziptop.com/cdn/shop/products/Teal_Snack_50.png?v=1693239877",
       "https://ziptop.com/cdn/shop/products/teal_snack_front.png?v=1693239877"
@@ -690,7 +666,6 @@ const kitchenPreviews = [
       "Measurement marking": "1 tbsp",
       "Heat resistance": "Up to 600°F"
     },
-    "brandPage": "https://tovolo.com/products/flex-core-deep-spoonula",
     "photos": [
       "https://tovolo.com/cdn/shop/files/81-22096_01_Flex-Core_Silicone_Deep_Spoon_Charcoal.png?v=1792258142",
       "https://tovolo.com/cdn/shop/files/81-22096_03_Flex-Core-Silicone-Deep-Spoon_Charcoal_FEATURES.jpg?v=1792258142"
@@ -716,7 +691,6 @@ const kitchenPreviews = [
       "Pack contents": "1 kitchen tool",
       "Heat resistance": "Up to 600°F"
     },
-    "brandPage": "https://tovolo.com/products/flex-core-jar-scraper",
     "photos": [
       "https://tovolo.com/cdn/shop/files/1000637_01_Flex-Core_All-Silicone_Jar-Scraper_Blue-Slate_SILO-01.png?v=1792258163",
       "https://tovolo.com/cdn/shop/files/1000637_03_Flex-Core_All-Silicone_Jar-Scraper_Blue-Slate_INFO_ead7cf5f-1e79-4f85-b71d-94d3d0d5e667.jpg?v=1792258164"
@@ -742,7 +716,6 @@ const kitchenPreviews = [
       "Pack contents": "1 kitchen tool",
       "Heat resistance": "Up to 600°F"
     },
-    "brandPage": "https://tovolo.com/products/flex-core-spatula",
     "photos": [
       "https://tovolo.com/cdn/shop/files/1000132_01_Flex-Core_All-Silicone_Spatula_Apricot_SILO-01_08-23.png?v=1792258215",
       "https://tovolo.com/cdn/shop/files/1000132_03_Flex-Core_All-Silicone_Spatula_Apricot_INFO_08-23_b30f6e04-2656-439f-98c3-42c699ad49e9.jpg?v=1792258214"
@@ -768,7 +741,6 @@ const kitchenPreviews = [
       "Pack contents": "1 kitchen tool",
       "Size": "Small"
     },
-    "brandPage": "https://tovolo.com/products/flex-core-ladle",
     "photos": [
       "https://tovolo.com/cdn/shop/files/1001433_01_Flex-Core-Silicone-Small-Ladle_Aqua_SILO-01.png?v=1792258173",
       "https://tovolo.com/cdn/shop/files/1001433_05_Flex-Core-Silicone-Small-Ladle_Aqua_DETAIL-01.png?v=1792258173"
@@ -794,7 +766,6 @@ const kitchenPreviews = [
       "Pack contents": "1 kitchen tool",
       "Dimensions": "13 × 4 × 1.58 in"
     },
-    "brandPage": "https://tovolo.com/products/flex-core-slotted-turner",
     "photos": [
       "https://tovolo.com/cdn/shop/files/1000996_01_Flexcore_Slotted-Turner_Aqua_SILO-01.png?v=1792258195",
       "https://tovolo.com/cdn/shop/files/1000996_02_Flexcore_Slotted-Turner_Aqua_LIFESTYLE-SQ-01.jpg?v=1792258195"
@@ -820,7 +791,6 @@ const kitchenPreviews = [
       "Pack contents": "1 kitchen tool",
       "Length": "6 in"
     },
-    "brandPage": "https://tovolo.com/products/mini-whisk",
     "photos": [
       "https://tovolo.com/cdn/shop/files/1000518_01_Mini-Whisk-6in-SS-Silicone_Black_SILO-01.png?v=1792258396",
       "https://tovolo.com/cdn/shop/files/1000518_03_Mini-Whisk-6in-SS-Silicone_Black_INFO_75a98e05-0f8c-4705-8541-654aa4985984.jpg?v=1792258396"
@@ -846,7 +816,6 @@ const kitchenPreviews = [
       "Pack contents": "2 nesting rests",
       "Dimensions": "7.25 × 4.25 × 1 in"
     },
-    "brandPage": "https://tovolo.com/products/double-spoon-rest",
     "photos": [
       "https://tovolo.com/cdn/shop/files/50004-200_Double-Spoon-Rest_Charcoal_SILO.png?v=1792258110",
       "https://tovolo.com/cdn/shop/files/50004-200_Double-Spoon-Rest_Charcoal_FEATURES.jpg?v=1792258109"
@@ -873,7 +842,6 @@ const kitchenPreviews = [
       "Length": "7 in",
       "Model": "81-29965"
     },
-    "brandPage": "https://tovolo.com/products/stainless-steel-tongs",
     "photos": [
       "https://tovolo.com/cdn/shop/files/81-29965_7in_SS_Tongs_SILO_34f129fa-49ad-4c49-9710-e01a393b0246.png?v=1792485884"
     ],
@@ -897,7 +865,6 @@ const kitchenPreviews = [
       "Materials": "Silicone head and stainless steel handle",
       "Pack contents": "1 kitchen tool"
     },
-    "brandPage": "https://tovolo.com/products/silicone-potato-masher",
     "photos": [
       "https://tovolo.com/cdn/shop/files/1000252_01_Silicone_Potato-Masher_Black_SILO-01_65d4fe2e-4155-4f8b-8a70-89a2753b8948.png?v=1792772432",
       "https://tovolo.com/cdn/shop/files/1000252_05_Silicone_Potato-Masher_Black_DETAIL-01_dfb86fa4-562e-4d23-a441-632d090b3e56.png?v=1792772432"
@@ -922,7 +889,6 @@ const kitchenPreviews = [
       "Materials": "Stainless steel and nylon",
       "Pack contents": "1 kitchen tool"
     },
-    "brandPage": "https://tovolo.com/products/kitchen-shears",
     "photos": [
       "https://tovolo.com/cdn/shop/files/81-16835_Comfort-Grip-Kitchen-Shears_SILO.png?v=1792258616",
       "https://tovolo.com/cdn/shop/files/81-16835_Comfort-Grip-Kitchen-Shears_FEATURES.jpg?v=1792258616"
@@ -947,7 +913,6 @@ const kitchenPreviews = [
       "Materials": "Platinum silicone",
       "Model": "UKOBBSN20I024NTS"
     },
-    "brandPage": "https://ukonserve.com/products/bouncebox-nesting-duo?variant=44545294369054",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/UKOBB-SN2NTS.jpg?v=1677188398",
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/UKOBBS_SN2NTS_NestingDuo_SidebySide.jpg?v=1677188397"
@@ -972,7 +937,6 @@ const kitchenPreviews = [
       "Materials": "Stainless steel and silicone",
       "Model": "UKBUNDER5"
     },
-    "brandPage": "https://ukonserve.com/products/everyday-rectangle-bundle?variant=50400193708318",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/files/Everyday_Rectangle_Bundle.jpg?v=1764690179",
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/files/LBUK-Seasonal_10.01.25_94-square.jpg?v=1770071420"
@@ -997,7 +961,6 @@ const kitchenPreviews = [
       "Materials": "Platinum-cured silicone",
       "Model": "UKBR00100I144NHV"
     },
-    "brandPage": "https://ukonserve.com/products/platinum-silicone-food-scrubber?variant=49492247019806",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/files/UK_SiliconeFoodScrubber2.jpg?v=1737494959",
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/files/UK_SiliconeFoodScrubber.jpg?v=1737494959"
@@ -1022,7 +985,6 @@ const kitchenPreviews = [
       "Materials": "304 stainless steel and platinum silicone",
       "Model": "UK208"
     },
-    "brandPage": "https://ukonserve.com/products/3-pack-round-nesting-container-silicone-lid?variant=32514751234133",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/wt0VxgxcS3Wu9yKfrCi4_Round_Nesting_Stacked.Shopify.jpg?v=1593571752",
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/uKonserve.Jan2022.Stills.16.jpg?v=1657647257"
@@ -1047,7 +1009,6 @@ const kitchenPreviews = [
       "Materials": "Silicone",
       "Model": "UKRBBN200I012NTS"
     },
-    "brandPage": "https://ukonserve.com/products/rectangle-bouncebox-nesting-duo?variant=49112911216926",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/files/UKRBBN2_NightSea_03.jpg?v=1724875971",
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/files/UKRBBN2_NightSea_Stacked.jpg?v=1724875986"
@@ -1072,7 +1033,6 @@ const kitchenPreviews = [
       "Materials": "304 stainless steel and platinum silicone",
       "Model": "UKOSS3-S3CL"
     },
-    "brandPage": "https://ukonserve.com/products/round-mini-trio?variant=44919989436702",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/UK_Trio_UK208_IG4.jpg?v=1681848682",
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/UK_Trio_UK208_IG5.jpg?v=1681848687"
@@ -1097,7 +1057,6 @@ const kitchenPreviews = [
       "Materials": "304 stainless steel and platinum silicone",
       "Model": "UKSSSN300I012XCL"
     },
-    "brandPage": "https://ukonserve.com/products/square-nesting-trio-containers-set-of-3?variant=39622161760341",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/SquareNestingStacked-327.Shopify.jpg?v=1637003419"
     ],
@@ -1121,7 +1080,6 @@ const kitchenPreviews = [
       "Materials": "304 stainless steel and platinum silicone",
       "Model": "UKRSS-S45CL"
     },
-    "brandPage": "https://ukonserve.com/products/rectangle-container?variant=44180769833246",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/MicrosoftTeams-image_7.jpg?v=1764696099"
     ],
@@ -1145,7 +1103,6 @@ const kitchenPreviews = [
       "Materials": "Stainless steel and silicone",
       "Model": "UK202"
     },
-    "brandPage": "https://ukonserve.com/products/square-to-go-containers?variant=32514694512725",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/PSiuClf3RxmsuHF2bt2r_Square_Medium_Silicone-309.Shopify.jpg?v=1657563977"
     ],
@@ -1169,7 +1126,6 @@ const kitchenPreviews = [
       "Materials": "Stainless steel and silicone",
       "Model": "UK206"
     },
-    "brandPage": "https://ukonserve.com/products/round-stainless-steel-container-with-silicone-lid?variant=32514669674581",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0011/7545/3781/products/eclCIOIQyqTIhUWPnujp_Round_Medium_Silicone-318.Shopify.jpg?v=1601399762"
     ],
@@ -1195,7 +1151,6 @@ const kitchenPreviews = [
       "Dimensions": "5.5 × 4 × 2.75 in",
       "Model": "R1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/ecolunchbox-three-in-one?variant=39625552134257",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-blank-three-in-one-classic-28817495326833.png?v=1639514393",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-three-in-one-classic-28789918335089.jpg?v=1684206899"
@@ -1222,7 +1177,6 @@ const kitchenPreviews = [
       "Dimensions": "4 × 2.75 × 2 in",
       "Model": "BWB-SP-1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/splash-pod?variant=44931975807277",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-snack-containers-splash-pod-7871047169.jpg?v=1684205661",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-splash-pod-14001682710641.jpg?v=1768590826"
@@ -1249,7 +1203,6 @@ const kitchenPreviews = [
       "Dimensions": "7.25 × 5.25 × 2.75 in",
       "Model": "BWB-SBX-1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/splash-box-xl?variant=32026847576177",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-splash-box-xl-28798356062321.jpg?v=1639505929",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-splash-box-xl-28798355931249.jpg?v=1768588784"
@@ -1276,7 +1229,6 @@ const kitchenPreviews = [
       "Dimensions": "5.25 in diameter × 2.75 in high",
       "Model": "Z1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/bento-wet-box-round?variant=30766665039985",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-bento-wet-box-round-28798918099057.jpg?v=1639587700",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-bento-wet-box-round-28798967447665.png?v=1682367556"
@@ -1303,7 +1255,6 @@ const kitchenPreviews = [
       "Dimensions": "7.25 × 5.25 × 3 in",
       "Model": "WR1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/bento-wet-box-large-rectangle?variant=30766662484081",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-bento-wet-box-large-rectangle-28802158067825.png?v=1627997650",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-bento-wet-box-large-rectangle-28802325053553.jpg?v=1680566801"
@@ -1330,7 +1281,6 @@ const kitchenPreviews = [
       "Dimensions": "5.25 × 5.25 × 2 in",
       "Model": "C1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/ecolunchbox-solo-cube?variant=21382220021873",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-solo-cube-28808897167473.jpg?v=1627981455"
     ],
@@ -1356,7 +1306,6 @@ const kitchenPreviews = [
       "Dimensions": "7 in diameter × 3 in high",
       "Model": "BWB-JSC-1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/seal-cup-jumbo?variant=12529456513137",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-seal-cup-jumbo-28850229149809.jpg?v=1639506245",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-seal-cup-jumbo-28796267167857.jpg?v=1680555217"
@@ -1383,7 +1332,6 @@ const kitchenPreviews = [
       "Dimensions": "6.5 × 4.75 × 2 in",
       "Model": "BWB-SB-1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/splash-box?variant=10894496897",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-splash-box-28801269301361.jpg?v=1684204964",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-splash-box-28801429864561.jpg?v=1768590407"
@@ -1409,7 +1357,6 @@ const kitchenPreviews = [
       "Capacity": "8, 12 and 20 fl oz",
       "Model": "BWB-CT-1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/seal-cup-trio?variant=10894498561",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-seal-cup-trio-28817097850993.jpg?v=1684207996",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/blue-water-bento-lunchbox-seal-cup-trio-2586275512433.jpg?v=1639587586"
@@ -1436,7 +1383,6 @@ const kitchenPreviews = [
       "Dimensions": "5.25 in diameter × 4 in high",
       "Model": "A1"
     },
-    "brandPage": "https://ecolunchboxes.com/products/ecolunchbox-tri-bento?variant=39625552003185",
     "photos": [
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-blank-tri-bento-28815674409073.jpg?v=1684204181",
       "https://cdn.shopify.com/s/files/1/1103/6166/products/ecolunchbox-lunchbox-tri-bento-41084958343469.jpg?v=1684204193"
@@ -1462,7 +1408,6 @@ const kitchenPreviews = [
       "Size": "12 in each",
       "Model": "056650"
     },
-    "brandPage": "https://www.bambuhome.com/products/give-it-a-rest-bamboo-utensil-set",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/056650_GIAR_Set_of_4_NP_2048.png?v=1756146547",
       "https://cdn.shopify.com/s/files/1/0203/1620/products/052800052900053200GIARTriooncounter-bambu_acbd848c-205b-4d29-b7a6-90a6715ffe79.png?v=1756146679"
@@ -1488,7 +1433,6 @@ const kitchenPreviews = [
       "Size": "8.25 in",
       "Model": "056510"
     },
-    "brandPage": "https://www.bambuhome.com/products/bamboo-rice-paddle-new-design",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/056510_Rice_Paddle_2025_-_bambu.png?v=1753474491",
       "https://cdn.shopify.com/s/files/1/0203/1620/files/056510_Rice_Paddle_2025_in_pkg_-_bambu.png?v=1753474491"
@@ -1514,7 +1458,6 @@ const kitchenPreviews = [
       "Size": "9 in each",
       "Model": "056690"
     },
-    "brandPage": "https://www.bambuhome.com/products/bamboo-tongs-small-set-of-3",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/056690SmallTongsSet32048.png?v=1711748062",
       "https://cdn.shopify.com/s/files/1/0203/1620/products/All-Tongs-lifestyle-bambu_d9dc641a-ea71-476a-84fe-8ff757a32110.png?v=1752520434"
@@ -1539,7 +1482,6 @@ const kitchenPreviews = [
       "Materials": "Bamboo",
       "Model": "057650"
     },
-    "brandPage": "https://www.bambuhome.com/products/bamboo-mix-taste-set",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/057650MixNTaste2048_9f820bb0-5c39-4cfe-b64e-5eea4df5acc5.png?v=1733269494",
       "https://cdn.shopify.com/s/files/1/0203/1620/files/Bamboo_Utensils_lifestyle-bambu_30644c81-74dc-4bec-b8f1-c1a79c053eee.jpg?v=1733269544"
@@ -1565,7 +1507,6 @@ const kitchenPreviews = [
       "Size": "12 in mixing, 10 in cooking and 8 in spreading",
       "Model": "058040"
     },
-    "brandPage": "https://www.bambuhome.com/products/spatula-trio",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/058040SpatulaTrio.jpg?v=1732219426",
       "https://cdn.shopify.com/s/files/1/0203/1620/files/058040_Spatula_Trio_in_hand-bambu.png?v=1751483664"
@@ -1591,7 +1532,6 @@ const kitchenPreviews = [
       "Size": "15 × 7.5 × 0.625 in",
       "Model": "026812"
     },
-    "brandPage": "https://www.bambuhome.com/products/arch-bread-board",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/026812ArchBreadBoardNP-bambu.png?v=1756830788",
       "https://cdn.shopify.com/s/files/1/0203/1620/files/026812ArchBoardwpizza-bambu.png?v=1756830788"
@@ -1617,7 +1557,6 @@ const kitchenPreviews = [
       "Size": "10 in",
       "Model": "057630"
     },
-    "brandPage": "https://www.bambuhome.com/products/bamboo-serving-spoon",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/057630ServingSpoonNP2048.png?v=1711746797",
       "https://cdn.shopify.com/s/files/1/0203/1620/products/057630servingspoon3-bambu.jpg?v=1711746797"
@@ -1643,7 +1582,6 @@ const kitchenPreviews = [
       "Size": "13 in",
       "Model": "057920"
     },
-    "brandPage": "https://www.bambuhome.com/products/bamboo-wok-spatula",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/057920WokSpatulaNP2048.png?v=1711748446",
       "https://cdn.shopify.com/s/files/1/0203/1620/products/057920_Wok_Spatula_Tongs-bambu.jpg?v=1711748446"
@@ -1669,7 +1607,6 @@ const kitchenPreviews = [
       "Size": "9 in each",
       "Model": "057830"
     },
-    "brandPage": "https://www.bambuhome.com/products/short-salad-servers",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/057830ShortServersNP2048.png?v=1712008932",
       "https://cdn.shopify.com/s/files/1/0203/1620/products/057830_ShortServers_lifestyle-bambu.jpg?v=1712008932"
@@ -1695,7 +1632,6 @@ const kitchenPreviews = [
       "Size": "2.75 in each",
       "Model": "057100"
     },
-    "brandPage": "https://www.bambuhome.com/products/pot-scrapers-set-of-5",
     "photos": [
       "https://cdn.shopify.com/s/files/1/0203/1620/files/056110PotScraperSet52048.png?v=1711746626",
       "https://cdn.shopify.com/s/files/1/0203/1620/products/056110_Pot_Scraper_lifestyle-bambu.jpg?v=1711746626"
@@ -1721,7 +1657,6 @@ const kitchenPreviews = [
       "Design": "2 clear shelves",
       "Model": "79438"
     },
-    "brandPage": "https://www.madesmart.com/product-page/2-level-corner-shelf",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_ad456945255948cf842b2976f386bc46~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_e0891f908e7048dea1c47806b4e492eb~mv2.png"
@@ -1748,7 +1683,6 @@ const kitchenPreviews = [
       "Model": "26305",
       "Dimensions": "16.13 × 13.25 × 2.10 in, expands to 21.25 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/classic-expandable-utensil-tray-1",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_e0d479ce66b640d8a2b2bde633bab91e~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_3ea9b70e70f545f19646e7a47aa44757~mv2.png"
@@ -1775,7 +1709,6 @@ const kitchenPreviews = [
       "Model": "29308",
       "Dimensions": "13.30 × 16.13 × 2.10 in, expands to 21.30 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/expandable-silverware-tray-2",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_bca20cde35554989a7b64947f017931f~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_43fc7c762fcb48f6a85cf98f2af92d81~mv2.png"
@@ -1802,7 +1735,6 @@ const kitchenPreviews = [
       "Model": "24406",
       "Dimensions": "16 × 12.90 × 1.88 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/classic-large-silverware-tray",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_a1e0ac8189a147999d8d8a12efab120c~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_22f765ae377046928de2c3936d9ae7b2~mv2.png"
@@ -1829,7 +1761,6 @@ const kitchenPreviews = [
       "Model": "24105",
       "Dimensions": "12.90 × 11.40 × 1.90 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/classic-small-silverware-tray",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_1a6cba84e6234ec3a79dab18bb75fdeb~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_db325747f84841e78ae4cf131494cd65~mv2.png"
@@ -1856,7 +1787,6 @@ const kitchenPreviews = [
       "Model": "24417",
       "Dimensions": "12.75 × 9 × 1.88 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/classic-mini-silverware-tray",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_9492bb8355814587a294aeda5046d045~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_6e824f0fad3948358ef76fc9a94465f3~mv2.png"
@@ -1883,7 +1813,6 @@ const kitchenPreviews = [
       "Model": "24101",
       "Dimensions": "15.93 × 12.93 × 1.84 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/large-2-compartment-utensil-tray",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_b27639828a1946ae82f38a2331675b87~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_ac05f1e4f2114f88823da10f9bcf533c~mv2.jpg"
@@ -1910,7 +1839,6 @@ const kitchenPreviews = [
       "Model": "24418",
       "Dimensions": "12.75 × 9.06 × 1.88 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/classic-mini-utensil-tray",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_cd98838b77764cf7820d22c9a3101805~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_e941f5bb4a7c4ba78ce599965ba0179c~mv2.png"
@@ -1937,7 +1865,6 @@ const kitchenPreviews = [
       "Model": "24802",
       "Dimensions": "15.08 × 8.20 × 1.97 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/in-drawer-knife-mat",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_f17ff6f9e4574c259234c3aba9c087ef~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_6edd76bdef7b4946a8ac87ed55d5c565~mv2.png"
@@ -1964,7 +1891,6 @@ const kitchenPreviews = [
       "Model": "99904",
       "Dimensions": "13.50 × 11.80 × 1.90 in"
     },
-    "brandPage": "https://www.madesmart.com/product-page/clear-5-compartment-silverware-tray",
     "photos": [
       "https://static.wixstatic.com/media/f6fff3_0192c5db43984811b2e9dcee7f910e51~mv2.png",
       "https://static.wixstatic.com/media/f6fff3_eee127592d7a49f1bb6b5e35ce94ec41~mv2.png"
@@ -1989,7 +1915,6 @@ const kitchenPreviews = [
       "Materials": "Nylon",
       "Dimensions": "12 × 3.7 in"
     },
-    "brandPage": "https://dreamfarm.com/chopula/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/1280w/products/191/1352/Dreamfarm_Chopula_Web_Feature_Images_Black_4__10981.1753755586.png?c=1"
     ],
@@ -2013,7 +1938,6 @@ const kitchenPreviews = [
       "Materials": "Nylon and silicone",
       "Dimensions": "11 × 2.3 in"
     },
-    "brandPage": "https://us.dreamfarm.com/supoon/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-nwmhikk6rf/images/stencil/1280x1280/products/264/2264/Dreamfarm_Supoon_Web_Feature_Images_Black_0__51780.1755840854__95407.1769735560.png?c=1"
     ],
@@ -2037,7 +1961,6 @@ const kitchenPreviews = [
       "Materials": "Nylon and silicone",
       "Dimensions": "8 × 1 in"
     },
-    "brandPage": "https://us.dreamfarm.com/mini-supoon/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/1280x1280/products/206/1659/Dreamfarm_MiniSupoonBlack_Web_Feature_Images_0__90524.1754891600.png?c=1"
     ],
@@ -2061,7 +1984,6 @@ const kitchenPreviews = [
       "Materials": "Polypropylene and stainless steel",
       "Dimensions": "9.8 × 4.1 in"
     },
-    "brandPage": "https://us.dreamfarm.com/fluicer/",
     "photos": [
       "https://www.kosherdeli.co.nz/cdn/shop/files/Dreamfarm_Fluicer_Lemon_1.png?v=1755562310"
     ],
@@ -2085,7 +2007,6 @@ const kitchenPreviews = [
       "Materials": "Chrome-plated zinc and nylon",
       "Dimensions": "7.6 × 2 in"
     },
-    "brandPage": "https://dreamfarm.com/garject/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/1280x1280/products/196/620/Dreamfarm_Garject_Web_Feature_Images_Black_4-1__90869.1754611983.png?c=1",
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/2560w/products/196/619/Dreamfarm_Garject_Web_Feature_Images_Black_3-1__90955.1754611983.png?c=1"
@@ -2110,7 +2031,6 @@ const kitchenPreviews = [
       "Materials": "Polypropylene and stainless steel",
       "Dimensions": "5.3 × 1.4 in"
     },
-    "brandPage": "https://dreamfarm.com/levoons/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/1280x1280/products/204/704/Dreamfarm_Levoons_Web_Feature_Images_Red_5__14254.1754880914.png?c=1"
     ],
@@ -2134,7 +2054,6 @@ const kitchenPreviews = [
       "Capacities": "¼, ⅓, ½ and 1 cup",
       "Model": "DFLV2430"
     },
-    "brandPage": "https://dreamfarm.com/levups/",
     "photos": [
       "https://www.sabavihome.com/cdn/shop/products/Dreamfarm_Levups_OnWhite_Red_Clear_31.jpg?v=1668529628"
     ],
@@ -2158,7 +2077,6 @@ const kitchenPreviews = [
       "Materials": "Stainless steel and silicone",
       "Dimensions": "12.4 × 1.8 in"
     },
-    "brandPage": "https://dreamfarm.com/clongs/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/1280x1280/products/192/1401/Dreamfarm_Clongs_Web_Feature_Images_Black_12_0__41945.1753853268.png?c=1"
     ],
@@ -2182,7 +2100,6 @@ const kitchenPreviews = [
       "Materials": "Stainless steel, silicone and TPE",
       "Dimensions": "11.4 × 3.8 in"
     },
-    "brandPage": "https://dreamfarm.com/smood/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/1280x1280/products/212/796/Dreamfarm_Smood_Web_Feature_Images_Black_2__77421.1755232588.png?c=1"
     ],
@@ -2206,7 +2123,6 @@ const kitchenPreviews = [
       "Materials": "Stainless steel, nylon and ABS",
       "Dimensions": "12.6 × 2.8 in"
     },
-    "brandPage": "https://dreamfarm.com/scizza/",
     "photos": [
       "https://cdn11.bigcommerce.com/s-fmmgsgph54/images/stencil/1280x1280/products/211/1718/Dreamfarm_ScizzaBlack_Web_Feature_Images_2__30137.1754975331.png?c=1"
     ],
@@ -2320,7 +2236,7 @@ function kitchenOfferMarkup(sku,cents) {
     '<p>Sold by Elvarins</p><p><a href="/shipping-delivery">Shipping &amp; delivery</a> · <a href="/returns">Returns</a></p></aside>';
 }
 for (const product of kitchenPreviews) {
-  const { slug, brand, title, description, bullets, specifications, brandPage, photos, use, care } = product;
+  const { slug, brand, title, description, bullets, specifications, photos, use, care } = product;
   const cents = kitchenPriceCents.get(slug);
   const sku = "page-" + slug;
   const images = photos.map(photo => previewPhoto(photo, 1200));
@@ -2340,7 +2256,7 @@ for (const product of kitchenPreviews) {
       '<dt>' + escape(name[0].toUpperCase() + name.slice(1)) + '</dt><dd>' + escape(value) + '</dd>').join('') +
     '</dl></section><section><h2>How to use</h2><p>' + escape(use) + '</p><h2>Care instructions</h2><ul>' +
     care.map(instruction => '<li>' + escape(instruction) + '</li>').join('') +
-    '</ul><p><a href="' + escape(brandPage) + '">Product information and photos from ' + escape(brand) + '</a></p></section></div>' +
+    '</ul></section></div>' +
     '<script id="product-data" type="application/json">' + galleryData + '</script><script src="/gallery.js?v=load-state-20261012" defer></script>'];
 }
 
