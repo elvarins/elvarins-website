@@ -7,6 +7,7 @@ import { adminPath, collections, editablePages, escape, safeJson, manageStore, m
 import { addLayout, getLayout, layoutScript, photoUploadPath, sendTracking, servePhoto } from './store-extensions.mjs';
 import { presentProduct, productPresentationCss } from './product-presentation.mjs';
 import { supplierStorefront } from './supplier-storefront.mjs';
+import { featuredKitchenPhoto, refreshCart, refreshCss, refreshHtml, refreshPromo, refreshScript } from './storefront-refresh.mjs';
 
 import { FREE_SHIPPING_CENTS, promoScript, promoStyles, renderShippingPromo, shippingOfferCopy } from './shipping-offer.mjs';
 
@@ -204,7 +205,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>shippingOfferCopy(accountMarkup(cleanProductCards(html))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=shipping-offer-12').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=12"></head>');
+const versionCart=html=>shippingOfferCopy(accountMarkup(cleanProductCards(html))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=design-refresh-13').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=14"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -247,8 +248,10 @@ async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
   if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
-  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss+promoStyles,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
-  if(path==='/shipping-promo.js')return new Response(request.method==='HEAD'?null:promoScript,{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
+  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss+promoStyles+refreshCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
+  if(path==='/media/storefront/kitchen-tools.jpg')return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(featuredKitchenPhoto),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
+  if(path==='/storefront-refresh.js')return new Response(request.method==='HEAD'?null:refreshScript,{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
+  if(path==='/shipping-promo.js')return new Response(request.method==='HEAD'?null:refreshPromo(promoScript),{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
   if(path.startsWith('/media/products/'))return servePhoto(request,db);
   if(path==='/layout-controls.js'){
     if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
@@ -263,7 +266,7 @@ async function fetchStore(request,env,ctx){
   if(!['GET','HEAD'].includes(request.method))return legacy.fetch(request,env,ctx);
   if(path==='/cart.js'){
     const original=await legacy.fetch(request,env,ctx);
-    return transformed(request,original,cartAsset(await original.text()));
+    return transformed(request,original,refreshCart(cartAsset(await original.text())));
   }
   if(path==='/retail.js'){
     const original=await legacy.fetch(request,env,ctx);
@@ -279,7 +282,7 @@ async function fetchStore(request,env,ctx){
   if(path.startsWith('/products/')){
     const p=[...catalog.values()].find(p=>p.url===path&&p.edited);
     if(p&&!p.published)return new Response(request.method==='HEAD'?null:'Product not found',{status:404,headers:{'Cache-Control':'no-store'}});
-    if(p)return transformed(request,null,versionCart(presentProduct(productPage(p)).replace('</head>','<link rel="stylesheet" href="/cart.css"></head>').replace('</body>','<script src="/cart.js" defer></script></body>')));
+    if(p)return transformed(request,null,versionCart(refreshHtml(presentProduct(productPage(p)).replace('</head>','<link rel="stylesheet" href="/cart.css"></head>').replace('</body>','<script src="/cart.js" defer></script></body>'),path)));
   }
   const original=await legacy.fetch(sourceRequest,env,ctx);
   if(!original.ok)return request.method==='HEAD'?new Response(null,original):original;
@@ -307,7 +310,7 @@ async function fetchStore(request,env,ctx){
     if(path.startsWith('/products/'))body=presentProduct(body);
     if(path==='/'||path==='/collections/home-kitchen')body=updateKitchenCards(body);
     if(path==='/')body=renderShippingPromo(body.replace('<section class="section home-only" aria-labelledby="home-kitchen-home">', match=>featuredKitchenMarkup()+match));
-    body=versionCart(supplierStorefront(body,path));
+    body=versionCart(refreshHtml(supplierStorefront(body,path),path));
   }
   return transformed(request,original,body);
 }
