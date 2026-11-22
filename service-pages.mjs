@@ -2235,40 +2235,131 @@ const previewStyles = '<style>' +
   '.kitchen-preview-detail li+li{margin-top:.4rem}@media(max-width:720px){.kitchen-preview-detail{grid-template-columns:minmax(0,1fr)}}' +
   '</style>';
 
+const kitchenPriceCents = new Map(Object.entries({
+  "gir-10-piece-best-sellers-tool-set": 11995,
+  "gir-silicone-spatula-set-red": 3495,
+  "gir-silicone-spoonula-set-red": 3495,
+  "gir-ultimate-tool-set-mint": 4295,
+  "gir-ultimate-tool-set-black": 6995,
+  "gir-collapsible-colander-steamer-slate": 2995,
+  "gir-silicone-baking-mat-sprinkle": 1595,
+  "gir-silicone-basting-brush-navy": 1795,
+  "gir-ultimate-silicone-turner-black": 2095,
+  "gir-ultimate-silicone-ladle-studio": 2095,
+  "zip-top-bag-set": 2495,
+  "zip-top-cup-set": 3995,
+  "zip-top-dish-set": 5495,
+  "zip-top-full-set": 11995,
+  "zip-top-small-cup": 1599,
+  "zip-top-medium-cup": 1899,
+  "zip-top-sandwich-bag": 1899,
+  "zip-top-medium-dish": 2399,
+  "zip-top-large-dish": 2199,
+  "zip-top-snack-bag": 1699,
+  "tovolo-flex-core-deep-spoonula": 999,
+  "tovolo-flex-core-jar-scraper": 899,
+  "tovolo-flex-core-spatula": 999,
+  "tovolo-flex-core-ladle": 899,
+  "tovolo-flex-core-slotted-turner": 999,
+  "tovolo-mini-whisk": 899,
+  "tovolo-double-spoon-rest": 999,
+  "tovolo-stainless-steel-tongs": 1599,
+  "tovolo-silicone-potato-masher": 2299,
+  "tovolo-kitchen-shears": 1699,
+  "u-konserve-bouncebox-nesting-duo": 2499,
+  "u-konserve-everyday-rectangle-bundle": 8995,
+  "u-konserve-platinum-silicone-food-scrubber": 399,
+  "u-konserve-3-pack-round-nesting-container-silicone-lid": 2999,
+  "u-konserve-rectangle-bouncebox-nesting-duo": 3199,
+  "u-konserve-round-mini-trio": 2499,
+  "u-konserve-square-nesting-trio-containers-set-of-3": 4999,
+  "u-konserve-rectangle-container": 2599,
+  "u-konserve-square-to-go-containers": 2099,
+  "u-konserve-round-stainless-steel-container-with-silicone-lid": 1749,
+  "ecolunchbox-three-in-one": 4000,
+  "ecolunchbox-splash-pod": 2000,
+  "ecolunchbox-splash-box-xl": 3300,
+  "ecolunchbox-bento-wet-box-round": 3600,
+  "ecolunchbox-bento-wet-box-large-rectangle": 4500,
+  "ecolunchbox-solo-cube": 2800,
+  "ecolunchbox-seal-cup-jumbo": 2700,
+  "ecolunchbox-splash-box": 2600,
+  "ecolunchbox-seal-cup-trio": 3500,
+  "ecolunchbox-tri-bento": 3800,
+  "bambu-give-it-a-rest-bamboo-utensil-set": 3300,
+  "bambu-rice-paddle-new-design": 895,
+  "bambu-tongs-small-set-of-3": 2199,
+  "bambu-mix-taste-set": 2495,
+  "bambu-spatula-trio": 2295,
+  "bambu-arch-bread-board": 3295,
+  "bambu-serving-spoon": 895,
+  "bambu-wok-spatula": 995,
+  "bambu-short-salad-servers": 2095,
+  "bambu-pot-scrapers-set-of-5": 2195,
+  "madesmart-expandable-silverware-tray-2": 2217,
+  "madesmart-classic-large-silverware-tray": 2249,
+  "dreamfarm-chopula": 1699,
+  "dreamfarm-supoon": 1699,
+  "dreamfarm-mini-supoon": 849,
+  "dreamfarm-fluicer": 2499,
+  "dreamfarm-garject": 4999,
+  "dreamfarm-levoons": 2299,
+  "dreamfarm-levups": 2499,
+  "dreamfarm-clongs": 3599,
+  "dreamfarm-smood": 4299,
+  "dreamfarm-scizza": 2249
+}));
+const kitchenOffers = new Map();
+const kitchenPrice = cents => '<strong>$' + (cents/100).toFixed(2) + ' USD</strong>';
+function kitchenOfferMarkup(sku,cents) {
+  return '<aside class="retail-buy-box" aria-label="Purchase options"><p class="kitchen-retail-price">' + kitchenPrice(cents) +
+    '</p><p>Free U.S. shipping on orders over $49.</p><label for="buy-quantity">Quantity</label><select id="buy-quantity">' +
+    Array.from({length:10},(_,i)=>'<option value="' + (i+1) + '">' + (i+1) + '</option>').join('') +
+    '</select><div class="product-purchase-actions"><button type="button" class="btn btn-primary" data-elv-cart-add="' + sku + '">Add to Cart</button> ' +
+    '<button type="button" class="btn" data-elv-cart-add="' + sku + '" data-elv-buy-now>Buy Now</button></div>' +
+    '<p>Sold by Elvarins</p><p><a href="/shipping-delivery">Shipping &amp; delivery</a> · <a href="/returns">Returns</a></p></aside>';
+}
 for (const product of kitchenPreviews) {
   const { slug, brand, title, description, bullets, specifications, brandPage, photos, use, care } = product;
+  const cents = kitchenPriceCents.get(slug);
+  const sku = "page-" + slug;
   const images = photos.map(photo => previewPhoto(photo, 1200));
+  if (cents) kitchenOffers.set(sku,{sku,title,price:cents/100,image:images[0],thumbnail:previewPhoto(photos[0],420),collection:"home-kitchen"});
   const galleryData = JSON.stringify({ title, image: images[0], images }).replaceAll('<', '\\u003c');
   pages['/products/' + slug] = [title, description, previewStyles +
-    '<div class="kitchen-preview-detail"><figure class="detail-photo" data-product-gallery>' +
+    '<div class="kitchen-preview-detail' + (cents ? ' retail-kitchen-grid' : '') + '"><figure class="detail-photo" data-product-gallery>' +
     '<img data-gallery-image src="' + escape(images[0]) + '" alt="' + escape(title) + '" width="1200" height="1200" fetchpriority="high" referrerpolicy="no-referrer">' +
     '<div class="gallery-thumbs" data-gallery-thumbs hidden></div><p class="gallery-status" data-gallery-status aria-live="polite"></p></figure>' +
     '<div class="kitchen-product-details"><p><a href="/collections/home-kitchen">Home &amp; Kitchen</a> · ' + escape(brand) + '</p>' +
-    '<p><strong>Product preview</strong> · Pricing to be announced.</p><h2>About this item</h2><ul>' +
+    (cents ? '<p>' + escape(description) + '</p>' : '<p>Pricing to be announced.</p>') + '</div>' +
+    (cents ? kitchenOfferMarkup(sku,cents) : '') + '</div>' +
+    '<div class="elv-product-information"><section class="elv-product-highlights"><h2>About this item</h2><ul>' +
     bullets.map(point => '<li>' + escape(point) + '</li>').join('') +
-    '</ul><h2>Product specifications</h2><dl>' +
+    '</ul></section><section class="elv-product-specs"><h2>Product specifications</h2><dl>' +
     Object.entries({ Brand: brand, ...specifications }).map(([name, value]) =>
       '<dt>' + escape(name[0].toUpperCase() + name.slice(1)) + '</dt><dd>' + escape(value) + '</dd>').join('') +
-    '</dl><h2>How to use</h2><p>' + escape(use) + '</p><h2>Care instructions</h2><ul>' +
+    '</dl></section><section><h2>How to use</h2><p>' + escape(use) + '</p><h2>Care instructions</h2><ul>' +
     care.map(instruction => '<li>' + escape(instruction) + '</li>').join('') +
-    '</ul><p><a href="' + escape(brandPage) + '">Product information and photos from ' + escape(brand) + '</a></p></div></div>' +
+    '</ul><p><a href="' + escape(brandPage) + '">Product information and photos from ' + escape(brand) + '</a></p></section></div>' +
     '<script id="product-data" type="application/json">' + galleryData + '</script><script src="/gallery.js?v=load-state-20261012" defer></script>'];
 }
 
 const kitchenCardsByBrand = new Map();
 const kitchenBrandId = brand => 'kitchen-brand-' + brand.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '');
 for (const { slug, title, brand, photos } of kitchenPreviews) {
-  const card = '<article class="help-tile kitchen-preview-card"><a href="/products/' + slug + '"><img src="' +
+  const cents = kitchenPriceCents.get(slug);
+  const card = '<article class="help-tile kitchen-preview-card"' + (cents ? '' : ' data-no-cart') + '><a href="/products/' + slug + '"><img src="' +
     escape(previewPhoto(photos[0], 420)) + '" srcset="' + escape(previewPhoto(photos[0], 420)) + ' 1x, ' +
     escape(previewPhoto(photos[0], 840)) + ' 2x" alt="' + escape(title) +
     '" width="420" height="420" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
-    '<h4>' + escape(title) + '</h4></a></article>';
+    '<p class="brand">' + escape(brand) + '</p><h4>' + escape(title) + '</h4></a>' +
+    (cents ? '<p>' + kitchenPrice(cents) + '</p><button type="button" class="elv-add-to-cart" data-elv-cart-add="page-' + slug + '">Add to cart</button>' : '<p>Pricing to be announced.</p>') + '</article>';
   if (!kitchenCardsByBrand.has(brand)) kitchenCardsByBrand.set(brand, []);
   kitchenCardsByBrand.get(brand).push(card);
 }
 pages['/collections/home-kitchen'][2] += previewStyles +
-  '<section class="section" aria-labelledby="kitchen-previews"><h2 id="kitchen-previews">Product previews</h2>' +
-  '<nav aria-label="Browse product previews by brand"><ul class="kitchen-preview-brand-nav">' +
+  '<section class="section" aria-labelledby="kitchen-previews"><h2 id="kitchen-previews">Shop kitchen brands</h2>' +
+  '<nav aria-label="Browse by kitchen brand"><ul class="kitchen-preview-brand-nav">' +
   [...kitchenCardsByBrand.keys()].map(brand => '<li><a href="#' + kitchenBrandId(brand) + '">' + escape(brand) + '</a></li>').join('') +
   '</ul></nav>' + [...kitchenCardsByBrand].map(([brand, cards]) => '<section aria-labelledby="' + kitchenBrandId(brand) +
   '"><h3 id="' + kitchenBrandId(brand) + '">' + escape(brand) + '</h3><div class="help-grid">' +
@@ -2277,6 +2368,8 @@ pages['/collections/home-kitchen'][2] += previewStyles +
 export const servicePaths=Object.keys(pages);
 export function findServiceCheckoutProduct(sku) {
   if (!/^page-[a-z0-9-]+$/.test(sku)) return undefined;
+  const offer = kitchenOffers.get(sku);
+  if (offer) return offer;
   const page = pages['/products/' + sku.slice(5)];
   if (!page || !page[2].includes('kitchen-purchase-actions')) return undefined;
   const price = /<strong>\$(\d+\.\d{2}) USD<\/strong>/.exec(page[2]);

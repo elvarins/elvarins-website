@@ -13,7 +13,7 @@ const lookupLegacy=sku=>{
   const row=findBciCheckoutProduct(sku)||findServiceCheckoutProduct(sku);
   if(!row)return undefined;
   const slug=sku.startsWith('page-')?sku.slice(5):sku;
-  return {...row,slug,url:'/products/'+slug,collection:/^bci-/.test(sku)?'pet-supplies':'collectibles',published:true,inStock:true};
+  return {...row,slug,url:'/products/'+slug,collection:row.collection||(/^bci-/.test(sku)?'pet-supplies':'collectibles'),published:true,inStock:true};
 };
 const customerRoute='/api/account/admin';
 const prepRoute='/api/account/fulfillment';
@@ -151,7 +151,7 @@ function cartAsset(source){
     .replace('initProductReviews();','')
     .replace('<div id="elv-cart-subtotal"></div>','<div id="elv-cart-subtotal"></div><p>Shipping and tax, if applicable, are calculated at checkout. Sign in or create an account to continue.</p>')
     .replace('document.body.append(launcher);',"const menu=document.getElementById('navtoggle');const nav=menu?.parentElement||document.querySelector('header .nav');if(nav){launcher.classList.add('elv-header-cart');menu?menu.before(launcher):nav.append(launcher);}else document.body.append(launcher);")
-    .replace('.product-card[data-sku], .discovery-product, .department-product','.product-card[data-sku], .discovery-product, .department-product, .help-tile')
+    .replace('.product-card[data-sku], .discovery-product, .department-product','.product-card[data-sku], .discovery-product, .department-product, .help-tile:not([data-no-cart])')
     .replace("if(card.querySelector('[data-elv-cart-add], .stock-label'))return;","if(card.querySelector('[data-elv-cart-add]'))return;")
     .replace('card.append(badge,button);','card.append(button);')
     .replace("if(!r.ok)throw Error(data.message||'Checkout is unavailable');",`if(r.status===401&&data.code==='SIGN_IN_REQUIRED'){
@@ -200,7 +200,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=checkout-info-10').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=10"></head>');
+const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=kitchen-catalog-11').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=11"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -296,7 +296,7 @@ async function fetchStore(request,env,ctx){
       const layout=await getLayout(db);
       if(layout)body=addLayout(body,layout);
     }
-    if(path.startsWith('/products/')&&!body.includes('class="kitchen-product-details"'))body=presentProduct(body);
+    if(path.startsWith('/products/'))body=presentProduct(body);
     if(path==='/'||path==='/collections/home-kitchen')body=updateKitchenCards(body);
     body=versionCart(supplierStorefront(body,path));
   }

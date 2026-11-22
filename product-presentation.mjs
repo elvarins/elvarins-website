@@ -12,6 +12,7 @@ const displayFields = new Map([
 
 export function presentProduct(html) {
   return html.replace(/<main\b[^>]*>[\s\S]*?<\/main>/i, main => {
+    if (main.includes('class="elv-product-information"')) return main;
     const heading = main.match(/<h1\b[^>]*>([^<]+)<\/h1>/i)?.[1]?.trim();
     const specs = main.match(/<dl\b[^>]*>[\s\S]*?<\/dl>/i)?.[0];
     if (!heading || !specs) return main;
@@ -32,8 +33,15 @@ export function presentProduct(html) {
     if (count && !highlights.some(([label])=>label==='In the package')) highlights.unshift(['Package quantity',count[1]+' items']);
     const bullets = (highlights.length ? highlights : facts).slice(0,5)
       .map(([label,value]) => '<li><strong>'+label+'</strong> '+value+'</li>').join('');
-    return main.replace(specs, () => description+(bullets ? '<section class="elv-product-highlights" aria-label="Product highlights"><h2>Product highlights</h2><ul>'+bullets+'</ul></section>' : '')+
-      '<details class="elv-product-specs"><summary>Specifications</summary>'+specs+'</details>');
+    const authoredHighlights = main.match(/<section class="kitchen-product-details"[^>]*>\s*<h2>About this item<\/h2>\s*<ul\b[^>]*>([\s\S]*?)<\/ul>[\s\S]*?<\/section>/i);
+    const itemHighlights = authoredHighlights?.[1] || bullets;
+    const information = '<div class="wrap elv-product-information">' +
+      (itemHighlights ? '<section class="elv-product-highlights"><h2>About this item</h2><ul>' + itemHighlights + '</ul></section>' : '') +
+      '<section class="elv-product-specs"><h2>Product specifications</h2>' + specs + '</section></div>';
+    const summaryArea = authoredHighlights ? main.replace(authoredHighlights[0], () => description) : main.replace(specs, () => description);
+    const buyBoxEnd = /(<aside\b[^>]*\bretail-buy-box\b[\s\S]*?<\/aside>\s*<\/(?:div|section)>)/i;
+    if (buyBoxEnd.test(summaryArea)) return summaryArea.replace(buyBoxEnd, (_, closing) => closing + information);
+    return summaryArea.replace('</main>', () => information + '</main>');
   });
 }
 
@@ -51,5 +59,24 @@ export const productPresentationCss = `
   main .retail-pdp-grid .retail-buy-box,main .retail-kitchen-grid .retail-buy-box,main .retail-bci-layout .retail-buy-box{order:1;align-self:stretch}
   main .retail-pdp-grid .detail-copy,main .retail-bci-layout .company-story-copy,main .retail-kitchen-grid>div{order:2}
   .elv-product-highlights{font-size:.91rem}
+}
+
+.elv-product-information{display:grid;gap:1rem;margin:1.15rem auto 1.5rem;padding:clamp(.8rem,2vw,1.35rem);max-width:1080px;border:1px solid #d7e0ea;border-radius:14px;background:#fff}
+.elv-product-information h2{font-size:clamp(1.1rem,2.2vw,1.35rem);margin:0 0 .55rem}
+.elv-product-information dl{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);margin:.4rem 0 0}
+.elv-product-information dt,.elv-product-information dd{border-top:1px solid #e2e8f2;padding:.55rem .65rem;margin:0;overflow-wrap:anywhere}
+.elv-product-information dt{font-weight:650;background:#f5f7fa}
+.elv-product-information .elv-product-highlights,.elv-product-information .elv-product-specs{margin:0;padding:0;border:0}
+body:has(.elv-product-information) .service-page-heading h1,main .retail-pdp-grid h1{font-size:clamp(1.4rem,2.65vw,2rem);line-height:1.18}
+.service-page .kitchen-preview-detail.retail-kitchen-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(190px,.7fr);gap:clamp(.85rem,2vw,1.65rem)}
+.kitchen-preview-card{display:flex;flex-direction:column;min-width:0}
+.kitchen-preview-card a{flex:1}
+.kitchen-preview-card h4{font-size:1rem;line-height:1.35;margin:.4rem 0}
+.kitchen-preview-card .brand{margin:.55rem 0 0}
+.kitchen-preview-card .elv-add-to-cart{width:100%;min-height:44px}
+@media(max-width:800px){
+  .service-page .kitchen-preview-detail.retail-kitchen-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:.85rem;padding:.85rem}
+  .service-page .kitchen-preview-detail.retail-kitchen-grid .kitchen-product-details{order:0}
+  .service-page .kitchen-preview-detail.retail-kitchen-grid .retail-buy-box{order:1}
 }
 `;
