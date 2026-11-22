@@ -2,11 +2,13 @@ import legacy from './worker.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
-import { findServiceCheckoutProduct, servicePaths, updateKitchenCards } from './service-pages.mjs';
+import { featuredKitchenMarkup, findServiceCheckoutProduct, isRetiredKitchenPath, isRetiredKitchenSku, renderNotFound, servicePaths, updateKitchenCards } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
 import { addLayout, getLayout, layoutScript, photoUploadPath, sendTracking, servePhoto } from './store-extensions.mjs';
 import { presentProduct, productPresentationCss } from './product-presentation.mjs';
 import { supplierStorefront } from './supplier-storefront.mjs';
+
+import { FREE_SHIPPING_CENTS, promoScript, promoStyles, renderShippingPromo, shippingOfferCopy } from './shipping-offer.mjs';
 
 const storefrontCatalog='/catalog/products.json';
 const lookupLegacy=sku=>{
@@ -147,7 +149,9 @@ function appendCopy(html,copy){
 }
 
 function cartAsset(source){
-  return source
+  return shippingOfferCopy(source)
+    .replace('FREE_SHIPPING_CENTS=4901','FREE_SHIPPING_CENTS='+FREE_SHIPPING_CENTS)
+    .replace('max="4901"', 'max="'+FREE_SHIPPING_CENTS+'"')
     .replace('initProductReviews();','')
     .replace('<div id="elv-cart-subtotal"></div>','<div id="elv-cart-subtotal"></div><p>Shipping and tax, if applicable, are calculated at checkout. Sign in or create an account to continue.</p>')
     .replace('document.body.append(launcher);',"const menu=document.getElementById('navtoggle');const nav=menu?.parentElement||document.querySelector('header .nav');if(nav){launcher.classList.add('elv-header-cart');menu?menu.before(launcher):nav.append(launcher);}else document.body.append(launcher);")
@@ -200,7 +204,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=html=>accountMarkup(cleanProductCards(html)).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=kitchen-catalog-11').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=11"></head>');
+const versionCart=html=>shippingOfferCopy(accountMarkup(cleanProductCards(html))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=shipping-offer-12').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=12"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -208,6 +212,7 @@ async function checkout(request,env,catalog){
     const original=await checkoutApi(request,env,products);
     const state=await original.json();
     state.catalogItems=new URL(request.url).searchParams.getAll('sku').slice(0,25).map(sku=>{
+      if(isRetiredKitchenSku(sku))return undefined;
       const p=catalog.get(sku);
       if(!p)return lookupLegacy(sku);
       if(!p.published)return {sku,inStock:false};
@@ -242,7 +247,8 @@ async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
   if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
-  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
+  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss+promoStyles,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
+  if(path==='/shipping-promo.js')return new Response(request.method==='HEAD'?null:promoScript,{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
   if(path.startsWith('/media/products/'))return servePhoto(request,db);
   if(path==='/layout-controls.js'){
     if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
@@ -263,6 +269,7 @@ async function fetchStore(request,env,ctx){
     const original=await legacy.fetch(request,env,ctx);
     return transformed(request,original,accountAsset(await original.text()));
   }
+  if(isRetiredKitchenPath(path))return new Response(request.method==='HEAD'?null:versionCart(renderNotFound()),{status:410,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
   const managedRoute=path==='/'||path===storefrontCatalog||path==='/sitemap.xml'||path.startsWith('/products/')||path.startsWith('/collections/');
   const pageCopy=db&&editablePages.includes(path)?await db.prepare('SELECT heading,body FROM storefront_copy WHERE path=?').bind(path).first():null;
   if(!managedRoute&&!pageCopy&&!servicePaths.includes(path)&&path!=='/order-success')return legacy.fetch(request,env,ctx);
@@ -281,7 +288,8 @@ async function fetchStore(request,env,ctx){
   let body=await original.text();
   if(path===storefrontCatalog)body=JSON.stringify({...JSON.parse(body),products:[...catalog.values()].filter(p=>p.published)});
   else if(path==='/sitemap.xml'){
-    for(const p of catalog.values())if(p.edited){
+    body=body.replace(/<url>\s*<loc>https:\/\/elvarins\.com(\/products\/[^<]+)<\/loc>[\s\S]*?<\/url>/g,(row, productPath)=>isRetiredKitchenPath(productPath)?'':row);
+    for(const p of catalog.values())if(p.edited&&!isRetiredKitchenPath(p.url)){
       body=body.replace(/<url>\s*<loc>([^<]+)<\/loc>[\s\S]*?<\/url>/g,(row,loc)=>loc==='https://elvarins.com'+p.url?'':row);
       if(p.published)body=body.replace('</urlset>','<url><loc>https://elvarins.com'+p.url+'</loc></url></urlset>');
     }
@@ -298,6 +306,7 @@ async function fetchStore(request,env,ctx){
     }
     if(path.startsWith('/products/'))body=presentProduct(body);
     if(path==='/'||path==='/collections/home-kitchen')body=updateKitchenCards(body);
+    if(path==='/')body=renderShippingPromo(body.replace('<section class="section home-only" aria-labelledby="home-kitchen-home">', match=>featuredKitchenMarkup()+match));
     body=versionCart(supplierStorefront(body,path));
   }
   return transformed(request,original,body);

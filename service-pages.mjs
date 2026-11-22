@@ -5,9 +5,26 @@ const pages={...{"/products/cadet-gourmet-bully-sticks-12-count-1-32-lb":["Cadet
 const escape=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fontHead='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">';
 
+const retiredKitchenSlugs = new Set([
+  "stainless-steel-whisk-set-2-pieces-073297774770",
+  "kitchen-shears-assorted-colors-073297783949",
+  "measuring-spoon-set-assorted-colors-073297783888",
+  "vegetable-peeler-assorted-colors-073297783963",
+  "stainless-steel-vegetable-peeler-857198104214",
+  "goodcook-silicone-spatula-076753248792",
+  "goodcook-wooden-spoon-set-3-pieces-076753279000",
+  "goodcook-pro-kitchen-tongs-076753057967",
+  "goodcook-measuring-cup-set-4-pieces-076753057523",
+  "over-sink-roll-up-drying-rack-with-utensil-caddy-20-11-02-in-843018113443",
+  "over-sink-roll-up-drying-rack-17-13-1-in-843018113412"
+]);
+export const isRetiredKitchenPath = path => path.startsWith('/products/') && retiredKitchenSlugs.has(path.slice(10).replace(/\/$/, ''));
+export const isRetiredKitchenSku = sku => sku.startsWith('page-') && retiredKitchenSlugs.has(sku.slice(5));
+
 export function updateKitchenCards(html) {
   return html.replace(/<article\b[^>]*\bkitchen-tile\b[^>]*>[\s\S]*?<\/article>/g, card => {
     const path = card.match(/href="(\/products\/[a-z0-9-]+)"/)?.[1];
+    if (path && isRetiredKitchenPath(path)) return '';
     const page = path && pages[path];
     if (!page?.[2].includes('kitchen-product-details')) return card;
     const [title, , body] = page;
@@ -2261,6 +2278,8 @@ for (const product of kitchenPreviews) {
 }
 
 const kitchenCardsByBrand = new Map();
+const featuredKitchenBrands = ['GIR', 'Zip Top', 'Tovolo', 'U-Konserve', 'ECOlunchbox', 'bambu', 'madesmart', 'Dreamfarm'];
+const featuredKitchenCards = new Map();
 const kitchenBrandId = brand => 'kitchen-brand-' + brand.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '');
 for (const { slug, title, brand, photos } of kitchenPreviews) {
   const cents = kitchenPriceCents.get(slug);
@@ -2272,6 +2291,7 @@ for (const { slug, title, brand, photos } of kitchenPreviews) {
     (cents ? '<p>' + kitchenPrice(cents) + '</p><button type="button" class="elv-add-to-cart" data-elv-cart-add="page-' + slug + '">Add to cart</button>' : '<p>Pricing to be announced.</p>') + '</article>';
   if (!kitchenCardsByBrand.has(brand)) kitchenCardsByBrand.set(brand, []);
   kitchenCardsByBrand.get(brand).push(card);
+  if (cents && !featuredKitchenCards.has(brand)) featuredKitchenCards.set(brand, card);
 }
 pages['/collections/home-kitchen'][2] += previewStyles +
   '<section class="section" aria-labelledby="kitchen-previews"><h2 id="kitchen-previews">Shop kitchen brands</h2>' +
@@ -2281,9 +2301,16 @@ pages['/collections/home-kitchen'][2] += previewStyles +
   '"><h3 id="' + kitchenBrandId(brand) + '">' + escape(brand) + '</h3><div class="help-grid">' +
   cards.join('') + '</div></section>').join('') + '</section>';
 
+export function featuredKitchenMarkup() {
+  return previewStyles + '<section class="section wrap home-only" aria-labelledby="featured-kitchen-brands">' +
+    '<div class="retail-section-head"><h2 id="featured-kitchen-brands">Featured Home &amp; Kitchen brands</h2>' +
+    '<a href="/collections/home-kitchen#kitchen-previews">Shop all kitchen brands →</a></div>' +
+    '<div class="featured-kitchen-grid">' + featuredKitchenBrands.map(brand => featuredKitchenCards.get(brand)).join('') + '</div></section>';
+}
+
 export const servicePaths=Object.keys(pages);
 export function findServiceCheckoutProduct(sku) {
-  if (!/^page-[a-z0-9-]+$/.test(sku)) return undefined;
+  if (!/^page-[a-z0-9-]+$/.test(sku) || isRetiredKitchenSku(sku)) return undefined;
   const offer = kitchenOffers.get(sku);
   if (offer) return offer;
   const page = pages['/products/' + sku.slice(5)];
