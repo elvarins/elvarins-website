@@ -87,8 +87,8 @@ function productPage(p, paymentLive) {
   add('about-item','About this item',p.bullets?.length?list(p.bullets):'');
   add('description','Description',p.description?'<p>'+esc(p.description)+'</p>':'');
   add('includes','What’s in the box',p.includes?.length?list(p.includes):'');
-  const groups=specGroups(p);
-  add('specifications','Specifications',groups.map(([label,rows])=>'<table class="pilot-spec-table"><caption>'+esc(label)+'</caption><tbody>'+
+  const specificationGroups=specGroups(p);
+  add('specifications','Specifications',specificationGroups.map(([label,rows])=>'<table class="pilot-spec-table"><caption>'+esc(label)+'</caption><tbody>'+
     rows.map(([key,value])=>'<tr><th scope="row">'+esc(key)+'</th><td>'+esc(value)+'</td></tr>').join('')+'</tbody></table>').join(''));
   add('safety','Safety & compliance','<p>Check the product packaging for age grading and safety warnings before purchase.</p>'+
     (p.warnings?.length?list(p.warnings):''));
