@@ -43,7 +43,7 @@ function layout({title,description,body,product,commerce=true}) {
     '<link rel="stylesheet" href="/style.css">'+(commerce&&cartEnabled?'<link rel="stylesheet" href="/cart.css">':'')+
     '<link rel="stylesheet" href="'+root+'/layout.css?v=3"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
     '<header class="pilot-header"><nav class="pilot-shell pilot-nav" aria-label="Store navigation"><a class="pilot-wordmark" href="/"><img src="/logo.svg" alt="" width="32" height="32">Elvarins</a>'+
-    '<a href="'+root+'/catalog">Catalog preview</a><a href="/contact">Contact</a>'+
+    '<a href="'+root+'/catalog">Catalog</a><a href="/contact">Contact</a>'+
     (commerce&&cartEnabled?'<button class="pilot-link" type="button" data-open-account="login">Sign in</button>':'')+'</nav></header>'+
     '<main class="pilot-shell" id="pilot-main">'+body+'</main><footer class="pilot-footer"><div class="pilot-shell"><a href="/contact">Contact form</a><a href="mailto:sales@elvarins.com">sales@elvarins.com</a></div></footer>'+
     (commerce&&cartEnabled?customerUI+
