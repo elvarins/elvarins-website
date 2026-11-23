@@ -47,8 +47,8 @@ function layout({title,description,body,product,commerce=true,index=true,canonic
     '<meta property="og:type" content="'+(product?'product':'website')+'"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(description)+'">'+
     (picture?'<meta property="og:image" content="'+esc(absolute(picture))+'">':'')+
     (schema?'<script type="application/ld+json">'+JSON.stringify(schema).replaceAll('<','\\u003c')+'</script>':'')+
-    '<link rel="stylesheet" href="/style.css">'+(commerce&&cartEnabled?'<link rel="stylesheet" href="/cart.css?v=forest-1">':'')+
-    '<link rel="stylesheet" href="'+root+'/layout.css?v=5"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
+    '<link rel="stylesheet" href="/style.css">'+(commerce&&cartEnabled?'<link rel="stylesheet" href="/cart.css?v=contrast-2">':'')+
+    '<link rel="stylesheet" href="'+root+'/layout.css?v=6"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
     '<header class="pilot-header"><nav class="pilot-shell pilot-nav" aria-label="Store navigation"><a class="pilot-wordmark" href="/"><img src="/logo.svg" alt="" width="32" height="32">Elvarins</a>'+
     '<a href="/shop">Shop all</a><a href="/contact">Contact</a>'+
     '<form class="pilot-search" role="search" method="get" action="/shop"><label class="pilot-visually-hidden" for="pilot-search">Search products</label><input id="pilot-search" type="search" name="q" placeholder="Search products, brands or item numbers" maxlength="100" value="'+esc(query)+'"><button type="submit">Search</button></form>'+
@@ -56,7 +56,7 @@ function layout({title,description,body,product,commerce=true,index=true,canonic
     '<main class="pilot-shell" id="pilot-main">'+body+'</main><footer class="pilot-footer"><div class="pilot-shell"><a href="/contact">Contact form</a><a href="mailto:sales@elvarins.com">sales@elvarins.com</a></div></footer>'+
     (commerce&&cartEnabled?customerUI+
       '<script src="/retail.js?v=account-6" defer></script><script src="/cart.js?v=design-refresh-13" defer></script>':'')+
-    '<script src="'+root+'/layout.js?v=4" defer></script></body></html>';
+    '<script src="'+root+'/layout.js?v=5" defer></script></body></html>';
 }
 
 const bread = (links, title) => '<nav class="pilot-breadcrumb" aria-label="Breadcrumb"><ol>'+[['Home','/'],...links].map(([label,url])=>
@@ -74,17 +74,34 @@ function action(product, primary=true) {
   return '<button type="button" class="pilot-button'+(primary?'':' pilot-outline')+'" data-elv-cart-add="'+esc(product.id)+'"'+(primary?'':' data-elv-buy-now')+'>'+ (primary?'Add to Cart':'Buy Now')+'</button>';
 }
 
-function card(p) {
-  return '<article class="pilot-card"><a class="pilot-card-media" href="'+to(p)+'">'+media(p)+
-    (p.images[1]?'<span class="pilot-alternate" aria-hidden="true">'+image(p.images[1],'')+'</span>':'')+'</a>'+
-    (p.brand?'<p class="pilot-brand">'+esc(p.brand)+'</p>':'')+
-    '<h2><a href="'+to(p)+'">'+esc(p.title)+'</a></h2>'+priceTag(p,'pilot-card-price')+stock(p)+
+function card(p, { home=false, photo='' }={}) {
+  const titleTag=home?'h3':'h2';
+  const photoSize=photo?' elv-home-photo':'';
+  return '<article class="pilot-card'+(home?' elv-home-card product-card':'')+'"'+(home?' data-sku="'+esc(p.id)+'" data-collection="'+esc(p.collection)+'"':'')+'>'+
+    '<a class="pilot-card-media'+photoSize+'" href="'+to(p)+'" aria-label="'+esc(p.title)+'">'+(photo||media(p))+
+    (!photo&&p.images[1]?'<span class="pilot-alternate" aria-hidden="true">'+image(p.images[1],'')+'</span>':'')+'</a>'+
+    (p.brand?'<p class="pilot-brand">'+esc(p.brand)+'</p>':'<span class="pilot-brand" aria-hidden="true"></span>')+
+    '<'+titleTag+'><a href="'+to(p)+'">'+esc(p.title)+'</a></'+titleTag+'>'+priceTag(p,'pilot-card-price')+stock(p)+
     '<div class="pilot-card-actions">'+action(p)+'<button type="button" class="pilot-quick" aria-label="Quick view: '+esc(p.title)+'" data-quick="'+esc(p.id)+'">'+icon('eye')+'</button></div></article>';
 }
 
 const quickView = p => '<dialog id="pilot-quick-'+esc(p.id)+'" class="pilot-dialog" aria-labelledby="quick-title-'+esc(p.id)+'"><form method="dialog"><button class="pilot-close" aria-label="Close quick view">×</button></form>'+
     '<div class="pilot-card-media">'+media(p)+'</div><h2 id="quick-title-'+esc(p.id)+'">'+esc(p.title)+'</h2>'+priceTag(p,'pilot-card-price')+stock(p)+
     '<p><a href="'+to(p)+'">View full details</a></p>'+action(p)+'</dialog>';
+
+export function renderHomeCards(html,catalog) {
+  const featured=new Map();
+  const cards=html.replace(/<article\b[^>]*>[\s\S]*?<\/article>/g, article=>{
+    const path=article.match(/href="(\/products\/[a-z0-9-]+)"/)?.[1];
+    const product=path&&catalog.byPath.get(path);
+    if(!product)return article;
+    const photo=article.match(/<img\b[^>]*>/)?.[0];
+    featured.set(product.id,product);
+    return card(product,{home:true,photo});
+  });
+  return cards.replace('</head>','<link rel="stylesheet" href="'+root+'/layout.css?v=6"></head>')
+    .replace('</body>',()=>[...featured.values()].map(quickView).join('')+'<script src="'+root+'/layout.js?v=5" defer></script></body>');
+}
 
 function specGroups(p) {
   const s=p.specs||{};

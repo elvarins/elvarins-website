@@ -87,7 +87,7 @@ export const pilotStyles = String.raw`
 .pilot-search{display:flex;flex:1 1 260px;min-width:0;max-width:460px;margin-left:auto}
 .pilot-search input{min-width:0;flex:1 1 auto;border:1px solid #9baab3;border-radius:10px 0 0 10px;padding:0 12px;color:var(--ink);font:inherit}
 .pilot-search button{border:0;border-radius:0 10px 10px 0;min-height:44px;background:var(--ink);color:white;font-weight:700;padding:0 13px}
-.pilot-header .pilot-nav .elv-cart-launcher{background:#205747;color:#fff}
+.pilot-header .pilot-nav .elv-cart-launcher{background:#182842;color:#fff}
 .pilot-back{display:inline-flex;align-items:center;gap:7px;min-height:44px;margin:0 0 6px;font-size:14px;font-weight:650}
 .pilot-product-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 12px}.pilot-product-nav .pilot-back{margin:0}.pilot-product-nav .pilot-breadcrumb{min-width:0}.pilot-back span{transition:transform 250ms ease}.pilot-back:hover span{transform:translateX(-3px)}
 .pilot-departments{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
@@ -117,6 +117,49 @@ export const pilotStyles = String.raw`
  .pilot-buy .pilot-qty{margin-bottom:7px}
 }
 
+
+.pilot{--paper:#f3ede3;--wash:#edf1ec;background:var(--paper)}
+.pilot-header{background:#e4ebe4}
+.pilot-banner{background:linear-gradient(110deg,#dce8dc,#f0dfcd)}
+.pilot-buy{background:#fffaf2;border-color:#d5cbb9}
+.pilot-details>details{background:#fffaf2}
+.pilot-card{background:#fffdf7;border-color:#d5cbb9}
+.pilot-card-media,.pilot-track{background:#f4f6f2}
+.pilot-card :is(h2,h3){font-size:15px;line-height:1.25;min-height:2.5em;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pilot-card :is(h2,h3) a{text-decoration:none}
+.pilot-card .pilot-brand{min-height:1.25em;margin:3px 0 0}
+.pilot-card .pilot-card-price{line-height:1.3;margin:1px 0}
+.pilot-card .pilot-card-actions{min-height:44px}
+.pilot .pilot-button[data-elv-cart-add]:not([data-elv-buy-now]):not(:disabled){background:#a33f2a;color:#fff;border-color:#a33f2a}
+.pilot .pilot-button[data-elv-cart-add]:not([data-elv-buy-now]):not(:disabled):hover{background:#873221;border-color:#873221}
+body[data-elv-refresh="home"]{
+ --ink:#172941;--muted:#4e6075;--paper:#f3ede3;--coral:#f0a483;--line:#d5cbb9;--wash:#edf1ec;
+ background:var(--paper)
+}
+[data-elv-refresh="home"] .featured-kitchen-brands,[data-elv-refresh="home"] .department-block{
+ border-color:#c9d6cb
+}
+[data-elv-refresh="home"] :is(div,section):has(>article.elv-home-card){
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:stretch;
+}
+[data-elv-refresh="home"] .elv-home-card{
+ display:flex;flex-direction:column;min-width:0;width:100%;max-width:none;margin:0;padding:10px;gap:4px;
+ border:1px solid #d5cbb9;border-radius:12px;background:#fffdf7;color:var(--ink);box-shadow:0 3px 12px #2735330d;
+}
+[data-elv-refresh="home"] .elv-home-card .pilot-card-media{height:auto;aspect-ratio:1;width:100%;background:#f4f6f2}
+[data-elv-refresh="home"] .elv-home-card .pilot-card-media img{display:block;width:100%;height:100%;aspect-ratio:1;max-height:none;object-fit:contain}
+[data-elv-refresh="home"] .elv-home-card h3{font-size:15px;line-height:1.25;min-height:2.5em;margin:0}
+[data-elv-refresh="home"] .elv-home-card .pilot-card-price{font-size:18px;color:var(--ink)}
+[data-elv-refresh="home"] .elv-home-card .pilot-card-actions{margin-top:auto;display:flex}
+[data-elv-refresh="home"] .elv-home-card .pilot-button{width:auto;min-height:44px}
+@media(max-width:1023px){
+ [data-elv-refresh="home"] :is(div,section):has(>article.elv-home-card){grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:699px){
+ [data-elv-refresh="home"] :is(div,section):has(>article.elv-home-card){grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ [data-elv-refresh="home"] .elv-home-card{padding:8px}
+}
+
 @media(prefers-reduced-motion:reduce){.pilot *, .pilot *::before,.pilot *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 `;
 
@@ -137,7 +180,8 @@ export const pilotClient = String.raw`(() => {
   }
 
   const cart = query('.elv-cart-launcher');
-  if (cart) query('.pilot-nav').append(cart);
+  const nav = query('.pilot-nav');
+  if (cart && nav) nav.append(cart);
   const desktop = matchMedia('(min-width:1024px)');
   const quiet = matchMedia('(prefers-reduced-motion: reduce)');
   const filters = query('#pilot-filters');
