@@ -4,13 +4,22 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 const {Miniflare,convertV4MiniflareOptions}=await import(process.env.ELVARINS_TEST_MINIFLARE||'miniflare');
 const root=fileURLToPath(new URL('../',import.meta.url));
-const modules=[
+const modulePaths=[
  'store-worker.mjs','worker.mjs','shipping.mjs','shipping-offer.mjs','product-pages.mjs','product-presentation.mjs',
  'customer-ui.mjs','customer-api.mjs','fulfillment-portal.mjs','service-pages.mjs','supplier-storefront.mjs',
  'inquiry-notifications.mjs','checkout-api.mjs','bci-catalog.mjs','store-management.mjs','store-extensions.mjs',
- 'store-labels.mjs','storefront-refresh.mjs','offer-polish.mjs','catalog/bci-inventory-1.mjs',
+ 'store-labels.mjs','storefront-refresh.mjs','storefront-header.mjs','storefront-catalog.mjs','offer-polish.mjs',
+ 'template-pilot.mjs','template-pilot-assets.mjs','catalog/bci-inventory-1.mjs',
  'catalog/bci-inventory-2.mjs','catalog/bci-inventory-3.mjs'
-].map(path=>({type:'ESModule',path:root+path}));
+];
+// The local workerd version predates JSON import attributes. Keep the production
+// sources intact while shimming only that syntax in this local smoke test.
+const modules=await Promise.all(modulePaths.map(async path=>{
+ let contents=await readFile(root+path,'utf8');
+ if(path==='template-pilot.mjs'||path==='storefront-catalog.mjs')contents=contents.replace(/\s+with\s*\{\s*type:\s*['"]json['"]\s*\}/g,'');
+ return {type:'ESModule',path:root+path,contents};
+}));
+modules.push({type:'ESModule',path:root+'template-pilot-products.json',contents:'export default '+await readFile(root+'template-pilot-products.json','utf8')});
 const options={modules,compatibilityDate:process.env.ELVARINS_TEST_COMPAT_DATE||'2026-10-06',compatibilityFlags:['nodejs_compat'],d1Databases:['CUSTOMER_DB']};
 const mf=new Miniflare(convertV4MiniflareOptions?convertV4MiniflareOptions(options):options);
 const origin='https://elvarins.com';
@@ -32,8 +41,8 @@ try{
  const product=await mf.dispatchFetch(origin+productPath);
  assert.equal(product.status,200);
  const productHtml=await product.text();
- assert.match(productHtml,/data-elv-refresh="product"/);
- assert.match(productHtml,/data-stock-state="in">In Stock/);
+ assert.match(productHtml,/class="pilot-product"/);
+ assert.match(productHtml,/data-in-stock="true">In Stock/);
  assert.match(productHtml,/>\$54\.90</);
  assert.doesNotMatch(productHtml,/Sold by Elvarins/i);
  assert.match(productHtml,/data-elv-cart-add="HSG2001"/);
@@ -41,6 +50,8 @@ try{
  const cart=await (await mf.dispatchFetch(origin+'/cart.js')).text();
  assert.match(cart,/FREE_SHIPPING_CENTS=14900/);
  assert.match(cart,/Online payment is not available yet/);
+ assert.doesNotMatch(cart,/Your reviews on this device|elvarins-product-reviews/);
+ assert.match(cart,/There are no published, verified customer reviews/);
  const css=await (await mf.dispatchFetch(origin+'/storefront-compact.css')).text();
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
  assert.match(css,/data-stock-state="in"/);
