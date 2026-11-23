@@ -48,7 +48,7 @@ function layout({title,description,body,product,commerce=true,index=true,canonic
     (picture?'<meta property="og:image" content="'+esc(absolute(picture))+'">':'')+
     (schema?'<script type="application/ld+json">'+JSON.stringify(schema).replaceAll('<','\\u003c')+'</script>':'')+
     '<link rel="stylesheet" href="/style.css">'+(commerce&&cartEnabled?'<link rel="stylesheet" href="/cart.css?v=contrast-2">':'')+
-    '<link rel="stylesheet" href="'+root+'/layout.css?v=6"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
+    '<link rel="stylesheet" href="'+root+'/layout.css?v=7"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
     '<header class="pilot-header"><nav class="pilot-shell pilot-nav" aria-label="Store navigation"><a class="pilot-wordmark" href="/"><img src="/logo.svg" alt="" width="32" height="32">Elvarins</a>'+
     '<a href="/shop">Shop all</a><a href="/contact">Contact</a>'+
     '<form class="pilot-search" role="search" method="get" action="/shop"><label class="pilot-visually-hidden" for="pilot-search">Search products</label><input id="pilot-search" type="search" name="q" placeholder="Search products, brands or item numbers" maxlength="100" value="'+esc(query)+'"><button type="submit">Search</button></form>'+
@@ -99,7 +99,7 @@ export function renderHomeCards(html,catalog) {
     featured.set(product.id,product);
     return card(product,{home:true,photo});
   });
-  return cards.replace('</head>','<link rel="stylesheet" href="'+root+'/layout.css?v=6"></head>')
+  return cards.replace('</head>','<link rel="stylesheet" href="'+root+'/layout.css?v=7"></head>')
     .replace('</body>',()=>[...featured.values()].map(quickView).join('')+'<script src="'+root+'/layout.js?v=5" defer></script></body>');
 }
 
