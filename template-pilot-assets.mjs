@@ -139,7 +139,7 @@ body[data-elv-refresh="home"]{
 [data-elv-refresh="home"] .featured-kitchen-brands,[data-elv-refresh="home"] .department-block{
  border-color:#c9d6cb
 }
-[data-elv-refresh="home"] :is(div,section):has(>article.elv-home-card){
+[data-elv-refresh="home"] main :is(div,section):has(>article.elv-home-card){
  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:stretch;
  width:min(100%,1176px,calc(100vw - 52px));margin-inline:auto;
 }
@@ -154,10 +154,10 @@ body[data-elv-refresh="home"]{
 [data-elv-refresh="home"] main .elv-home-card.product-card .pilot-card-actions{margin-top:auto;display:flex}
 [data-elv-refresh="home"] main .elv-home-card.product-card .pilot-button{width:auto;min-height:44px}
 @media(max-width:1023px){
- [data-elv-refresh="home"] :is(div,section):has(>article.elv-home-card){grid-template-columns:repeat(3,minmax(0,1fr))}
+ [data-elv-refresh="home"] main :is(div,section):has(>article.elv-home-card){grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:699px){
- [data-elv-refresh="home"] :is(div,section):has(>article.elv-home-card){grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ [data-elv-refresh="home"] main :is(div,section):has(>article.elv-home-card){grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
  [data-elv-refresh="home"] main .elv-home-card.product-card{padding:8px}
 }
 
