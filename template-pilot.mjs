@@ -108,7 +108,7 @@ function showroomHero(html,catalog) {
 function featuredPetShelf(catalog,featured) {
   const paths=[
     '/products/seachem-prime-water-conditioner-250-ml',
-    '/products/seachem-stability-aquarium-biofilter-supplement-250-ml',
+    '/products/seachem-stability-biofilter-supplement-250-ml',
     '/products/cadet-gourmet-bully-sticks-12-count-1-32-lb',
     '/products/likit-starter-kit-for-horses'
   ];
