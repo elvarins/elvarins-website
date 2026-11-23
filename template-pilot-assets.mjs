@@ -161,6 +161,22 @@ body[data-elv-refresh="home"]{
  [data-elv-refresh="home"] main .elv-home-card.product-card{padding:8px}
 }
 
+
+@media(prefers-reduced-motion:no-preference){
+  [data-elv-refresh="home"] header:has(> .header-retail){
+    transform-origin:50% 0;
+    transition:transform 330ms cubic-bezier(.22,.72,.24,1),opacity 240ms ease;
+  }
+  [data-elv-refresh="home"] header[data-scroll-away]:not(:has(:focus-visible)){
+    transform:perspective(850px) translate3d(0,calc(-100% - 12px),0) rotateX(-13deg);
+    opacity:0;
+    pointer-events:none;
+  }
+  [data-elv-refresh="home"] .department-hero-card img{
+    transform:perspective(850px) translate3d(0,var(--hero-travel,0px),0) rotateX(var(--hero-tilt,0deg));
+  }
+}
+
 @media(prefers-reduced-motion:reduce){.pilot *, .pilot *::before,.pilot *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 `;
 
@@ -185,6 +201,44 @@ export const pilotClient = String.raw`(() => {
   if (cart && nav) nav.append(cart);
   const desktop = matchMedia('(min-width:1024px)');
   const quiet = matchMedia('(prefers-reduced-motion: reduce)');
+
+  const home = document.body.dataset.elvRefresh==='home';
+  const homeHeader = home && query('header:has(> .header-retail)');
+  const hero = home && query('.department-hero');
+  if(homeHeader){
+    let lastY=Math.max(0,scrollY), settle, frame;
+    const showHeader=()=>{clearTimeout(settle);homeHeader.removeAttribute('data-scroll-away');};
+    const keepHeader=()=>homeHeader.matches(':has(:focus-visible),:has(input:focus)') ||
+      homeHeader.querySelector('#navtoggle[aria-expanded="true"]') || query('dialog[open]');
+    const updateMotion=()=>{
+      frame=undefined;
+      if(!hero)return;
+      const bounds=hero.getBoundingClientRect();
+      if(quiet.matches||bounds.bottom<=0||bounds.top>=innerHeight)return;
+      const progress=Math.min(1,Math.max(0,-bounds.top/bounds.height));
+      hero.style.setProperty('--hero-travel',progress*12+'px');
+      hero.style.setProperty('--hero-tilt',progress*4+'deg');
+    };
+    window.addEventListener('scroll',()=>{
+      const y=Math.max(0,scrollY);
+      if(y===lastY)return;
+      lastY=y;
+      if(quiet.matches||y<=Math.max(44,homeHeader.offsetHeight/2)||keepHeader())showHeader();
+      else{
+        homeHeader.setAttribute('data-scroll-away','');
+        clearTimeout(settle);
+        settle=setTimeout(showHeader,210);
+      }
+      if(frame===undefined)frame=requestAnimationFrame(updateMotion);
+    },{passive:true});
+    homeHeader.addEventListener('focusin',showHeader);
+    quiet.addEventListener('change',()=>{
+      showHeader();
+      hero?.style.removeProperty('--hero-travel');
+      hero?.style.removeProperty('--hero-tilt');
+    });
+  }
+
   const filters = query('#pilot-filters');
   const details = [...document.querySelectorAll('.pilot-details>details')];
 
@@ -286,10 +340,13 @@ export const pilotClient = String.raw`(() => {
     const reveal = new IntersectionObserver(entries=>entries.forEach(entry=>{
       if (!entry.isIntersecting) return;
       reveal.unobserve(entry.target);
-      if (!quiet.matches) entry.target.animate([{opacity:.8,transform:'translateY(20px)'},{opacity:1,transform:'translateY(0)'}],
+      if (!quiet.matches) entry.target.animate(home
+        ? [{opacity:.68,transform:'perspective(900px) translate3d(0,24px,-14px) rotateX(8deg)'},{opacity:1,transform:'perspective(900px) translate3d(0,0,0) rotateX(0)'}]
+        : [{opacity:.8,transform:'translateY(20px)'},{opacity:1,transform:'translateY(0)'}],
         {duration:250,easing:'ease-out'});
     }),{threshold:.12});
-    document.querySelectorAll('.pilot-card,.pilot-details>details').forEach(el=>{
+    const targets=home?'.department-hero-card,.elv-home-card':'.pilot-card,.pilot-details>details';
+    document.querySelectorAll(targets).forEach(el=>{
       if (el.getBoundingClientRect().top>innerHeight) reveal.observe(el);
     });
   }
