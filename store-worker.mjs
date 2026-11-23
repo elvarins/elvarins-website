@@ -1,6 +1,7 @@
 import legacy from './worker.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
+import { isTemplatePilot, templatePilotResponse } from './template-pilot.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
 import { featuredKitchenMarkup, findServiceCheckoutProduct, isRetiredKitchenPath, isRetiredKitchenSku, renderNotFound, servicePaths, updateKitchenCards } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
@@ -248,6 +249,11 @@ async function addTracking(request,env,result){
 async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
+  if(isTemplatePilot(path)){
+    const status=await checkoutApi(new Request(new URL('/api/checkout',request.url)),env,products);
+    const config=await status.json();
+    return templatePilotResponse(request,config.available===true&&config.mode==='live');
+  }
   if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
   if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss+promoStyles+refreshCss+offerPolishCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
   if(path==='/media/storefront/kitchen-tools.jpg')return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(featuredKitchenPhoto),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
