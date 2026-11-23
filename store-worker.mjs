@@ -1,6 +1,7 @@
 import legacy from './worker.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
+import { dealCartSource, dealCss, dealProductPage, withDealPricing } from './black-friday.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
 import { featuredKitchenMarkup, findServiceCheckoutProduct, isRetiredKitchenPath, isRetiredKitchenSku, renderNotFound, servicePaths, updateKitchenCards } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
@@ -206,7 +207,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=(html,path='')=>shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=design-refresh-13').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=15"></head>');
+const versionCart=(html,path='')=>shippingOfferCopy(accountMarkup(cleanProductCards(dealProductPage(polishOffers(html,path),path)))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=black-friday-16').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=16"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -219,7 +220,7 @@ async function checkout(request,env,catalog){
       if(!p)return lookupLegacy(sku);
       if(!p.published)return {sku,inStock:false};
       return {sku,title:p.title,price:p.price,url:p.url,image:p.image,thumbnail:p.thumbnail,inStock:p.inStock};
-    }).filter(Boolean);
+    }).filter(Boolean).map(withDealPricing);
     return transformed(request,original,JSON.stringify(state),'application/json; charset=utf-8');
   }
   if(request.method==='POST'){
@@ -249,7 +250,7 @@ async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
   if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
-  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss+promoStyles+refreshCss+offerPolishCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
+  if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss+promoStyles+refreshCss+offerPolishCss+dealCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
   if(path==='/media/storefront/kitchen-tools.jpg')return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(featuredKitchenPhoto),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
   if(path==='/media/storefront/shipping-offer-v1.jpg')return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(shippingOfferPhoto),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
   if(path==='/storefront-refresh.js')return new Response(request.method==='HEAD'?null:refreshScript,{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
@@ -268,7 +269,7 @@ async function fetchStore(request,env,ctx){
   if(!['GET','HEAD'].includes(request.method))return legacy.fetch(request,env,ctx);
   if(path==='/cart.js'){
     const original=await legacy.fetch(request,env,ctx);
-    return transformed(request,original,refreshCart(cartAsset(await original.text())));
+    return transformed(request,original,dealCartSource(refreshCart(cartAsset(await original.text()))));
   }
   if(path==='/retail.js'){
     const original=await legacy.fetch(request,env,ctx);
