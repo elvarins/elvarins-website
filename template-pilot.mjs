@@ -99,8 +99,8 @@ export function renderHomeCards(html,catalog) {
     featured.set(product.id,product);
     return card(product,{home:true,photo});
   });
-  return cards.replace('</head>','<link rel="stylesheet" href="'+root+'/layout.css?v=9"></head>')
-    .replace('</body>',()=>[...featured.values()].map(quickView).join('')+'<script src="'+root+'/layout.js?v=6" defer></script></body>');
+  return cards.replace('</head>','<link rel="stylesheet" href="'+root+'/layout.css?v=10"></head>')
+    .replace('</body>',()=>[...featured.values()].map(quickView).join('')+'<script src="'+root+'/layout.js?v=7" defer></script></body>');
 }
 
 function specGroups(p) {

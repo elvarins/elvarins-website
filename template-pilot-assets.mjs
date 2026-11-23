@@ -177,6 +177,48 @@ body[data-elv-refresh="home"]{
   }
 }
 
+
+[data-elv-refresh="home"] .hero{position:relative;isolation:isolate;overflow:clip}
+[data-elv-refresh="home"] .hero::after{
+  content:'';position:absolute;z-index:-1;pointer-events:none;
+  inset:-14% -7%;
+  background:radial-gradient(ellipse at 85% 25%,#e9ab8b65,transparent 52%),
+    radial-gradient(ellipse at 52% 84%,#a0bda877,transparent 54%);
+}
+@media(prefers-reduced-motion:no-preference){
+  [data-elv-refresh="home"] .hero::after{
+    transform:translate3d(0,var(--hero-light,0px),0);
+  }
+  [data-elv-refresh="home"] .hero-copy h1{
+    transform:translate3d(0,var(--hero-title,0px),0);
+    animation:elv-hero-intro 520ms cubic-bezier(.22,.72,.24,1) both;
+  }
+  [data-elv-refresh="home"] .elv-hero-links{
+    transform:translate3d(0,var(--hero-actions,0px),0);
+    animation:elv-hero-intro 520ms 75ms cubic-bezier(.22,.72,.24,1) both;
+  }
+  [data-elv-refresh="home"] .department-hero-grid{
+    animation:elv-hero-cards-in 650ms 105ms cubic-bezier(.22,.72,.24,1) both;
+  }
+  @keyframes elv-hero-intro{
+    from{translate:0 12px;opacity:.55}
+    to{translate:none;opacity:1}
+  }
+  @keyframes elv-hero-cards-in{
+    from{transform:perspective(950px) translate3d(0,18px,-24px) rotateX(7deg);opacity:.64}
+    to{transform:none;opacity:1}
+  }
+}
+@media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine){
+  [data-elv-refresh="home"] .department-hero-card{
+    transition:transform 230ms ease,box-shadow 230ms ease;
+  }
+  [data-elv-refresh="home"] .department-hero-card:hover{
+    transform:perspective(900px) translateY(-5px) rotateX(3deg);
+    box-shadow:0 12px 24px #172c3830;
+  }
+}
+
 @media(prefers-reduced-motion:reduce){.pilot *, .pilot *::before,.pilot *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 `;
 
@@ -204,7 +246,7 @@ export const pilotClient = String.raw`(() => {
 
   const home = document.body.dataset.elvRefresh==='home';
   const homeHeader = home && query('header:has(> .header-retail)');
-  const hero = home && query('.department-hero');
+  const hero = home && query('main .hero');
   if(homeHeader){
     let lastY=Math.max(0,scrollY), settle, frame;
     const showHeader=()=>{clearTimeout(settle);homeHeader.removeAttribute('data-scroll-away');};
@@ -216,8 +258,12 @@ export const pilotClient = String.raw`(() => {
       const bounds=hero.getBoundingClientRect();
       if(quiet.matches||bounds.bottom<=0||bounds.top>=innerHeight)return;
       const progress=Math.min(1,Math.max(0,-bounds.top/bounds.height));
-      hero.style.setProperty('--hero-travel',progress*12+'px');
-      hero.style.setProperty('--hero-tilt',progress*4+'deg');
+      const strength=matchMedia('(max-width:699px)').matches ? .55 : 1;
+      hero.style.setProperty('--hero-travel',progress*14*strength+'px');
+      hero.style.setProperty('--hero-tilt',progress*5*strength+'deg');
+      hero.style.setProperty('--hero-light',progress*-48*strength+'px');
+      hero.style.setProperty('--hero-title',progress*-14*strength+'px');
+      hero.style.setProperty('--hero-actions',progress*-6*strength+'px');
     };
     window.addEventListener('scroll',()=>{
       const y=Math.max(0,scrollY);
@@ -234,8 +280,7 @@ export const pilotClient = String.raw`(() => {
     homeHeader.addEventListener('focusin',showHeader);
     quiet.addEventListener('change',()=>{
       showHeader();
-      hero?.style.removeProperty('--hero-travel');
-      hero?.style.removeProperty('--hero-tilt');
+      for(const name of ['travel','tilt','light','title','actions'])hero?.style.removeProperty('--hero-'+name);
     });
   }
 
