@@ -1,7 +1,8 @@
 import legacy from './worker.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
-import { isTemplatePilot, templatePilotResponse } from './template-pilot.mjs';
+import { isTemplatePilot, templatePilotResponse, isStoreCatalogPath, renderUnifiedPage } from './template-pilot.mjs';
+import { storefrontCatalog as buildStoreCatalog } from './storefront-catalog.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
 import { featuredKitchenMarkup, findServiceCheckoutProduct, isRetiredKitchenPath, isRetiredKitchenSku, renderNotFound, servicePaths, updateKitchenCards } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
@@ -12,6 +13,8 @@ import { featuredKitchenPhoto, refreshCart, refreshCss, refreshHtml, refreshProm
 import { offerCloseScript, offerPolishCss, polishOffers, shippingOfferPhoto } from './offer-polish.mjs';
 
 import { FREE_SHIPPING_CENTS, promoScript, promoStyles, renderShippingPromo, shippingOfferCopy } from './shipping-offer.mjs';
+
+const cartTheme = '.elv-cart-launcher.elv-header-cart,.elv-cart-launcher,#elv-cart-checkout{background:#205747;color:#fff}.elv-cart-launcher:hover,#elv-cart-checkout:not(:disabled):hover{background:#153d32}.elv-cart-launcher #elv-cart-count,.elv-header-cart #elv-cart-count{background:#dff0e7;color:#153d32}.elv-cart-dialog #elv-free-shipping{accent-color:#205747}';
 
 const storefrontCatalog='/catalog/products.json';
 const lookupLegacy=sku=>{
@@ -207,7 +210,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=(html,path='')=>shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=design-refresh-13').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=18"></head>');
+const versionCart=(html,path='')=>shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=design-refresh-13').replace(/(<form\b[^>]*class="header-search"[^>]*\baction=")\/(")/g,'$1/shop$2').replace(/\/cart\.css(?:\?[^"']*)?(?=["'])/g,'/cart.css?v=forest-1').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=18"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -249,11 +252,7 @@ async function addTracking(request,env,result){
 async function fetchStore(request,env,ctx){
   const {pathname:path}=new URL(request.url);
   const db=env.CUSTOMER_DB;
-  if(isTemplatePilot(path)){
-    const status=await checkoutApi(new Request(new URL('/api/checkout',request.url)),env,products);
-    const config=await status.json();
-    return templatePilotResponse(request,config.available===true&&config.mode==='live');
-  }
+  if(isTemplatePilot(path))return templatePilotResponse(request);
   if(path===adminPath||path===photoUploadPath)return manageStore(request,env,products,lookupLegacy);
   if(path==='/storefront-compact.css')return new Response(request.method==='HEAD'?null:compactCss+productPresentationCss+promoStyles+refreshCss+offerPolishCss,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600'}});
   if(path==='/media/storefront/kitchen-tools.jpg')return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(featuredKitchenPhoto),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
@@ -272,6 +271,10 @@ async function fetchStore(request,env,ctx){
   if(path===prepRoute)return addTracking(request,env,await legacy.fetch(request,env,ctx));
   if(path==='/api/checkout')return db?checkout(request,env,mergeCatalog(products,await getRows(db))):legacy.fetch(request,env,ctx);
   if(!['GET','HEAD'].includes(request.method))return legacy.fetch(request,env,ctx);
+  if(path==='/cart.css'){
+    const original=await legacy.fetch(new Request(request.url),env,ctx);
+    return transformed(request,original,(await original.text())+cartTheme,'text/css; charset=utf-8');
+  }
   if(path==='/cart.js'){
     const original=await legacy.fetch(request,env,ctx);
     return transformed(request,original,refreshCart(cartAsset(await original.text())));
@@ -281,11 +284,26 @@ async function fetchStore(request,env,ctx){
     return transformed(request,original,accountAsset(await original.text()));
   }
   if(isRetiredKitchenPath(path))return new Response(request.method==='HEAD'?null:versionCart(renderNotFound()),{status:410,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}});
-  const managedRoute=path==='/'||path===storefrontCatalog||path==='/sitemap.xml'||path.startsWith('/products/')||path.startsWith('/collections/');
+  const managedRoute=isStoreCatalogPath(path)||path==='/'||path===storefrontCatalog||path==='/sitemap.xml'||path.startsWith('/products/')||path.startsWith('/collections/');
   const pageCopy=db&&editablePages.includes(path)?await db.prepare('SELECT heading,body FROM storefront_copy WHERE path=?').bind(path).first():null;
   if(!managedRoute&&!pageCopy&&!servicePaths.includes(path)&&path!=='/order-success')return legacy.fetch(request,env,ctx);
   const rows=db&&managedRoute?await getRows(db):[];
   const catalog=mergeCatalog(products,rows);
+  const pathWithSlash=path.replace(/\/$/,'');
+  if(path!==pathWithSlash&&(isStoreCatalogPath(pathWithSlash)||pathWithSlash.startsWith('/products/'))){
+    const target=new URL(request.url);target.pathname=pathWithSlash;
+    return Response.redirect(target,301);
+  }
+  if(path.startsWith('/products/')&&rows.some(row=>row.slug===path.slice(10)&&row.published!==1)){
+    return new Response(request.method==='HEAD'?null:'Product not found',{status:404,headers:{'Cache-Control':'no-store'}});
+  }
+  if(isStoreCatalogPath(path)||path.startsWith('/products/')){
+    const productsForPage=buildStoreCatalog(catalog);
+    const status=await checkoutApi(new Request(new URL('/api/checkout',request.url)),env,products);
+    const config=await status.json();
+    const page=renderUnifiedPage(request,productsForPage,config.available===true&&config.mode==='live');
+    if(page)return page;
+  }
   const sourceRequest=request.method==='HEAD'?new Request(request.url,{headers:request.headers}):request;
   if(path.startsWith('/products/')){
     const p=[...catalog.values()].find(p=>p.url===path&&p.edited);
@@ -295,15 +313,17 @@ async function fetchStore(request,env,ctx){
   const original=await legacy.fetch(sourceRequest,env,ctx);
   if(!original.ok)return request.method==='HEAD'?new Response(null,original):original;
   const html=(original.headers.get('Content-Type')||'').includes('text/html');
-  if(!rows.length&&!pageCopy&&!html)return request.method==='HEAD'?new Response(null,original):original;
+  if(!rows.length&&!pageCopy&&!html&&path!=='/sitemap.xml'&&path!==storefrontCatalog)return request.method==='HEAD'?new Response(null,original):original;
   let body=await original.text();
   if(path===storefrontCatalog)body=JSON.stringify({...JSON.parse(body),products:[...catalog.values()].filter(p=>p.published)});
   else if(path==='/sitemap.xml'){
-    body=body.replace(/<url>\s*<loc>https:\/\/elvarins\.com(\/products\/[^<]+)<\/loc>[\s\S]*?<\/url>/g,(row, productPath)=>isRetiredKitchenPath(productPath)?'':row);
-    for(const p of catalog.values())if(p.edited&&!isRetiredKitchenPath(p.url)){
-      body=body.replace(/<url>\s*<loc>([^<]+)<\/loc>[\s\S]*?<\/url>/g,(row,loc)=>loc==='https://elvarins.com'+p.url?'':row);
-      if(p.published)body=body.replace('</urlset>','<url><loc>https://elvarins.com'+p.url+'</loc></url></urlset>');
-    }
+    const urls=new Set([...body.matchAll(/<loc>https:\/\/elvarins\.com([^<]*)<\/loc>/g)]
+      .map(match=>match[1]).filter(path=>!path.startsWith('/products/')&&!path.startsWith('/template-preview')));
+    urls.add('/shop');
+    const live=buildStoreCatalog(catalog);
+    for(const product of live.items) urls.add(product.url);
+    body='<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+
+      [...urls].map(url=>'<url><loc>https://elvarins.com'+escape(url)+'</loc></url>').join('')+'</urlset>';
   }else if(html){
     if(rows.length){
       body=updateImportedCards(body,catalog);

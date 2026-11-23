@@ -82,11 +82,59 @@ export const pilotStyles = String.raw`
  .pilot-price{margin-top:4px}.pilot-shipping{font-size:13px;margin-bottom:4px}.pilot-facts{margin-bottom:4px}
  .pilot-buy{display:flex;flex-direction:column}.pilot-primary{order:1}.pilot-trust,.pilot-seller{order:2}
 }
+
+.pilot-visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.pilot-search{display:flex;flex:1 1 260px;min-width:0;max-width:460px;margin-left:auto}
+.pilot-search input{min-width:0;flex:1 1 auto;border:1px solid #9baab3;border-radius:10px 0 0 10px;padding:0 12px;color:var(--ink);font:inherit}
+.pilot-search button{border:0;border-radius:0 10px 10px 0;min-height:44px;background:var(--ink);color:white;font-weight:700;padding:0 13px}
+.pilot-header .pilot-nav .elv-cart-launcher{background:#205747;color:#fff}
+.pilot-back{display:inline-flex;align-items:center;gap:7px;min-height:44px;margin:0 0 6px;font-size:14px;font-weight:650}
+.pilot-product-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 12px}.pilot-product-nav .pilot-back{margin:0}.pilot-product-nav .pilot-breadcrumb{min-width:0}.pilot-back span{transition:transform 250ms ease}.pilot-back:hover span{transform:translateX(-3px)}
+.pilot-departments{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.pilot-departments a{display:inline-flex;align-items:center;min-height:44px;border:1px solid #c7d2d9;border-radius:100px;padding:0 13px;background:#fff;font-size:14px;font-weight:650}
+.pilot-no-image,.pilot-gallery-empty{color:var(--muted);text-align:center}
+.pilot-no-image{display:grid;place-items:center;height:100%;padding:8px;font-size:13px}
+.pilot-gallery-empty{background:var(--wash);border-radius:12px;margin:0;padding:18px;border:1px solid var(--line)}
+.pilot-card .pilot-button{line-height:1.15}
+@media(prefers-reduced-motion:no-preference){
+ .pilot .elv-cart-dialog[open]{animation:pilot-drawer-in 250ms ease-out}
+ .pilot-dialog[open]:modal{animation:pilot-dialog-in 200ms ease-out}
+ @keyframes pilot-drawer-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
+ @keyframes pilot-dialog-in{from{opacity:.6;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
+@media(max-width:699px){
+ .pilot-search{order:5;flex-basis:100%;max-width:none;margin:0}
+ .pilot-search input{font-size:16px}
+ .pilot:has(.pilot-product) .pilot-header .pilot-search{display:none}
+ .pilot:has(.pilot-product) .pilot-breadcrumb ol{margin-bottom:0}
+ .pilot:has(.pilot-product) .pilot-breadcrumb li[aria-current]{display:none}
+ .pilot-product-nav .pilot-breadcrumb,.pilot-product-nav .pilot-back{font-size:12px}
+ .pilot-product-nav .pilot-breadcrumb ol{margin:0}.pilot-product-nav .pilot-back{order:-1;min-height:44px}
+ .pilot-product-nav .pilot-breadcrumb li a{min-height:44px}.pilot-product-nav .pilot-breadcrumb li:first-child{display:none}.pilot-product-nav .pilot-breadcrumb li:nth-child(2)::before{display:none}
+ .pilot-buy h1{line-height:1.15}
+ .pilot-buy .pilot-facts{margin-bottom:3px}
+ .pilot-buy .pilot-qty{margin-bottom:7px}
+}
+
 @media(prefers-reduced-motion:reduce){.pilot *, .pilot *::before,.pilot *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 `;
 
 export const pilotClient = String.raw`(() => {
   const query = selector => document.querySelector(selector);
+
+  const back = query('[data-catalog-back]');
+  if (back && document.referrer) {
+    const previous = new URL(document.referrer);
+    if (previous.origin===location.origin && (previous.pathname==='/'||previous.pathname==='/shop'||previous.pathname.startsWith('/collections/'))) {
+      back.href=previous.href;
+      back.addEventListener('click',event=>{
+        if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||history.length<2||window.opener)return;
+        event.preventDefault();
+        history.back();
+      });
+    }
+  }
+
   const cart = query('.elv-cart-launcher');
   if (cart) query('.pilot-nav').append(cart);
   const desktop = matchMedia('(min-width:1024px)');
@@ -103,7 +151,7 @@ export const pilotClient = String.raw`(() => {
   desktop.addEventListener('change',adapt);
 
   const gallery = query('[data-gallery]');
-  if (gallery) {
+  if (gallery?.querySelector('.pilot-track')) {
     const track = gallery.querySelector('.pilot-track');
     const controls = [...gallery.querySelectorAll('[data-slide]')];
     let frame;
@@ -128,6 +176,9 @@ export const pilotClient = String.raw`(() => {
       zoom.querySelector('img').src=link.href;
       zoom.showModal();
     });
+
+  }
+  {
     const sticky=query('[data-sticky-buy]');
     const primary=query('.pilot-primary');
     if (sticky && primary && 'IntersectionObserver' in window) {

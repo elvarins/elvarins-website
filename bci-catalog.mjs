@@ -92,3 +92,12 @@ export function findBciCheckoutProduct(sku) {
   if (!Number.isSafeInteger(cents) || cents < 1) return undefined;
   return {sku, title: withVariant(title, variant), price: cents / 100};
 }
+
+export function listBciProducts() {
+  const links = new Map(photographed.map(({row}) => [row[0], row[8]]));
+  return [...byUpc.values()].map(({category,row:[upc,title,brand,variant,cents,detail,mpn,photo]}) => ({
+    sku:'bci-'+upc, url:productUrl(upc), alias:links.get(upc), title:withVariant(title,variant), brand,
+    collection:'bci', category:display(category), price:cents/100, description:detail, size:variant,
+    upc, manufacturerSku:mpn, image:photo||photoByUpc.get(upc)
+  }));
+}
