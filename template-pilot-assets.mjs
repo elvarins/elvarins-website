@@ -6,7 +6,7 @@ export const pilotStyles = String.raw`
 .pilot-header{background:white;border-bottom:1px solid var(--line);position:static}
 .pilot-nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;min-height:68px;line-height:1.2;padding-block:7px}
 .pilot-nav a,.pilot-link{display:inline-flex;align-items:center;min-height:44px;font-weight:650;font-size:14px}
-.pilot-nav .elv-cart-launcher{position:static;margin:0;min-height:44px;box-shadow:none;white-space:nowrap}.pilot-wordmark{gap:8px;margin-right:auto;text-decoration:none}.pilot-wordmark img{display:block}
+.pilot-header .pilot-nav .elv-cart-launcher{position:static;display:inline-flex;align-items:center;justify-content:center;gap:5px;margin:0;padding:4px 8px;min-width:44px;width:auto;min-height:44px;height:44px;font-size:13px;box-shadow:none;white-space:nowrap}.pilot-wordmark{gap:8px;margin-right:auto;text-decoration:none}.pilot-wordmark img{display:block}
 .pilot-link{border:0;background:none;color:inherit;cursor:pointer}.pilot-skip{position:absolute;left:16px;top:-100px;background:white;padding:12px;z-index:20}.pilot-skip:focus{top:8px}
 .pilot-footer{margin-top:42px;border-top:1px solid var(--line);background:white}.pilot-footer .pilot-shell{display:flex;gap:16px;flex-wrap:wrap}.pilot-footer a{display:inline-flex;align-items:center;min-height:48px}
 .pilot-breadcrumb ol{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin:10px 0 16px;padding:0;list-style:none;font-size:13px;color:var(--muted)}
@@ -77,7 +77,7 @@ export const pilotStyles = String.raw`
  .pilot-filters[open]:not(:modal){display:block;position:static;width:100%;max-width:none;margin:0}.pilot-filter-trigger,.pilot-filter-close{display:none}
 }
 @media(max-width:699px){
- .pilot-header .pilot-nav{gap:3px 9px;min-height:52px}.pilot-nav .elv-cart-launcher{min-height:44px}.pilot-nav a,.pilot-link{font-size:12px}.pilot-wordmark img{width:25px;height:25px}.pilot-breadcrumb li[aria-current]{max-width:100%;overflow:hidden;display:block;white-space:nowrap;text-overflow:ellipsis;line-height:18px}
+ .pilot-header .pilot-nav{gap:3px 8px;min-height:52px}.pilot-nav a[href="/contact"]{display:none}.pilot-nav a,.pilot-link{font-size:12px}.pilot-wordmark img{width:25px;height:25px}.pilot-breadcrumb li[aria-current]{max-width:100%;overflow:hidden;display:block;white-space:nowrap;text-overflow:ellipsis;line-height:18px}
  .pilot-breadcrumb ol{margin:2px 0 7px}.pilot-gallery{gap:0;position:relative}.pilot-dots{position:absolute;bottom:2px;inset-inline:0;pointer-events:none}.pilot-dots button{pointer-events:auto}.pilot-dots span{box-shadow:0 0 0 3px #ffffffc9}.pilot-buy{padding:10px 12px}.pilot-buy h1{margin:0 0 4px}.pilot-brand-link{font-size:14px;min-height:32px}
  .pilot-price{margin-top:4px}.pilot-shipping{font-size:13px;margin-bottom:4px}.pilot-facts{margin-bottom:4px}
  .pilot-buy{display:flex;flex-direction:column}.pilot-primary{order:1}.pilot-trust,.pilot-seller{order:2}
