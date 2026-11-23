@@ -6,14 +6,14 @@ export const pilotStyles = String.raw`
 .pilot-header{background:white;border-bottom:1px solid var(--line);position:static}
 .pilot-nav{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;min-height:68px;line-height:1.2;padding-block:7px}
 .pilot-nav a,.pilot-link{display:inline-flex;align-items:center;min-height:44px;font-weight:650;font-size:14px}
-.pilot-wordmark{gap:8px;margin-right:auto;text-decoration:none}.pilot-wordmark img{display:block}
+.pilot-nav .elv-cart-launcher{position:static;margin:0;min-height:44px;box-shadow:none;white-space:nowrap}.pilot-wordmark{gap:8px;margin-right:auto;text-decoration:none}.pilot-wordmark img{display:block}
 .pilot-link{border:0;background:none;color:inherit;cursor:pointer}.pilot-skip{position:absolute;left:16px;top:-100px;background:white;padding:12px;z-index:20}.pilot-skip:focus{top:8px}
 .pilot-footer{margin-top:42px;border-top:1px solid var(--line);background:white}.pilot-footer .pilot-shell{display:flex;gap:16px;flex-wrap:wrap}.pilot-footer a{display:inline-flex;align-items:center;min-height:48px}
 .pilot-breadcrumb ol{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin:10px 0 16px;padding:0;list-style:none;font-size:13px;color:var(--muted)}
 .pilot-breadcrumb li{display:flex;align-items:center}.pilot-breadcrumb li+li::before{content:'›';padding:0 6px}.pilot-breadcrumb a{display:inline-flex;align-items:center;min-height:44px}
 .pilot-product,.pilot-gallery,.pilot-buy{min-width:0}
 .pilot-gallery{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:start}
-.pilot-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;background:var(--wash);border-radius:12px;min-width:0}.pilot-track::-webkit-scrollbar{display:none}
+.pilot-track{display:flex;width:100%;max-width:640px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;background:var(--wash);border-radius:12px;min-width:0}.pilot-track::-webkit-scrollbar{display:none}
 .pilot-slide{position:relative;flex:0 0 100%;min-width:0;scroll-snap-align:start;aspect-ratio:1;max-width:640px}
 .pilot-zoom-link{display:block;width:100%;height:100%;cursor:zoom-in;overflow:hidden}
 .pilot-slide img,.pilot-card-media img,.pilot-lightbox img{width:100%;height:100%;display:block;object-fit:contain;transition:opacity 250ms ease}
@@ -21,7 +21,7 @@ export const pilotStyles = String.raw`
 .pilot-dots{display:flex;justify-content:center;gap:0}.pilot-dots button{width:44px;height:44px;padding:0;border:0;display:grid;place-items:center;background:transparent}
 .pilot-dots span{width:8px;height:8px;border-radius:50%;background:#66788c}.pilot-dots [aria-current=true] span{background:var(--ink);outline:2px solid var(--ink);outline-offset:2px}
 .pilot-buy{border:1px solid var(--line);background:white;padding:18px;border-radius:14px}
-.pilot-buy h1{font-size:21px;line-height:1.19;letter-spacing:-.025em;margin:4px 0 8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink)}
+.pilot-buy h1{max-width:none;font-size:21px;line-height:1.19;letter-spacing:-.025em;margin:4px 0 8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink)}
 .pilot-brand-link{display:inline-flex;align-items:center;min-height:44px;font-size:14px;font-weight:650}
 .pilot-price{font-size:30px;font-weight:800;line-height:1.08;margin:8px 0 4px}.pilot-shipping{margin:0 0 8px;font-size:14px;color:var(--muted)}
 .pilot-stock{font-size:14px;font-weight:700;color:#196341;margin:2px 0 8px}.pilot-stock[data-in-stock=false]{color:#8b3c35}
@@ -77,16 +77,18 @@ export const pilotStyles = String.raw`
  .pilot-filters[open]:not(:modal){display:block;position:static;width:100%;max-width:none;margin:0}.pilot-filter-trigger,.pilot-filter-close{display:none}
 }
 @media(max-width:699px){
- .pilot-nav{gap:3px 9px}.pilot-nav a,.pilot-link{font-size:12px}.pilot-wordmark img{width:25px;height:25px}.pilot-breadcrumb li[aria-current]{display:none}
- .pilot-breadcrumb ol{margin:2px 0 7px}.pilot-gallery{gap:0;position:relative}.pilot-dots{position:absolute;bottom:2px;inset-inline:0;pointer-events:none}.pilot-dots button{pointer-events:auto}.pilot-dots span{box-shadow:0 0 0 3px #ffffffc9}.pilot-buy{padding:10px 12px}.pilot-buy h1{margin:0 0 4px}.pilot-brand-link{font-size:13px}
+ .pilot-header .pilot-nav{gap:3px 9px;min-height:52px}.pilot-nav .elv-cart-launcher{min-height:44px}.pilot-nav a,.pilot-link{font-size:12px}.pilot-wordmark img{width:25px;height:25px}.pilot-breadcrumb li[aria-current]{max-width:100%;overflow:hidden;display:block;white-space:nowrap;text-overflow:ellipsis;line-height:18px}
+ .pilot-breadcrumb ol{margin:2px 0 7px}.pilot-gallery{gap:0;position:relative}.pilot-dots{position:absolute;bottom:2px;inset-inline:0;pointer-events:none}.pilot-dots button{pointer-events:auto}.pilot-dots span{box-shadow:0 0 0 3px #ffffffc9}.pilot-buy{padding:10px 12px}.pilot-buy h1{margin:0 0 4px}.pilot-brand-link{font-size:14px;min-height:32px}
  .pilot-price{margin-top:4px}.pilot-shipping{font-size:13px;margin-bottom:4px}.pilot-facts{margin-bottom:4px}
  .pilot-buy{display:flex;flex-direction:column}.pilot-primary{order:1}.pilot-trust,.pilot-seller{order:2}
 }
 @media(prefers-reduced-motion:reduce){.pilot *, .pilot *::before,.pilot *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 `;
 
-export function pilotClient() {
+export const pilotClient = String.raw`(() => {
   const query = selector => document.querySelector(selector);
+  const cart = query('.elv-cart-launcher');
+  if (cart) query('.pilot-nav').append(cart);
   const desktop = matchMedia('(min-width:1024px)');
   const quiet = matchMedia('(prefers-reduced-motion: reduce)');
   const filters = query('#pilot-filters');
@@ -189,4 +191,4 @@ export function pilotClient() {
       status.textContent=error.message+' You can also use the contact form or email sales@elvarins.com.';
     } finally { submit.disabled=false; }
   });
-}
+})();`;

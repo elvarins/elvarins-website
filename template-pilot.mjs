@@ -42,11 +42,11 @@ function layout({title,description,body,product,commerce=true}) {
     (product?'<link rel="canonical" href="'+esc(canonical(product))+'"><script type="application/ld+json">'+JSON.stringify(schema).replaceAll('<','\\u003c')+'</script>':'')+
     '<link rel="stylesheet" href="/style.css">'+(commerce&&cartEnabled?'<link rel="stylesheet" href="/cart.css">':'')+
     '<link rel="stylesheet" href="'+root+'/layout.css"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
-    '<header class="pilot-header"><nav class="pilot-shell pilot-nav nav" aria-label="Store navigation"><a class="pilot-wordmark" href="/"><img src="/logo.svg" alt="" width="32" height="32">Elvarins</a>'+
+    '<header class="pilot-header"><nav class="pilot-shell pilot-nav" aria-label="Store navigation"><a class="pilot-wordmark" href="/"><img src="/logo.svg" alt="" width="32" height="32">Elvarins</a>'+
     '<a href="'+root+'/catalog">Catalog preview</a><a href="/contact">Contact</a>'+
     (commerce&&cartEnabled?'<button class="pilot-link" type="button" data-open-account="login">Sign in</button>':'')+'</nav></header>'+
     '<main class="pilot-shell" id="pilot-main">'+body+'</main><footer class="pilot-footer"><div class="pilot-shell"><a href="/contact">Contact form</a><a href="mailto:sales@elvarins.com">sales@elvarins.com</a></div></footer>'+
-    (commerce&&cartEnabled?customerUI.replace(/<dialog\b[^>]*id="discovery-dialog"[\s\S]*?<\/dialog>/,'')+
+    (commerce&&cartEnabled?customerUI+
       '<script src="/retail.js?v=account-6" defer></script><script src="/cart.js?v=design-refresh-13" defer></script>':'')+
     '<script src="'+root+'/layout.js" defer></script></body></html>';
 }
@@ -212,7 +212,7 @@ export function templatePilotResponse(request, paymentLive) {
   });
   if(!['GET','HEAD'].includes(request.method))return respond('Method not allowed','text/plain; charset=utf-8',405);
   if(path===root+'/layout.css')return respond(pilotStyles,'text/css; charset=utf-8');
-  if(path===root+'/layout.js')return respond('('+pilotClient.toString()+')();','text/javascript; charset=utf-8');
+  if(path===root+'/layout.js')return respond(pilotClient,'text/javascript; charset=utf-8');
   if(path===root+'/catalog')return respond(catalogPage(url));
   if(path===root||path===root+'/spec')return respond(specPage());
   const product=products.find(p=>to(p)===path);
