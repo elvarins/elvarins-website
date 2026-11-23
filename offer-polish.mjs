@@ -1,13 +1,5 @@
 
-const featuredPaths = new Set([
-  '/products/gir-10-piece-best-sellers-tool-set',
-  '/products/nylabone-power-chew-textured-ring-flavor-medley-xl-bci-491174',
-  '/products/transformers-studio-series-deluxe-transformers-one-soundwave-hsg2200',
-]);
-const star = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m12 2 2.8 6.5 7.1.6-5.4 4.8 1.7 7L12 17.1 5.8 21l1.7-7L2.1 9.1l7.1-.6L12 2Z"/></svg>';
-const featuredLabel = '<span class="elv-featured-pick">'+star+' Featured pick</span>';
-
-function purchaseBox(box, path) {
+function purchaseBox(box) {
   const withoutSeller = box.replace(/<p\b[^>]*>\s*(?:<strong>)?Sold by\s+Elvarins(?:\s*\([^<]*\))?\.?\s*(?:<\/strong>)?\s*<\/p>/gi, '');
   const styled = withoutSeller.replace(/<(p|span)\b([^>]*)>\s*(?:<strong>)?((?:In Stock|Out of Stock|Sold Out)(?:\s*(?:—|&mdash;)\s*Ready to Ship)?)(?:<\/strong>)?\s*<\/\1>/gi,
     (_, tag, attrs, label) => {
@@ -17,19 +9,11 @@ function purchaseBox(box, path) {
     .replace(/(<strong class="price">)(\d+\.\d{2})(<\/strong>)/, '$1$$$2$3');
   const available = !styled.includes('data-stock-state=') && /<button[^>]*(?:data-elv-cart-add|data-kitchen-action=)/.test(styled);
   const status = available ? '<p class="stock-label" data-stock-state="ready">Available to order</p>' : '';
-  return styled.replace(/(<(?:p class="kitchen-retail-price"|strong class="price"|span class="price")[^>]*>[\s\S]*?<\/(?:p|strong|span)>)/, (_,price)=>price+status)
-    .replace('>', '>'+(featuredPaths.has(path)?featuredLabel:''));
+  return styled.replace(/(<(?:p class="kitchen-retail-price"|strong class="price"|span class="price")[^>]*>[\s\S]*?<\/(?:p|strong|span)>)/, (_,price)=>price+status);
 }
 
 export function polishOffers(html, path) {
-  let out = html.replace('/shipping-promo.js?v=2','/shipping-promo.js?v=3').replace(/<aside class="retail-buy-box"[^>]*>[\s\S]*?<\/aside>/g, box=>purchaseBox(box,path));
-  if (path==='/' || path.startsWith('/collections/')) {
-    out = out.replace(/<article\b[^>]*>[\s\S]*?<\/article>/g, card=>{
-      const product = card.match(/href="(\/products\/[a-z0-9-]+)"/)?.[1];
-      if (!featuredPaths.has(product) || !/class="[^"]*(?:product|kitchen-preview-card)/.test(card)) return card;
-      return card.replace(/(<article\b[^>]*>)/, '$1'+featuredLabel);
-    });
-  }
+  let out = html.replace('/shipping-promo.js?v=2','/shipping-promo.js?v=3').replace(/<aside class="retail-buy-box"[^>]*>[\s\S]*?<\/aside>/g, purchaseBox);
   if (path==='/') {
     out = out.replace(/(<dialog class="shipping-promo-dialog"[^>]*>[\s\S]*?<\/form>)[\s\S]*?<\/dialog>/, (_dialog, head)=>head+
       '<img class="elv-offer-photo" src="/media/storefront/shipping-offer-v1.jpg" alt="" width="576" height="264" decoding="async">'+
@@ -53,11 +37,6 @@ export const offerPolishCss = String.raw`
 [data-elv-refresh] .retail-buy-box [data-stock-state="in"]::before,[data-elv-refresh] .retail-buy-box [data-stock-state="ready"]::before{content:"";display:inline-block;width:.44rem;height:.44rem;margin-right:.35rem;vertical-align:.06em;border-radius:50%;background:#24814e}
 [data-elv-refresh] .retail-buy-box [data-stock-state="out"]{color:#813632;background:#f8e7e5;border:1px solid #e7c1be}
 [data-elv-refresh] .elv-mobile-buy strong{color:#142742;font-weight:800}
-[data-elv-refresh] article:has(>.elv-featured-pick){position:relative}
-.elv-featured-pick{display:inline-flex;align-items:center;gap:.3rem;width:max-content;max-width:100%;padding:.33rem .55rem;background:#ffddbe;color:#55301e;border:1px solid #e8ad85;border-radius:999px;font-size:.73rem;font-weight:800;line-height:1.15;animation:elv-pick-in .34s ease-out both}
-.elv-featured-pick svg{width:14px;height:14px;flex:none}
-[data-elv-refresh] .retail-buy-box>.elv-featured-pick{margin:0 .45rem .4rem 0}
-[data-elv-refresh] article>.elv-featured-pick{position:absolute;top:.45rem;left:.45rem;z-index:2;box-shadow:0 2px 6px #18284222}
 [data-elv-refresh] .shipping-promo-dialog{padding:0;overflow:auto;width:min(32rem,calc(100% - 1.25rem));border-radius:20px;max-height:calc(100dvh - 1.25rem);background:#fff8f0;box-shadow:0 20px 64px #121c3580}
 [data-elv-refresh] .shipping-promo-dialog .shipping-promo-dismiss{z-index:2;background:#fff8f0;color:#182842;border:1px solid #e8d6c4;border-radius:50%;font-size:1.6rem}
 .elv-offer-photo{display:block;width:100%;height:clamp(125px,28vh,218px);object-fit:cover;object-position:center 55%;background:#182842}
@@ -69,9 +48,7 @@ export const offerPolishCss = String.raw`
 .elv-offer-actions{display:flex;gap:.65rem 1rem;flex-wrap:wrap;align-items:center}
 .elv-offer-actions .btn{min-height:44px}
 .elv-offer-actions a:not(.btn){color:#263b42;text-underline-offset:.2em}
-@keyframes elv-pick-in{from{opacity:.25;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:720px){[data-elv-refresh] .shipping-promo-dialog{margin:auto auto max(.65rem,env(safe-area-inset-bottom))}}
-@media(prefers-reduced-motion:reduce){.elv-featured-pick{animation:none}}
 `;
 
 export function offerCloseScript(source) {
