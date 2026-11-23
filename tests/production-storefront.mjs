@@ -50,8 +50,9 @@ try{
  const cart=await (await mf.dispatchFetch(origin+'/cart.js')).text();
  assert.match(cart,/FREE_SHIPPING_CENTS=14900/);
  assert.match(cart,/Online payment is not available yet/);
- assert.doesNotMatch(cart,/Your reviews on this device|elvarins-product-reviews/);
- assert.match(cart,/There are no published, verified customer reviews/);
+ assert.doesNotMatch(cart,/\ninitProductReviews\(\);\n/);
+ assert.match(cart,/className='elv-cart-item-title'/);
+ assert.match(cart,/title.href=p.url/);
  const css=await (await mf.dispatchFetch(origin+'/storefront-compact.css')).text();
  assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
  assert.match(css,/data-stock-state="in"/);

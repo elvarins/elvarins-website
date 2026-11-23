@@ -1113,12 +1113,12 @@
   },
   "latestProductionAssetRepair": {
     "date": "2026-11-23",
-    "focus": "Production Worker asset and smoke-test synchronization",
+    "focus": "Production cart navigation and exact Worker smoke-test repair",
     "changes": [
-      "Synchronized the embedded production cart asset with the current source cart runtime",
-      "Removed the stale browser-only self-review editor from the production-served cart bundle; product pages now state clearly that no verified reviews are published",
-      "Expanded the exact production smoke test to load the full current Worker module graph",
-      "Versioned the production cart script URL so customers receive the synchronized runtime instead of an immutable cached copy"
+      "Made each cart item title a direct link back to its product page so customers can re-check details without removing the item",
+      "Expanded the exact production smoke test to load the full current Worker module graph, including the storefront template modules",
+      "Added production regression coverage for cart product links and confirmed that the legacy browser-only self-review editor is not activated",
+      "Versioned the production cart script URL so customers receive the updated cart navigation instead of an immutable cached copy"
     ],
     "catalogProducts": 78,
     "newProductsAdded": 0,
@@ -1132,7 +1132,7 @@
       "recommendation": "Keep compact Banpresto figures first only after fresh signed-in EE cost, availability, MAP, channel permission and at least two exact photos pass."
     },
     "verification": {
-      "status": "Regression-tested before publication",
+      "status": "Corrective commit prepared after the first upload attempt truncated a large unchanged legacy bundle; production remained on the previous successful build",
       "productionEntrypoint": "store-worker.mjs",
       "productionSmoke": "passed with current full module graph and local JSON-import compatibility shim",
       "catalogIntegrity": "78 unique synchronized products and 19 valid barcodes",

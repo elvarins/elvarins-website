@@ -36,6 +36,8 @@ const cartTheme = String.raw`
 .elv-cart-dialog #elv-cart-checkout:disabled{background:#d7c9b6;color:#4b4034;opacity:1}
 .elv-cart-dialog .elv-cart-shell footer button.elv-cart-continue{background:#fffdf8;color:#172941;border:1px solid #82948a;margin:.35rem 0}
 .elv-cart-dialog #elv-free-shipping{accent-color:#205747}
+.elv-cart-dialog .elv-cart-item-title{display:block;color:#172941;font-weight:750;font-size:.88rem;line-height:1.35;text-decoration:none}
+.elv-cart-dialog .elv-cart-item-title:hover{text-decoration:underline;text-underline-offset:.16em}
 `;
 
 const storefrontCatalog='/catalog/products.json';
@@ -178,6 +180,7 @@ function appendCopy(html,copy){
 
 function cartAsset(source){
   return shippingOfferCopy(source)
+    .replace("const body=document.createElement('div');const title=document.createElement('strong');title.textContent=p.title;","const body=document.createElement('div');const title=document.createElement('a');title.className='elv-cart-item-title';title.href=p.url||'#';title.textContent=p.title;")
     .replace('FREE_SHIPPING_CENTS=4901','FREE_SHIPPING_CENTS='+FREE_SHIPPING_CENTS)
     .replace('max="4901"', 'max="'+FREE_SHIPPING_CENTS+'"')
     .replace('initProductReviews();','')
