@@ -41,7 +41,7 @@ function layout({title,description,body,product,commerce=true}) {
     '<meta name="robots" content="noindex,nofollow"><title>'+esc(title)+' | Elvarins</title><meta name="description" content="'+esc(description)+'">'+
     (product?'<link rel="canonical" href="'+esc(canonical(product))+'"><script type="application/ld+json">'+JSON.stringify(schema).replaceAll('<','\\u003c')+'</script>':'')+
     '<link rel="stylesheet" href="/style.css">'+(commerce&&cartEnabled?'<link rel="stylesheet" href="/cart.css">':'')+
-    '<link rel="stylesheet" href="'+root+'/layout.css?v=2"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
+    '<link rel="stylesheet" href="'+root+'/layout.css?v=3"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
     '<header class="pilot-header"><nav class="pilot-shell pilot-nav" aria-label="Store navigation"><a class="pilot-wordmark" href="/"><img src="/logo.svg" alt="" width="32" height="32">Elvarins</a>'+
     '<a href="'+root+'/catalog">Catalog preview</a><a href="/contact">Contact</a>'+
     (commerce&&cartEnabled?'<button class="pilot-link" type="button" data-open-account="login">Sign in</button>':'')+'</nav></header>'+
