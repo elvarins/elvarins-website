@@ -1,4 +1,5 @@
 import legacy from './worker.mjs';
+import { headerStyles } from './storefront-header.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
 import { isTemplatePilot, templatePilotResponse, isStoreCatalogPath, renderUnifiedPage, renderHomeCards } from './template-pilot.mjs';
@@ -231,7 +232,7 @@ function accountAsset(source){
     .replace("e.preventDefault();if(!e.target.reportValidity())return;const button=$('#account-submit')","e.preventDefault();delete $('#account-status').dataset.tone;if(!e.target.reportValidity())return;if(authMode==='signup'&&$('#account-confirm')&&$('#account-confirm').value!==$('#account-password').value){accountError('Passwords do not match.');return;}const button=$('#account-submit')")
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
-const versionCart=(html,path='')=>shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=design-refresh-13').replace(/(<form\b[^>]*class="header-search"[^>]*\baction=")\/(")/g,'$1/shop$2').replace(/\/cart\.css(?:\?[^"']*)?(?=["'])/g,'/cart.css?v=contrast-2').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=18"></head>');
+const versionCart=(html,path='')=>shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=design-refresh-13').replace(/(<form\b[^>]*class="header-search"[^>]*\baction=")\/(")/g,'$1/shop$2').replace(/\/cart\.css(?:\?[^"']*)?(?=["'])/g,'/cart.css?v=contrast-2').replace('<nav class="nav wrap" aria-label="Main navigation">','<nav class="nav wrap header-retail" aria-label="Main navigation">').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=18"><link rel="stylesheet" href="/storefront-header.css?v=1"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
@@ -292,6 +293,7 @@ async function fetchStore(request,env,ctx){
   if(path===prepRoute)return addTracking(request,env,await legacy.fetch(request,env,ctx));
   if(path==='/api/checkout')return db?checkout(request,env,mergeCatalog(products,await getRows(db))):legacy.fetch(request,env,ctx);
   if(!['GET','HEAD'].includes(request.method))return legacy.fetch(request,env,ctx);
+  if(path==='/storefront-header.css')return new Response(request.method==='HEAD'?null:headerStyles,{headers:{'Content-Type':'text/css; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
   if(path==='/cart.css'){
     const original=await legacy.fetch(new Request(request.url),env,ctx);
     return transformed(request,original,(await original.text())+cartTheme,'text/css; charset=utf-8');
