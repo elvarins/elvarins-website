@@ -89,8 +89,43 @@ const quickView = p => '<dialog id="pilot-quick-'+esc(p.id)+'" class="pilot-dial
     '<div class="pilot-card-media">'+media(p)+'</div><h2 id="quick-title-'+esc(p.id)+'">'+esc(p.title)+'</h2>'+priceTag(p,'pilot-card-price')+stock(p)+
     '<p><a href="'+to(p)+'">View full details</a></p>'+action(p)+'</dialog>';
 
+function showroomHero(html,catalog) {
+  const toy=catalog.byPath.get('/products/x-men-marvel-legends-archangel-x-force-6-inch-action-figure-hsg0585');
+  const toyCategory='<a class="department-hero-card showroom-toy" href="/collections/collectibles">'+
+    (toy?.images[0]?image(toy.images[0],toy.title,false):'')+
+    '<strong>Toys &amp; Collectibles</strong>'+(toy?.images[0]?'<span>Marvel Legends Archangel X-Force</span>':'')+'</a>';
+  return html.replace(/(<section class="hero">)[\s\S]*?<\/section>/,section=>section
+    .replace('<div class="elv-hero-links"><a class="btn btn-primary" href="/collections/home-kitchen">Shop Home &amp; Kitchen</a>',
+      '<div class="elv-hero-links"><a class="btn btn-primary" href="/shop">Shop all products</a>')
+    .replace(/<nav id="elv-departments" class="department-hero-grid"[^>]*>([\s\S]*?)<\/nav>/,(_,contents)=>{
+      const cards=[...contents.matchAll(/<a\b[^>]*>[\s\S]*?<\/a>/g)].map(match=>match[0]);
+      if(cards.length!==3)return '<nav id="elv-departments" class="department-hero-grid" aria-label="Shop by department">'+contents+'</nav>';
+      return '<nav id="elv-departments" class="department-hero-grid showroom-stage" aria-label="Shop by department">'+
+        cards[0]+cards[1]+toyCategory+'</nav>';
+    }));
+}
+
+function featuredPetShelf(catalog,featured) {
+  const paths=[
+    '/products/seachem-prime-water-conditioner-250-ml',
+    '/products/seachem-stability-aquarium-biofilter-supplement-250-ml',
+    '/products/cadet-gourmet-bully-sticks-12-count-1-32-lb',
+    '/products/likit-starter-kit-for-horses'
+  ];
+  const products=paths.map(path=>catalog.byPath.get(path)).filter(Boolean);
+  if(!products.length)return '';
+  const cards=products.map(product=>{
+    featured.set(product.id,product);
+    return card(product,{home:true});
+  });
+  return '<section class="section wrap home-only showroom-pets" aria-labelledby="homepage-pet-title">'+
+    '<div class="retail-section-head"><h2 id="homepage-pet-title">Featured Pet Supplies</h2><a href="/collections/pet-supplies">Shop Pet Supplies</a></div>'+
+    '<div class="featured-pet-grid">'+cards.join('')+'</div></section>';
+}
+
 export function renderHomeCards(html,catalog) {
   const featured=new Map();
+  html=showroomHero(html,catalog);
   const cards=html.replace(/<article\b[^>]*>[\s\S]*?<\/article>/g, article=>{
     const path=article.match(/href="(\/products\/[a-z0-9-]+)"/)?.[1];
     const product=path&&catalog.byPath.get(path);
@@ -99,7 +134,8 @@ export function renderHomeCards(html,catalog) {
     featured.set(product.id,product);
     return card(product,{home:true,photo});
   });
-  return cards.replace('</head>','<link rel="stylesheet" href="'+root+'/layout.css?v=10"></head>')
+  return (cards.includes('class="hero"')?cards.replace(/(<section class="hero">[\s\S]*?<\/section>)/,(_,hero)=>hero+featuredPetShelf(catalog,featured)):cards)
+    .replace('</head>','<link rel="stylesheet" href="'+root+'/layout.css?v=11"></head>')
     .replace('</body>',()=>[...featured.values()].map(quickView).join('')+'<script src="'+root+'/layout.js?v=7" defer></script></body>');
 }
 
