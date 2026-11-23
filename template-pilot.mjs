@@ -48,7 +48,7 @@ function layout({title,description,body,product,commerce=true,index=true,canonic
     (picture?'<meta property="og:image" content="'+esc(absolute(picture))+'">':'')+
     (schema?'<script type="application/ld+json">'+JSON.stringify(schema).replaceAll('<','\\u003c')+'</script>':'')+
     '<link rel="stylesheet" href="/style.css">'+(commerce&&cartEnabled?'<link rel="stylesheet" href="/cart.css?v=forest-1">':'')+
-    '<link rel="stylesheet" href="'+root+'/layout.css?v=4"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
+    '<link rel="stylesheet" href="'+root+'/layout.css?v=5"></head><body class="pilot"><a class="pilot-skip" href="#pilot-main">Skip to content</a>'+
     '<header class="pilot-header"><nav class="pilot-shell pilot-nav" aria-label="Store navigation"><a class="pilot-wordmark" href="/"><img src="/logo.svg" alt="" width="32" height="32">Elvarins</a>'+
     '<a href="/shop">Shop all</a><a href="/contact">Contact</a>'+
     '<form class="pilot-search" role="search" method="get" action="/shop"><label class="pilot-visually-hidden" for="pilot-search">Search products</label><input id="pilot-search" type="search" name="q" placeholder="Search products, brands or item numbers" maxlength="100" value="'+esc(query)+'"><button type="submit">Search</button></form>'+
@@ -56,7 +56,7 @@ function layout({title,description,body,product,commerce=true,index=true,canonic
     '<main class="pilot-shell" id="pilot-main">'+body+'</main><footer class="pilot-footer"><div class="pilot-shell"><a href="/contact">Contact form</a><a href="mailto:sales@elvarins.com">sales@elvarins.com</a></div></footer>'+
     (commerce&&cartEnabled?customerUI+
       '<script src="/retail.js?v=account-6" defer></script><script src="/cart.js?v=design-refresh-13" defer></script>':'')+
-    '<script src="'+root+'/layout.js?v=3" defer></script></body></html>';
+    '<script src="'+root+'/layout.js?v=4" defer></script></body></html>';
 }
 
 const bread = (links, title) => '<nav class="pilot-breadcrumb" aria-label="Breadcrumb"><ol>'+[['Home','/'],...links].map(([label,url])=>
