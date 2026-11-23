@@ -34,8 +34,7 @@ const editorPicks = new Set([
   "/products/huntr-x-kpop-demon-hunters-little-people-collector-set-fpjrm87"
 ]);
 
-const bestsellerBadge = '<span class="elv-editor-pick"><span aria-hidden="true">★</span> Bestseller</span>'+
-  '<small class="elv-pick-context">Curated pick · selected for product presentation</small>';
+const bestsellerBadge = '<span class="elv-editor-pick"><span aria-hidden="true">★</span> Bestseller Collection</span>';
 
 function purchaseBox(box, path) {
   const withoutSeller = box.replace(/<p\b[^>]*>\s*(?:<strong>)?Sold by\s+Elvarins(?:\s*\([^<]*\))?\.?\s*(?:<\/strong>)?\s*<\/p>/gi, '');
@@ -52,7 +51,7 @@ function purchaseBox(box, path) {
     ? bestsellerBadge
     : '';
   return styled.replace(/<p class="kitchen-retail-price"[^>]*>[\s\S]*?<\/p>|<strong class="price"[^>]*>[\s\S]*?<\/strong>|<span class="price"[^>]*>[\s\S]*?<\/span>/,
-    price=>price+status+pick);
+    price=>price+pick+status);
 }
 
 export function polishOffers(html, path) {
@@ -61,7 +60,10 @@ export function polishOffers(html, path) {
     out = out.replace(/<article\b[^>]*>[\s\S]*?<\/article>/g, row=>{
       const product = row.match(/href="(\/products\/[a-z0-9-]+)"/)?.[1];
       if (!editorPicks.has(product) || /data-no-cart|data-stock-state="out"|>\s*Out of Stock\s*</i.test(row)) return row;
-      return row.replace(/<\/article>$/,()=>'<div class="elv-card-pick">'+bestsellerBadge+'</div></article>');
+      const label = '<div class="elv-card-pick">'+bestsellerBadge+'</div>';
+      const cartButton = /<button\b[^>]*(?:data-elv-cart-add|data-kitchen-action=|class="[^"]*\belv-add-to-cart\b)[^>]*>/;
+      return cartButton.test(row) ? row.replace(cartButton, button=>label+button)
+        : row.replace(/<\/article>$/,()=>label+'</article>');
     });
   }
   if (path==='/') {
@@ -111,8 +113,57 @@ export const shippingOfferPhoto = '/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAQDAwQDAwQEB
 offerPolishCss += `
 .elv-editor-pick{display:inline-flex;align-items:center;gap:.35rem;width:max-content;max-width:100%;margin:.1rem 0 .55rem;padding:.36rem .65rem;border-radius:999px;background:#ffe0bf;border:1px solid #d9915f;color:#53270f;font-size:.78rem;font-weight:800;animation:elv-editor-in .38s ease-out both}
 .elv-editor-pick [aria-hidden]{color:#863712}
-.elv-pick-context{display:block;color:#4b5563;font-size:.72rem;line-height:1.35;margin:0 0 .55rem}
 .elv-card-pick{padding:.2rem .65rem .35rem}
+/* Keep cards compact wherever the storefront displays product grids. */
+[data-elv-refresh] main :is(.product-grid,.department-products,.discovery-grid,.help-grid:has(>.kitchen-preview-card),.featured-kitchen-grid,.elv-filter-results){
+  grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(.55rem,1.25vw,.95rem);align-items:stretch
+}
+[data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card){
+  min-width:0;display:flex;flex-direction:column;border-radius:12px;padding:.6rem;gap:.3rem
+}
+[data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card) :is(h2,h3,h4){
+  font-size:.91rem;line-height:1.26;margin:.2rem 0;overflow-wrap:anywhere
+}
+[data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card) :is(.brand,.discovery-brand,.discovery-price,.discovery-link){
+  margin-inline:0
+}
+[data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card) :is(a>img,.product-photo img,.discovery-photo img){
+  display:block;width:100%;height:auto;aspect-ratio:4/3;max-height:185px;object-fit:contain;border-radius:8px
+}
+[data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card) :is(.product-photo,.discovery-photo){
+  min-height:0;aspect-ratio:auto
+}
+[data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card) :is(.price,.discovery-price,.kitchen-retail-price){
+  font-size:.95rem;line-height:1.25
+}
+[data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card) .elv-add-to-cart{
+  order:3;width:100%;min-height:40px;padding:.4rem .5rem;font-size:.81rem;margin:.15rem 0 0
+}
+[data-elv-refresh] main .elv-card-pick{order:2;padding:0;margin-top:auto}
+[data-elv-refresh] main .elv-editor-pick{font-size:.68rem;line-height:1.15;padding:.25rem .45rem;margin:.12rem 0 .22rem}
+[data-elv-refresh="product"] main :is(.retail-pdp-grid,.retail-kitchen-grid,.kitchen-preview-detail,.retail-bci-layout){
+  max-width:1080px;margin-inline:auto;gap:clamp(.55rem,1.25vw,1rem);padding:clamp(.65rem,1.3vw,1rem)
+}
+[data-elv-refresh="product"] main :is(.retail-pdp-grid,.retail-kitchen-grid,.kitchen-preview-detail,.retail-bci-layout) .detail-photo{
+  margin:0;padding:0
+}
+[data-elv-refresh="product"] main :is(.detail-photo img[data-gallery-image],.detail-photo>a:first-child img,.retail-bci-layout>img){
+  width:100%;height:auto;max-height:300px;aspect-ratio:4/3;object-fit:contain
+}
+[data-elv-refresh="product"] main h1{font-size:clamp(1.25rem,2.25vw,2rem);line-height:1.15}
+[data-elv-refresh="product"] main .retail-buy-box{padding:.75rem;font-size:.9rem;line-height:1.4}
+[data-elv-refresh="product"] main .retail-buy-box :is(.price,.kitchen-retail-price strong){font-size:clamp(1.2rem,2vw,1.55rem)}
+[data-elv-refresh="product"] main .retail-buy-box :is(.btn,.elv-add-to-cart,select){min-height:44px}
+@media(max-width:860px){
+ [data-elv-refresh] main :is(.product-grid,.department-products,.discovery-grid,.help-grid:has(>.kitchen-preview-card),.featured-kitchen-grid,.elv-filter-results){grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:600px){
+ [data-elv-refresh] main :is(.product-grid,.department-products,.discovery-grid,.help-grid:has(>.kitchen-preview-card),.featured-kitchen-grid,.elv-filter-results){grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
+ [data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card){padding:.45rem}
+ [data-elv-refresh] main :is(.product-card,.department-product,.discovery-product,.kitchen-preview-card) :is(h2,h3,h4){font-size:.83rem}
+ [data-elv-refresh="product"] main :is(.detail-photo img[data-gallery-image],.detail-photo>a:first-child img,.retail-bci-layout>img){max-height:185px}
+}
+
 @keyframes elv-editor-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.elv-editor-pick{animation:none}}
 `;
