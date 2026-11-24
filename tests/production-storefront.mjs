@@ -36,6 +36,14 @@ try{
  assert.match(html,/shipping-offer-v1\.jpg/);
  assert.equal((html.match(/id="shipping-promo-dialog"/g)||[]).length,1);
  assert.doesNotMatch(html,/Sold by Elvarins/i);
+ assert.match(html,/30 N Gould St STE R/);
+ assert.doesNotMatch(html,/Registered business address/i);
+
+ const contact=await mf.dispatchFetch(origin+'/contact');
+ assert.equal(contact.status,200);
+ const contactHtml=await contact.text();
+ assert.match(contactHtml,/<strong>Business correspondence<\/strong><br>30 N Gould St STE R/);
+ assert.doesNotMatch(contactHtml,/Registered business address/i);
 
  const productPath='/products/transformers-age-of-the-primes-voyager-nexus-prime-hsg2001';
  const product=await mf.dispatchFetch(origin+productPath);

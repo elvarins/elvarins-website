@@ -1146,5 +1146,39 @@
     },
     "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable, so no new product, brand or processed SKU was added.",
     "preserved": "Current catalog, photography, galleries, offers, email/DNS, Frontier pause, keyboard/touch controls and reduced-motion safeguards remain unchanged."
+  },
+  "latestBusinessAddressPresentation": {
+    "date": "2026-11-24",
+    "focus": "Consistent public business-address presentation for customers and supplier review",
+    "changes": [
+      "Removed the outdated Registered business address label from the shared homepage and product-page footer while retaining the complete business address",
+      "Labeled the Contact-page address as Business correspondence so visitors understand its purpose without implying a physical retail store or warehouse",
+      "Added regression coverage for the homepage and Contact page to prevent the retired label from returning"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-24",
+      "officialReferences": [
+        "https://corporate.target.com/about/contact-help",
+        "https://www.lego.com/en-us/service/contact-us",
+        "https://www.entertainmentearth.com/help/kb/contact-us"
+      ],
+      "finding": "Current official U.S. retail contact pages present addresses in a purpose-specific customer-service or correspondence context. Elvarins now keeps its verified business identity and address visible without suggesting that the Wyoming address is a walk-in retail location.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Keep compact Banpresto figures first only after fresh signed-in EE cost, availability, MAP, channel permission and at least two exact permission-covered photos pass."
+    },
+    "verification": {
+      "status": "Prepared for full regression, publication and live desktop/mobile verification",
+      "sourceSurfaces": [
+        "Homepage footer",
+        "Shared product and service-page footer",
+        "Contact page"
+      ],
+      "preserved": "Legal company name, Wyoming registration statement, full address, Organization schema, email, customer forms, catalog, checkout guard, offers and motion safeguards"
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable, so no new product, brand or processed SKU was added."
   }
 }
