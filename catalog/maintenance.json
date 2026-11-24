@@ -1171,13 +1171,21 @@
       "recommendation": "Keep compact Banpresto figures first only after fresh signed-in EE cost, availability, MAP, channel permission and at least two exact permission-covered photos pass."
     },
     "verification": {
-      "status": "Prepared for full regression, publication and live desktop/mobile verification",
+      "status": "Live and verified",
       "sourceSurfaces": [
         "Homepage footer",
         "Shared product and service-page footer",
         "Contact page"
       ],
-      "preserved": "Legal company name, Wyoming registration statement, full address, Organization schema, email, customer forms, catalog, checkout guard, offers and motion safeguards"
+      "preserved": "Legal company name, Wyoming registration statement, full address, Organization schema, email, customer forms, catalog, checkout guard, offers and motion safeguards",
+      "sourceCommit": "bf7a44ae652f2d3662cf5cdbb01e8967189aba53",
+      "cloudflareBuild": "0844e43e-d69f-4e30-b75d-a2e8e16b4d9d; success on the exact source commit",
+      "productionSmoke": "Production storefront entrypoint passed with homepage and Contact-page address assertions",
+      "sitemap": "103 sitemap pages and 248 internal link, asset and fragment targets passed",
+      "desktop": "Live Contact page showed Business correspondence, full address, working sales email and no horizontal overflow or retired label",
+      "mobile": "390px mobile Chromium footer screenshot showed the full address without the retired label; content remained readable with no horizontal clipping",
+      "catalogIntegrity": "78 unique synchronized products and 19 valid barcodes",
+      "notificationRegression": "Queue, deduplication, retry backoff and fixed-recipient notification tests passed; no real email sent and Email/DNS were unchanged"
     },
     "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable, so no new product, brand or processed SKU was added."
   }
