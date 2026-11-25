@@ -24,7 +24,7 @@ export const pilotStyles = String.raw`
 .pilot-buy h1{max-width:none;font-size:21px;line-height:1.19;letter-spacing:-.025em;margin:4px 0 8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink)}
 .pilot-brand-link{display:inline-flex;align-items:center;min-height:44px;font-size:14px;font-weight:650}
 .pilot-price{font-size:30px;font-weight:800;line-height:1.08;margin:8px 0 4px}.pilot-shipping{margin:0 0 8px;font-size:14px;color:var(--muted)}
-.pilot-stock{font-size:14px;font-weight:700;color:#196341;margin:2px 0 8px}.pilot-stock[data-in-stock=false]{color:#8b3c35}
+.pilot-stock{font-size:14px;font-weight:650;color:#526176;margin:2px 0 8px}.pilot-stock[data-in-stock=false]{color:#8b3c35}
 .pilot-facts{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:0 0 8px;padding:0}.pilot-facts li{background:#edf1f5;padding:0 10px;min-height:32px;border-radius:99px;display:flex;align-items:center;font-size:13px}
 .pilot-qty{display:inline-flex;gap:10px;align-items:center;font-size:14px;margin:0 0 10px}.pilot-qty select{min-width:64px}
 .pilot select,.pilot input,.pilot textarea{font:inherit;min-width:0;min-height:44px;border:1px solid #7b8b9a;border-radius:8px;background:white;color:var(--ink);padding:6px 8px}

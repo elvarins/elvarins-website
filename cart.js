@@ -48,7 +48,7 @@ function inject(){
   const sku=card.dataset.sku||catalog.find(p=>p.url===href)?.sku||(slug?(slug.startsWith('bci-')?slug:'page-'+slug):'');
   if(!sku)return;
   const button=document.createElement('button');button.type='button';button.className='elv-add-to-cart';button.textContent='Add to cart';button.dataset.elvCartAdd=sku;
-  const badge=document.createElement('span');badge.className='stock-label';badge.textContent='In Stock';card.append(badge,button);
+  const badge=document.createElement('span');badge.className='stock-label';badge.textContent='Availability confirmed before purchase';card.append(badge,button);
  });
 }
 document.addEventListener('click',async e=>{

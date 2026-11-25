@@ -39,7 +39,8 @@ function layout({title,description,body,product,commerce=true,index=true,canonic
     brand:product.brand?{'@type':'Brand',name:product.brand}:undefined,sku:product.id,
     ...(product.upc?{['gtin'+product.upc.length]:product.upc}:{}),
     mpn:product.mpn||undefined,image:product.images.length?product.images.map(absolute):undefined,
-    offers:product.price!==null?{'@type':'Offer',price:product.price.toFixed(2),priceCurrency:'USD',availability:'https://schema.org/'+(product.in_stock?'InStock':'OutOfStock'),url}:undefined
+    offers:product.price!==null?{'@type':'Offer',price:product.price.toFixed(2),priceCurrency:'USD',url,
+      ...(product.in_stock===false?{availability:'https://schema.org/OutOfStock'}:{})}:undefined
   } : null;
   return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
     (index?'':'<meta name="robots" content="noindex,follow">')+'<title>'+esc(title)+' | Elvarins</title><meta name="description" content="'+esc(description)+'">'+
@@ -63,7 +64,7 @@ const bread = (links, title) => '<nav class="pilot-breadcrumb" aria-label="Bread
   '<li><a href="'+esc(url)+'">'+esc(label)+'</a></li>').join('')+'<li aria-current="page">'+esc(title)+'</li></ol></nav>';
 
 const image = (src,title,lazy=true) => '<img src="'+esc(src)+'" alt="'+esc(title)+'" width="640" height="640" '+(lazy?'loading="lazy"':'fetchpriority="high"')+' decoding="async" referrerpolicy="no-referrer">';
-const stock = product => product.price===null?'':'<p class="pilot-stock" data-in-stock="'+product.in_stock+'">'+(product.in_stock?'In Stock':'Out of Stock')+'</p>';
+const stock = product => product.price===null?'':'<p class="pilot-stock" data-in-stock="'+product.in_stock+'">'+(product.in_stock?'Availability confirmed before purchase':'Currently unavailable')+'</p>';
 const priceTag = (product,cls) => product.price===null?'':'<p class="'+cls+'">'+money(product.price)+'</p>';
 const media = (product, lazy=true) => product.images.length ? image(product.images[0],product.title,lazy) : '<span class="pilot-no-image">No photo available</span>';
 

@@ -38,6 +38,8 @@ try{
  assert.doesNotMatch(html,/Sold by Elvarins/i);
  assert.match(html,/30 N Gould St STE R/);
  assert.doesNotMatch(html,/Registered business address/i);
+ assert.match(html,/Availability confirmed before purchase/);
+ assert.doesNotMatch(html,/>\s*In Stock\s*</i);
 
  const contact=await mf.dispatchFetch(origin+'/contact');
  assert.equal(contact.status,200);
@@ -50,10 +52,18 @@ try{
  assert.equal(product.status,200);
  const productHtml=await product.text();
  assert.match(productHtml,/class="pilot-product"/);
- assert.match(productHtml,/data-in-stock="true">In Stock/);
+ assert.match(productHtml,/data-in-stock="true">Availability confirmed before purchase/);
+ assert.doesNotMatch(productHtml,/schema\.org\/InStock|>\s*In Stock\s*</i);
  assert.match(productHtml,/>\$54\.90</);
  assert.doesNotMatch(productHtml,/Sold by Elvarins/i);
  assert.match(productHtml,/data-elv-cart-add="HSG2001"/);
+
+ const bci=await mf.dispatchFetch(origin+'/products/bci-000116043601');
+ assert.equal(bci.status,200);
+ const bciHtml=await bci.text();
+ assert.match(bciHtml,/Availability confirmed before purchase/);
+ assert.match(bciHtml,/Free standard U\.S\. shipping on orders of \$149\+/);
+ assert.doesNotMatch(bciHtml,/>\s*In Stock\s*<|orders over \$49/i);
 
  const cart=await (await mf.dispatchFetch(origin+'/cart.js')).text();
  assert.match(cart,/FREE_SHIPPING_CENTS=14900/);

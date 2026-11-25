@@ -118,7 +118,7 @@ main .service-page-heading p{margin:.25rem 0}
 const scriptPattern=/<script id="catalog-data" type="application\/json">([\s\S]*?)<\/script>/;
 const withCatalog=(html,catalog)=>html.replace(scriptPattern,()=>'<script id="catalog-data" type="application/json">'+safeJson(catalog)+'</script>');
 const price=p=>'$'+p.price.toFixed(2);
-const stock=p=>p.inStock?'In Stock':'Out of Stock';
+const stock=p=>p.inStock?'Availability confirmed before purchase':'Currently unavailable';
 const htmlImg=(url,alt)=>'<img src="'+escape(url)+'" alt="'+escape(alt)+'" width="500" height="500" loading="lazy" referrerpolicy="no-referrer">';
 const editProductControls=p=>p.inStock?'<button type="button" class="elv-add-to-cart" data-elv-cart-add="'+escape(p.sku)+'">Add to cart</button>':'';
 const productCard=p=>'<article class="product-card" data-sku="'+escape(p.sku)+'" data-collection="'+escape(p.collection)+'"><a class="product-photo" href="'+escape(p.url)+'">'+htmlImg(p.image,p.title)+'</a><div class="product-copy"><span class="brand">'+escape(p.brand)+'</span><h3><a href="'+escape(p.url)+'">'+escape(p.title)+'</a></h3><div class="product-bottom"><span class="price">'+price(p)+'</span><button class="product-action" type="button" data-product="'+escape(p.sku)+'" aria-label="Quick view '+escape(p.title)+'">Quick view</button></div><span class="stock-label">'+stock(p)+'</span>'+editProductControls(p)+'</div></article>';
@@ -131,7 +131,7 @@ function productPage(p){
     '<dl>'+specs.filter(([,v])=>v).map(([k,v])=>'<dt>'+escape(k)+'</dt><dd>'+escape(v)+'</dd>').join('')+'</dl></div><aside class="retail-buy-box"><strong class="price">'+price(p)+'</strong><p>'+stock(p)+'</p>'+
     (p.inStock?'<label for="buy-quantity">Quantity</label><select id="buy-quantity">'+Array.from({length:10},(_,i)=>'<option>'+(i+1)+'</option>').join('')+'</select>'+editProductControls(p)+'<button type="button" class="elv-add-to-cart" data-elv-cart-add="'+escape(p.sku)+'" data-elv-buy-now>Buy now</button>':'')+
     '<p>Sold by Elvarins</p><a href="/shipping-delivery">Shipping</a> · <a href="/returns">Returns</a></aside></div></main>';
-  const schema={'@context':'https://schema.org','@type':'Product',name:p.title,sku:p.sku,description:p.description,image:p.images,brand:{'@type':'Brand',name:p.brand},offers:{'@type':'Offer',priceCurrency:'USD',price:p.price,url:'https://elvarins.com'+p.url,availability:'https://schema.org/'+(p.inStock?'InStock':'OutOfStock')},...(p.manufacturerSku?{mpn:p.manufacturerSku}:{}),...(p.gtin12?{gtin12:p.gtin12}:{}),...(p.gtin13?{gtin13:p.gtin13}:{})};
+  const schema={'@context':'https://schema.org','@type':'Product',name:p.title,sku:p.sku,description:p.description,image:p.images,brand:{'@type':'Brand',name:p.brand},offers:{'@type':'Offer',priceCurrency:'USD',price:p.price,url:'https://elvarins.com'+p.url,...(p.inStock===false?{availability:'https://schema.org/OutOfStock'}:{})},...(p.manufacturerSku?{mpn:p.manufacturerSku}:{}),...(p.gtin12?{gtin12:p.gtin12}:{}),...(p.gtin13?{gtin13:p.gtin13}:{})};
   return shell.replace(/<main\b[\s\S]*?<\/main>/,()=>body)
     .replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/,()=>'<script type="application/ld+json">'+safeJson(schema)+'</script>')
     .replace(/<script id="product-data" type="application\/json">[\s\S]*?<\/script>/,()=>'<script id="product-data" type="application/json">'+safeJson(p)+'</script>');
@@ -236,7 +236,11 @@ function accountAsset(source){
     .replace("catch(error){status.textContent=error.message;}finally{button.disabled=false;}});","catch(error){if(authMode==='signup'&&error.status===409){auth('login');$('#account-password').value='';accountError('Sign in with this email, or choose Recover account if you forgot your password.');}else accountError(error.message);}finally{button.disabled=false;}});");
 }
 const presentBusinessAddress=html=>html.replaceAll('Registered business address<br>30 N Gould St STE R','30 N Gould St STE R').replaceAll('<strong>Registered business address</strong><br>30 N Gould St STE R','<strong>Business correspondence</strong><br>30 N Gould St STE R');
-const versionCart=(html,path='')=>presentBusinessAddress(shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path))))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=design-refresh-14').replace(/(<form\b[^>]*class="header-search"[^>]*\baction=")\/(")/g,'$1/shop$2').replace(/\/cart\.css(?:\?[^"']*)?(?=["'])/g,'/cart.css?v=contrast-2').replace('<nav class="nav wrap" aria-label="Main navigation">','<nav class="nav wrap header-retail" aria-label="Main navigation">').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=18"><link rel="stylesheet" href="/storefront-header.css?v=1"></head>');
+const presentAvailability=html=>html
+  .replace(/>\s*In Stock(?:\s*(?:—|&mdash;)\s*Ready to Ship)?\s*</gi,'>Availability confirmed before purchase<')
+  .replaceAll('Free U.S. shipping on orders over $49.','Free standard U.S. shipping on eligible $149+ orders.')
+  .replaceAll('FREE U.S. shipping on orders over $49.','Free standard U.S. shipping on eligible $149+ orders.');
+const versionCart=(html,path='')=>presentAvailability(presentBusinessAddress(shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=availability-20261125').replace(/(<form\b[^>]*class="header-search"[^>]*\baction=")\/(")/g,'$1/shop$2').replace(/\/cart\.css(?:\?[^"']*)?(?=["'])/g,'/cart.css?v=contrast-2').replace('<nav class="nav wrap" aria-label="Main navigation">','<nav class="nav wrap header-retail" aria-label="Main navigation">').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=19"><link rel="stylesheet" href="/storefront-header.css?v=1"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){
