@@ -82,7 +82,7 @@ function card(p, { home=false, photo='' }={}) {
     '<a class="pilot-card-media'+photoSize+'" href="'+to(p)+'" aria-label="'+esc(p.title)+'">'+(photo||media(p))+
     (!photo&&p.images[1]?'<span class="pilot-alternate" aria-hidden="true">'+image(p.images[1],'')+'</span>':'')+'</a>'+
     (p.brand?'<p class="pilot-brand">'+esc(p.brand)+'</p>':'<span class="pilot-brand" aria-hidden="true"></span>')+
-    '<'+titleTag+'><a href="'+to(p)+'">'+esc(p.title)+'</a></'+titleTag+'>'+priceTag(p,'pilot-card-price')+stock(p)+
+    '<'+titleTag+'><a href="'+to(p)+'">'+esc(p.title)+'</a></'+titleTag+'>'+priceTag(p,'pilot-card-price')+
     '<div class="pilot-card-actions">'+action(p)+'<button type="button" class="pilot-quick" aria-label="Quick view: '+esc(p.title)+'" data-quick="'+esc(p.id)+'">'+icon('eye')+'</button></div></article>';
 }
 
