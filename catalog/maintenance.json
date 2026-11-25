@@ -1188,5 +1188,47 @@
       "notificationRegression": "Queue, deduplication, retry backoff and fixed-recipient notification tests passed; no real email sent and Email/DNS were unchanged"
     },
     "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable, so no new product, brand or processed SKU was added."
+  },
+  "latestAvailabilityAccuracy": {
+    "date": "2026-11-25",
+    "focus": "Accurate availability and shipping claims across customer and supplier-facing storefront",
+    "changes": [
+      "Replaced blanket In Stock and Ready to Ship claims with Availability confirmed before purchase on product and quick-view detail surfaces",
+      "Removed repetitive availability language from catalog cards while preserving guarded Add to Cart behavior",
+      "Removed unverified InStock structured data; explicit out-of-stock state remains supported",
+      "Aligned legacy $49 free-shipping copy with the owner-approved $149+ offer"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-25",
+      "officialReferences": [
+        "https://www.entertainmentearth.com/s/banpresto/c",
+        "https://www.target.com/s/bandai%2Bgundam%2Bmodel%2Bkit",
+        "https://www.bestbuy.com/site/collectibles-memorabilia/licensed-collectibles/pcmcat748302046148.c?id=pcmcat748302046148"
+      ],
+      "finding": "Entertainment Earth showed 711 Banpresto assortment entries and a current compact Dandadan Momo Ayase example at $28.99. Target showed 200 Bandai Gundam model-kit results with visible examples around $28.95 to $66.95. Best Buy showed a broad licensed-collectibles assortment with category, franchise, brand and price filters. Demand depth exists, but direct assortment and price competition is strong.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Keep Banpresto first, but accept only compact exact SKUs that pass fresh signed-in EE wholesale cost, availability, MAP, permitted-channel and at least two exact permission-covered photo checks. Reject items whose 1.50x price is uncompetitive after packing, shipping, payment fees and returns; keep Bandai Hobby Gunpla next."
+    },
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommits": [
+        "a218cd0e495ec6e2921f995265c3b0b4f487714b",
+        "f2e12aeb7c05d7a7a45ed20de8eec09671506b41"
+      ],
+      "cloudflareBuild": "111c4b4f-9bff-433e-a3d9-b5f5cd59b057; success on exact source commit f2e12aeb7c05d7a7a45ed20de8eec09671506b41",
+      "productionSmoke": "Exact production storefront entrypoint, offer, product buy box, motion guard and checkout threshold passed",
+      "sitemap": "103 sitemap pages and 248 internal link, asset and fragment targets passed",
+      "catalogIntegrity": "78 unique synchronized products and 19 valid barcodes",
+      "desktop": "Live Chromium product page showed the $149+ offer, Availability confirmed before purchase, a four-photo gallery and no horizontal overflow; no visible In Stock claim or InStock schema remained.",
+      "mobile": "390x844 live mobile Chromium screenshot showed a stable stacked gallery and buy box with readable availability language and no visible horizontal clipping.",
+      "reducedMotion": "Production smoke confirmed the current prefers-reduced-motion guard; no autoplay media, flashing or scroll hijacking was introduced.",
+      "notificationRegression": "Queue, deduplication, retry and fixed-recipient notification tests passed; no real email sent and working email/DNS were unchanged."
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable, so no new product, brand or processed SKU was added.",
+    "preserved": "Checkout/payment remains deferred; development disclosure, owner-approved offers, email/DNS, Frontier pause, catalog photography, galleries, keyboard/touch controls and reduced-motion safeguards remain active."
   }
 }
