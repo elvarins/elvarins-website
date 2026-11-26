@@ -9,7 +9,7 @@ const modulePaths=[
  'customer-ui.mjs','customer-api.mjs','fulfillment-portal.mjs','service-pages.mjs','supplier-storefront.mjs',
  'inquiry-notifications.mjs','checkout-api.mjs','bci-catalog.mjs','store-management.mjs','store-extensions.mjs',
  'store-labels.mjs','storefront-refresh.mjs','storefront-header.mjs','storefront-catalog.mjs','offer-polish.mjs',
- 'template-pilot.mjs','template-pilot-assets.mjs','catalog/bci-inventory-1.mjs',
+ 'template-pilot.mjs','template-pilot-assets.mjs','kitchen-photos.mjs','catalog/bci-inventory-1.mjs',
  'catalog/bci-inventory-2.mjs','catalog/bci-inventory-3.mjs'
 ];
 // The local workerd version predates JSON import attributes. Keep the production
@@ -85,6 +85,10 @@ try{
  const kitchenHtml=await kitchen.text();
  assert.match(kitchenHtml,/\/media\/kitchen\/843018113436-1\.jpg/);
  assert.doesNotMatch(kitchenHtml,/Request this item/);
+ const kitchenPhoto=await mf.dispatchFetch(origin+'/media/kitchen/843018113436-1.jpg');
+ assert.equal(kitchenPhoto.status,200);
+ assert.equal(kitchenPhoto.headers.get('Content-Type'),'image/jpeg');
+ assert.ok((await kitchenPhoto.arrayBuffer()).byteLength>1000);
  const hiddenPath='/products/bees-wrap-reusable-food-wraps-wheels-n-wedges-3-pack';
  const hiddenProduct=await mf.dispatchFetch(origin+hiddenPath);
  assert.equal(hiddenProduct.status,404);

@@ -3,7 +3,8 @@ import { headerStyles } from './storefront-header.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
 import { isTemplatePilot, templatePilotResponse, isStoreCatalogPath, renderUnifiedPage, renderHomeCards } from './template-pilot.mjs';
-import { storefrontCatalog as buildStoreCatalog, kitchenPhotoSource } from './storefront-catalog.mjs';
+import { storefrontCatalog as buildStoreCatalog } from './storefront-catalog.mjs';
+import { kitchenPhotos } from './kitchen-photos.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
 import { featuredKitchenMarkup, findServiceCheckoutProduct, isRetiredKitchenPath, isRetiredKitchenSku, renderNotFound, servicePaths, updateKitchenCards } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
@@ -289,16 +290,9 @@ async function fetchStore(request,env,ctx){
   if(path==='/media/storefront/shipping-offer-v1.jpg')return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(shippingOfferPhoto),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
   if(path==='/storefront-refresh.js')return new Response(request.method==='HEAD'?null:refreshScript,{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
   if(path==='/shipping-promo.js')return new Response(request.method==='HEAD'?null:offerCloseScript(refreshPromo(promoScript)),{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
-  const photoSource=kitchenPhotoSource(path);
-  if(photoSource&&['GET','HEAD'].includes(request.method)){
-    try{
-      const photo=await fetch(photoSource,{redirect:'error'});
-      const type=photo.headers.get('Content-Type');
-      if(photo.ok&&type?.startsWith('image/')){
-        return new Response(request.method==='HEAD'?null:photo.body,{headers:{'Content-Type':type,'Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
-      }
-    }catch{}
-    return new Response(null,{status:502});
+  if(Object.hasOwn(kitchenPhotos,path)&&['GET','HEAD'].includes(request.method)){
+    const image=request.method==='HEAD'?null:Uint8Array.from(atob(kitchenPhotos[path]),byte=>byte.charCodeAt(0));
+    return new Response(image,{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
   }
   if(path.startsWith('/media/products/'))return servePhoto(request,db);
   if(path==='/layout-controls.js'){

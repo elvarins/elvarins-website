@@ -51,17 +51,13 @@ function normalize(row) {
 
 const services=listServiceProducts().map(normalize);
 const supplier=listBciProducts().map(normalize);
-const kitchenPhotos = new Map();
 for (const product of services) {
   if (product.collection!=='home-kitchen' || !product.upc) continue;
   product.images = product.images.map((source,index)=>{
     if (new URL(source,'https://elvarins.com').hostname!=='thebazaarinc.com') return source;
-    const path='/media/kitchen/'+product.upc+'-'+(index+1)+'.jpg';
-    kitchenPhotos.set(path,source);
-    return path;
+    return '/media/kitchen/'+product.upc+'-'+(index+1)+'.jpg';
   });
 }
-export const kitchenPhotoSource = path => kitchenPhotos.get(path);
 
 const servicePaths=new Set(services.map(product=>product.url));
 const aliases=new Map(supplier.filter(product=>servicePaths.has(product.alias)).map(product=>[product.url,product.alias]));
