@@ -80,6 +80,16 @@ try{
  assert.equal(photo.headers.get('Content-Type'),'image/jpeg');
  assert.ok((await photo.arrayBuffer()).byteLength>10000);
 
+ const kitchen=await mf.dispatchFetch(origin+'/collections/home-kitchen');
+ assert.equal(kitchen.status,200);
+ const kitchenHtml=await kitchen.text();
+ assert.match(kitchenHtml,/\/media\/kitchen\/843018113436-1\.jpg/);
+ assert.doesNotMatch(kitchenHtml,/Request this item/);
+ const hiddenPath='/products/bees-wrap-reusable-food-wraps-wheels-n-wedges-3-pack';
+ const hiddenProduct=await mf.dispatchFetch(origin+hiddenPath);
+ assert.equal(hiddenProduct.status,404);
+ assert.doesNotMatch(await (await mf.dispatchFetch(origin+'/sitemap.xml')).text(),new RegExp(hiddenPath));
+
  const state=await (await mf.dispatchFetch(origin+'/api/checkout')).json();
  assert.equal(state.available,false);
  assert.equal(state.freeShippingThresholdCents,14900);

@@ -3,7 +3,7 @@ import { headerStyles } from './storefront-header.mjs';
 import { products, renderProduct } from './product-pages.mjs';
 import { checkoutApi } from './checkout-api.mjs';
 import { isTemplatePilot, templatePilotResponse, isStoreCatalogPath, renderUnifiedPage, renderHomeCards } from './template-pilot.mjs';
-import { storefrontCatalog as buildStoreCatalog } from './storefront-catalog.mjs';
+import { storefrontCatalog as buildStoreCatalog, kitchenPhotoSource } from './storefront-catalog.mjs';
 import { findBciCheckoutProduct } from './bci-catalog.mjs';
 import { featuredKitchenMarkup, findServiceCheckoutProduct, isRetiredKitchenPath, isRetiredKitchenSku, renderNotFound, servicePaths, updateKitchenCards } from './service-pages.mjs';
 import { adminPath, collections, editablePages, escape, safeJson, manageStore, mergeCatalog } from './store-management.mjs';
@@ -156,7 +156,7 @@ function updateImportedCards(html,catalog){
 
 function withEdits(html,path,catalog){
   const slug=path.startsWith('/collections/')?path.slice(13):'';
-  const visible=[...catalog.values()].filter(p=>p.published&&(!slug||p.collection===slug));
+  const visible=[...catalog.values()].filter(p=>p.published&&p.price>0&&(!slug||p.collection===slug));
   html=updateCards(html,catalog,slug);
   const additions=visible.filter(p=>p.edited&&!html.includes('data-sku="'+escape(p.sku)+'"'));
   html=withCatalog(html,visible);
@@ -289,6 +289,17 @@ async function fetchStore(request,env,ctx){
   if(path==='/media/storefront/shipping-offer-v1.jpg')return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(shippingOfferPhoto),c=>c.charCodeAt(0)),{headers:{'Content-Type':'image/jpeg','Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
   if(path==='/storefront-refresh.js')return new Response(request.method==='HEAD'?null:refreshScript,{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
   if(path==='/shipping-promo.js')return new Response(request.method==='HEAD'?null:offerCloseScript(refreshPromo(promoScript)),{headers:{'Content-Type':'text/javascript; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'}});
+  const photoSource=kitchenPhotoSource(path);
+  if(photoSource&&['GET','HEAD'].includes(request.method)){
+    try{
+      const photo=await fetch(photoSource,{redirect:'error'});
+      const type=photo.headers.get('Content-Type');
+      if(photo.ok&&type?.startsWith('image/')){
+        return new Response(request.method==='HEAD'?null:photo.body,{headers:{'Content-Type':type,'Cache-Control':'public, max-age=86400','X-Content-Type-Options':'nosniff'}});
+      }
+    }catch{}
+    return new Response(null,{status:502});
+  }
   if(path.startsWith('/media/products/'))return servePhoto(request,db);
   if(path==='/layout-controls.js'){
     if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
@@ -330,6 +341,9 @@ async function fetchStore(request,env,ctx){
   }
   if(isStoreCatalogPath(path)||path.startsWith('/products/')){
     const productsForPage=buildStoreCatalog(catalog);
+    if(productsForPage.hiddenPaths.has(path)){
+      return new Response(request.method==='HEAD'?null:renderNotFound(),{status:404,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Robots-Tag':'noindex'}});
+    }
     const status=await checkoutApi(new Request(new URL('/api/checkout',request.url)),env,products);
     const config=await status.json();
     const page=renderUnifiedPage(request,productsForPage,config.available===true&&config.mode==='live');
@@ -346,7 +360,7 @@ async function fetchStore(request,env,ctx){
   const html=(original.headers.get('Content-Type')||'').includes('text/html');
   if(!rows.length&&!pageCopy&&!html&&path!=='/sitemap.xml'&&path!==storefrontCatalog)return request.method==='HEAD'?new Response(null,original):original;
   let body=await original.text();
-  if(path===storefrontCatalog)body=JSON.stringify({...JSON.parse(body),products:[...catalog.values()].filter(p=>p.published)});
+  if(path===storefrontCatalog)body=JSON.stringify({...JSON.parse(body),products:[...catalog.values()].filter(p=>p.published&&p.price>0)});
   else if(path==='/sitemap.xml'){
     const urls=new Set([...body.matchAll(/<loc>https:\/\/elvarins\.com([^<]*)<\/loc>/g)]
       .map(match=>match[1]).filter(path=>!path.startsWith('/products/')&&!path.startsWith('/template-preview')));

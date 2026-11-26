@@ -130,6 +130,7 @@ export function renderHomeCards(html,catalog) {
   const cards=html.replace(/<article\b[^>]*>[\s\S]*?<\/article>/g, article=>{
     const path=article.match(/href="(\/products\/[a-z0-9-]+)"/)?.[1];
     const product=path&&catalog.byPath.get(path);
+    if(catalog.hiddenPaths.has(path))return '';
     if(!product)return article;
     const photo=article.match(/<img\b[^>]*>/)?.[0];
     featured.set(product.id,product);

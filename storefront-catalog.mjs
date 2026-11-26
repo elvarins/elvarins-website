@@ -51,6 +51,18 @@ function normalize(row) {
 
 const services=listServiceProducts().map(normalize);
 const supplier=listBciProducts().map(normalize);
+const kitchenPhotos = new Map();
+for (const product of services) {
+  if (product.collection!=='home-kitchen' || !product.upc) continue;
+  product.images = product.images.map((source,index)=>{
+    if (new URL(source,'https://elvarins.com').hostname!=='thebazaarinc.com') return source;
+    const path='/media/kitchen/'+product.upc+'-'+(index+1)+'.jpg';
+    kitchenPhotos.set(path,source);
+    return path;
+  });
+}
+export const kitchenPhotoSource = path => kitchenPhotos.get(path);
+
 const servicePaths=new Set(services.map(product=>product.url));
 const aliases=new Map(supplier.filter(product=>servicePaths.has(product.alias)).map(product=>[product.url,product.alias]));
 
@@ -62,7 +74,19 @@ export function storefrontCatalog(managed) {
     if(hidden.has(product.id)||byPath.has(product.url)||aliases.has(product.url))continue;
     byPath.set(product.url,product);
   }
-  return {items:[...byPath.values()],byPath,aliases};
+  const hiddenPaths=new Set();
+  for (const [path,product] of byPath) {
+    if (product.price!==null) continue;
+    hiddenPaths.add(path);
+    byPath.delete(path);
+  }
+  const visibleAliases=new Map(aliases);
+  for (const [path,destination] of visibleAliases) {
+    if (!hiddenPaths.has(destination)) continue;
+    hiddenPaths.add(path);
+    visibleAliases.delete(path);
+  }
+  return {items:[...byPath.values()],byPath,aliases:visibleAliases,hiddenPaths};
 }
 
 export function matchesSearch(product,query) {
