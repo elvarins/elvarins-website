@@ -32,6 +32,7 @@ try{
  assert.equal(home.status,200);
  const html=await home.text();
  assert.match(html,/data-elv-refresh="home"/);
+ assert.match(html,/\/cart\.js\?v=accessibility-20261128/);
  assert.match(html,/Free shipping <span>at \$149\+<\/span>/);
  assert.match(html,/shipping-offer-v1\.jpg/);
  assert.equal((html.match(/id="shipping-promo-dialog"/g)||[]).length,1);
@@ -66,6 +67,8 @@ try{
  assert.doesNotMatch(bciHtml,/>\s*In Stock\s*<|orders over \$49/i);
 
  const cart=await (await mf.dispatchFetch(origin+'/cart.js')).text();
+ assert.match(cart,/aria-labelledby','elv-cart-title/);
+ assert.match(cart,/<h2 id="elv-cart-title">Your shopping cart<\/h2>/);
  assert.match(cart,/FREE_SHIPPING_CENTS=14900/);
  assert.match(cart,/Online payment is not available yet/);
  assert.doesNotMatch(cart,/\ninitProductReviews\(\);\n/);

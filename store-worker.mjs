@@ -180,6 +180,8 @@ function appendCopy(html,copy){
 
 function cartAsset(source){
   return shippingOfferCopy(source)
+    .replace("const dialog=document.createElement('dialog');dialog.id='elv-cart-dialog';dialog.className='elv-cart-dialog';","const dialog=document.createElement('dialog');dialog.id='elv-cart-dialog';dialog.className='elv-cart-dialog';dialog.setAttribute('aria-labelledby','elv-cart-title');")
+    .replace('<h2>Your shopping cart</h2>','<h2 id="elv-cart-title">Your shopping cart</h2>')
     .replace("const body=document.createElement('div');const title=document.createElement('strong');title.textContent=p.title;","const body=document.createElement('div');const title=document.createElement('a');title.className='elv-cart-item-title';title.href=p.url||'#';title.textContent=p.title;")
     .replace('FREE_SHIPPING_CENTS=4901','FREE_SHIPPING_CENTS='+FREE_SHIPPING_CENTS)
     .replace('max="4901"', 'max="'+FREE_SHIPPING_CENTS+'"')
@@ -240,7 +242,7 @@ const presentAvailability=html=>html
   .replace(/>\s*In Stock(?:\s*(?:—|&mdash;)\s*Ready to Ship)?\s*</gi,'>Availability confirmed before purchase<')
   .replaceAll('Free U.S. shipping on orders over $49.','Free standard U.S. shipping on eligible $149+ orders.')
   .replaceAll('FREE U.S. shipping on orders over $49.','Free standard U.S. shipping on eligible $149+ orders.');
-const versionCart=(html,path='')=>presentAvailability(presentBusinessAddress(shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=availability-20261125').replace(/(<form\b[^>]*class="header-search"[^>]*\baction=")\/(")/g,'$1/shop$2').replace(/\/cart\.css(?:\?[^"']*)?(?=["'])/g,'/cart.css?v=contrast-2').replace('<nav class="nav wrap" aria-label="Main navigation">','<nav class="nav wrap header-retail" aria-label="Main navigation">').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=19"><link rel="stylesheet" href="/storefront-header.css?v=1"></head>');
+const versionCart=(html,path='')=>presentAvailability(presentBusinessAddress(shippingOfferCopy(accountMarkup(cleanProductCards(polishOffers(html,path)))))).replace(/\/retail\.js(?:\?v=[^"']*)?/g,'/retail.js?v=account-6').replace(/\/cart\.js(?:\?v=[^"']*)?/g,'/cart.js?v=accessibility-20261128').replace(/(<form\b[^>]*class="header-search"[^>]*\baction=")\/(")/g,'$1/shop$2').replace(/\/cart\.css(?:\?[^"']*)?(?=["'])/g,'/cart.css?v=contrast-2').replace('<nav class="nav wrap" aria-label="Main navigation">','<nav class="nav wrap header-retail" aria-label="Main navigation">').replace('</head>','<link rel="stylesheet" href="/storefront-compact.css?v=19"><link rel="stylesheet" href="/storefront-header.css?v=1"></head>');
 const getRows=async db=>(await db.prepare('SELECT sku,slug,data,published,in_stock,revision FROM storefront_products').all()).results;
 
 async function checkout(request,env,catalog){

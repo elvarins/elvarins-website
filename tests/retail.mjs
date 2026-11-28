@@ -34,6 +34,7 @@ try{
  check(checkoutState.available===false&&checkoutState.mode==='unavailable','Checkout availability endpoint fails closed without launch configuration');
  const cartSource=await readFile(root+'cart.js','utf8');
  check(cartSource.includes("fetch('/api/checkout'")&&cartSource.includes("checkoutAvailable?'Proceed to secure checkout':'Online checkout temporarily unavailable'"),'Cart exposes secure checkout only after server-confirmed availability');
+ check(cartSource.includes("dialog.setAttribute('aria-labelledby','elv-cart-title')")&&cartSource.includes('<h2 id="elv-cart-title">Your shopping cart</h2>'),'Cart dialog has a programmatic accessible name');
  const versionedStyle=await mf.dispatchFetch(origin+'/style.css?v=cache-test'),unversionedStyle=await mf.dispatchFetch(origin+'/style.css'),productDocument=await mf.dispatchFetch(origin+catalog.products[0].url);
  check(versionedStyle.headers.get('Cache-Control')==='public, max-age=31536000, immutable','Versioned assets use long-lived immutable browser caching');
  check(unversionedStyle.headers.get('Cache-Control')==='public, max-age=0, must-revalidate','Unversioned assets continue to revalidate');
