@@ -1230,5 +1230,43 @@
     },
     "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable, so no new product, brand or processed SKU was added.",
     "preserved": "Checkout/payment remains deferred; development disclosure, owner-approved offers, email/DNS, Frontier pause, catalog photography, galleries, keyboard/touch controls and reduced-motion safeguards remain active."
+  },
+  "latestCartAccessibility": {
+    "date": "2026-11-28",
+    "focus": "Accessible cart naming and live desktop/mobile storefront verification",
+    "changes": [
+      "Linked the cart dialog to its visible Your shopping cart heading with aria-labelledby",
+      "Bumped the production cart asset version so browsers receive the corrected script",
+      "Added regression coverage for the source cart and exact production Worker transformation"
+    ],
+    "catalogProducts": 78,
+    "newProductsAdded": 0,
+    "newBrandsAdded": [],
+    "research": {
+      "checkedOn": "2026-11-28",
+      "officialReferences": [
+        "https://www.entertainmentearth.com/s/banpresto/c",
+        "https://www.entertainmentearth.com/s/banpresto/mini-figures/c"
+      ],
+      "finding": "Entertainment Earth currently exposes a broad Banpresto assortment and a separate compact mini-figure selection, supporting continued candidate research but also showing strong direct competition and fast availability churn.",
+      "nextCategory": "Anime & Manga Figures",
+      "nextBrand": "Banpresto",
+      "recommendation": "Prioritize compact Banpresto mini-figures only after fresh signed-in EE unit cost, availability, MAP, permitted-channel and at least two exact permission-covered photos pass; reject candidates that are uncompetitive after packing, shipping, payment fees and returns."
+    },
+    "verification": {
+      "status": "Live and verified",
+      "sourceCommit": "1fc6558ef279b29cafc89dac8aa0e7e1d11b3e7f",
+      "cloudflareBuild": "707d129d-2804-41c3-a97b-fe3d8824b2a2; success on the exact source commit",
+      "productionSmoke": "Production storefront entrypoint, versioned cart asset, accessible dialog name, offer, product buy box, motion guard and checkout threshold passed",
+      "checkoutRegression": "Checkout availability and $149 inclusive shipping-boundary tests passed; live payment configuration was not changed",
+      "sitemap": "103 sitemap pages and 248 internal link, asset and fragment targets passed",
+      "catalogIntegrity": "78 unique synchronized products and 19 valid barcodes; 296 exact catalog image URLs returned successfully",
+      "desktop": "Live Chromium exposed the cart as Your shopping cart, focused Close cart on open and kept the panel within viewport bounds",
+      "mobile": "390x844 live mobile Chromium rendering showed a full-width readable cart, usable close control, subtotal, shipping progress, checkout and return-policy controls without horizontal clipping",
+      "reducedMotion": "Existing reduced-motion guard passed in the production storefront smoke; no autoplay, flashing or scroll hijacking was introduced",
+      "email": "Working email and DNS configuration were not changed"
+    },
+    "blocker": "Fresh signed-in EE wholesale cost, availability, MAP, permitted sales-channel and exact multi-photo verification was unavailable, so no new product, brand or processed SKU was added.",
+    "preserved": "Catalog data and processed SKUs, owner-approved offers, product photography, galleries, checkout/payment configuration, email/DNS, Frontier pause and reduced-motion safeguards were unchanged."
   }
 }
